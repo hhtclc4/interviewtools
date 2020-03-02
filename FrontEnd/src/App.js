@@ -15,8 +15,11 @@ import ReviewAttempt from "./components/PreGame/QuizAttempt/ReviewAttempt/Review
 import AdminLayout from "./layouts/Admin/Admin";
 import QuizStart from "./components/Join/QuizStart/QuizStart";
 import UserSettings from './components/Join/UserSettings/Settings'
+<<<<<<< HEAD
 
 import Recruit from './layouts/Recruit/Recruit'
+=======
+>>>>>>> 1179b2d042869d072ff07b8de4150dc074b1ba4f
 class App extends React.Component {
   render() {
     return (
@@ -75,11 +78,11 @@ class App extends React.Component {
               path="/signup"
               component = {SignUp}
             /> */}
-
             <Route
               path="/recruit_signup"
               render={({ match }) => <Recruit match={match} />}
             />
+
           </Switch>
         </Router>
       </div>
