@@ -16,7 +16,7 @@ import AdminLayout from "./layouts/Admin/Admin";
 import QuizStart from "./components/Join/QuizStart/QuizStart";
 import UserSettings from './components/Join/UserSettings/Settings'
 
-import RecruitSignup from './components/Recruit/Recruit'
+import Recruit from './layouts/Recruit/Recruit'
 class App extends React.Component {
   render() {
     return (
@@ -78,7 +78,7 @@ class App extends React.Component {
 
             <Route
               path="/recruit_signup"
-              render={({ match }) => <RecruitSignup match={match} />}
+              render={({ match }) => <Recruit match={match} />}
             />
           </Switch>
         </Router>

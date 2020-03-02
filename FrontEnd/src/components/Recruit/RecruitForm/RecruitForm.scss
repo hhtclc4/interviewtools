@@ -1,0 +1,22 @@
+.recruit-signup-container {
+    .input-fields {
+        .input-container {
+            .single-field {
+                input {
+                    width: 100%;
+                }
+            }
+
+            .double-field {
+                .field-1 {
+                    flex-basis: 50%;
+
+                    input {
+                        width: 100%;
+                    }
+                }
+
+            }
+        }
+    }
+}
