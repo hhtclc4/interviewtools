@@ -678,6 +678,26 @@
     }
 }
 
+
+.import-popup-container {
+    height: 100%;
+    width: 100%;
+    @extend .popup;
+
+    .popup {
+        .popup_inner {
+
+            .popup-body {
+                .input-file-container {
+                    border: 2px dashed #ccc !important;
+                }
+            }
+
+            .popup-footer {}
+        }
+    }
+}
+
 .quiz-creator-nav {
     height: 56px;
     background-color: #fff;
