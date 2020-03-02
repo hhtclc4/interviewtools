@@ -45,6 +45,28 @@ router.get("/api/question/:id", (req, res) =>
     .then(data => res.send(data))
     .catch(err => console.log(err))
 );
+router.post("/api/import_question", (req, res) => {
+  Question.bulkCreate(req.body, {
+    include: [
+      {
+        model: QuestionChoices
+      }
+    ]
+  })
+    .then(data => {
+      res.send(data);
+      let linkData = [];
+      for (let i = 0; i < data.length; i++) {
+        linkData.push({
+          question_table_id: req.body[i].question_table_id,
+          question_id: data[i].id
+        });
+      }
+      QuestionTable_Question.bulkCreate(linkData);
+    })
+
+    .catch(err => console.log(err));
+});
 router.post("/api/question", (req, res) => {
   Question.create(req.body, {
     include: [

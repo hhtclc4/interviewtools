@@ -78,7 +78,47 @@ export const createQuestionAndAnswersAPI = (
       });
   };
 };
-
+export const importQuestionAndAnswersAPI = (
+  question_table_id,
+  question,
+  answers
+) => {
+  return dispatch => {
+    const data = [
+      {
+        ...question,
+        question_table_id,
+        question_choices: answers
+      }
+    ];
+    axios({
+      method: "post",
+      url: URLs.IMPORT_QUESTION_API_URL,
+      headers: {
+        "content-type": "application/json"
+      },
+      data: data
+    })
+      .then(res => {
+        Swal.fire({
+          position: "center",
+          type: "success",
+          title: "Import Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false
+        });
+        console.log("res data", res);
+        // dispatch({
+        //   type: types.CREATE_QUESTION_ANSWERS,
+        //   data: res.data
+        // });
+      })
+      .catch(er => {
+        console.log("er", er);
+      });
+  };
+};
 export const updateQuestionAndAnswersAPI = (question, answers, index) => {
   return dispatch => {
     const data = {

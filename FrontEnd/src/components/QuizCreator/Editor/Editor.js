@@ -22,6 +22,9 @@ import CreatePopUp from "./CreatePopUp";
 
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
 import ShowSubjectPopUp from "./ShowSubjectPopUp";
+
+import { ExcelRenderer } from "react-excel-renderer";
+
 class QuizCreatorEditor extends React.Component {
   constructor() {
     super();
@@ -171,6 +174,23 @@ class QuizCreatorEditor extends React.Component {
     });
     this.props.updateTable({ id, is_public: check });
   };
+  fileChangedHandler = event => {
+    let fileObj = event.target.files[0];
+
+    //just pass the fileObj as parameter
+    ExcelRenderer(fileObj, (err, resp) => {
+      if (err) {
+        console.log(err);
+      } else {
+        // this.setState({
+        //   cols: resp.cols,
+        //   rows: resp.rows
+        // });
+        console.log("col", resp.cols);
+        console.log("row", resp.rows);
+      }
+    });
+  };
   render() {
     let { image, subject, title, is_public } = this.state.table;
     let { disabledIfFinished } = this.state;
@@ -238,7 +258,13 @@ class QuizCreatorEditor extends React.Component {
               </button>
             </div>
             {element}
-            {this.state.table.questions.length === 0 ? <img className="no-question-created" alt="no-questions-created" src={require("./images/no-question-created.png")} /> : null}
+            {this.state.table.questions.length === 0 ? (
+              <img
+                className="no-question-created"
+                alt="no-questions-created"
+                src={require("./images/no-question-created.png")}
+              />
+            ) : null}
           </div>
           <div className="quiz-info-container">
             <div className="quiz-info-edit-container">
@@ -331,6 +357,22 @@ class QuizCreatorEditor extends React.Component {
                 </div>
                 <button>Import from file</button>
               </div>
+              {/* --------------- test import------------------- */}
+              <div className="quiz-import">
+                <div className="quiz-sm-icon">
+                  <FontAwesomeIcon icon={faUpload} color="#6B6C77" />
+                </div>
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  onChange={this.fileChangedHandler}
+                  ref={fileInput => (this.fileInput = fileInput)}
+                />
+                <button onClick={() => this.fileInput.click()}>
+                  Import excel
+                </button>
+              </div>
+              {/* --------------- test import------------------- */}
             </div>
           </div>
           {this.state.showPopupCreate ? (
