@@ -10,7 +10,7 @@ class Recruit extends React.Component {
     }
     render() {
         return (
-            <div className="containter-fluid">
+            <div className="recruit-page containter-fluid">
                 <div className="row">
                     <div className="col-xl ">
                         <RecruitNav />

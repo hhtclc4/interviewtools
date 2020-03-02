@@ -1,3 +1,22 @@
+$create-button-color:#FD7E14;
+
+%default-btn {
+    height: 40px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+}
+
+%animate-btn {
+    @extend %default-btn;
+    font-family: sans-serif;
+    color: white;
+    font-weight: bold;
+    background-color: #FD7E14;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 #FD7E14, 0 4px 6px rgba(0, 0, 0, 0.45);
+}
+
 .recruit-signup-container {
     .input-fields {
         .input-container {
@@ -17,6 +36,22 @@
                 }
 
             }
+
+            .editor-field {
+                .wrapper-editor {
+                    border: 1px solid #A9A9A9;
+                }
+
+                .text-input-editor {
+                    padding: 0 15px;
+                }
+            }
+
+            .post-btn {
+                background-color: $create-button-color;
+                @extend %animate-btn;
+            }
         }
+
     }
 }
