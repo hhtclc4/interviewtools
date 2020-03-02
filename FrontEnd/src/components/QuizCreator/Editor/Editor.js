@@ -16,14 +16,16 @@ import {
   faEyeSlash,
   faGraduationCap,
   faBook,
-  faUpload
+  faUpload,
+  faSleigh
 } from "@fortawesome/free-solid-svg-icons";
 import CreatePopUp from "./CreatePopUp";
 
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
 import ShowSubjectPopUp from "./ShowSubjectPopUp";
-
+import showPopUpImport from "./ShowImportPopUp"
 import { ExcelRenderer } from "react-excel-renderer";
+import ShowImportPopUp from "./ShowImportPopUp";
 
 class QuizCreatorEditor extends React.Component {
   constructor() {
@@ -33,6 +35,7 @@ class QuizCreatorEditor extends React.Component {
       showPopupEdit: false,
       showPopupPreview: false,
       showPopupSubject: false,
+      showPopUpImport: false,
       disabledIfFinished: false,
       dataEdit: {},
       question_table_id: 1,
@@ -87,6 +90,16 @@ class QuizCreatorEditor extends React.Component {
       });
     }
   };
+
+  togglePopupImport = () => {
+    let { showPopUpImport } = this.state;
+
+    if (showPopUpImport === true) {
+      this.setState({
+        showPopUpImport: !showPopUpImport
+      });
+    }
+  }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.question === null) {
@@ -373,7 +386,14 @@ class QuizCreatorEditor extends React.Component {
                 <div className="quiz-sm-icon">
                   <FontAwesomeIcon icon={faUpload} color="#6B6C77" />
                 </div>
-                <button>Import from file</button>
+                <button
+                  onClick={() => {
+                    this.setState({
+                      showPopUpImport: !this.state.showPopUpImport
+                    });
+                    this.togglePopupImport();
+                  }}
+                >Import from file</button>
               </div>
               {/* --------------- test import------------------- */}
               <div className="quiz-import">
@@ -420,6 +440,12 @@ class QuizCreatorEditor extends React.Component {
             <ShowSubjectPopUp
               closePopup={this.togglePopupSubject}
               data={this.state.table}
+            />
+          ) : null}
+
+          {this.state.showPopUpImport ? (
+            <ShowImportPopUp
+              closePopup={this.togglePopupImport}
             />
           ) : null}
         </div>
