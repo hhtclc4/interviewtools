@@ -97,7 +97,8 @@ class QuizCreatorEditor extends React.Component {
       });
     } else {
       let newTable = { ...this.state.table };
-      newTable.questions.push({ ...nextProps.question });
+      for (let i = 0; i < nextProps.question.length; i++)
+        newTable.questions.push({ ...nextProps.question[i] });
     }
   }
   componentDidMount() {
@@ -186,8 +187,25 @@ class QuizCreatorEditor extends React.Component {
         //   cols: resp.cols,
         //   rows: resp.rows
         // });
-        console.log("col", resp.cols);
-        console.log("row", resp.rows);
+        let importArr = [];
+        for (let i = 2; i < resp.rows.length; i++) {
+          let ans = [];
+          for (let j = 1; j < 6; j++) {
+            if (resp.rows[i][j] !== undefined)
+              ans.push({
+                answer: resp.rows[i][j],
+                is_right: resp.rows[i][6] === j ? true : false
+              });
+          }
+          if (resp.rows[i].length === 0) break;
+          importArr.push({
+            question: resp.rows[i][0],
+            time: resp.rows[i][7] === undefined ? 30 : resp.rows[i][7],
+            question_table_id: this.props.match.params.question_table_id,
+            question_choices: [...ans]
+          });
+        }
+        this.props.importQuestionAndAnswersAPI(importArr);
       }
     });
   };
@@ -422,6 +440,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateTable: data => {
       dispatch(actions.updateTable(data));
+    },
+    importQuestionAndAnswersAPI: data => {
+      dispatch(actions.importQuestionAndAnswersAPI(data));
     }
   };
 };

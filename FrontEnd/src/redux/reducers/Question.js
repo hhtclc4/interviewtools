@@ -1,10 +1,13 @@
 import * as types from "../actions/actionTypes";
-const initialState = [{}];
+const initialState = [];
 
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.CREATE_QUESTION_ANSWERS:
-      return { ...action.data };
+      return [{ ...action.data }];
+    case types.IMPORT_QUESTION_ANSWERS:
+      return [...action.data];
+
     default:
       return null;
   }
