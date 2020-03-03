@@ -178,19 +178,6 @@ class QuestionShow extends React.Component {
     } = this.state;
     let { questionsLength, index } = this.props;
     console.log("questonchoices", question_choices);
-    const textAnswer = () => {
-      return (
-        <div>
-          <input
-            type="text"
-            name="answer_text"
-            placeholder="add the answer for this question"
-            value={answer_text}
-            onChange={this.onChangeTextHandler}
-          />
-        </div>
-      );
-    };
     let colorButtons = ["#2F6DAE", "#2C9CA6", "#ECA82C", "#D4546A", "#5cd65c"];
     const element = question_choices.map((answer, index) => {
       let color = () => {

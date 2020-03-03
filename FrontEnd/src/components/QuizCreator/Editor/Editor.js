@@ -16,15 +16,11 @@ import {
   faEyeSlash,
   faGraduationCap,
   faBook,
-  faUpload,
-  faSleigh
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import CreatePopUp from "./CreatePopUp";
-
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
 import ShowSubjectPopUp from "./ShowSubjectPopUp";
-import showPopUpImport from "./ShowImportPopUp"
-import { ExcelRenderer } from "react-excel-renderer";
 import ShowImportPopUp from "./ShowImportPopUp";
 import Teleport from './ShowTeleport'
 
@@ -101,7 +97,7 @@ class QuizCreatorEditor extends React.Component {
         showPopUpImport: !showPopUpImport
       });
     }
-  }
+  };
 
 
   togglePopupTeleport = () => {
@@ -123,7 +119,8 @@ class QuizCreatorEditor extends React.Component {
       });
     } else {
       let newTable = { ...this.state.table };
-      newTable.questions.push({ ...nextProps.question });
+      for (let i = 0; i < nextProps.question.length; i++)
+        newTable.questions.push({ ...nextProps.question[i] });
     }
   }
   componentDidMount() { // take data via param on URL, run first, this is step 1
@@ -200,23 +197,15 @@ class QuizCreatorEditor extends React.Component {
     });
     this.props.updateTable({ id, is_public: check });
   };
-  fileChangedHandler = event => {
-    let fileObj = event.target.files[0];
-
-    //just pass the fileObj as parameter
-    ExcelRenderer(fileObj, (err, resp) => {
-      if (err) {
-        console.log(err);
-      } else {
-        // this.setState({
-        //   cols: resp.cols,
-        //   rows: resp.rows
-        // });
-        console.log("col", resp.cols);
-        console.log("row", resp.rows);
-      }
-    });
+  ///////////////////////////////////////////////////////////////////////////////
+  teleporthandler = () => {
+    this.props.teleportQuestionAndAnswersAPI(this.state.table.title);
   };
+  /*
+let userName = "";
+userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last_name}`;
+        
+*/
   render() {
     let { image, subject, title, is_public } = this.state.table;
     let { disabledIfFinished } = this.state;
@@ -394,24 +383,11 @@ class QuizCreatorEditor extends React.Component {
                     });
                     this.togglePopupImport();
                   }}
-                >Import from file</button>
-              </div>
-              {/* --------------- test import------------------- */}
-              <div className="quiz-import">
-                <div className="quiz-sm-icon">
-                  <FontAwesomeIcon icon={faUpload} color="#6B6C77" />
-                </div>
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  onChange={this.fileChangedHandler}
-                  ref={fileInput => (this.fileInput = fileInput)}
-                />
-                <button onClick={() => this.fileInput.click()}>
-                  Import excel
+                >
+                  Import from file
                 </button>
+                <button onClick={this.teleporthandler}>Test teleport</button>
               </div>
-              {/* --------------- test import------------------- */}
             </div>
           </div>
           {this.state.showPopupCreate ? (
@@ -447,6 +423,7 @@ class QuizCreatorEditor extends React.Component {
           {this.state.showPopUpImport ? (
             <ShowImportPopUp
               closePopup={this.togglePopupImport}
+              match={this.props.match}
             />
           ) : null}
 
@@ -473,6 +450,9 @@ const mapDispatchToProps = (dispatch, props) => { // connect to redux by functio
     },
     updateTable: data => {
       dispatch(actions.updateTable(data));
+    },
+    teleportQuestionAndAnswersAPI: title => {
+      dispatch(actions.teleportQuestionAndAnswersAPI(title));
     }
   };
 };

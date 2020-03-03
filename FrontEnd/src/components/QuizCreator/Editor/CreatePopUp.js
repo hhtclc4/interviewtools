@@ -183,7 +183,7 @@ class QuestionCreatePopup extends React.Component {
           i--;
         }
       if (typeof this.props.data === "undefined") {
-        let question_table_id = this.props.match.params.question_table_id;
+        let { question_table_id } = this.props.match.params;
         this.props.createQuestionAndAnswersAPI(
           question_table_id,
           this.state.data,

@@ -78,19 +78,30 @@ export const createQuestionAndAnswersAPI = (
       });
   };
 };
-export const importQuestionAndAnswersAPI = (
-  question_table_id,
-  question,
-  answers
-) => {
+export const teleportQuestionAndAnswersAPI = title => {
   return dispatch => {
-    const data = [
-      {
-        ...question,
-        question_table_id,
-        question_choices: answers
-      }
-    ];
+    axios({
+      method: "post",
+      url: URLs.TELEPORT_QUESTION_API_URL,
+      headers: {
+        "content-type": "application/json"
+      },
+      data: { title }
+    })
+      .then(res => {
+        console.log("res teleport", res);
+        dispatch({
+          type: types.TELEPORT_QUESTION_ANSWERS,
+          data: res.data
+        });
+      })
+      .catch(er => {
+        console.log("er", er);
+      });
+  };
+};
+export const importQuestionAndAnswersAPI = data => {
+  return dispatch => {
     axios({
       method: "post",
       url: URLs.IMPORT_QUESTION_API_URL,
@@ -109,10 +120,10 @@ export const importQuestionAndAnswersAPI = (
           heightAuto: false
         });
         console.log("res data", res);
-        // dispatch({
-        //   type: types.CREATE_QUESTION_ANSWERS,
-        //   data: res.data
-        // });
+        dispatch({
+          type: types.IMPORT_QUESTION_ANSWERS,
+          data: res.data
+        });
       })
       .catch(er => {
         console.log("er", er);
