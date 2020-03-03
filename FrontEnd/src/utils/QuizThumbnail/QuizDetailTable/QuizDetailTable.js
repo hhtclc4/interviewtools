@@ -56,11 +56,22 @@ class QuizDetailTable extends React.Component {
         return "N/A";
     }
   };
+  gradeTitle = grade => {
+    if (grade === null) return null;
+    if (grade === 1) return "Internship";
+    if (grade === 2) return "Fresher";
+    if (grade === 3) return "Junior";
+    if (grade === 4) return "Senior";
+  };
   showGrades = () => {
     let { data } = this.props;
     let grades = "";
-    if (data.grade_begin === data.grade_end) grades = `${data.grade_begin}th`;
-    else grades = `${data.grade_begin}th to ${data.grade_end}th `;
+    if (data.grade_begin === data.grade_end)
+      grades = this.gradeTitle(data.grade_begin);
+    else
+      grades = `${this.gradeTitle(data.grade_begin)} to ${this.gradeTitle(
+        data.grade_end
+      )}`;
     if (data.grade_begin === null) grades = "N/A";
     return grades;
   };

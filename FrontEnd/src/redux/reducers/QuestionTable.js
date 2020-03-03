@@ -9,8 +9,8 @@ const initialState = {
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SHOW_QUESTION_ANSWERS: {
-      state={...action.data}
-      return {  ...action.data };
+      state = { ...action.data };
+      return { ...action.data };
     }
     case types.SHOW_QUESTION_AFTER_DELETE:
       state.questions.splice(action.index, 1);

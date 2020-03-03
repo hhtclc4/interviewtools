@@ -7,6 +7,7 @@ const User = require("../models/User");
 const QuestionChoices = require("../models/QuestionChoices");
 const Subject = require("../models/Subject");
 const AnswerRecord = require("../models/AnswerRecord");
+const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 
@@ -20,7 +21,33 @@ const data = {
   },
   question_table_id: 1
 };
-
+router.post("/api/teleport", (req, res) => {
+  var arr = req.body.title.split(" ");
+  for (let i = 0; i < arr.length; i++)
+    if (arr[i] === "") {
+      arr.splice(i, 1);
+      i--;
+    }
+  QuestionTable.findAll({
+    where: {
+      title: {
+        [Op.regexp]: `^${arr.join("|")}`
+      },
+      is_public: 1,
+      is_finish: 1
+    },
+    include: [
+      {
+        model: Question,
+        include: QuestionChoices
+      },
+      { model: User, attributes: ["first_name", "last_name"] }
+    ],
+    attributes: ["id", "title", "grade_begin", "grade_end", "image"]
+  })
+    .then(data => res.send(data))
+    .catch(err => console.log(err));
+});
 //get QuestionTable list
 router.get("/api/questiontable", (req, res) =>
   QuestionTable.findAll()

@@ -37,7 +37,12 @@ class QuizAttempt extends React.Component {
         if (multiRightTotal === questionRightTotal) rightAnswer++;
       }
     });
-    let accuracy = (rightAnswer / data.length).toFixed(2) * 100;
+    let textQuestion = 0;
+    data.forEach(sub => {
+      if (sub.question.type === 3) textQuestion++;
+    });
+    let accuracy =
+      (rightAnswer / (data.length - textQuestion)).toFixed(2) * 100;
     return accuracy;
   };
   accuracyColor = accuracy => {

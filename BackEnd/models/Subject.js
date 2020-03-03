@@ -14,12 +14,6 @@ const Subject = db.define("subject", {
     type: "VARCHAR(50)",
     allowNull: false,
     primaryKey: false
-  },
-  icon: {
-    type: "VARCHAR(200)",
-    allowNull: true,
-    defaultValue: null,
-    primaryKey: false
   }
 });
 module.exports = Subject;

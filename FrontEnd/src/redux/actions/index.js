@@ -78,6 +78,28 @@ export const createQuestionAndAnswersAPI = (
       });
   };
 };
+export const teleportQuestionAndAnswersAPI = title => {
+  return dispatch => {
+    axios({
+      method: "post",
+      url: URLs.TELEPORT_QUESTION_API_URL,
+      headers: {
+        "content-type": "application/json"
+      },
+      data: { title }
+    })
+      .then(res => {
+        console.log("res teleport", res);
+        dispatch({
+          type: types.TELEPORT_QUESTION_ANSWERS,
+          data: res.data
+        });
+      })
+      .catch(er => {
+        console.log("er", er);
+      });
+  };
+};
 export const importQuestionAndAnswersAPI = data => {
   return dispatch => {
     axios({

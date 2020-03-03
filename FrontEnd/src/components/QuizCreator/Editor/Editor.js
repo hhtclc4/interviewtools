@@ -16,15 +16,11 @@ import {
   faEyeSlash,
   faGraduationCap,
   faBook,
-  faUpload,
-  faSleigh
+  faUpload
 } from "@fortawesome/free-solid-svg-icons";
 import CreatePopUp from "./CreatePopUp";
-
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
 import ShowSubjectPopUp from "./ShowSubjectPopUp";
-import showPopUpImport from "./ShowImportPopUp"
-import { ExcelRenderer } from "react-excel-renderer";
 import ShowImportPopUp from "./ShowImportPopUp";
 
 class QuizCreatorEditor extends React.Component {
@@ -99,7 +95,7 @@ class QuizCreatorEditor extends React.Component {
         showPopUpImport: !showPopUpImport
       });
     }
-  }
+  };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.question === null) {
@@ -188,40 +184,15 @@ class QuizCreatorEditor extends React.Component {
     });
     this.props.updateTable({ id, is_public: check });
   };
-  fileChangedHandler = event => {
-    let fileObj = event.target.files[0];
-
-    //just pass the fileObj as parameter
-    ExcelRenderer(fileObj, (err, resp) => {
-      if (err) {
-        console.log(err);
-      } else {
-        // this.setState({
-        //   cols: resp.cols,
-        //   rows: resp.rows
-        // });
-        let importArr = [];
-        for (let i = 2; i < resp.rows.length; i++) {
-          let ans = [];
-          for (let j = 1; j < 6; j++) {
-            if (resp.rows[i][j] !== undefined)
-              ans.push({
-                answer: resp.rows[i][j],
-                is_right: resp.rows[i][6] === j ? true : false
-              });
-          }
-          if (resp.rows[i].length === 0) break;
-          importArr.push({
-            question: resp.rows[i][0],
-            time: resp.rows[i][7] === undefined ? 30 : resp.rows[i][7],
-            question_table_id: this.props.match.params.question_table_id,
-            question_choices: [...ans]
-          });
-        }
-        this.props.importQuestionAndAnswersAPI(importArr);
-      }
-    });
+  ///////////////////////////////////////////////////////////////////////////////
+  teleporthandler = () => {
+    this.props.teleportQuestionAndAnswersAPI(this.state.table.title);
   };
+  /*
+let userName = "";
+userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last_name}`;
+        
+*/
   render() {
     let { image, subject, title, is_public } = this.state.table;
     let { disabledIfFinished } = this.state;
@@ -393,24 +364,11 @@ class QuizCreatorEditor extends React.Component {
                     });
                     this.togglePopupImport();
                   }}
-                >Import from file</button>
-              </div>
-              {/* --------------- test import------------------- */}
-              <div className="quiz-import">
-                <div className="quiz-sm-icon">
-                  <FontAwesomeIcon icon={faUpload} color="#6B6C77" />
-                </div>
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  onChange={this.fileChangedHandler}
-                  ref={fileInput => (this.fileInput = fileInput)}
-                />
-                <button onClick={() => this.fileInput.click()}>
-                  Import excel
+                >
+                  Import from file
                 </button>
+                <button onClick={this.teleporthandler}>Test teleport</button>
               </div>
-              {/* --------------- test import------------------- */}
             </div>
           </div>
           {this.state.showPopupCreate ? (
@@ -446,6 +404,7 @@ class QuizCreatorEditor extends React.Component {
           {this.state.showPopUpImport ? (
             <ShowImportPopUp
               closePopup={this.togglePopupImport}
+              match={this.props.match}
             />
           ) : null}
         </div>
@@ -467,8 +426,8 @@ const mapDispatchToProps = (dispatch, props) => {
     updateTable: data => {
       dispatch(actions.updateTable(data));
     },
-    importQuestionAndAnswersAPI: data => {
-      dispatch(actions.importQuestionAndAnswersAPI(data));
+    teleportQuestionAndAnswersAPI: title => {
+      dispatch(actions.teleportQuestionAndAnswersAPI(title));
     }
   };
 };
