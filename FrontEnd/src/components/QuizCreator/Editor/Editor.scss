@@ -692,8 +692,6 @@
                     border: 2px dashed #ccc !important;
                 }
             }
-
-            .popup-footer {}
         }
     }
 }
@@ -753,6 +751,143 @@
             color: white;
             font-weight: bold;
             outline: none;
+        }
+    }
+}
+
+$focus-color: #F6F4F5;
+$border-input-color: #EDEDED;
+
+.teleport-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    overflow-x: hidden;
+    z-index: 3;
+    padding-left: 25%;
+
+    .teleport-inner {
+        position: relative !important;
+        background: white;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        padding-top: 10px;
+        margin: 1px 0px;
+        //left: 30% !important;
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 99%;
+        height: 99%;
+        z-index: 3;
+        // transform: translate(-50%, -19%) !important;
+        animation: animateright 0.5s ease;
+        overflow: hidden;
+
+        @keyframes animateright {
+            from {
+                right: -1200px;
+                opacity: 0;
+            }
+
+            to {
+                right: 0;
+                opacity: 1;
+            }
+        }
+
+        .teleport-header {
+            border-bottom: 1px solid #ccc;
+            padding: 0 10px;
+            padding-bottom: 10px;
+
+            .default-by-name-input {
+                height: 48px;
+                padding: 0 16px;
+                font-size: 24px;
+                border-radius: 5px;
+                box-sizing: border-box;
+                border: 1px solid #CFCFCF;
+            }
+
+            .close-teleport-btn {
+                top: 0;
+                background: transparent;
+                border: none;
+                padding: 0 9px;
+            }
+
+            .close-teleport-btn:hover {
+                background-color: $focus-color;
+                border-radius: 50%;
+                padding: 0px 9px;
+            }
+        }
+
+        .teleport-body {
+            height: 100%;
+            padding-bottom: 70px; // due to sticky-top bootstrap class
+
+            .teleport-quiz-list {
+                flex-basis: 35%;
+                height: 100%;
+                overflow-y: scroll;
+
+                .teleport-quiz-overview {
+                    border: 1px solid $border-input-color;
+                    height: 100px;
+                    width: 100%;
+                    border-radius: 4px;
+                    padding: 5px;
+                    margin-bottom: 10px;
+
+                    img {
+                        height: 44px;
+                        width: 44px;
+                    }
+                }
+            }
+
+            .teleport-question-of-quiz {
+                height: 100%;
+                overflow-y: scroll;
+
+                .teleport-single-question {
+                    min-height: 160px;
+                    max-height: fit-content;
+                    border: 1px solid $border-input-color;
+
+                    .cho-content {
+                        margin-left: 10px;
+                        margin-bottom: 16px;
+                        width: fit-content;
+                        min-width: 45%;
+                        max-width: 100%;
+
+                        span {
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;
+                            align-items: flex-start;
+                            width: 100%;
+
+                            span {
+                                margin-left: 10px;
+                                color: #725068;
+                                font-size: 14px;
+                                max-width: 700px;
+                                word-break: break-all;
+                                height: auto;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

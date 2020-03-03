@@ -26,6 +26,7 @@ import ShowSubjectPopUp from "./ShowSubjectPopUp";
 import showPopUpImport from "./ShowImportPopUp"
 import { ExcelRenderer } from "react-excel-renderer";
 import ShowImportPopUp from "./ShowImportPopUp";
+import Teleport from './ShowTeleport'
 
 class QuizCreatorEditor extends React.Component {
   constructor() {
@@ -36,6 +37,7 @@ class QuizCreatorEditor extends React.Component {
       showPopupPreview: false,
       showPopupSubject: false,
       showPopUpImport: false,
+      showTeleport: false,
       disabledIfFinished: false,
       dataEdit: {},
       question_table_id: 1,
@@ -101,7 +103,18 @@ class QuizCreatorEditor extends React.Component {
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
+
+  togglePopupTeleport = () => {
+    let { showTeleport } = this.state;
+
+    if (showTeleport === true) {
+      this.setState({
+        showTeleport: !showTeleport
+      });
+    }
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) { // use data take from step 3(storage), this is step 4
     if (nextProps.question === null) {
       if (nextProps.questionTable.is_finish)
         this.setState({ disabledIfFinished: true });
@@ -113,7 +126,7 @@ class QuizCreatorEditor extends React.Component {
       newTable.questions.push({ ...nextProps.question });
     }
   }
-  componentDidMount() {
+  componentDidMount() { // take data via param on URL, run first, this is step 1
     let { question_table_id } = this.props.match.params;
     this.setState({
       question_table_id: question_table_id
@@ -266,6 +279,12 @@ class QuizCreatorEditor extends React.Component {
                 className="button b-teleport"
                 disabled={disabledIfFinished}
                 style={disabledIfFinished ? { opacity: "0.6" } : null}
+                onClick={() => {
+                  this.setState({
+                    showTeleport: !this.state.showTeleport
+                  });
+                  this.togglePopupTeleport();
+                }}
               >
                 Teleport
               </button>
@@ -430,12 +449,18 @@ class QuizCreatorEditor extends React.Component {
               closePopup={this.togglePopupImport}
             />
           ) : null}
+
+          {this.state.showTeleport ? (
+            <Teleport
+              closePopup={this.togglePopupTeleport}
+            />
+          ) : null}
         </div>
       </div>
     );
   }
 }
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch, props) => { // connect to redux by function, load data from data base, this is step 2
   return {
     showListQuestionAnswer: question_table_id => {
       dispatch(actions.showListQuestionAnswer(question_table_id));
@@ -451,7 +476,7 @@ const mapDispatchToProps = (dispatch, props) => {
     }
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = state => { //connect to redux by props, loadded data store here, this is step 3
   return {
     questionTable: state.questionTable,
     question: state.question
