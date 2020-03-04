@@ -784,7 +784,7 @@ $border-input-color: #EDEDED;
         max-width: 100%;
         min-height: 99%;
         height: 99%;
-        z-index: 3;
+        z-index: 4;
         // transform: translate(-50%, -19%) !important;
         animation: animateright 0.5s ease;
         overflow: hidden;
@@ -813,6 +813,7 @@ $border-input-color: #EDEDED;
                 border-radius: 5px;
                 box-sizing: border-box;
                 border: 1px solid #CFCFCF;
+                flex-grow: 1;
             }
 
             .close-teleport-btn {
