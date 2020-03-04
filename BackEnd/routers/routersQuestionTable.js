@@ -31,6 +31,7 @@ router.post("/api/teleport", (req, res) => {
   QuestionTable.findAll({
     where: {
       title: {
+        // regular expression // bất kì phần tử nào trong 'a|b|c'
         [Op.regexp]: `^${arr.join("|")}`
       },
       is_public: 1,

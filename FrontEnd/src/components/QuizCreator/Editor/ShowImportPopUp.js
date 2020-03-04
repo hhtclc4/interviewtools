@@ -3,6 +3,7 @@ import "./Editor.scss";
 import { connect } from "react-redux";
 import * as actions from "./../../../redux/actions/index";
 import { ExcelRenderer } from "react-excel-renderer";
+import { Link } from "react-router-dom";
 class ShowImportPopUp extends React.Component {
   constructor(props) {
     super(props);
@@ -65,7 +66,17 @@ class ShowImportPopUp extends React.Component {
                 </div>
               </div>
               <div className="popup-body mb-2">
-                <p>Description</p>
+                <p>
+                  Make sure to upload an .xlsx or .xls file and adhere to our
+                  format
+                  <a
+                    href="https://drive.google.com/file/d/1oS_NKrlngbTNoY8p4GmBNmdcTpYHxd7M/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    (download template)
+                  </a>
+                </p>
                 <div className="input-file-container py-5 rounded border d-flex  justify-content-center">
                   <input
                     style={{ display: "none" }}

@@ -22,7 +22,7 @@ import CreatePopUp from "./CreatePopUp";
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
 import ShowSubjectPopUp from "./ShowSubjectPopUp";
 import ShowImportPopUp from "./ShowImportPopUp";
-import Teleport from './ShowTeleport'
+import Teleport from "./ShowTeleport";
 
 class QuizCreatorEditor extends React.Component {
   constructor() {
@@ -99,7 +99,6 @@ class QuizCreatorEditor extends React.Component {
     }
   };
 
-
   togglePopupTeleport = () => {
     let { showTeleport } = this.state;
 
@@ -108,9 +107,10 @@ class QuizCreatorEditor extends React.Component {
         showTeleport: !showTeleport
       });
     }
-  }
+  };
 
-  UNSAFE_componentWillReceiveProps(nextProps) { // use data take from step 3(storage), this is step 4
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    // use data take from step 3(storage), this is step 4
     if (nextProps.question === null) {
       if (nextProps.questionTable.is_finish)
         this.setState({ disabledIfFinished: true });
@@ -123,7 +123,8 @@ class QuizCreatorEditor extends React.Component {
         newTable.questions.push({ ...nextProps.question[i] });
     }
   }
-  componentDidMount() { // take data via param on URL, run first, this is step 1
+  componentDidMount() {
+    // take data via param on URL, run first, this is step 1
     let { question_table_id } = this.props.match.params;
     this.setState({
       question_table_id: question_table_id
@@ -147,26 +148,12 @@ class QuizCreatorEditor extends React.Component {
     let { question_table_id } = this.props.match.params;
     this.props.finishQuestionTable(question_table_id);
   };
-  suffix = value => {
-    switch (value) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
   gradeTitlePart = grade => {
-    let title = "";
-    let suffix = this.suffix(grade);
-    if (grade === null) title = null;
-    if (grade < 13) title = `${grade}${suffix}`;
-    else if (grade === 13) return "University";
-    if (grade === 14) return "Professional Development";
-    return title;
+    if (grade === null) return null;
+    if (grade === 1) return "Internship";
+    if (grade === 2) return "Fresher";
+    if (grade === 3) return "Junior";
+    if (grade === 4) return "Senior";
   };
   gradeTitle = () => {
     let { grade_begin, grade_end } = this.state.table;
@@ -175,15 +162,8 @@ class QuizCreatorEditor extends React.Component {
     let gradeTitle = "";
     if (grade_begin === null) gradeTitle = "Add grade";
     else if (grade_begin === grade_end) {
-      if (grade_begin < 13) gradeTitle = `${gradeBeginTitle} grade`;
-      else gradeTitle = gradeBeginTitle;
-    } else {
-      if (grade_begin < 13) {
-        gradeTitle = `${gradeBeginTitle} - ${gradeEndTitle} grade`;
-        if (grade_end > 12)
-          gradeTitle = `${gradeBeginTitle} - ${gradeEndTitle}`;
-      } else gradeTitle = `${gradeBeginTitle} - ${gradeEndTitle}`;
-    }
+      gradeTitle = gradeBeginTitle;
+    } else gradeTitle = `${gradeBeginTitle} - ${gradeEndTitle}`;
     return gradeTitle;
   };
   onClickChangePublic = () => {
@@ -197,15 +177,12 @@ class QuizCreatorEditor extends React.Component {
     });
     this.props.updateTable({ id, is_public: check });
   };
-  ///////////////////////////////////////////////////////////////////////////////
-  teleporthandler = () => {
-    this.props.teleportQuestionAndAnswersAPI(this.state.table.title);
+  onClickTeleportHandler = () => {
+    this.setState({
+      showTeleport: !this.state.showTeleport
+    });
+    this.togglePopupTeleport();
   };
-  /*
-let userName = "";
-userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last_name}`;
-        
-*/
   render() {
     let { image, subject, title, is_public } = this.state.table;
     let { disabledIfFinished } = this.state;
@@ -268,12 +245,7 @@ userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last
                 className="button b-teleport"
                 disabled={disabledIfFinished}
                 style={disabledIfFinished ? { opacity: "0.6" } : null}
-                onClick={() => {
-                  this.setState({
-                    showTeleport: !this.state.showTeleport
-                  });
-                  this.togglePopupTeleport();
-                }}
+                onClick={this.onClickTeleportHandler}
               >
                 Teleport
               </button>
@@ -386,7 +358,6 @@ userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last
                 >
                   Import from file
                 </button>
-                <button onClick={this.teleporthandler}>Test teleport</button>
               </div>
             </div>
           </div>
@@ -428,16 +399,15 @@ userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last
           ) : null}
 
           {this.state.showTeleport ? (
-            <Teleport
-              closePopup={this.togglePopupTeleport}
-            />
+            <Teleport closePopup={this.togglePopupTeleport} />
           ) : null}
         </div>
       </div>
     );
   }
 }
-const mapDispatchToProps = (dispatch, props) => { // connect to redux by function, load data from data base, this is step 2
+const mapDispatchToProps = (dispatch, props) => {
+  // connect to redux by function, load data from data base, this is step 2
   return {
     showListQuestionAnswer: question_table_id => {
       dispatch(actions.showListQuestionAnswer(question_table_id));
@@ -450,13 +420,11 @@ const mapDispatchToProps = (dispatch, props) => { // connect to redux by functio
     },
     updateTable: data => {
       dispatch(actions.updateTable(data));
-    },
-    teleportQuestionAndAnswersAPI: title => {
-      dispatch(actions.teleportQuestionAndAnswersAPI(title));
     }
   };
 };
-const mapStateToProps = state => { //connect to redux by props, loadded data store here, this is step 3
+const mapStateToProps = state => {
+  //connect to redux by props, loadded data store here, this is step 3
   return {
     questionTable: state.questionTable,
     question: state.question
