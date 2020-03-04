@@ -10,6 +10,8 @@ import {
   faCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { connect } from "react-redux";
+import * as actions from "./../../../redux/actions/index";
 class Teleport extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,15 @@ class Teleport extends React.Component {
       title: "default name"
     };
   }
+  ///////////////////////////////////////////////////////////////////////////////
+  teleporthandler = () => {
+    this.props.teleportQuestionAndAnswersAPI(this.state.table.title);
+  };
+  /*
+    let userName = "";
+    userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last_name}`;
+            
+    */
   render() {
     let { title } = this.state;
     return (
@@ -121,5 +132,23 @@ class Teleport extends React.Component {
     );
   }
 }
-
-export default Teleport;
+const mapDispatchToProps = (dispatch, props) => {
+  // connect to redux by function, load data from data base, this is step 2
+  return {
+    teleportQuestionAndAnswersAPI: title => {
+      dispatch(actions.teleportQuestionAndAnswersAPI(title));
+    },
+    createQuestionAndAnswersAPI: (question_table_id, data, answers) => {
+      dispatch(
+        actions.createQuestionAndAnswersAPI(question_table_id, data, answers)
+      );
+    }
+  };
+};
+const mapStateToProps = state => {
+  //connect to redux by props, loadded data store here, this is step 3
+  return {
+    teleport: state.teleport
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Teleport);
