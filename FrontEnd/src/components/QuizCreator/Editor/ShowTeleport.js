@@ -145,7 +145,7 @@ class Teleport extends React.Component {
                             }}
                         >
                             answer choices
-                                    </p>
+                        </p>
                     </div>
                     <div className="teleport-question-choice-list d-flex flex-row flex-wrap">
                         {answerElm}
