@@ -3,7 +3,6 @@ import "./Editor.scss";
 import { connect } from "react-redux";
 import * as actions from "./../../../redux/actions/index";
 import { ExcelRenderer } from "react-excel-renderer";
-import { Link } from "react-router-dom";
 class ShowImportPopUp extends React.Component {
   constructor(props) {
     super(props);

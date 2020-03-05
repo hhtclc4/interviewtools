@@ -32,6 +32,7 @@ router.post("/api/teleport", (req, res) => {
     where: {
       title: {
         // regular expression // bất kì phần tử nào trong 'a|b|c'
+
         [Op.regexp]: `^${arr.join("|")}`
       },
       is_public: 1,
@@ -42,7 +43,8 @@ router.post("/api/teleport", (req, res) => {
         model: Question,
         include: QuestionChoices
       },
-      { model: User, attributes: ["first_name", "last_name"] }
+      { model: User, attributes: ["first_name", "last_name"] },
+      Subject
     ],
     attributes: ["id", "title", "grade_begin", "grade_end", "image"]
   })
