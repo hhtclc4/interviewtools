@@ -22,7 +22,7 @@ import CreatePopUp from "./CreatePopUp";
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
 import ShowSubjectPopUp from "./ShowSubjectPopUp";
 import ShowImportPopUp from "./ShowImportPopUp";
-import Teleport from "./ShowTeleport";
+import Teleport from "./Teleport/ShowTeleport";
 
 class QuizCreatorEditor extends React.Component {
   constructor() {
@@ -399,8 +399,7 @@ class QuizCreatorEditor extends React.Component {
           ) : null}
 
           {this.state.showTeleport ? (
-            <Teleport closePopup={this.togglePopupTeleport}
-              title={title} />
+            <Teleport closePopup={this.togglePopupTeleport} title={title} />
           ) : null}
         </div>
       </div>
