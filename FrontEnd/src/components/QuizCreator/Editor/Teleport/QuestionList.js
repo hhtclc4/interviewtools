@@ -1,14 +1,7 @@
 import React from "react";
 import "./../Editor.scss";
 import "font-awesome/css/font-awesome.min.css";
-import {
-  faSearch,
-  faArrowRight,
-  faUser,
-  faBookmark,
-  faBook,
-  faCircle
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
