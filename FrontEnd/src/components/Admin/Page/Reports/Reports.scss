@@ -1,0 +1,16 @@
+$border-table-color: #ccc;
+
+.report-table-body {
+    border: 1px solid $border-table-color;
+}
+
+.report-quiz-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    .rq-row {
+        background-color: white;
+        padding: 15px 10px;
+        border-bottom: 1px solid $border-table-color;
+    }
+}

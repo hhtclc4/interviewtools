@@ -17,10 +17,11 @@
 
         .admin-active-tab {
             span {
-               color: #FD7E14;
-               a{
-                   font-weight: bold;
-               }
+                color: #FD7E14;
+
+                a {
+                    font-weight: bold;
+                }
             }
         }
 
@@ -147,6 +148,5 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        flex-grow: 1;
     }
 }

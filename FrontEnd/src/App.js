@@ -41,8 +41,7 @@ class App extends React.Component {
               render={({ match }) => <QuizCreateModal match={match} />}
             />
             <Route
-              exact
-              path="/admin"
+              exact path="/admin"
               render={({ match }) => <AdminLayout match={match} />}
             />
 
