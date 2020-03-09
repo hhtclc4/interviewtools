@@ -1,5 +1,6 @@
 import React from 'react'
 import './Reports.scss'
+import { withRouter } from "react-router-dom";
 
 class ReportQuiz extends React.Component {
     constructor(props) {
@@ -17,9 +18,14 @@ class ReportQuiz extends React.Component {
                 return "#FDC954";
             return "#EC0B43";
         }
+        let { history } = this.props;
 
         return (
-            <div className="report-quiz-container container">
+            <div className="report-quiz-container container"
+                onClick={() => {
+                    history.push(`/admin/reports/report_detail`);
+                }}
+            >
                 <div className="rq-row row">
                     <div className="rq-type col-sm">
                         Type name
@@ -41,4 +47,4 @@ class ReportQuiz extends React.Component {
     }
 }
 
-export default ReportQuiz;
+export default withRouter(ReportQuiz);

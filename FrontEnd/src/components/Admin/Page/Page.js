@@ -17,6 +17,7 @@ import MyQuizControl from './MyQuizzes/MyQuizDetail/MyQuizControl/MyQuizControl'
 import QuizControlHostGame from './MyQuizzes/MyQuizDetail/MyQuizControl/QuestionDetail/HostGame/HostGame'
 import AdminFind from '../Page/Find/Find';
 import Reports from './Reports/Reports'
+import ReportDetail from './Reports/ReportDetail/ReportDetail'
 
 //import history from "../../../history";
 class AdminPage extends React.Component {
@@ -123,6 +124,7 @@ class AdminPage extends React.Component {
               />
               <Route exact path="/admin/" render={({ match }) => <AdminFind match={match} />} />
               <Route exact path="/admin/reports" render={({ match }) => <Reports match={match} />} />
+              <Route exact path="/admin/reports/report_detail" render={({ match }) => <ReportDetail match={match} />} />
             </Switch>
           </div>
         </BrowserRouter>

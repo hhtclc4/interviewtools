@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React from "react"
 import "./RecruitForm.scss"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Editor } from 'react-draft-wysiwyg';
