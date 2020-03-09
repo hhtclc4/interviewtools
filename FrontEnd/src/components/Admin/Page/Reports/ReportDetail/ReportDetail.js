@@ -5,6 +5,7 @@ import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import ProgressCircle from './ProgressCircle/ProgressCircle';
 import ReportPlayers from './Player/Players'
+import ReportQuestions from './Questions/Questions'
 import { Tabs, Tab, Panel } from '@bumaga/tabs'
 class ReportDetail extends React.Component {
     constructor(props) {
@@ -49,11 +50,10 @@ class ReportDetail extends React.Component {
                         <div className="rd-tabs-header shadow-sm">
                             <Tab><button className="rd-tab">Players</button></Tab>
                             <Tab><button className="rd-tab">Questions</button></Tab>
-
                         </div>
 
                         <Panel><ReportPlayers /></Panel>
-                        <Panel><p>Panel 2</p></Panel>
+                        <Panel><ReportQuestions /></Panel>
                     </Tabs>
                 </div>
             </div>

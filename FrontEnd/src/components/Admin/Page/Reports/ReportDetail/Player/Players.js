@@ -7,15 +7,15 @@ class ReportPlayers extends React.Component {
     }
     render() {
         return (
-            <div className="report-detail-player-container ">
-                <div className="rd-player-row shadow-sm d-flex flex-row ">
-                    <div className="rdp-ava align-self-center">
+            <div className="report-detail-player-container container-fluid ">
+                <div className="rd-player-row row shadow-sm d-flex flex-row ">
+                    <div className="rdp-ava align-self-center col-1">
                         <img alt="rdp-ava" src={require("../../../../../../utils/images/defaultava.png")} />
                     </div>
-                    <div className="rdp-name"></div>{/*De so zo*/}
-                    <div className="rdp-accuracy-bar"></div> {/*De so zo*/}
-                    <div className="rdp-accuracy-rate"></div> {/*De so zo*/}
-                    <div className="rdp-score"></div> {/*De so zo*/}
+                    <div className="rdp-name col-1 align-self-center">Name</div>{/*De so zo*/}
+                    <div className="rdp-accuracy-bar col-4 align-self-center">50</div> {/*De so zo*/}
+                    <div className="rdp-accuracy-rate col-3 align-self-center">100</div> {/*De so zo*/}
+                    <div className="rdp-score col-3 align-self-center">9000</div> {/*De so zo*/}
                 </div>
             </div>
         );
