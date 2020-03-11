@@ -74,7 +74,7 @@ class MyQuizDetail extends React.Component {
         className="my-quiz-detail-container"
         onClick={() => {
           localStorage.setItem("gradeTitle", gradeTitle);
-          history.push(`/admin/${id}`);
+          history.push(`/admin/myquizzes/${id}`);
         }}
       >
         <div className="my-quiz-image">

@@ -1,0 +1,29 @@
+.report-detail-questions-container {
+  padding: 15px 0;
+  .rdq-question-stat {
+    width: 100%;
+    background-color: white;
+    padding: 15px;
+    cursor: pointer;
+    .rdq-question-content {
+    }
+
+    .rdq-question-calc {
+      .question-key {
+        width: 24px;
+        height: 24px;
+        background-color: #fd7e14;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+    }
+
+    .question-accuracy-bar {
+      height: 100%;
+    }
+
+    &:hover {
+      background-color: hsl(0, 0%, 98%);
+    }
+  }
+}

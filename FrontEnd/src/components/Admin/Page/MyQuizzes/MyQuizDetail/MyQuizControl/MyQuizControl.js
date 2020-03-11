@@ -56,7 +56,7 @@ class MyQuizControl extends React.Component {
   }
   render() {
     let question_table_id = parseInt(this.props.match.params.question_table_id);
-    console.log("state", this.state);
+    console.log("match", this.props.match);
     let gradeTitle = localStorage.getItem("gradeTitle");
     let { title, image, played, questions, subject } = this.state;
     let { history } = this.props;

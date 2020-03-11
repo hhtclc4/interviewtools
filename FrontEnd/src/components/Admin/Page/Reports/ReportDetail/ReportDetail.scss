@@ -1,0 +1,40 @@
+$circle-chart-color: #f2f2f2;
+
+.report-detail-container {
+  width: 100%;
+  max-width: 1200px;
+  background-color: #f2f2f2;
+  padding: 15px;
+  margin: 15px;
+  margin-right: 25px;
+  .report-detail-overview {
+    width: 100%;
+    border-top: 6px solid #fd7e14;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 15px;
+    background-color: white;
+    .text-info {
+    }
+
+    .chart-info {
+      .chart-display {
+        .circle {
+          height: 82px;
+          width: 82px;
+          background-color: $circle-chart-color;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+  .report-detail-tabs {
+    .rd-tabs-header {
+      background-color: #f5f5f5;
+      padding: 10px;
+      .rd-tab {
+        top: 0 !important;
+      }
+    }
+  }
+}

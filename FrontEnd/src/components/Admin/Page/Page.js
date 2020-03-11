@@ -16,6 +16,8 @@ import MyQuizzes from './MyQuizzes/MyQuizzes';
 import MyQuizControl from './MyQuizzes/MyQuizDetail/MyQuizControl/MyQuizControl';
 import QuizControlHostGame from './MyQuizzes/MyQuizDetail/MyQuizControl/QuestionDetail/HostGame/HostGame'
 import AdminFind from '../Page/Find/Find';
+import Reports from './Reports/Reports'
+import ReportDetail from './Reports/ReportDetail/ReportDetail'
 
 //import history from "../../../history";
 class AdminPage extends React.Component {
@@ -34,9 +36,9 @@ class AdminPage extends React.Component {
               </div>
               <div className="admin-name">
                 Minh Tri
-                            <button className="admin-profile">
+                  <button className="admin-profile">
                   View Profile
-                            </button>
+                  </button>
               </div>
             </div>
             <div className="admin-create-new-quiz">
@@ -56,7 +58,10 @@ class AdminPage extends React.Component {
                         </NavLink>
             </div>
             <div className="admin-my-quizzes" >
-              <NavLink className="btn-admin-find-quiz" to="/admin/myquizzes" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab">
+              <NavLink className="btn-admin-find-quiz"
+                exact to="/admin/myquizzes" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab"
+
+              >
                 <span>
                   <FontAwesomeIcon icon={faFileAlt} size="lg" />
                 </span>
@@ -64,7 +69,7 @@ class AdminPage extends React.Component {
                         </NavLink>
             </div>
             <div className="admin-reports">
-              <NavLink className="btn-admin-find-quiz" to="_blank" >
+              <NavLink className="btn-admin-find-quiz" exact to="/admin/reports" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab">
                 <span>
                   <FontAwesomeIcon icon={faChartBar} size="lg" />
                 </span>
@@ -109,7 +114,7 @@ class AdminPage extends React.Component {
             <Switch>
               <Route exact path="/admin/myquizzes" render={({ match }) => <MyQuizzes match={match} />} />
               <Route exact
-                path="/admin/:question_table_id"
+                path="/admin/myquizzes/:question_table_id"
                 component={MyQuizControl}
               />
 
@@ -118,11 +123,12 @@ class AdminPage extends React.Component {
                 component={QuizControlHostGame}
               />
               <Route exact path="/admin/" render={({ match }) => <AdminFind match={match} />} />
-
+              <Route exact path="/admin/reports" render={({ match }) => <Reports match={match} />} />
+              <Route exact path="/admin/reports/report_detail" render={({ match }) => <ReportDetail match={match} />} />
             </Switch>
           </div>
         </BrowserRouter>
-      </div>
+      </div >
     );
   }
 }

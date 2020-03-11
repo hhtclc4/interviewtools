@@ -1,0 +1,34 @@
+$cirle-color: #f2f2f2;
+$circle-size: 82px;
+$inner-size: 70px;
+
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+
+@mixin circleColor($color) {
+  background-color: $color;
+}
+
+.progress-circle-container {
+  @include size($circle-size, $circle-size);
+  @include circleColor($cirle-color);
+  border-radius: 50%;
+  position: relative;
+  .completed-circle {
+    position: absolute;
+    @include size(100%, 100%);
+    border-radius: 50%;
+  }
+
+  .overlay-info {
+    @include size($inner-size, $inner-size);
+    @include circleColor($cirle-color);
+    position: absolute;
+    border-radius: 50%;
+    z-index: 3;
+    margin-left: ($circle-size - $inner-size)/2;
+    margin-top: ($circle-size - $inner-size)/2;
+  }
+}
