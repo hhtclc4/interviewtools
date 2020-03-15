@@ -21,6 +21,30 @@ const data = {
   },
   question_table_id: 1
 };
+router.post("/api/report", (req, res) => {
+  QuestionTable.findAll({
+    where: {
+      title: {
+        // regular expression // bất kì phần tử nào trong 'a|b|c'
+
+        [Op.regexp]: `^${arr.join("|")}`
+      },
+      is_public: 1,
+      is_finish: 1
+    },
+    include: [
+      {
+        model: Question,
+        include: QuestionChoices
+      },
+      { model: User, attributes: ["first_name", "last_name"] },
+      Subject
+    ],
+    attributes: ["id", "title", "grade_begin", "grade_end", "image"]
+  })
+    .then(data => res.send(data))
+    .catch(err => console.log(err));
+});
 router.post("/api/teleport", (req, res) => {
   var arr = req.body.title.split(" ");
   for (let i = 0; i < arr.length; i++)
