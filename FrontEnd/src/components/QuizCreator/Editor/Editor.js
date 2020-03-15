@@ -399,7 +399,8 @@ class QuizCreatorEditor extends React.Component {
           ) : null}
 
           {this.state.showTeleport ? (
-            <Teleport closePopup={this.togglePopupTeleport} title={title} />
+            <Teleport               match={this.props.match}
+            closePopup={this.togglePopupTeleport} title={title} />
           ) : null}
         </div>
       </div>

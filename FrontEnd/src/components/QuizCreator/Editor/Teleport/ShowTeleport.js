@@ -161,7 +161,7 @@ class Teleport extends React.Component {
 /////////////////////////////// */}
             <div className="teleport-question-of-quiz flex-grow-1 p-2">
               {questionArr[0].id !== 0 ? (
-                <QuestionList questionArr={questionArr} />
+                <QuestionList question_table_id={this.props.match.params.question_table_id} questionArr={questionArr} />
               ) : null}
             </div>
           </div>

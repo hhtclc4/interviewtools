@@ -32,6 +32,12 @@ class Teleport extends React.Component {
       questions: questionArr
     });
   }
+  onClickAddQuestionHandler=(questionData)=>{
+    console.log(questionData)
+    let {question,type,time,question_choices}=questionData
+    let questionAPI={question,type,time}
+    this.props.createQuestionAndAnswersAPI(this.props.question_table_id,questionAPI,question_choices)
+  }
   render() {
     let { questionArr } = this.props;
     let questionElm = [];
@@ -61,7 +67,8 @@ class Teleport extends React.Component {
               {questionArr[i].question}
             </p>
 
-            <button className="teleport-add-btn btn btn-dark position-absolute ">
+            <button className="teleport-add-btn btn btn-dark position-absolute "
+            onClick={()=>this.onClickAddQuestionHandler(questionArr[i])}>
               <FontAwesomeIcon icon={faPlus} style={{ marginRight: '5px' }} />
                 ADD
             </button>
@@ -94,15 +101,12 @@ class Teleport extends React.Component {
 const mapDispatchToProps = (dispatch, props) => {
   // connect to redux by function, load data from data base, this is step 2
   return {
-    teleportQuestionAndAnswersAPI: title => {
-      dispatch(actions.teleportQuestionAndAnswersAPI(title));
+    createQuestionAndAnswersAPI: (question_table_id, data, answers) => {
+      dispatch(
+        actions.createQuestionAndAnswersAPI(question_table_id, data, answers)
+      );
     }
   };
 };
-const mapStateToProps = state => {
-  //connect to redux by props, loadded data store here, this is step 3
-  return {
-    teleport: state.teleport
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Teleport);
+
+export default connect(null, mapDispatchToProps)(Teleport);
