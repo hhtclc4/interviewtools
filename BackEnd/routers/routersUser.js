@@ -179,6 +179,28 @@ router.post("/api/is_user_did_table", verifyToken, (req, res) =>
     }
   })
 );
+router.post("/api/report", verifyToken, async (req, res) =>
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      AnswerRecord.findAll({
+        include: [
+          {
+            model: QuestionTable,
+            where: {
+              admin: authData.user_id.id
+            },
+            attributes: ["admin"]
+          }
+        ]
+      })
+        .then(data => {
+          res.send(data);
+        })
+        .catch(err => console.log(err));
+    }
+  })
+);
 //get quizz that user do before
 router.post("/api/get_completed_table", verifyToken, async (req, res) =>
   jwt.verify(req.token, "hoangtri", (err, authData) => {

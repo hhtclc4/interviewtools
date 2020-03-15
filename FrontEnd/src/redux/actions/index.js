@@ -456,6 +456,29 @@ export const updateUser = data => {
       });
   };
 };
+export const getListReport = () => {
+  return dispatch => {
+    let token = localStorage.getItem("token");
+    axios({
+      method: "post",
+      url: URLs.GET_COMPLETED_TABLE,
+      headers: {
+        "content-type": "application/json",
+        "user-token": token
+      }
+    })
+      .then(res => {
+        console.log("API show user do QUESTION TABLE ", res.data);
+        dispatch({
+          type: types.GET_QUESTION_TABLE_COMPLETED,
+          data: res.data
+        });
+      })
+      .catch(er => {
+        console.log("er", er);
+      });
+  };
+};
 export const getListUserDoQuestionTable = () => {
   return dispatch => {
     let token = localStorage.getItem("token");

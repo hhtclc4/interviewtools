@@ -21,6 +21,7 @@ const data = {
   },
   question_table_id: 1
 };
+
 router.post("/api/teleport", (req, res) => {
   var arr = req.body.title.split(" ");
   for (let i = 0; i < arr.length; i++)

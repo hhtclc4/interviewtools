@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Tabs, Tab, Panel } from "@bumaga/tabs/dist"
 import './ReportDetail.scss'
@@ -69,8 +70,10 @@ class ReportDetail extends React.Component {
                         <Panel><ReportPlayers /></Panel>
                         <Panel><ReportQuestions /></Panel>
                     </Tabs>
+
                 </div>
             </div>
+
         );
     }
 }
