@@ -1,4 +1,5 @@
 import React from 'react'
+import { Tabs, Tab, Panel } from "@bumaga/tabs/dist"
 import './ReportDetail.scss'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
@@ -6,13 +7,16 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import ProgressCircle from './ProgressCircle/ProgressCircle';
 import ReportPlayers from './Player/Players'
 import ReportQuestions from './Questions/Questions'
-import { Tabs, Tab, Panel } from '@bumaga/tabs'
+
 class ReportDetail extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            activeTabIndex: "",
+        }
     }
     render() {
+
         return (
             <div className="report-detail-container">
                 <div className="report-detail-overview shadow-sm" >
@@ -48,8 +52,18 @@ class ReportDetail extends React.Component {
                 <div className="report-detail-tabs ">
                     <Tabs>
                         <div className="rd-tabs-header shadow-sm">
-                            <Tab><button className="rd-tab">Players</button></Tab>
-                            <Tab><button className="rd-tab">Questions</button></Tab>
+                            <Tab>
+                                <button
+                                    className="rd-tab"
+                                >Players
+                                </button>
+                            </Tab>
+                            <Tab>
+                                <button
+                                    className="rd-tab"
+                                >Questions
+                                </button>
+                            </Tab>
                         </div>
 
                         <Panel><ReportPlayers /></Panel>

@@ -47,7 +47,7 @@ class AdminPage extends React.Component {
                   <FontAwesomeIcon icon={faPlusCircle} />
                 </span>
                 Create new quiz
-                        </button>
+              </button>
             </div>
             <div className="admin-find-quiz">
               <NavLink className="btn-admin-find-quiz" exact to="/admin" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab">
@@ -55,26 +55,26 @@ class AdminPage extends React.Component {
                   <FontAwesomeIcon icon={faSearch} size="lg" />
                 </span>
                 Find a quiz
-                        </NavLink>
+              </NavLink>
             </div>
             <div className="admin-my-quizzes" >
               <NavLink className="btn-admin-find-quiz"
-                exact to="/admin/myquizzes" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab"
+                to="/admin/myquizzes" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab"
 
               >
                 <span>
                   <FontAwesomeIcon icon={faFileAlt} size="lg" />
                 </span>
                 My quizzes
-                        </NavLink>
+              </NavLink>
             </div>
             <div className="admin-reports">
-              <NavLink className="btn-admin-find-quiz" exact to="/admin/reports" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab">
+              <NavLink className="btn-admin-find-quiz" to="/admin/reports" activeStyle={{ borderLeft: '4px solid #fd7e14', fontWeight: 'bold' }} activeClassName="admin-active-tab">
                 <span>
                   <FontAwesomeIcon icon={faChartBar} size="lg" />
                 </span>
                 Reports
-                        </NavLink>
+              </NavLink>
             </div>
             <div className="admin-collections">
               <NavLink className="btn-admin-find-quiz" to="_blank">
@@ -82,7 +82,7 @@ class AdminPage extends React.Component {
                   <FontAwesomeIcon icon={faFolder} size="lg" />
                 </span>
                 Collections
-                        </NavLink>
+              </NavLink>
             </div>
             <hr />
             <div className="admin-profile">
@@ -91,7 +91,7 @@ class AdminPage extends React.Component {
                   <FontAwesomeIcon icon={faUserAlt} size="lg" />
                 </span>
                 Profile
-                        </NavLink>
+              </NavLink>
             </div>
             <div className="admin-settings">
               <NavLink className="btn-admin-find-quiz" to="_blank">
@@ -99,7 +99,7 @@ class AdminPage extends React.Component {
                   <FontAwesomeIcon icon={faCogs} size="lg" />
                 </span>
                 Settings
-                        </NavLink>
+              </NavLink>
             </div>
             <div className="admin-log-out">
               <NavLink className="btn-admin-find-quiz" to="_blank">
@@ -107,7 +107,7 @@ class AdminPage extends React.Component {
                   <FontAwesomeIcon icon={faSignOutAlt} size="lg" />
                 </span>
                 Log out
-                        </NavLink>
+              </NavLink>
             </div>
           </div>
           <div className="admin-tab-select-container">

@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faBook } from "@fortawesome/free-solid-svg-icons";
+import { Route } from 'react-router-dom'
+
 class MyQuizDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -70,51 +72,61 @@ class MyQuizDetail extends React.Component {
     let { history } = this.props;
     let gradeTitle = this.gradeTitle();
     return (
-      <div
-        className="my-quiz-detail-container"
-        onClick={() => {
-          localStorage.setItem("gradeTitle", gradeTitle);
-          history.push(`/admin/myquizzes/${id}`);
-        }}
-      >
-        <div className="my-quiz-image">
-          <img
-            alt="myquizimg"
-            src={
-              image !== null
-                ? image
-                : require("../../../../../utils/QuizThumbnail/images/thumbnail.jpg")
-            }
-          />
-        </div>
-
-        <div className="my-quiz-info">
-          <div className="name-and-status">
-            <div className="name">
-              {title}
-              <span>({questions.length} Qs)</span>
+      <Route
+        exact
+        path="/admin/myquizzes/:question_table_id"
+        children={(match) => (
+          <div
+            className="my-quiz-detail-container"
+            onClick={() => {
+              localStorage.setItem("gradeTitle", gradeTitle);
+              history.push(`/admin/myquizzes/${id}`);
+              if (match) {
+                console.log(match);
+              }
+            }}
+          >
+            <div className="my-quiz-image">
+              <img
+                alt="myquizimg"
+                src={
+                  image !== null
+                    ? image
+                    : require("../../../../../utils/QuizThumbnail/images/thumbnail.jpg")
+                }
+              />
             </div>
-            {!is_finish ? <div className="is-drafting">Draft</div> : null}
-          </div>
-          <div className="play-detail">
-            <div className="play">
-              <span>
-                <FontAwesomeIcon icon={faPlay} color="#6B7C93" />
-              </span>
+
+            <div className="my-quiz-info">
+              <div className="name-and-status">
+                <div className="name">
+                  {title}
+                  <span>({questions.length} Qs)</span>
+                </div>
+                {!is_finish ? <div className="is-drafting">Draft</div> : null}
+              </div>
+              <div className="play-detail">
+                <div className="play">
+                  <span>
+                    <FontAwesomeIcon icon={faPlay} color="#6B7C93" />
+                  </span>
               Played {played} times
             </div>
-            <div className="grade">
-              <span>
-                <FontAwesomeIcon icon={faBook} color="#6B7C93" />
-              </span>
-              {gradeTitle}
+                <div className="grade">
+                  <span>
+                    <FontAwesomeIcon icon={faBook} color="#6B7C93" />
+                  </span>
+                  {gradeTitle}
+                </div>
+              </div>
+              <div className="quiz-action"></div>
             </div>
           </div>
-          <div className="quiz-action"></div>
-        </div>
-      </div>
+        )}
+      />
     );
   }
 }
+
 
 export default withRouter(MyQuizDetail);

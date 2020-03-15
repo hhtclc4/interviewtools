@@ -1,7 +1,7 @@
 import React from "react";
 import "./../Editor.scss";
 import "font-awesome/css/font-awesome.min.css";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCircle, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -55,11 +55,16 @@ class Teleport extends React.Component {
           key={questionArr[i].id}
           className="teleport-single-question my-2 d-flex flex-column p-2"
         >
-          <div>
+          <div className="position-relative">
             <p>
               <span>{i + 1}. </span>
               {questionArr[i].question}
             </p>
+
+            <button className="teleport-add-btn btn btn-dark position-absolute ">
+              <FontAwesomeIcon icon={faPlus} style={{ marginRight: '5px' }} />
+                ADD
+            </button>
           </div>
           <div className="position-relative">
             <hr />

@@ -59,7 +59,8 @@ class Teleport extends React.Component {
             }
           ]
         }
-      ]
+      ],
+      activeChild: -1,
     };
   }
   componentDidMount() {
@@ -100,13 +101,23 @@ class Teleport extends React.Component {
   onClickSearchHandler = () => {
     this.props.teleportQuestionAndAnswersAPI(this.state.title);
   };
+
+  callbackFromChild = (activeChild) => {
+    this.setState({
+      activeChild: activeChild
+    })
+  }
   render() {
-    let { title, tableArr, questionArr } = this.state;
-    let tableElm = tableArr.map(quiz => {
+    let { title, tableArr, questionArr, activeChild } = this.state;
+    let defaultActive = tableArr[0].id;
+    let tableElm = tableArr.map((quiz) => {
       return (
         <QuizOverview
           quiz={quiz}
+          key={quiz.id}
           onClickGenerateQuestionHandler={this.onClickGenerateQuestionHandler}
+          parentCallBack={this.callbackFromChild}
+          activeChild={activeChild === -1 ? defaultActive : activeChild}
         />
       );
     });
