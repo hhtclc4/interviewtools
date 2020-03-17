@@ -461,16 +461,16 @@ export const getListReport = () => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
-      url: URLs.GET_COMPLETED_TABLE,
+      url: URLs.GET_REPORT_URL,
       headers: {
         "content-type": "application/json",
         "user-token": token
       }
     })
       .then(res => {
-        console.log("API show user do QUESTION TABLE ", res.data);
+        console.log("API Report ", res.data);
         dispatch({
-          type: types.GET_QUESTION_TABLE_COMPLETED,
+          type: types.GET_REPORT,
           data: res.data
         });
       })

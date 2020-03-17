@@ -26,6 +26,9 @@ export const ATTEMPT_RECORD_API_URL = `${domain}/api/attempt_record`;
 export const GENARATE_CODE_API_URL = `${domain}/api/genarate_code`;
 
 //user
+
+export const GET_REPORT_URL = `${domain}/api/report`;
+
 export const UPDATE_USER_API = `${domain}/api/update_user`;
 export const USER_QUESTION_TABLE_API_URL = `${domain}/api/get_user_question_table`;
 export const QUESTION_TABLE_CODE_API_URL = `${domain}/api/get_question_table_code`;

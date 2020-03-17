@@ -8,6 +8,7 @@ import user from "./User";
 import attempt from "./Attempt";
 import completed from "./CompletedQuiz";
 import teleport from "./Teleport";
+import report from "./Report";
 
 import { combineReducers } from "redux";
 const myReducer = combineReducers({
@@ -18,6 +19,7 @@ const myReducer = combineReducers({
   user,
   attempt,
   completed,
-  teleport
+  teleport,
+  report
 });
 export default myReducer;
