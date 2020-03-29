@@ -23,6 +23,18 @@ const Group_Candidates = db.define(
       defaultValue: null,
       primaryKey: false,
       foreignKey: [Object]
+    },
+    cv: {
+      type: "VARCHAR(300)",
+      allowNull: true,
+      defaultValue: null,
+      primaryKey: false
+    },
+    description: {
+      type: "VARCHAR(200)",
+      allowNull: true,
+      defaultValue: null,
+      primaryKey: false
     }
   },
   { underscored: true }

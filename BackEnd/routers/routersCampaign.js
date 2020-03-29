@@ -19,28 +19,36 @@ const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 
-const data = {
-  question: "what is dota",
-  time: 20,
-  question_choices: {
-    question_id: 1,
-    answer: "aaa",
-    is_right: 1
-  },
-  question_table_id: 1
-};
 ///////////////////////////////////////////
-router.post("/api/candidate", (req, res) =>
-  Group_Candidates.findAll({
-    include: [User],
-    where: {
-      campaign_id: 1
-    }
+router.get("/api/campaign", (req, res) =>
+  Campaign.findAll({
+    include: [{ model: User, attributes: ["name", "email", "phone"] }]
   })
     .then(data => res.send(data))
     .catch(err => console.log(err))
 );
-
+router.post("/api/campaign", verifyToken, (req, res) => {
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      req.body.user_id = authData.user_id.id;
+      Campaign.create(req.body)
+        .then(data => res.send(data))
+        .catch(err => console.log(err));
+    }
+  });
+});
+router.post("/api/group_candidates", verifyToken, (req, res) => {
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      req.body.candidate_id = authData.user_id.id;
+      Group_Candidates.create(req.body)
+        .then(data => res.send(data))
+        .catch(err => console.log(err));
+    }
+  });
+});
 function verifyToken(req, res, next) {
   const header = req.headers["user-token"];
   if (typeof header !== "undefined") {

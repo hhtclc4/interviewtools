@@ -37,14 +37,8 @@ const User = db.define("user", {
     defaultValue: 1,
     primaryKey: false
   },
-  cv: {
-    type: "VARCHAR(300)",
-    allowNull: true,
-    defaultValue: null,
-    primaryKey: false
-  },
-  description: {
-    type: "VARCHAR(200)",
+  phone: {
+    type: "VARCHAR(45)",
     allowNull: true,
     defaultValue: null,
     primaryKey: false
