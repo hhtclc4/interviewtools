@@ -206,7 +206,7 @@ router.post("/api/report", verifyToken, async (req, res) =>
               },
               {
                 model: User,
-                attributes: ["id", "first_name"]
+                attributes: ["id", "name"]
               }
             ]
           },
@@ -279,7 +279,7 @@ router.post("/api/get_completed_table", verifyToken, async (req, res) =>
                   {
                     model: User,
 
-                    attributes: ["first_name", "last_name"]
+                    attributes: ["name"]
                   }
                 ],
                 attributes: ["id", "title", "image", "played", "admin"]

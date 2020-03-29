@@ -10,8 +10,6 @@ class CreatedQuizzes extends React.Component {
     super(props);
     this.state = {
       data: {
-        first_name: "",
-        last_name: "",
         question_tables: []
       }
     };
@@ -29,14 +27,20 @@ class CreatedQuizzes extends React.Component {
   }
   render() {
     let { data } = this.state;
-    let name = `${data.first_name} ${data.last_name}`;
+    let name = data.name;
     let quizthumb = data.question_tables.map((table, index) => {
       return <QuizThumbnail key={index} data={table} userName={name} />;
     });
     return (
       <div className="quiz-list">
         {quizthumb}
-        {quizthumb.length === 0 ? <img style={{ width: '30%', margin: '30px auto' }} src={require("../images/no-quiz.png")} alt="no-quiz" /> : null}
+        {quizthumb.length === 0 ? (
+          <img
+            style={{ width: "30%", margin: "30px auto" }}
+            src={require("../images/no-quiz.png")}
+            alt="no-quiz"
+          />
+        ) : null}
       </div>
     );
   }

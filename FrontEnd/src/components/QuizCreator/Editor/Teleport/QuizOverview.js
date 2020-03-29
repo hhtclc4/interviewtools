@@ -20,11 +20,10 @@ class QuizOverview extends React.Component {
         grade_begin: null,
         grade_end: null,
         user: {
-          first_name: "",
-          last_name: ""
+          name: ""
         }
       },
-      active: 0,
+      active: 0
     };
   }
   componentDidMount() {
@@ -38,12 +37,12 @@ class QuizOverview extends React.Component {
     change.questions = questions;
   };
 
-  sendActive = (activeId) => {
+  sendActive = activeId => {
     this.props.parentCallBack(activeId);
-  }
+  };
   render() {
     let { quiz, activeChild } = this.props;
-    let userName = `${quiz.user.first_name} ${quiz.user.last_name}`;
+    let userName = quiz.user.name;
 
     return (
       <div
@@ -54,8 +53,11 @@ class QuizOverview extends React.Component {
           this.props.onClickGenerateQuestionHandler(quiz.questions);
           this.sendActive(quiz.id);
         }}
-        style={activeChild === quiz.id ? { backgroundColor: '#f2f2f2' } : { backgroundColor: 'white' }}
-
+        style={
+          activeChild === quiz.id
+            ? { backgroundColor: "#f2f2f2" }
+            : { backgroundColor: "white" }
+        }
       >
         <input className="for-focus" />
         <div className="d-flex flex-row flex-grow-1">

@@ -78,14 +78,14 @@ const QuestionTable = db.define("question_table", {
     type: "TINYINT(1)",
     allowNull: false,
     defaultValue: 0
+  },
+  campaign_id: {
+    type: "INT",
+    allowNull: true,
+    defaultValue: null,
+    primaryKey: false,
+    foreignKey: [Object]
   }
 });
-// QuestionTable.associate = () => {
-//   QuestionTable.belongsToMany(Question, {
-//     through: QuestionTable_Question,
-//     foreignKey: "question_table",
-//     as: "question_table"
-//   });
-// };
 
 module.exports = QuestionTable;

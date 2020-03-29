@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-module.exports = new Sequelize("quizzz", "root", "123456", {
+module.exports = new Sequelize("interviewtool", "root", "123456", {
   host: "localhost",
   dialect: "mysql",
   pool: {

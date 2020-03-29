@@ -34,7 +34,7 @@ class ReportQuiz extends React.Component {
       ) {
         playersList.push({
           id: answer_records[i].user.id,
-          name: answer_records[i].user.first_name,
+          name: answer_records[i].user.name,
           answer_records: attempt
         });
         attempt = [];
