@@ -1,0 +1,199 @@
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+$concept-color: #fd7e14;
+$shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
+.hr-interview-container {
+  padding-top: 20px;
+  padding-left: 0;
+  padding-right: 0;
+  height: 100%;
+
+  .interview-section-title {
+    font-family: QuickSand;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 8px 0;
+  }
+
+  .created-interviews {
+    height: fit-content;
+    margin-bottom: 20px;
+    .created-interview-container {
+      height: 150px;
+      width: 350px;
+      border-radius: 5px;
+      border-left: 5px solid $concept-color !important;
+      border: 1px solid #e6e6e6;
+      padding: 10px;
+      box-shadow: $shadow;
+      background-color: white;
+      .interview-info {
+        width: 85%;
+        .interview-name {
+          font-weight: bold;
+          font-size: 18px;
+          height: 20px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .interview-deadline {
+          border: 1px solid #ffcc99;
+          padding: 3px;
+          border-radius: 3px;
+          .interview-time {
+            font-size: 15px;
+          }
+        }
+
+        .interview-note {
+          font-size: 14px;
+          color: gray;
+        }
+      }
+
+      .interview-options {
+        opacity: 0;
+      }
+
+      &:hover {
+        .interview-options {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .screen-dedicate {
+    .all-application-container {
+      width: 48%;
+
+      .all-application {
+        min-height: 150px;
+        height: fit-content;
+        width: 100%;
+        min-width: 200px;
+        box-shadow: $shadow;
+        background-color: white;
+        margin-bottom: 20px;
+        padding: 10px;
+        .pre-email {
+          padding: 4px;
+          // background-color: #d8d8d8; //inside bg
+          border-radius: 3px;
+          margin-bottom: 5px;
+
+          .choose-email {
+            opacity: 0.2;
+            top: 0;
+            border: none;
+            background-color: #00c985;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+          }
+          &:hover {
+            .choose-email {
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+    .chosen-application-container {
+      width: 48%;
+      .chosen-application {
+        min-height: 150px;
+        height: fit-content;
+        box-shadow: $shadow;
+        width: 100%;
+        background-color: white;
+        margin-bottom: 20px;
+        padding: 10px;
+
+        .chosen-email {
+          padding: 5px;
+          background-color: #00c985;
+          color: white;
+          border-radius: 3px;
+          margin-bottom: 5px;
+
+          .remove-email {
+            top: 0;
+            height: 30px;
+            width: 30px;
+            background-color: brown;
+            border: none;
+            border-radius: 50%;
+            opacity: 0.2;
+          }
+
+          &:hover {
+            .remove-email {
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 1100px) {
+      .all-application-container,
+      .chosen-application-container {
+        width: 100%;
+      }
+    }
+  }
+
+  .create-new-interview-period-container {
+    z-index: 2;
+    position: relative; //neccessary to display over overlay
+    .create-new-interview-period {
+      height: fit-content;
+      box-shadow: $shadow;
+      background-color: white;
+
+      .interview-period-attribute {
+        height: 32px;
+        border-radius: 3px;
+        outline: none;
+        border: 1px solid #d9d9d9;
+        text-indent: 6px;
+        font-size: 13px;
+      }
+
+      .interview-period-attribute-count {
+        @extend .interview-period-attribute;
+        width: 93px;
+      }
+    }
+  }
+  .cni-btn {
+    button {
+      background-color: $concept-color;
+      border-radius: 10px;
+      color: white;
+      border: none;
+      padding: 5px 20px;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15), 0 5px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
+      font-weight: bold;
+      height: 50px;
+      font-size: 20px;
+      display: none;
+    }
+  }
+
+  .creater-focus-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10;
+    display: none;
+  }
+}

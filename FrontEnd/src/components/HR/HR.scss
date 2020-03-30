@@ -1,0 +1,18 @@
+.hr-page-container {
+  .hr-created-list {
+    height: 400px;
+    padding-top: 58px;
+
+    .hr-campaign-container {
+      flex-basis: 30%;
+      height: 200px;
+      border: 1px solid gray;
+    }
+  }
+
+  .hr-create-campaign {
+    .create-campaign-btn {
+      top: 0;
+    }
+  }
+}

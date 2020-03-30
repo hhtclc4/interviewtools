@@ -17,6 +17,13 @@ import QuizStart from "./components/Join/QuizStart/QuizStart";
 import UserSettings from './components/Join/UserSettings/Settings'
 import Recruit from './layouts/Recruit/Recruit'
 import ReportDetail from './components/Admin/Page/Reports/ReportDetail/ReportDetail'
+import RecruitThumbnail from './utils/RecruitThumbnail/RecruitThumbnail'
+
+import HRCampaign from './components/HR/Campaign/Campaign'
+
+
+import DetailRecruit from './components/Home/HomeBody/DetailRecruit/DetailRecruit'
+import HRlayout from './layouts/HR/HR'
 class App extends React.Component {
   render() {
     return (
@@ -82,6 +89,28 @@ class App extends React.Component {
               path="/admin/reports/report_detail"
               render={({ match }) => <ReportDetail match={match} />}
             />
+
+            <Route
+              path="/join/testUI"
+              render={({ match }) => <RecruitThumbnail match={match} />}
+            />
+
+
+            <Route
+              path="/HR"
+              render={({ match }) => <HRlayout match={match} />}
+            />
+
+            <Route
+              path="/Campaign"
+              render={({ match }) => <HRCampaign match={match} />}
+            />
+
+            <Route
+              path="/detail_recruit"
+              render={({ match }) => <DetailRecruit match={match} />}
+            />
+
           </Switch>
         </Router>
       </div>
