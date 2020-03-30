@@ -27,8 +27,7 @@ class Teleport extends React.Component {
           grade_begin: null,
           grade_end: null,
           user: {
-            first_name: "",
-            last_name: ""
+            name: ""
           }
         }
       ],
@@ -60,7 +59,7 @@ class Teleport extends React.Component {
           ]
         }
       ],
-      activeChild: -1,
+      activeChild: -1
     };
   }
   componentDidMount() {
@@ -102,15 +101,15 @@ class Teleport extends React.Component {
     this.props.teleportQuestionAndAnswersAPI(this.state.title);
   };
 
-  callbackFromChild = (activeChild) => {
+  callbackFromChild = activeChild => {
     this.setState({
       activeChild: activeChild
-    })
-  }
+    });
+  };
   render() {
     let { title, tableArr, questionArr, activeChild } = this.state;
     let defaultActive = tableArr[0].id;
-    let tableElm = tableArr.map((quiz) => {
+    let tableElm = tableArr.map(quiz => {
       return (
         <QuizOverview
           quiz={quiz}
@@ -161,7 +160,10 @@ class Teleport extends React.Component {
 /////////////////////////////// */}
             <div className="teleport-question-of-quiz flex-grow-1 p-2">
               {questionArr[0].id !== 0 ? (
-                <QuestionList question_table_id={this.props.match.params.question_table_id} questionArr={questionArr} />
+                <QuestionList
+                  question_table_id={this.props.match.params.question_table_id}
+                  questionArr={questionArr}
+                />
               ) : null}
             </div>
           </div>

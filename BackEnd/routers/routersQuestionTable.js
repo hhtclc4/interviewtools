@@ -44,7 +44,7 @@ router.post("/api/teleport", (req, res) => {
         model: Question,
         include: QuestionChoices
       },
-      { model: User, attributes: ["first_name", "last_name"] },
+      { model: User, attributes: ["name"] },
       Subject
     ],
     attributes: ["id", "title", "grade_begin", "grade_end", "image"]
@@ -146,7 +146,7 @@ router.post("/api/get_question_table_by_subject", (req, res) => {
           Question,
           {
             model: User,
-            attributes: ["first_name", "last_name"]
+            attributes: ["name"]
           }
         ],
         where: { is_public: 1 || true }

@@ -25,7 +25,7 @@ class CompletedQuizzes extends React.Component {
   render() {
     let { data } = this.state;
     let quizthumb = data.map((table, index) => {
-      let userName = `${table.user.first_name} ${table.user.last_name}`;
+      let userName = table.user.name;
 
       return (
         <QuizThumbnail
@@ -39,7 +39,13 @@ class CompletedQuizzes extends React.Component {
     return (
       <div className="quiz-list">
         {quizthumb}
-        {quizthumb.length === 0 ? <img style={{ width: '30%', margin: '30px auto' }} src={require("../images/no-quiz.png")} alt="no-quiz" /> : null}
+        {quizthumb.length === 0 ? (
+          <img
+            style={{ width: "30%", margin: "30px auto" }}
+            src={require("../images/no-quiz.png")}
+            alt="no-quiz"
+          />
+        ) : null}
       </div>
     );
   }

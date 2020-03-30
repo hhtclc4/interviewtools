@@ -58,15 +58,13 @@ class Join extends React.Component {
   };
   showLimitTableBySubject = question_tables => {
     let arr = [];
-    let userName = "";
     for (let i = 0; i < 5; i++)
       if (typeof question_tables[i] !== "undefined") {
-        userName = `${question_tables[i].user.first_name} ${question_tables[i].user.last_name}`;
         arr.push(
           <QuizThumbnail
             key={i}
             data={question_tables[i]}
-            userName={userName}
+            userName={question_tables[i].user.name}
           />
         );
       }
@@ -131,7 +129,7 @@ class Join extends React.Component {
   render() {
     let { questionTable, completedQuiz, isFocusInput, user } = this.state;
     let quizthumbComplete = completedQuiz.map((table, index) => {
-      let userName = `${table.user.first_name} ${table.user.last_name}`;
+      let userName = table.user.name;
 
       return (
         <QuizThumbnail
@@ -199,7 +197,12 @@ class Join extends React.Component {
         {completedQuiz.length ? (
           <div className="join-quiz-list-review">
             <h3>Recent Activity</h3>
-            <div className="quiz-list-show-activity" style={completedQuiz.length < 6 ? { overflow: 'hidden' } : {}}>{quizthumbComplete}</div>
+            <div
+              className="quiz-list-show-activity"
+              style={completedQuiz.length < 6 ? { overflow: "hidden" } : {}}
+            >
+              {quizthumbComplete}
+            </div>
           </div>
         ) : null}
 
@@ -208,7 +211,7 @@ class Join extends React.Component {
           <QuizDetailTable
             togglePopup={this.togglePopup}
             data={questionTable}
-            userName={`${questionTable.user.first_name} ${questionTable.user.last_name}`}
+            userName={questionTable.user.name}
           />
         ) : null}
 

@@ -38,7 +38,27 @@ export const loginAPI = state => {
 };
 
 ///////////////////////////////////////////////
-
+export const showListCampaign = () => {
+  return dispatch => {
+    axios({
+      method: "get",
+      url: URLs.CAMPAIGN_API_URL ,
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+      .then(res => {
+        console.log("res list campaign", res.data);
+        dispatch({
+          type: types.SHOW_CAMPAIGNS,
+          data: res.data
+        });
+      })
+      .catch(er => {
+        console.log("er", er);
+      });
+  };
+};
 export const createQuestionAndAnswersAPI = (
   question_table_id,
   question,
