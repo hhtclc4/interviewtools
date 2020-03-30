@@ -8,10 +8,23 @@ class RecruitThumbnail extends React.Component {
         super(props);
         this.state = {
             postFeature: "none",
+            data: {
+                title: "",
+                salary: 0,
+                work_address: ""
+            }
         }
     }
-    render() {
 
+    componentDidMount() {
+        this.setState({
+            data: this.props.data
+        })
+
+        console.log(this.props.data)
+    }
+    render() {
+        let { data } = this.state;
         let { postFeature } = this.state;
         return (
             < div className="recruit-thumb-wrapper " >
@@ -27,7 +40,7 @@ class RecruitThumbnail extends React.Component {
                             <span className="re-adjust-icon d-flex flex-row justify-content-center">
                                 <FontAwesomeIcon icon={faDollarSign} size="sm" color="#FD7E14" />
                             </span>
-                            <p>7-10 m</p>
+                            <p>{data.salary}</p>
                         </div>
                         <div className="re-destination d-flex flex-row">
                             <span className="re-adjust-icon d-flex flex-row justify-content-center">
@@ -37,11 +50,11 @@ class RecruitThumbnail extends React.Component {
                         </div>
                     </div>
                     <div className="re-required-position">
-                        <b>FrontEnd Developer</b>
+                        <b>{data.title}</b>
                     </div>
 
                     <div className="re-company-name">
-                        <p>Google INC</p>
+                        <p>{data.company_address}</p>
                     </div>
                     {postFeature === "new" ?
                         <div className="re-new-recruit">

@@ -2,14 +2,56 @@ import React from "react";
 import "./HomeBody.scss";
 import RecruitThumbnail from '../../../utils/RecruitThumbnail/RecruitThumbnail'
 import { Tabs, Panel } from '../../../utils/Tab/Tabs'
+import { connect } from "react-redux";
+import * as actions from "../../../redux/actions/index";
 class HomeBody extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       hotTabsCount: 4,
+      data: [
+        {
+          id: 0,
+          title: "",
+          subject_id: 0,
+          company_address: "",
+          level_id: 0,
+          amount_required: 0,
+          work_type_id: 0,
+          sex: 0,
+          experience: 0,
+          salary: 0,
+          deadline: "",
+          user_id: 0,
+          work_description: "",
+          candidate_req: "",
+          candidate_benefits: "",
+        }
+      ],
     };
   }
+
+  componentDidMount() {
+    this.props.showListCampaign();
+
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.setState({
+      data: nextProps.campaign
+    })
+    console.log(nextProps)
+  }
   render() {
+    let { data } = this.state;
+    let tabElm = data.map((campaign, index) => {
+      return (
+        <RecruitThumbnail key={campaign.id}
+          index={index}
+          data={campaign}
+        />
+      )
+    })
     return (
       <div className="home-body-container container-fluid">
         {/* <video className="video-intro" src={require("../images/outlanders_header.webm")} autoPlay={true} loop={true}></video> */}
@@ -31,37 +73,12 @@ class HomeBody extends React.Component {
                 <div className="recruit-list pb-4">
                   <Tabs selected={0}>
                     <Panel title="">
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
+                      {tabElm}
                     </Panel>
-                    <Panel title="">
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                    </Panel>
-                    <Panel title="">
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
-                      <RecruitThumbnail />
+                    <Panel>
+                      Tabs2
                     </Panel>
                   </Tabs>
-
                 </div>
               </div>
             </div>
@@ -73,4 +90,21 @@ class HomeBody extends React.Component {
   }
 }
 
-export default HomeBody;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    showListCampaign: () => {
+      dispatch(actions.showListCampaign());
+    }
+  };
+};
+
+const mapStateToProps = state => {
+  return {
+    campaign: state.campaign
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeBody);

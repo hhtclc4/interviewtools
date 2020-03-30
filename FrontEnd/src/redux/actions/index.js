@@ -37,12 +37,12 @@ export const loginAPI = state => {
   };
 };
 
-///////////////////////////////////////////////
+/////////////////////////////////////////////// CAMPAIGN
 export const showListCampaign = () => {
   return dispatch => {
     axios({
       method: "get",
-      url: URLs.CAMPAIGN_API_URL ,
+      url: URLs.CAMPAIGN_API_URL,
       headers: {
         "content-type": "application/json"
       }
@@ -297,7 +297,7 @@ export const updateTableWithPlayed = id => {
       },
       data: { id: id }
     })
-      .then(res => {})
+      .then(res => { })
       .catch(er => {
         console.log("er", er);
       });
