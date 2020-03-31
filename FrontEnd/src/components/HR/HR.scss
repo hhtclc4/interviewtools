@@ -1,11 +1,14 @@
 $concept-color: #fd7e14;
 $container-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
 .hr-page-container {
-  height: 100%;
-  width: 100%;
+  min-height: 100%;
+  width: fit-content;
   background-color: #f2f2f2;
+  min-width: 100%;
   .hr-page-grid {
-    height: 100%;
+    min-height: 100%;
+    height: fit-content;
+    min-width: 100%;
     .hr-manage-container {
       padding-top: 57px;
       .hr-manage-header {
@@ -37,7 +40,7 @@ $container-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
           height: fit-content;
           box-shadow: $container-shadow;
           width: 70%;
-          min-width: 450px;
+          min-width: 480px;
           flex-grow: 1;
         }
         .hr-manage-stat-container {

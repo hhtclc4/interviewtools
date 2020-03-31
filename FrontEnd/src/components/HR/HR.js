@@ -13,9 +13,9 @@ class HRstaff extends React.Component {
             <div className="hr-page-container">
                 <HRNav />
                 <div className="hr-page-grid">
-                    <div className="row" style={{ height: '100%' }}>
+                    <div className="row" style={{ minHeight: '100%', height: 'fit-content' }}>
                         <div className="col-sm-1"></div>
-                        <div className="col-lg-10 hr-manage-container">
+                        <div className="col-sm-10 hr-manage-container">
                             <div className="hr-manage-header d-flex flex-row justify-content-between">
                                 <p className="hr-campaign-count align-self-center">
                                     All campaigns (11)
@@ -37,7 +37,7 @@ class HRstaff extends React.Component {
                         <div className="col-sm-1"></div>
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }

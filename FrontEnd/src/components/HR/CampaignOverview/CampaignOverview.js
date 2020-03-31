@@ -17,7 +17,7 @@ class CampaignOverview extends React.Component {
                 </div>
                 <div className="co-require-and-desc">
                     <div className="co-title">
-                        <p>10 Java Developers (Spring/Hibernate)</p>
+                        <p className="text-truncate">10 Java Developers (Spring/Hibernate)</p>
                     </div>
                     <div className="co-salary d-flex flex-row">
                         <span className="co-adjust-icon d-flex flex-row justify-content-center">
@@ -57,7 +57,7 @@ Junior Dev 1-2 năm KN là OK
                     <div className="co-feature align-self-end">
                         Hot
                     </div>
-                    <div className="co-destination">
+                    <div className="co-destination align-self-end">
                         <span className="co-adjust-icon d-flex flex-row justify-content-center mr-2">
                             <FontAwesomeIcon icon={faMapMarkerAlt} color="#FD7E14" size="lg" />
                         </span>
