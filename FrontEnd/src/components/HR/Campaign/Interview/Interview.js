@@ -37,42 +37,11 @@ class HRInterview extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        document.addEventListener("click", this.handleClickInsideCreater, false);
 
 
     }
     componentWillUnmount() {
         this._isMounted = false;
-        document.removeEventListener("click", this.handleClickInsideCreater, false);
-    }
-
-    handleClickInsideCreater = (e) => {
-        if (this.node.contains(e.target)) {
-            this.setState({
-                isFocusCreater: true
-            });
-            return;
-        }
-        else {
-            this.setState({
-                isFocusCreater: false
-            });
-        }
-    }
-
-    handleClickInsideEmail = (e) => {
-        if (this.node.contains(e.target)) {
-            this.setState({
-                isFocusEmails: true
-            });
-
-            return;
-        }
-        else {
-            this.setState({
-                isFocusEmails: false
-            });
-        }
     }
 
 
@@ -146,10 +115,7 @@ class HRInterview extends React.Component {
         let { isFocusCreater, isFocusEmails } = this.state;
         return (
             <div className="hr-interview-container container-fluid d-flex flex-column">
-                <div className="creater-container" style={this.state.isFocusCreater ? { zIndex: '15' } : null}
-                    ref={(node) =>
-                        (this.node = node)
-                    }>
+                <div className="creater-container" style={this.state.isFocusCreater ? { zIndex: '15' } : null}>
                     <div className="create-new-interview-period-container d-flex flex-column"
 
                     >
@@ -201,7 +167,13 @@ class HRInterview extends React.Component {
                                     <input className="interview-period-attribute-count" placeholder="to" />
                                 </div>
                             </div>
-
+                            <div className="cni-btn align-self-center mt-3 mb-5">
+                                <button
+                                    onClick={(e) => this.handleClickCreateNew(isFocusCreater, isFocusEmails)}
+                                    style={this.state.isFocusCreater || isFocusEmails ? { zIndex: '15', position: 'relative', display: 'block' } : null}
+                                >Create interview
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div className="screen-dedicate d-flex flex-row flex-wrap justify-content-between"
@@ -248,13 +220,7 @@ class HRInterview extends React.Component {
                     </div>
                 </div>
 
-                <div className="cni-btn align-self-center mt-3 mb-5">
-                    <button
-                        onClick={(e) => this.handleClickCreateNew(isFocusCreater, isFocusEmails)}
-                        style={this.state.isFocusCreater || isFocusEmails ? { zIndex: '15', position: 'relative', display: 'block' } : null}
-                    >Create interview
-                    </button>
-                </div>
+
                 <div className="interview-section-title">Created Interview Period</div>
                 <div className="created-interviews d-flex flex-row flex-wrap"
                 >
