@@ -12,8 +12,8 @@ class RecruitSignup extends React.Component {
     render() {
         return (
             <div className="recruit-signup-container container ">
-                <div className="section-name row ">
-                    <div className="col-xl shadow-sm p-3 mt-2">
+                <div className="section-name row pb-3 ">
+                    <div className="recruit-title col-xl p-3 mt-2" style={{ backgroundColor: 'white', marginBottom: '10px' }}>
                         <h4 className="mb-0">Create a new recruit post</h4>
                     </div>
                 </div>
@@ -23,8 +23,8 @@ class RecruitSignup extends React.Component {
                             <div className=" font-weight-bold py-1">
                                 Title
                             </div>
-                            <div className="font-italic py-1">
-                                Description here
+                            <div className="font-italic py-1 recruit-field-note">
+                                Write briefly about position and job
                             </div>
                             <div>
                                 <input />
@@ -32,10 +32,10 @@ class RecruitSignup extends React.Component {
                         </div>
                         <div className="single-field py-4">
                             <div className="font-weight-bold py-1">
-                                Title
+                                Branch
                             </div>
-                            <div className="font-italic py-1">
-                                Description here
+                            <div className="font-italic py-1 recruit-field-note">
+                                Choose maximum 3 branches from dropdow below
                             </div>
                             <div>
                                 <input />
@@ -43,10 +43,10 @@ class RecruitSignup extends React.Component {
                         </div>
                         <div className="single-field py-4">
                             <div className="font-weight-bold py-1">
-                                Title
+                                Destination
                             </div>
-                            <div className="font-italic py-1">
-                                Description here
+                            <div className="font-italic py-1 recruit-field-note">
+                                Work station location
                             </div>
                             <div>
                                 <input />
@@ -55,10 +55,10 @@ class RecruitSignup extends React.Component {
                         <div className="double-field py-4 d-flex flex-row">
                             <div className="field-1 mr-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Number of personnel in need
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
+                                    Leave this field blank in case of no limit in recruitment
                                 </div>
                                 <div>
                                     <input />
@@ -66,10 +66,9 @@ class RecruitSignup extends React.Component {
                             </div>
                             <div className="field-1 ml-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Rank
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
                                 </div>
                                 <div>
                                     <input />
@@ -79,10 +78,9 @@ class RecruitSignup extends React.Component {
                         <div className="double-field py-4 d-flex flex-row">
                             <div className="field-1 mr-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Type of work
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
                                 </div>
                                 <div>
                                     <input />
@@ -90,10 +88,9 @@ class RecruitSignup extends React.Component {
                             </div>
                             <div className="field-1 ml-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Sex
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
                                 </div>
                                 <div>
                                     <input />
@@ -102,11 +99,11 @@ class RecruitSignup extends React.Component {
                         </div>
                         <div className="double-field py-4 d-flex flex-row">
                             <div className="field-1 mr-3">
-                                <div className=" font-weight-bold py-1">
-                                    Title
+                                <div className=" font-weight-bold py-1 ">
+                                    Salary
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
+                                    Set salary available maybe cause reduction in number of applicants
                                 </div>
                                 <div>
                                     <input />
@@ -114,10 +111,9 @@ class RecruitSignup extends React.Component {
                             </div>
                             <div className="field-1 ml-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Experience
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
                                 </div>
                                 <div>
                                     <input />
@@ -128,10 +124,10 @@ class RecruitSignup extends React.Component {
                         <div className="double-field py-4 d-flex flex-row">
                             <div className="field-1 mr-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Application Deadline
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
+                                    After this date, the recruitment won't be displayed
                                 </div>
                                 <div>
                                     <input />
@@ -139,10 +135,10 @@ class RecruitSignup extends React.Component {
                             </div>
                             <div className="field-1 ml-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Name of application receiver
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
+                                    Let candidates know receiver name for convenient vocative
                                 </div>
                                 <div>
                                     <input />
@@ -152,10 +148,10 @@ class RecruitSignup extends React.Component {
                         <div className="double-field py-4 d-flex flex-row">
                             <div className="field-1 mr-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Email that receive application
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
+                                    This email will be received applications
                                 </div>
                                 <div>
                                     <input />
@@ -163,10 +159,10 @@ class RecruitSignup extends React.Component {
                             </div>
                             <div className="field-1 ml-3">
                                 <div className=" font-weight-bold py-1">
-                                    Title
+                                    Phone number
                                 </div>
-                                <div className="font-italic py-1">
-                                    Description here
+                                <div className="font-italic py-1 recruit-field-note">
+                                    For contact with candidates
                                 </div>
                                 <div>
                                     <input />
@@ -176,24 +172,10 @@ class RecruitSignup extends React.Component {
                         <hr style={{ width: '95%' }} />
                         <div className="editor-field py-4">
                             <div className="font-weight-bold py-1">
-                                Title
+                                Job description
                             </div>
-                            <div className="font-italic py-1">
-                                Description here
-                            </div>
-                            <Editor
-                                toolbarClassName="toolbarClassName"
-                                wrapperClassName="wrapper-editor"
-                                editorClassName="text-input-editor"
-                                onEditorStateChange={this.onEditorStateChange}
-                            />
-                        </div>
-                        <div className="editor-field py-4">
-                            <div className="font-weight-bold py-1">
-                                Title
-                            </div>
-                            <div className="font-italic py-1">
-                                Description here
+                            <div className="font-italic py-1 recruit-field-note">
+                                Describe works that depend on recruitment position
                             </div>
                             <Editor
                                 toolbarClassName="toolbarClassName"
@@ -204,10 +186,24 @@ class RecruitSignup extends React.Component {
                         </div>
                         <div className="editor-field py-4">
                             <div className="font-weight-bold py-1">
-                                Title
+                                Candidate requirements
                             </div>
-                            <div className="font-italic py-1">
-                                Description here
+                            <div className="font-italic py-1 recruit-field-note">
+                                Required ability to effort works, prior skills
+                            </div>
+                            <Editor
+                                toolbarClassName="toolbarClassName"
+                                wrapperClassName="wrapper-editor"
+                                editorClassName="text-input-editor"
+                                onEditorStateChange={this.onEditorStateChange}
+                            />
+                        </div>
+                        <div className="editor-field py-4">
+                            <div className="font-weight-bold py-1">
+                                Candidates benefit
+                            </div>
+                            <div className="font-italic py-1 recruit-field-note">
+                                About insurrance, travel, team building, training,...
                             </div>
                             <Editor
                                 toolbarClassName="toolbarClassName"

@@ -1,5 +1,5 @@
-$create-button-color:#FD7E14;
-
+$create-button-color: #fd7e14;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
 %default-btn {
     height: 40px;
     margin: 0 10px;
@@ -13,13 +13,28 @@ $create-button-color:#FD7E14;
     font-family: sans-serif;
     color: white;
     font-weight: bold;
-    background-color: #FD7E14;
-    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 #FD7E14, 0 4px 6px rgba(0, 0, 0, 0.45);
+    background-color: #fd7e14;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 #fd7e14, 0 4px 6px rgba(0, 0, 0, 0.45);
 }
 
 .recruit-signup-container {
+    padding-bottom: 20px;
+
+    .section-name {
+        .recruit-title {
+            box-shadow: $shadow;
+        }
+    }
     .input-fields {
         .input-container {
+            background-color: #fff;
+            box-shadow: $shadow;
+
+            .recruit-field-note {
+                height: 30px;
+                font-size: 14px;
+                color: gray;
+            }
             .single-field {
                 input {
                     width: 100%;
@@ -34,12 +49,11 @@ $create-button-color:#FD7E14;
                         width: 100%;
                     }
                 }
-
             }
 
             .editor-field {
                 .wrapper-editor {
-                    border: 1px solid #A9A9A9;
+                    border: 1px solid #a9a9a9;
                 }
 
                 .text-input-editor {
@@ -52,6 +66,5 @@ $create-button-color:#FD7E14;
                 @extend %animate-btn;
             }
         }
-
     }
 }

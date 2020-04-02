@@ -166,20 +166,20 @@ $shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 
         @extend .interview-period-attribute;
         width: 93px;
       }
-    }
-  }
-  .cni-btn {
-    button {
-      background-color: $concept-color;
-      border-radius: 10px;
-      color: white;
-      border: none;
-      padding: 5px 20px;
-      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15), 0 5px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
-      font-weight: bold;
-      height: 50px;
-      font-size: 20px;
-      display: none;
+
+      .cni-btn {
+        button {
+          background-color: $concept-color;
+          border-radius: 10px;
+          color: white;
+          border: none;
+          padding: 5px 15px;
+          box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15), 0 5px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
+          font-weight: bold;
+          height: 40px;
+          font-size: 16px;
+        }
+      }
     }
   }
 

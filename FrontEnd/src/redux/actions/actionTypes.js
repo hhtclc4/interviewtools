@@ -36,5 +36,5 @@ export const SHOW_USER_ATTEMPT = "SHOW_USER_ATTEMPT";
 export const CHECK_USER_DO_QUIZ = "CHECK_USER_DO_QUIZ";
 //campaign
 export const SHOW_CAMPAIGNS = "SHOW_CAMPAIGNS";
-export const SHOW_CAMPAIGN = "SHOW_CAMPAIGN";
+
 
