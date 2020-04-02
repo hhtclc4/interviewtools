@@ -15,6 +15,8 @@ const Campaign = require("../models/Campaign");
 const Group_Candidates = require("../models/Group_Candidates");
 const Level = require("../models/Level");
 const Interview = require("../models/Interview");
+const Campaign_Subject = require("../models/Campaign_Subject");
+
 ////////////// Work_Type Level
 Work_Type.hasMany(Campaign, { foreignKey: "work_type_id" });
 Level.hasMany(Campaign, { foreignKey: "level_id" });
@@ -28,6 +30,10 @@ Campaign.belongsTo(Level, {
 });
 Campaign.belongsTo(User, {
   foreignKey: "user_id"
+});
+Campaign.belongsToMany(Subject, {
+  through: Campaign_Subject,
+  foreignKey: "campaign_id"
 });
 Campaign.belongsToMany(User, {
   through: Group_Candidates,
@@ -48,11 +54,17 @@ Group_Candidates.belongsTo(User, {
 });
 Group_Candidates.belongsTo(Campaign, { foreignKey: "campaign_id" });
 Group_Candidates.belongsTo(Interview, { foreignKey: "interview_id" });
-
+//////////////Campaign_Subject
+Campaign_Subject.belongsTo(Campaign, { foreignKey: "campaign_id" });
+Campaign_Subject.belongsTo(Subject, { foreignKey: "subject_id" });
 //////////////UserRole
 UserRole.hasMany(User, { foreignKey: "role_id" });
 ////////////// Subject
 Subject.hasMany(QuestionTable, { foreignKey: "subject_id" });
+Subject.belongsToMany(Campaign, {
+  through: Campaign_Subject,
+  foreignKey: "subject_id"
+});
 ///////////////////// User
 User.belongsToMany(Campaign, {
   through: Group_Candidates,

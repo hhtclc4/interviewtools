@@ -22,7 +22,7 @@ const jwt = require("jsonwebtoken");
 ///////////////////////////////////////////
 router.get("/api/campaign", (req, res) =>
   Campaign.findAll({
-    include: [{ model: User, attributes: ["name", "email", "phone"] }]
+    include: [{ model: User, attributes: ["name", "email", "phone"] }, Subject]
   })
     .then(data => res.send(data))
     .catch(err => console.log(err))

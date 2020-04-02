@@ -59,6 +59,12 @@ export const showListCampaign = () => {
       });
   };
 };
+export const showCampaign = index => {
+  return {
+    type: types.SHOW_CAMPAIGN,
+    index
+  };
+};
 export const createQuestionAndAnswersAPI = (
   question_table_id,
   question,
@@ -297,7 +303,7 @@ export const updateTableWithPlayed = id => {
       },
       data: { id: id }
     })
-      .then(res => { })
+      .then(res => {})
       .catch(er => {
         console.log("er", er);
       });
