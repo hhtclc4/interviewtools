@@ -1,16 +1,15 @@
 import React from 'react'
 import './Interview.scss'
-import { faEnvelope, faClock, faEdit } from '@fortawesome/free-regular-svg-icons'
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import { fakeEmails } from './FakeEmails'
-
+import InterviewThumbnail from './Thumbnail/Thumbnail'
 import { Menu, Dropdown, Button, Icon } from 'antd';
 class HRInterview extends React.Component {
     _isMounted = false;
     constructor(props) {
         super(props);
-        this.outsideClick = React.createRef();
         this.state = {
             candidateEmails: [
                 {
@@ -114,143 +113,128 @@ class HRInterview extends React.Component {
         // console.log("chosen", this.state.chosenEmails)
         let { isFocusCreater, isFocusEmails } = this.state;
         return (
-            <div className="hr-interview-container container-fluid d-flex flex-column">
-                <div className="creater-container" style={this.state.isFocusCreater ? { zIndex: '15' } : null}>
-                    <div className="create-new-interview-period-container d-flex flex-column"
-
-                    >
-                        <div className="interview-section-title">Create New Interview Period</div>
-                        <div className="create-new-interview-period d-flex flex-row justify-content-between p-3 flex-wrap"
-                            style={this.state.isFocusCreater ? { borderRadius: '10px' } : null}
-                        >
-                            <div className="cni-name mb-2 mr-2">
-                                <p>Set interview name</p>
-                                <input className="interview-period-attribute" placeholder="Enter interview name..." />
-                            </div>
-                            <div className="cni-time mb-2 mr-2">
-                                <p>Pick interview time</p>
-                                <div className="cin-time-attribute d-flex flex-row">
-                                    <div className="cni-time-week-day">
-                                        <Dropdown overlay={menu} trigger={["click"]} className="mr-1">
-                                            <Button style={{ top: '0' }}>
-                                                Week day <Icon type="down" />
-                                            </Button>
-                                        </Dropdown>
+            <div className="hr-interview-container container-fluid ">
+                <div className="row">
+                    <div className="col-md-9">
+                        <div className="creater-container" style={this.state.isFocusCreater ? { zIndex: '15' } : null}>
+                            <div className="create-new-interview-period-container d-flex flex-column"
+                            >
+                                <div className="interview-section-title">Create New Interview Period</div>
+                                <div className="create-new-interview-period d-flex flex-row justify-content-between p-3 flex-wrap"
+                                    style={this.state.isFocusCreater ? { borderRadius: '10px' } : null}
+                                >
+                                    <div className="cni-name mb-2 mr-2">
+                                        <p>Set interview name</p>
+                                        <input className="interview-period-attribute" placeholder="Enter interview name..." />
                                     </div>
-                                    <div className="cni-time-month">
-                                        <Dropdown overlay={menu} trigger={["click"]} className="mr-1">
-                                            <Button style={{ top: '0' }}>
-                                                Month <Icon type="down" />
-                                            </Button>
-                                        </Dropdown>
+                                    <div className="cni-time mb-2 mr-2">
+                                        <p>Pick interview time</p>
+                                        <div className="cin-time-attribute d-flex flex-row">
+                                            <div className="cni-time-week-day">
+                                                <Dropdown overlay={menu} trigger={["click"]} className="mr-1">
+                                                    <Button style={{ top: '0' }}>
+                                                        Week day <Icon type="down" />
+                                                    </Button>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="cni-time-month">
+                                                <Dropdown overlay={menu} trigger={["click"]} className="mr-1">
+                                                    <Button style={{ top: '0' }}>
+                                                        Month <Icon type="down" />
+                                                    </Button>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="cni-time-day">
+                                                <Dropdown overlay={menu} trigger={["click"]} className="mr-1">
+                                                    <Button style={{ top: '0' }}>
+                                                        Day <Icon type="down" />
+                                                    </Button>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="cni-time-hour">
+                                                <Dropdown overlay={menu} trigger={["click"]}>
+                                                    <Button style={{ top: '0' }}>
+                                                        Hour <Icon type="down" />
+                                                    </Button>
+                                                </Dropdown>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="cni-time-day">
-                                        <Dropdown overlay={menu} trigger={["click"]} className="mr-1">
-                                            <Button style={{ top: '0' }}>
-                                                Day <Icon type="down" />
-                                            </Button>
-                                        </Dropdown>
+                                    <div className="cni-target mb-2 mr-2">
+                                        <p>Set interview target</p>
+                                        <div className="cni-targer-attribute">
+                                            <input className="interview-period-attribute-count mr-1" placeholder="from" />
+                                            <input className="interview-period-attribute-count" placeholder="to" />
+                                        </div>
                                     </div>
-                                    <div className="cni-time-hour">
-                                        <Dropdown overlay={menu} trigger={["click"]}>
-                                            <Button style={{ top: '0' }}>
-                                                Hour <Icon type="down" />
-                                            </Button>
-                                        </Dropdown>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="cni-target mb-2 mr-2">
-                                <p>Set interview target</p>
-                                <div className="cni-targer-attribute">
-                                    <input className="interview-period-attribute-count mr-1" placeholder="from" />
-                                    <input className="interview-period-attribute-count" placeholder="to" />
-                                </div>
-                            </div>
-                            <div className="cni-btn align-self-center mt-3 mb-5">
-                                <button
-                                    onClick={(e) => this.handleClickCreateNew(isFocusCreater, isFocusEmails)}
-                                    style={this.state.isFocusCreater || isFocusEmails ? { zIndex: '15', position: 'relative', display: 'block' } : null}
-                                >Create interview
+                                    <div className="cni-btn align-self-center mt-3 mb-5">
+                                        <button
+                                            onClick={(e) => this.handleClickCreateNew(isFocusCreater, isFocusEmails)}
+                                            style={this.state.isFocusCreater || isFocusEmails ? { zIndex: '15', position: 'relative', display: 'block' } : null}
+                                        >Create interview
                                 </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="interview-section-title">Initialized Interview Period</div>
+                            <div className=" initialized-interviews d-flex flex-row flex-wrap"
+                            >
+                                <InterviewThumbnail />
+                            </div>
+                            <div className="screen-dedicate d-flex flex-row flex-wrap justify-content-between"
+                                style={isFocusEmails ? { position: 'relative', zIndex: '15', overflow: 'hidden' } : null}
+                            >
+                                <div className="all-application-container">
+                                    <div className="interview-section-title">Available Emails</div>
+                                    <div className="all-application">
+                                        {this.state.candidateEmails.map((email, index) => {
+                                            if (index % 2 === 0) {
+                                                var eStyle = "#d8d8d8"
+                                            }
+                                            else {
+                                                eStyle = "#f2f2f2"
+                                            }
+                                            return (
+                                                <div key={email.email} className="pre-email d-flex flex-row justify-content-between"
+                                                    style={{ backgroundColor: eStyle }}
+                                                >
+                                                    <p><FontAwesomeIcon icon={faEnvelope} /> {email.email}</p>
+                                                    <button className="choose-email"><FontAwesomeIcon icon={faPlus} size="lg" color="white"
+                                                        onClick={(e) => this.chooseEmailHandler(email)}
+                                                    /></button>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                                <div className="chosen-application-container">
+                                    <div className="interview-section-title">Chosen Emails for </div>
+                                    <div className="chosen-application">
+                                        {this.state.chosenEmails.length ? this.state.chosenEmails.map((email) => {
+                                            return (
+                                                <div key={email.email} className="chosen-email d-flex flex-row flex-wrap justify-content-between">
+                                                    <p><FontAwesomeIcon icon={faEnvelope} />{email.email}</p>
+                                                    <button className="remove-email"><FontAwesomeIcon icon={faMinus} size="lg" color="white"
+                                                        onClick={(e) => this.removeEmailHandler(email)}
+                                                    /></button>
+                                                </div>
+                                            )
+                                        }) : <div>NO email was chosen</div>}
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <div className="creater-focus-overlay"
+                            style={isFocusCreater || isFocusEmails ? { display: 'block', overflow: "auto" } : { display: 'none' }}
+                        ></div>
                     </div>
-                    <div className="screen-dedicate d-flex flex-row flex-wrap justify-content-between"
-                        style={isFocusEmails ? { position: 'relative', zIndex: '15', overflow: 'hidden' } : null}
-                    >
-                        <div className="all-application-container">
-                            <div className="interview-section-title">Available Emails</div>
-                            <div className="all-application">
-                                {this.state.candidateEmails.map((email, index) => {
-                                    if (index % 2 === 0) {
-                                        var eStyle = "#d8d8d8"
-                                    }
-                                    else {
-                                        eStyle = "#f2f2f2"
-                                    }
-                                    return (
-                                        <div key={email.email} className="pre-email d-flex flex-row justify-content-between"
-                                            style={{ backgroundColor: eStyle }}
-                                        >
-                                            <p><FontAwesomeIcon icon={faEnvelope} /> {email.email}</p>
-                                            <button className="choose-email"><FontAwesomeIcon icon={faPlus} size="lg" color="white"
-                                                onClick={(e) => this.chooseEmailHandler(email)}
-                                            /></button>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </div>
-                        <div className="chosen-application-container">
-                            <div className="interview-section-title">Chosen Emails for </div>
-                            <div className="chosen-application">
-                                {this.state.chosenEmails.length ? this.state.chosenEmails.map((email) => {
-                                    return (
-                                        <div key={email.email} className="chosen-email d-flex flex-row flex-wrap justify-content-between">
-                                            <p><FontAwesomeIcon icon={faEnvelope} />{email.email}</p>
-                                            <button className="remove-email"><FontAwesomeIcon icon={faMinus} size="lg" color="white"
-                                                onClick={(e) => this.removeEmailHandler(email)}
-                                            /></button>
-                                        </div>
-                                    )
-                                }) : <div>NO email was chosen</div>}
-                            </div>
-                        </div>
+                    <div className="initialized-interviews col-sm-3">
+                        <div className="interview-section-title">Created Interview Period</div>
+                        <InterviewThumbnail />
+                        <InterviewThumbnail />
                     </div>
                 </div>
-
-
-                <div className="interview-section-title">Created Interview Period</div>
-                <div className="created-interviews d-flex flex-row flex-wrap"
-                >
-                    <div className="created-interview-container d-flex flex-row mr-2">
-                        <div className="interview-info d-flex flex-column justify-content-between">
-                            <div className="interview-name">Fresher Interview - First Time</div>
-                            <div className="interview-deadline"><FontAwesomeIcon icon={faClock} /><span className="interview-time ml-1">Satuaday, March 28th 2020 - 8:00 AM</span></div>
-                            <div className="interview-note">Choose 3-5 employees from 15 candidates </div>
-                        </div>
-                        <div className="interview-options d-flex flex-column justify-content-around align-items-center flex-grow-1">
-                            <FontAwesomeIcon icon={faEdit} color="#b3b3b3" />
-                            <FontAwesomeIcon icon={faTrashAlt} color="#b3b3b3" />
-                        </div>
-                    </div>
-
-                    <div className="created-interview-container d-flex flex-row mr-2" ref={this.outsideClick}>
-                        <div className="interview-info d-flex flex-column justify-content-between">
-                            <div className="interview-name">Fresher Interview - Second Time</div>
-                            <div className="interview-deadline"><FontAwesomeIcon icon={faClock} /><span className="interview-time ml-1">Satuaday, March 28th 2020 - 8:00 AM</span></div>
-                            <div className="interview-note">Choose 3-5 employees from 15 candidates</div>
-                        </div>
-                        <div className="interview-options d-flex flex-column justify-content-around align-items-center flex-grow-1">
-                            <FontAwesomeIcon icon={faEdit} color="#b3b3b3" />
-                            <FontAwesomeIcon icon={faTrashAlt} color="#b3b3b3" />
-                        </div>
-                    </div>
-                </div>
-                <div className="creater-focus-overlay"
-                    style={isFocusCreater || isFocusEmails ? { display: 'block', overflow: "auto" } : { display: 'none' }}
-                ></div>
             </div >
         );
     }
