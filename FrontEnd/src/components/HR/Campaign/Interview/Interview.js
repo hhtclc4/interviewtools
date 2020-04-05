@@ -224,10 +224,6 @@ class HRInterview extends React.Component {
                                 </div>
                             </div>
                         </div>
-
-                        <div className="creater-focus-overlay"
-                            style={isFocusCreater || isFocusEmails ? { display: 'block', overflow: "auto" } : { display: 'none' }}
-                        ></div>
                     </div>
                     <div className="initialized-interviews col-sm-3">
                         <div className="interview-section-title">Created Interview Period</div>
@@ -235,6 +231,9 @@ class HRInterview extends React.Component {
                         <InterviewThumbnail />
                     </div>
                 </div>
+                <div className="creater-focus-overlay"
+                    style={isFocusCreater || isFocusEmails ? { display: 'block', overflow: "auto" } : { display: 'none' }}
+                ></div>
             </div >
         );
     }
