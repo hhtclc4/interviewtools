@@ -3,6 +3,8 @@ import "./Reports.scss";
 import ReportQuiz from "./ReportQuiz";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
+import { withRouter } from "react-router-dom";
+
 class Reports extends React.Component {
   constructor(props) {
     super(props);
@@ -19,13 +21,13 @@ class Reports extends React.Component {
               question_choices: [
                 {
                   answer: "",
-                  is_right: 0
-                }
-              ]
-            }
-          ]
-        }
-      ]
+                  is_right: 0,
+                },
+              ],
+            },
+          ],
+        },
+      ],
     };
   }
   componentDidMount() {
@@ -34,12 +36,12 @@ class Reports extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("get from redux", nextProps.report);
     this.setState({
-      reportArr: nextProps.report
+      reportArr: nextProps.report,
     });
   }
   render() {
     let { reportArr } = this.state;
-    let reportElm = reportArr.map(report => {
+    let reportElm = reportArr.map((report) => {
       return <ReportQuiz key={report.id} data={report} />;
     });
     return (
@@ -64,13 +66,16 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     getListReport: () => {
       dispatch(actions.getListReport());
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   //connect to redux by props, loadded data store here, this is step 3
   return {
-    report: state.report
+    report: state.report,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Reports);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Reports));

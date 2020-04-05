@@ -130,7 +130,7 @@ router.post("/api/questiontable", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      req.body.admin = authData.user_id.id;
+      req.body.admin = authData.user_id;
       QuestionTable.create(req.body)
         .then(data => res.send(data))
         .catch(err => console.log(err));

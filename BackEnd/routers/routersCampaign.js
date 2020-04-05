@@ -22,7 +22,7 @@ const jwt = require("jsonwebtoken");
 ///////////////////////////////////////////
 router.get("/api/campaign", (req, res) =>
   Campaign.findAll({
-    include: [{ model: User, attributes: ["name", "email", "phone"] }]
+    include: [{ model: User, attributes: ["name", "email", "phone"] }, Subject]
   })
     .then(data => res.send(data))
     .catch(err => console.log(err))
@@ -31,9 +31,27 @@ router.post("/api/campaign", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      req.body.user_id = authData.user_id.id;
+      req.body.user_id = authData.user_id;
       Campaign.create(req.body)
         .then(data => res.send(data))
+        .catch(err => console.log(err));
+    }
+  });
+});
+router.post("/api/candidate", verifyToken, (req, res) => {
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      Group_Candidates.findOne({
+        where: {
+          campaign_id: req.body.campaign_id,
+          candidate_id: authData.user_id
+        }
+      })
+        .then(data => {
+          if (data === null) res.send({ campaign_id: 0 });
+          else res.send(data);
+        })
         .catch(err => console.log(err));
     }
   });
@@ -42,7 +60,7 @@ router.post("/api/group_candidates", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      req.body.candidate_id = authData.user_id.id;
+      req.body.candidate_id = authData.user_id;
       Group_Candidates.create(req.body)
         .then(data => res.send(data))
         .catch(err => console.log(err));

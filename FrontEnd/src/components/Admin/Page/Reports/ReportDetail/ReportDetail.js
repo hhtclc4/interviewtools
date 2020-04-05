@@ -7,6 +7,7 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import ProgressCircle from "./ProgressCircle/ProgressCircle";
 import ReportPlayers from "./Player/Players";
 import ReportQuestions from "./Questions/Questions";
+import { withRouter } from "react-router-dom";
 
 class ReportDetail extends React.Component {
   constructor(props) {
@@ -16,17 +17,17 @@ class ReportDetail extends React.Component {
       tableReport: {
         id: 0,
         title: "",
-        questions: []
+        questions: [],
       },
       players: [
         {
           id: 0,
           name: "",
-          answer_records: []
-        }
+          answer_records: [],
+        },
       ],
       accuracyArr: [],
-      totalAccuracy: 0
+      totalAccuracy: 0,
     };
   }
   componentDidMount() {
@@ -35,18 +36,18 @@ class ReportDetail extends React.Component {
     this.setState({
       tableReport: data,
       players: playersList,
-      totalAccuracy: data.accuracy
+      totalAccuracy: data.accuracy,
     });
   }
-  accuracyForPlayers = accuracy => {
+  accuracyForPlayers = (accuracy) => {
     let { accuracyArr } = this.state;
     this.setState({
-      accuracyArr: [...accuracyArr, accuracy]
+      accuracyArr: [...accuracyArr, accuracy],
     });
   };
   render() {
     let { tableReport, players, totalAccuracy } = this.state;
-    let playerElm = players.map(player => {
+    let playerElm = players.map((player) => {
       return (
         <ReportPlayers
           key={player.id}
@@ -118,4 +119,4 @@ class ReportDetail extends React.Component {
   }
 }
 
-export default ReportDetail;
+export default withRouter(ReportDetail);

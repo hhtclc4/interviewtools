@@ -1,6 +1,6 @@
 import React from "react";
 import "./Activity.scss";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, withRouter } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faClipboardCheck } from "@fortawesome/free-solid-svg-icons";
@@ -15,13 +15,13 @@ class Activity extends React.Component {
     super(props);
     this.state = {
       data: {
-        question_tables: []
-      }
+        question_tables: [],
+      },
     };
   }
 
   render() {
-    let { url } = this.props.match;
+    let { path, url } = this.props.match;
     return (
       <div className="activity-container">
         <div className="quiz-type-navbar">
@@ -43,8 +43,9 @@ class Activity extends React.Component {
           </div>
         </div>
         <div className="activity-quizzes-container">
-          <Route exact path={`${url}`} component={CreatedQuizzes} />
-          <Route path={`${url}/completed`} component={CompletedQuizzes} />
+          <Route exact path={`${path}`} component={CreatedQuizzes} />
+
+          <Route path={`${path}/completed`} component={CompletedQuizzes} />
         </div>
       </div>
     );
@@ -54,16 +55,16 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListQuestionTable: () => {
       dispatch(actions.showListQuestionTable());
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    user: state.user
+    user: state.user,
   };
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Activity);
+)(withRouter(Activity));

@@ -3,18 +3,17 @@ import * as URLs from "./URL";
 
 import axios from "axios";
 import Swal from "sweetalert2";
-import history from "./../../history";
-export const loginAPI = state => {
-  return dispatch => {
+export const loginAPI = (state) => {
+  return (dispatch) => {
     axios({
       method: "post",
       url: URLs.LOGIN_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: state
+      data: state,
     })
-      .then(res => {
+      .then((res) => {
         console.log("res user", res.data);
         localStorage.setItem("token", res.data.token);
         Swal.fire({
@@ -23,15 +22,35 @@ export const loginAPI = state => {
           title: "Login Successfully",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
         dispatch({
           type: types.LOGIN_SUCCESS,
-          state,
-          token: res.data.token
+          data: res.data.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const getUser = () => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.USER_API,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        dispatch({
+          type: types.GET_USER,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
         console.log("er", er);
       });
   };
@@ -39,24 +58,30 @@ export const loginAPI = state => {
 
 /////////////////////////////////////////////// CAMPAIGN
 export const showListCampaign = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios({
       method: "get",
       url: URLs.CAMPAIGN_API_URL,
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("res list campaign", res.data);
         dispatch({
           type: types.SHOW_CAMPAIGNS,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
+  };
+};
+export const showCampaign = (index) => {
+  return {
+    type: types.SHOW_CAMPAIGN,
+    index,
   };
 };
 export const createQuestionAndAnswersAPI = (
@@ -64,260 +89,309 @@ export const createQuestionAndAnswersAPI = (
   question,
   answers
 ) => {
-  return dispatch => {
+  return (dispatch) => {
     const data = {
       ...question,
       question_table_id,
-      question_choices: answers
+      question_choices: answers,
     };
     axios({
       method: "post",
       url: URLs.QUESTION_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: data
+      data: data,
     })
-      .then(res => {
+      .then((res) => {
         Swal.fire({
           position: "center",
           type: "success",
           title: "Create Successfully",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
         console.log("res data", res);
         dispatch({
           type: types.CREATE_QUESTION_ANSWERS,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const teleportQuestionAndAnswersAPI = title => {
-  return dispatch => {
+export const createCandidate = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.GROUP_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("create a candidate for campaign", res.data);
+        dispatch({
+          type: types.SEND_CV_SUCCESS,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const checkIfCandidateSendCVBefore = (campaign_id) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.CANDIDATE_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+      data: { campaign_id },
+    })
+      .then((res) => {
+        console.log("check a candidate for campaign", res.data);
+        dispatch({
+          type: types.CHECK_CANDIDATE,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+/////////////////////// question table
+export const teleportQuestionAndAnswersAPI = (title) => {
+  return (dispatch) => {
     axios({
       method: "post",
       url: URLs.TELEPORT_QUESTION_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: { title }
+      data: { title },
     })
-      .then(res => {
+      .then((res) => {
         console.log("res teleport", res);
         dispatch({
           type: types.TELEPORT_QUESTION_ANSWERS,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const importQuestionAndAnswersAPI = data => {
-  return dispatch => {
+export const importQuestionAndAnswersAPI = (data) => {
+  return (dispatch) => {
     axios({
       method: "post",
       url: URLs.IMPORT_QUESTION_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: data
+      data: data,
     })
-      .then(res => {
+      .then((res) => {
         Swal.fire({
           position: "center",
           type: "success",
           title: "Import Successfully",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
         console.log("res data", res);
         dispatch({
           type: types.IMPORT_QUESTION_ANSWERS,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const updateQuestionAndAnswersAPI = (question, answers, index) => {
-  return dispatch => {
+  return (dispatch) => {
     const data = {
       ...question,
 
-      question_choices: answers
+      question_choices: answers,
     };
     axios({
       method: "post",
       url: URLs.UPDATE_QUESTION_ANSWER_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: data
+      data: data,
     })
-      .then(res => {
+      .then((res) => {
         Swal.fire({
           position: "center",
           type: "success",
           title: "Update Successfully",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
         console.log("res Update success", res);
         dispatch({
           type: types.UPDATE_QUESTION_TABLE_QUESTION,
           question,
           question_choices: res.data,
-          index
+          index,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const updateQuestion = (data, index) => {
-  return dispatch => {
+  return (dispatch) => {
     axios({
       method: "post",
       url: URLs.UPDATE_QUESTION_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: data
+      data: data,
     })
-      .then(res => {
+      .then((res) => {
         Swal.fire({
           position: "center",
           type: "success",
           title: "Update Successfully",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
         console.log("res Update success", res);
         dispatch({
           type: types.UPDATE_TIME,
           data,
-          index
+          index,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const deleteQuestionAndAnswersAPI = (id, index) => {
-  return dispatch => {
+  return (dispatch) => {
     axios({
       method: "delete",
       url: URLs.QUESTION_API_URL + `/${id}`,
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         Swal.fire({
           position: "center",
           type: "success",
           title: "Delete Successfully",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
         console.log("res delete", res);
         dispatch({
           type: types.SHOW_QUESTION_AFTER_DELETE,
-          index
+          index,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const showListQuestionAnswer = question_table_id => {
-  return dispatch => {
+export const showListQuestionAnswer = (question_table_id) => {
+  return (dispatch) => {
     axios({
       method: "get",
       url: URLs.QUESTION_TABLE_API_URL + `/${question_table_id}`,
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("res list question", res.data);
         dispatch({
           type: types.SHOW_QUESTION_ANSWERS,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const finishQuestionTable = id => {
-  return dispatch => {
+export const finishQuestionTable = (id) => {
+  return (dispatch) => {
     axios({
       method: "put",
       url: URLs.UPDATE_TABLE_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: { id, is_finish: true }
+      data: { id, is_finish: true },
     })
-      .then(res => {
+      .then((res) => {
         console.log("res Update success", res);
-        history.push("/join");
+        dispatch({
+          type: types.ACCESS_TO_PUSH,
+        });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const updateTableWithPlayed = id => {
-  return dispatch => {
+export const updateTableWithPlayed = (id) => {
+  return (dispatch) => {
     axios({
       method: "put",
       url: URLs.UPDATE_TABLE_PLAYED_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: { id: id }
+      data: { id: id },
     })
-      .then(res => { })
-      .catch(er => {
+      .then((res) => {})
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const updateTable = data => {
-  return dispatch => {
+export const updateTable = (data) => {
+  return (dispatch) => {
     axios({
       method: "put",
       url: URLs.UPDATE_TABLE_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: { ...data }
+      data: { ...data },
     })
-      .then(res => {
+      .then((res) => {
         console.log("res Update question table success", res);
         dispatch({
           type: types.UPDATE_QUESTION_TABLE,
-          data: data
+          data: data,
         });
         Swal.fire({
           position: "center",
@@ -325,104 +399,109 @@ export const updateTable = data => {
           title: "Update Successfully",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const showListSubject = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios({
       method: "get",
       url: URLs.SUBJECT_API_URL,
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("res subject", res.data);
         dispatch({
           type: types.SHOW_SUBJECT,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const getListTableBySubject = () => {
-  return dispatch => {
+  return (dispatch) => {
     axios({
       method: "post",
       url: URLs.QUESTION_TABLE_BY_SUBJECT_API_URL,
       headers: {
-        "content-type": "application/json"
-      }
+        "content-type": "application/json",
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API get QUESTION TABLE by SUBJECT ", res.data);
         dispatch({
           type: types.GET_QUESTION_TABLE_BY_SUBJECT,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const showListTableBySubject = () => {
   return {
-    type: types.SHOW_QUESTION_TABLE_BY_SUBJECT
+    type: types.SHOW_QUESTION_TABLE_BY_SUBJECT,
   };
 };
-export const createQuestionTable = data => {
-  return dispatch => {
+export const createQuestionTable = (data) => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.QUESTION_TABLE_API_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": token
+        "user-token": token,
       },
-      data: data
+      data: data,
     })
-      .then(res => {
+      .then((res) => {
         console.log("res create table", res.data);
         dispatch({
           type: types.CREATE_QUESTION_TABLE,
-          data: res.data
+          data: res.data,
         });
-        history.push(`/quiz/${res.data.id}`);
+        dispatch({
+          type: types.ACCESS_TO_PUSH_QUIZ,
+          id: res.data.id,
+        });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const addAnswerRecord = data => {
-  return dispatch => {
+export const addAnswerRecord = (data) => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.ANSWER_RECORD_API_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": token
+        "user-token": token,
       },
-      data: data
+      data: data,
     })
-      .then(res => {
+      .then((res) => {
         console.log(res);
         localStorage.setItem("attempt_id", res.data.id);
-        history.push(`/join/pre-game/${res.data.question_table_id}/review`);
+        dispatch({
+          type: types.ACCESS_TO_PUSH,
+        });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
@@ -430,135 +509,135 @@ export const addAnswerRecord = data => {
 
 //////////////// Activity
 export const getListQuestionTable = () => {
-  return dispatch => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.USER_QUESTION_TABLE_API_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": token
-      }
+        "user-token": token,
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API show QUESTION TABLE", res.data);
         dispatch({
           type: types.SHOW_QUESTION_TABLE,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const updateUser = data => {
-  return dispatch => {
+export const updateUser = (data) => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "put",
       url: URLs.UPDATE_USER_API,
       headers: {
         "content-type": "application/json",
-        "user-token": token
+        "user-token": token,
       },
-      data: data
+      data: data,
     })
-      .then(res => {
+      .then((res) => {
         console.log("API UPDATE_USER ", res.data);
         dispatch({
           type: types.UPDATE_USER,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const getListReport = () => {
-  return dispatch => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.GET_REPORT_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": token
-      }
+        "user-token": token,
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API Report ", res.data);
         dispatch({
           type: types.GET_REPORT,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const getListUserDoQuestionTable = () => {
-  return dispatch => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.GET_COMPLETED_TABLE,
       headers: {
         "content-type": "application/json",
-        "user-token": token
-      }
+        "user-token": token,
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API show user do QUESTION TABLE ", res.data);
         dispatch({
           type: types.GET_QUESTION_TABLE_COMPLETED,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const showListUserDoQuestionTable = () => {
   return {
-    type: types.SHOW_QUESTION_TABLE_COMPLETED
+    type: types.SHOW_QUESTION_TABLE_COMPLETED,
   };
 };
 export const showListQuestionTable = () => {
   return {
-    type: types.SHOW_QUESTION_TABLE
+    type: types.SHOW_QUESTION_TABLE,
   };
 };
-export const getQuestionTableByCode = code => {
-  return dispatch => {
+export const getQuestionTableByCode = (code) => {
+  return (dispatch) => {
     axios({
       method: "post",
       url: URLs.QUESTION_TABLE_CODE_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
       data: {
-        code
-      }
+        code,
+      },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API show QUESTION TABLE by CODE", res.data);
         if (res.data !== "")
           dispatch({
             type: types.SHOW_ONE_QUESTION_TABLE,
-            data: res.data
+            data: res.data,
           });
         else
           Swal.fire({
             type: "error",
             title: "Oops...",
-            text: "Your code is not right!"
+            text: "Your code is not right!",
           });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
@@ -566,98 +645,98 @@ export const getQuestionTableByCode = code => {
 export const closeQuestionTableByCode = () => {
   return { type: types.CLOSE_CODE_QUESTION_TABLE };
 };
-export const generateCode = id => {
-  return dispatch => {
+export const generateCode = (id) => {
+  return (dispatch) => {
     axios({
       method: "post",
       url: URLs.GENARATE_CODE_API_URL,
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
-      data: { id }
+      data: { id },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API sho CODE", res.data);
 
         dispatch({
           type: types.SHOW_QUESTION_ANSWERS,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
-export const isUserDoQuizBefore = question_table_id => {
-  return dispatch => {
+export const isUserDoQuizBefore = (question_table_id) => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.CHECK_USER_DO_QUIZ_API_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": token
+        "user-token": token,
       },
-      data: { question_table_id }
+      data: { question_table_id },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API show QUESTION TABLE", res.data);
         dispatch({
           type: types.CHECK_USER_DO_QUIZ,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 // Pre-Game
-export const getListUserAttempt = question_table_id => {
-  return dispatch => {
+export const getListUserAttempt = (question_table_id) => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.USER_ATTEMPT_API_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": token
+        "user-token": token,
       },
-      data: { question_table_id }
+      data: { question_table_id },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API show List User Attempt", res.data);
         dispatch({
           type: types.SHOW_USER_ATTEMPT,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };
 };
 export const getAttempt = (question_table_id, attempt_id) => {
-  return dispatch => {
+  return (dispatch) => {
     let token = localStorage.getItem("token");
     axios({
       method: "post",
       url: URLs.ATTEMPT_RECORD_API_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": token
+        "user-token": token,
       },
-      data: { question_table_id, attempt_id }
+      data: { question_table_id, attempt_id },
     })
-      .then(res => {
+      .then((res) => {
         console.log("API show Attemp record", res.data);
         dispatch({
           type: types.SHOW_ANSWER_RECORD,
-          data: res.data
+          data: res.data,
         });
       })
-      .catch(er => {
+      .catch((er) => {
         console.log("er", er);
       });
   };

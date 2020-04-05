@@ -1,17 +1,19 @@
 import React from "react";
 import QuizCreateModal from "../../../components/QuizCreateModal/QuizCreateModal";
 import "./QuizCreateModal.scss";
+import { withRouter } from "react-router-dom";
+
 class Create extends React.Component {
   componentDidMount() {
-    document.title = "Quiz Initiation"
+    document.title = "Quiz Initiation";
   }
   render() {
     return (
       <div className="page-container">
-        <QuizCreateModal match={this.props.match} />
+        <QuizCreateModal />
       </div>
     );
   }
 }
 
-export default Create;
+export default withRouter(Create);

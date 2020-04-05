@@ -1,16 +1,17 @@
 import React from "react";
-import history from "../../../history";
 import "./QuizStart.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
+import { withRouter } from "react-router-dom";
+
 class QuizStart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      questions: []
+      questions: [],
     };
   }
   componentDidMount() {
@@ -19,12 +20,13 @@ class QuizStart extends React.Component {
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      ...nextProps.questionTable
+      ...nextProps.questionTable,
     });
   }
   render() {
     let question_table_id = this.props.match.params.question_table_id;
     let { title, questions } = this.state;
+    let { history } = this.props;
     return (
       <div className="quiz-start-container">
         <div className="quiz-start-nav">
@@ -51,13 +53,19 @@ class QuizStart extends React.Component {
                 </div>
               </div>
               <button
-                onClick={() => history.push(`/join/game/${question_table_id}`)}
+                onClick={() => history.push(`/game/${question_table_id}`)}
               >
                 Start Game
               </button>
             </div>
-            <img style={{ width: '550px' }} src={require("../../PreGame/images/no-settings.png")} alt="no-settings" />
-            <h3 style={{ textAlign: 'center', color: 'white' }}>Setting comming soon</h3>
+            <img
+              style={{ width: "550px" }}
+              src={require("../../PreGame/images/no-settings.png")}
+              alt="no-settings"
+            />
+            <h3 style={{ textAlign: "center", color: "white" }}>
+              Setting comming soon
+            </h3>
           </div>
         </div>
       </div>
@@ -66,14 +74,17 @@ class QuizStart extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    showListQuestionAnswer: question_table_id => {
+    showListQuestionAnswer: (question_table_id) => {
       dispatch(actions.showListQuestionAnswer(question_table_id));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    questionTable: state.questionTable
+    questionTable: state.questionTable,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(QuizStart);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(QuizStart));

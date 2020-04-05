@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import history from "../../history";
+import { withRouter } from "react-router-dom";
 import QuizAttempt from "./QuizAttempt/QuizAttempt";
 class PreGame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
     };
   }
   componentDidMount() {
@@ -20,13 +20,13 @@ class PreGame extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     //console.log(nextProps);
     this.setState({
-      data: nextProps.attempt
+      data: nextProps.attempt,
     });
   }
   render() {
     let { data } = this.state;
     let question_table_id = this.props.match.params.question_table_id;
-
+    let { history } = this.props;
     let quizAttemptElm = data.map((attempt, index) => {
       return <QuizAttempt key={index} data={attempt} index={index} />;
     });
@@ -60,13 +60,19 @@ class PreGame extends React.Component {
           <div className="player-config">
             <div className="practice-btn-group">
               <button
-                onClick={() => history.push(`/join/game/${question_table_id}`)}
+                onClick={() => history.push(`/game/${question_table_id}`)}
               >
                 Play
               </button>
             </div>
-            <img style={{ width: '100%', margin: '30px auto' }} src={require("./images/no-settings.png")} alt="no-settings" />
-            <h3 style={{ textAlign: 'center', color: 'white' }}>Setting comming soon</h3>
+            <img
+              style={{ width: "100%", margin: "30px auto" }}
+              src={require("./images/no-settings.png")}
+              alt="no-settings"
+            />
+            <h3 style={{ textAlign: "center", color: "white" }}>
+              Setting comming soon
+            </h3>
           </div>
         </div>
       </div>
@@ -75,14 +81,17 @@ class PreGame extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getListUserAttempt: question_table_id => {
+    getListUserAttempt: (question_table_id) => {
       dispatch(actions.getListUserAttempt(question_table_id));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    attempt: state.attempt
+    attempt: state.attempt,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(PreGame);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(PreGame));

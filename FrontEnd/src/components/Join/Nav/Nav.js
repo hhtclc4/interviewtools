@@ -2,17 +2,16 @@ import React from "react";
 import "./Nav.scss";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,
   faSearch,
   faHome,
-  faHistory
+  faHistory,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { Menu, Dropdown, Button, Icon } from "antd";
-import history from "../../../history";
 
 class JoinNav extends React.Component {
   constructor(props) {
@@ -33,12 +32,11 @@ class JoinNav extends React.Component {
     this.updateWidth();
   }
 
-
   userActionsHandleClick = () => {
     this.setState({
-      isOpenUserActions: true
+      isOpenUserActions: true,
     });
-  }
+  };
   onLogoutHandler = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -47,11 +45,11 @@ class JoinNav extends React.Component {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes!"
-    }).then(result => {
+      confirmButtonText: "Yes!",
+    }).then((result) => {
       if (result.value) {
         localStorage.clear();
-        history.push("/");
+        this.props.history.push("/");
       }
     });
   };
@@ -64,8 +62,7 @@ class JoinNav extends React.Component {
   render() {
     let token = localStorage.getItem("token");
     let username = localStorage.getItem("username");
-
-
+    let { history } = this.props;
 
     let { myWidth } = this.state;
     const userActions = (
@@ -83,7 +80,7 @@ class JoinNav extends React.Component {
             style={{
               display: "flex",
               flexDirection: "row",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <Icon type="setting" style={{ marginRight: "10px" }}></Icon>Manage
@@ -95,7 +92,7 @@ class JoinNav extends React.Component {
             style={{
               display: "flex",
               flexDirection: "row",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <Icon type="logout" style={{ marginRight: "10px" }}></Icon>Log out
@@ -103,23 +100,28 @@ class JoinNav extends React.Component {
         </Menu.Item>
       </Menu>
     );
-
+    let { match } = this.props;
 
     // console.log(myWidth);
     return (
       <div className="join-nav-container">
         <div className="logo">
-          <img className="big-logo"
+          <img
+            className="big-logo"
             src={require("../../../utils/images/logo.png")}
             alt="quiz-icon"
-
-            style={myWidth <= 600 ? { display: 'none' } : { display: 'block' }}
+            style={myWidth <= 600 ? { display: "none" } : { display: "block" }}
           />
 
-          <img className="small-logo"
+          <img
+            className="small-logo"
             src={require("../../../utils/images/icon.png")}
             alt="sm-icon"
-            style={myWidth <= 600 ? { display: 'block', marginLeft: '3px' } : { display: 'none' }}
+            style={
+              myWidth <= 600
+                ? { display: "block", marginLeft: "3px" }
+                : { display: "none" }
+            }
           />
         </div>
 
@@ -132,7 +134,7 @@ class JoinNav extends React.Component {
 
         <div className="tab-field">
           <div className="tab-link">
-            <NavLink exact to="/join" activeClassName="active-link">
+            <NavLink exact to={`${match.url}`} activeClassName="active-link">
               <span>
                 <FontAwesomeIcon icon={faHome} />
               </span>
@@ -140,7 +142,7 @@ class JoinNav extends React.Component {
             </NavLink>
           </div>
           <div className="tab-link">
-            <NavLink to="/join/activity" activeClassName="active-link">
+            <NavLink to={`${match.url}/activity`} activeClassName="active-link">
               <span>
                 <FontAwesomeIcon icon={faHistory} />
               </span>
@@ -153,7 +155,7 @@ class JoinNav extends React.Component {
         <div className="button-group">
           <button
             className="b-sign-up"
-            onClick={() => history.push(`/admin/quiz/${token}`)}
+            onClick={() => history.push(`/create/quiz/${token}`)}
           >
             <FontAwesomeIcon icon={faPlusCircle} /> Create new Quiz
           </button>
@@ -183,13 +185,16 @@ const mapDispatchToProps = (dispatch, props) => {
 
     getListUserDoQuestionTable: () => {
       dispatch(actions.getListUserDoQuestionTable());
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    user: state.user
+    user: state.user,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(JoinNav);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(JoinNav));

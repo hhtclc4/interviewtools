@@ -4,14 +4,15 @@ import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import history from "../../../history";
+import { withRouter } from "react-router-dom";
+
 class QuizDetailTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isDisplay: "block",
       isPlayedBefore: false,
-      disabled: false
+      disabled: false,
     };
   }
   componentDidMount() {
@@ -19,13 +20,13 @@ class QuizDetailTable extends React.Component {
     console.log("data", data);
     if (!data.is_finish)
       this.setState({
-        disabled: true
+        disabled: true,
       });
     this.props.isUserDoQuizBefore(data.id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      isPlayedBefore: nextProps.user.isPlayedBefore
+      isPlayedBefore: nextProps.user.isPlayedBefore,
     });
   }
   showSampleQuestion = () => {
@@ -56,7 +57,7 @@ class QuizDetailTable extends React.Component {
         return "N/A";
     }
   };
-  gradeTitle = grade => {
+  gradeTitle = (grade) => {
     if (grade === null) return null;
     if (grade === 1) return "Internship";
     if (grade === 2) return "Fresher";
@@ -77,8 +78,9 @@ class QuizDetailTable extends React.Component {
   };
   playQuizOnClickHandler = () => {
     let { data } = this.props;
-    if (this.state.isPlayedBefore) history.push(`/join/pre-game/${data.id}`);
-    else history.push(`/join/${data.id}/start`);
+    if (this.state.isPlayedBefore)
+      this.props.history.push(`/pre-game/${data.id}`);
+    else this.props.history.push(`/start/${data.id}`);
   };
   render() {
     let { data } = this.props;
@@ -105,7 +107,7 @@ class QuizDetailTable extends React.Component {
               className="quiz-table-edit-btn"
               style={!disabled ? { display: "none" } : {}}
               onClick={() => {
-                history.push(`/quiz/${data.id}`);
+                this.props.history.push(`/quiz/${data.id}`);
               }}
             >
               Finish Edit
@@ -164,14 +166,17 @@ class QuizDetailTable extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    isUserDoQuizBefore: question_table_id => {
+    isUserDoQuizBefore: (question_table_id) => {
       dispatch(actions.isUserDoQuizBefore(question_table_id));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(QuizDetailTable);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(QuizDetailTable));

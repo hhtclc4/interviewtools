@@ -2,6 +2,7 @@ import React from "react";
 import "./MyQuizzes.scss";
 
 import MyQuizDetail from "./MyQuizDetail/MyQuizDetail";
+import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
@@ -9,7 +10,7 @@ class MyQuizzes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question_tables: []
+      question_tables: [],
     };
   }
 
@@ -19,7 +20,7 @@ class MyQuizzes extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      ...nextProps.user[0]
+      ...nextProps.user[0],
     });
   }
   render() {
@@ -30,7 +31,9 @@ class MyQuizzes extends React.Component {
     return (
       <div className="my-quizzes-container">
         <div className="my-quizzes-header">
-          <div className="quizzes-count">All quizzes ({question_tables.length})</div>
+          <div className="quizzes-count">
+            All quizzes ({question_tables.length})
+          </div>
         </div>
         <div className="all-my-quizzes-and-collections">
           <div className="all-my-quizzes-container">{element}</div>
@@ -44,14 +47,17 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     getListQuestionTable: () => {
       dispatch(actions.getListQuestionTable());
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    user: state.user
+    user: state.user,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyQuizzes);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(MyQuizzes));

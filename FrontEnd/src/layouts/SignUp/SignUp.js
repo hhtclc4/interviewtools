@@ -1,18 +1,16 @@
-import React from 'react';
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-import './SignUp.scss';
+import "./SignUp.scss";
 class SignUp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
-    
-    render() { 
-        return ( 
-            <div>
-            </div>
-         );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return <div></div>;
+  }
 }
- 
-export default SignUp;
+
+export default withRouter(SignUp);

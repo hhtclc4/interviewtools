@@ -10,6 +10,10 @@ import completed from "./CompletedQuiz";
 import teleport from "./Teleport";
 import report from "./Report";
 import campaign from "./Campaign";
+import group_candidates from "./Group_Candidates";
+import candidate from "./Candidate";
+import accessToPush from "./Access_To_Push";
+
 import { combineReducers } from "redux";
 const myReducer = combineReducers({
   question,
@@ -21,6 +25,9 @@ const myReducer = combineReducers({
   completed,
   teleport,
   report,
-  campaign
+  campaign,
+  group_candidates,
+  candidate,
+  accessToPush,
 });
 export default myReducer;

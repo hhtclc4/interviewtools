@@ -1,17 +1,14 @@
-import React from 'react'
+import React from "react";
+import { withRouter } from "react-router-dom";
 
 class HRInfo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
-    render() {
-        return (
-            <div>
-                Info here
-            </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return <div>Info here</div>;
+  }
 }
 
-export default HRInfo;
+export default withRouter(HRInfo);

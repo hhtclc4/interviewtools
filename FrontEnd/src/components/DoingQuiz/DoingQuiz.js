@@ -1,6 +1,7 @@
 import React from "react";
 import "./DoingQuiz.scss";
 import QuestionShow from "../DoingQuiz/QuestionShow/QuestionShow";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
 var showQuestion;
@@ -13,13 +14,14 @@ class DoingQuiz extends React.Component {
           id: 0,
           question: "",
           question_choices: [],
-          time: 0
-        }
+          time: 0,
+        },
       ],
       data: [],
       count: 0,
       changeQuestion: false,
-      isDone: false
+      isDone: false,
+      accessToPush: false,
     };
   }
   componentDidMount() {
@@ -29,7 +31,8 @@ class DoingQuiz extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("question and answer", nextProps.questionTable.questions);
     this.setState({
-      questions: nextProps.questionTable.questions
+      questions: nextProps.questionTable.questions,
+      accessToPush: nextProps.accessToPush.push,
     });
   }
   recordAnswer = (
@@ -47,7 +50,7 @@ class DoingQuiz extends React.Component {
       choice_id: question_choice.id,
       multi_choice: multi_choice,
       answer_text: answer_text,
-      type
+      type,
     };
     let dataPush = this.state.data;
     dataPush.push({ ...data });
@@ -57,7 +60,7 @@ class DoingQuiz extends React.Component {
     clearTimeout(showQuestion);
     setTimeout(() => {
       this.setState({
-        changeQuestion: true
+        changeQuestion: true,
       });
     }, 2000);
   };
@@ -68,11 +71,11 @@ class DoingQuiz extends React.Component {
         showQuestion = setTimeout(() => {
           if (count < questions.length - 1 && isDone === false) {
             this.setState({
-              count: count + 1
+              count: count + 1,
             });
           } else {
             this.setState({
-              isDone: true
+              isDone: true,
             });
           }
         }, questions[count].time * 1000);
@@ -80,12 +83,12 @@ class DoingQuiz extends React.Component {
         if (count < questions.length - 1 && isDone === false) {
           this.setState({
             count: count + 1,
-            changeQuestion: false
+            changeQuestion: false,
           });
         } else {
           this.setState({
             isDone: true,
-            changeQuestion: false
+            changeQuestion: false,
           });
         }
       }
@@ -112,6 +115,9 @@ class DoingQuiz extends React.Component {
     let element = "";
     if (this.state.questions[0].id !== 0) element = this.createQuestion();
     else element = "";
+    let question_table_id = this.props.match.params.question_table_id;
+    if (this.state.accessToPush)
+      this.props.history.push(`/pre-game/${question_table_id}/review`);
 
     //let question = this.createQuestion();
     return <div className="doing-quiz-container">{element}</div>;
@@ -119,21 +125,25 @@ class DoingQuiz extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    showListQuestionAnswer: question_table_id => {
+    showListQuestionAnswer: (question_table_id) => {
       dispatch(actions.showListQuestionAnswer(question_table_id));
     },
-    addAnswerRecord: data => {
+    addAnswerRecord: (data) => {
       dispatch(actions.addAnswerRecord(data));
     },
-    updateTableWithPlayed: id => {
+    updateTableWithPlayed: (id) => {
       dispatch(actions.updateTableWithPlayed(id));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    question: state.question
+    question: state.question,
+    accessToPush: state.accessToPush,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(DoingQuiz);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(DoingQuiz));

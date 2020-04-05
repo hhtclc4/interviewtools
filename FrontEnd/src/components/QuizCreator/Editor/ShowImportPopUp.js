@@ -3,12 +3,14 @@ import "./Editor.scss";
 import { connect } from "react-redux";
 import * as actions from "./../../../redux/actions/index";
 import { ExcelRenderer } from "react-excel-renderer";
+import { withRouter } from "react-router-dom";
+
 class ShowImportPopUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
-  fileChangedHandler = event => {
+  fileChangedHandler = (event) => {
     let fileObj = event.target.files[0];
 
     //just pass the fileObj as parameter
@@ -27,7 +29,7 @@ class ShowImportPopUp extends React.Component {
             if (resp.rows[i][j] !== undefined)
               ans.push({
                 answer: resp.rows[i][j],
-                is_right: resp.rows[i][6] === j ? true : false
+                is_right: resp.rows[i][6] === j ? true : false,
               });
           }
           if (resp.rows[i].length === 0) break;
@@ -35,7 +37,7 @@ class ShowImportPopUp extends React.Component {
             question: resp.rows[i][0],
             time: resp.rows[i][7] === undefined ? 30 : resp.rows[i][7],
             question_table_id: this.props.match.params.question_table_id,
-            question_choices: [...ans]
+            question_choices: [...ans],
           });
         }
         this.props.importQuestionAndAnswersAPI(importArr);
@@ -54,7 +56,7 @@ class ShowImportPopUp extends React.Component {
                     style={{
                       height: "64px",
                       width: "64px",
-                      marginRight: "20px"
+                      marginRight: "20px",
                     }}
                     src={require("./images/import.png")}
                     alt="import"
@@ -81,7 +83,7 @@ class ShowImportPopUp extends React.Component {
                     style={{ display: "none" }}
                     type="file"
                     onChange={this.fileChangedHandler}
-                    ref={fileInput => (this.fileInput = fileInput)}
+                    ref={(fileInput) => (this.fileInput = fileInput)}
                   />
                   <img
                     style={{ height: "70px", width: "100px" }}
@@ -104,9 +106,9 @@ class ShowImportPopUp extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    importQuestionAndAnswersAPI: data => {
+    importQuestionAndAnswersAPI: (data) => {
       dispatch(actions.importQuestionAndAnswersAPI(data));
-    }
+    },
   };
 };
-export default connect(null, mapDispatchToProps)(ShowImportPopUp);
+export default connect(null, mapDispatchToProps)(withRouter(ShowImportPopUp));

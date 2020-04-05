@@ -9,20 +9,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave, faClock } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { Select } from "antd";
+import { withRouter } from "react-router-dom";
 
 const listPrototype = [
   {
-    index: 0
+    index: 0,
   },
   {
-    index: 1
+    index: 1,
   },
   {
-    index: 2
+    index: 2,
   },
   {
-    index: 3
-  }
+    index: 3,
+  },
 ];
 let listAns = [...listPrototype];
 class QuestionCreatePopup extends React.Component {
@@ -36,19 +37,19 @@ class QuestionCreatePopup extends React.Component {
         id: 0,
         question: "",
         time: 30,
-        type: 1
+        type: 1,
       },
       answers: [],
       checkOneRightAnswer: {
         index: -1,
-        isCheck: 0
+        isCheck: 0,
       },
       temptCheck: {},
       questionType: {
         title: "Single answer",
         typeAnswer: 1,
-        isChange: false
-      }
+        isChange: false,
+      },
     };
   }
   componentDidMount() {
@@ -68,8 +69,8 @@ class QuestionCreatePopup extends React.Component {
         data: {
           ...data,
           id: data.id,
-          question: data.question
-        }
+          question: data.question,
+        },
       });
       let typeTitle = "";
       let typeAnswer = 1;
@@ -89,43 +90,43 @@ class QuestionCreatePopup extends React.Component {
         questionType: {
           ...questionType,
           title: typeTitle,
-          typeAnswer: typeAnswer
+          typeAnswer: typeAnswer,
         },
         temptCheck: {
           ...temptCheck,
-          index: rightAnswerIndex
+          index: rightAnswerIndex,
         },
         checkOneRightAnswer: {
           index: rightAnswerIndex,
-          isCheck: 1
-        }
+          isCheck: 1,
+        },
       });
       if (answers.length >= 5) display = "none";
     }
     if (questionsArr.length >= 5) display = "none";
     this.setState({
-      isDisplay: display
+      isDisplay: display,
     });
   }
-  handleOnclickDeleteOptions = index => {
+  handleOnclickDeleteOptions = (index) => {
     let { data } = this.props;
     if (typeof data === "undefined") {
       listAns.splice(index, 1);
       this.setState({
-        questionsArr: listAns
+        questionsArr: listAns,
       });
       //console.log("delete", this.state.questionsArr);
     } else {
       listAns = this.state.answers;
       listAns.splice(index, 1);
       this.setState({
-        answers: listAns
+        answers: listAns,
       });
       //console.log("delete", this.state.answers);
     }
     if (listAns.length < 5) {
       this.setState({
-        isDisplay: "block"
+        isDisplay: "block",
       });
     }
   };
@@ -140,7 +141,7 @@ class QuestionCreatePopup extends React.Component {
       let indexTempt = answers[answers.length - 1].index + 1;
       arr.push({ index: indexTempt });
       this.setState({
-        answers: arr
+        answers: arr,
       });
       answers.length < 5 ? (display = "block") : (display = "none");
     } else {
@@ -148,16 +149,16 @@ class QuestionCreatePopup extends React.Component {
       listAns.push({ index: indexTempt });
       //console.log(listAns);
       this.setState({
-        questionsArr: listAns
+        questionsArr: listAns,
       });
       questionsArr.length < 5 ? (display = "block") : (display = "none");
     }
 
     this.setState({
-      isDisplay: display
+      isDisplay: display,
     });
   };
-  onSubmitHandle = event => {
+  onSubmitHandle = (event) => {
     event.preventDefault();
     let isCheck = 0;
     for (let i = 0; i < listAns.length; i++)
@@ -171,7 +172,7 @@ class QuestionCreatePopup extends React.Component {
         title: "Please check the right answer !!",
         showConfirmButton: false,
         timer: 1500,
-        heightAuto: false
+        heightAuto: false,
       });
     else {
       for (let i = 0; i < listAns.length; i++)
@@ -197,7 +198,7 @@ class QuestionCreatePopup extends React.Component {
           index - 1
         );
         this.setState({
-          answers: []
+          answers: [],
         });
       }
 
@@ -210,18 +211,18 @@ class QuestionCreatePopup extends React.Component {
     listAns[index] = answer;
     console.log(listAns);
   };
-  checkOneRightAnswerHandler = index => {
+  checkOneRightAnswerHandler = (index) => {
     let { temptCheck, checkOneRightAnswer } = this.state;
     if (!Object.keys(temptCheck).length) {
       this.setState({
         temptCheck: {
           ...temptCheck,
-          index: index
+          index: index,
         },
         checkOneRightAnswer: {
           index: index,
-          isCheck: 1
-        }
+          isCheck: 1,
+        },
       });
     } else {
       let temptIndex = temptCheck;
@@ -230,8 +231,8 @@ class QuestionCreatePopup extends React.Component {
           temptCheck: {},
           checkOneRightAnswer: {
             index: -1,
-            isCheck: 0
-          }
+            isCheck: 0,
+          },
         });
       } else {
         Swal.fire({
@@ -240,31 +241,31 @@ class QuestionCreatePopup extends React.Component {
           title: "You have to choose 1 right answer!!",
           showConfirmButton: false,
           timer: 1500,
-          heightAuto: false
+          heightAuto: false,
         });
       }
     }
 
     //console.log(this.state.temptIndex);
   };
-  handleOnChangeInput = event => {
+  handleOnChangeInput = (event) => {
     let value = event.target.value;
     let name = event.target.name;
     this.setState({
       data: {
         ...this.state.data,
-        [name]: value
-      }
+        [name]: value,
+      },
     });
   };
-  onSelectTimeHandler = event => {
+  onSelectTimeHandler = (event) => {
     let data = this.state.data;
     data.time = parseInt(event);
     this.setState({
-      timeTitle: data.time
+      timeTitle: data.time,
     });
   };
-  onSelectQuestionTypeHandler = event => {
+  onSelectQuestionTypeHandler = (event) => {
     var chooseType = parseInt(event);
     let title = "";
     if (chooseType === 1) title = "Single answer";
@@ -274,25 +275,25 @@ class QuestionCreatePopup extends React.Component {
       questionType: {
         title: title,
         typeAnswer: chooseType,
-        isChange: true
+        isChange: true,
       },
       data: {
         ...this.state.data,
-        type: chooseType
-      }
+        type: chooseType,
+      },
     });
   };
   onChangeQuestionType = () => {
     this.setState({
       questionType: {
         ...this.state.questionType,
-        isChange: false
+        isChange: false,
       },
       temptCheck: {},
       checkOneRightAnswer: {
         index: -1,
-        isCheck: 0
-      }
+        isCheck: 0,
+      },
     });
   };
   render() {
@@ -302,7 +303,7 @@ class QuestionCreatePopup extends React.Component {
       answers,
       checkOneRightAnswer,
       timeTitle,
-      questionType
+      questionType,
     } = this.state;
     const { Option } = Select;
     let { index, data } = this.props;
@@ -427,16 +428,16 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateQuestionAndAnswersAPI: (data, answers, index) => {
       dispatch(actions.updateQuestionAndAnswersAPI(data, answers, index));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     answer: state.answer,
-    question: state.question
+    question: state.question,
   };
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(QuestionCreatePopup);
+)(withRouter(QuestionCreatePopup));

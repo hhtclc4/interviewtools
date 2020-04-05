@@ -4,7 +4,8 @@ import "./QuizThumbnail.scss";
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
 import QuizDetailTable from "./QuizDetailTable/QuizDetailTable";
-import history from "../../history";
+import { withRouter } from "react-router-dom";
+
 class QuizThumbnail extends React.Component {
   constructor(props) {
     super(props);
@@ -16,20 +17,20 @@ class QuizThumbnail extends React.Component {
         image: null,
         played: 0,
 
-        questions: []
+        questions: [],
       },
       attemptList: [],
       isCompleted: false,
       isRunning: false,
       isShowPopup: false,
-      accuracy: 0
+      accuracy: 0,
     };
   }
   componentDidMount() {
     let { data, isCompleted } = this.props;
     if (typeof isCompleted !== "undefined") {
       this.setState({
-        isCompleted: isCompleted
+        isCompleted: isCompleted,
       });
       //get array of attempt
       let temptARR = [];
@@ -48,40 +49,40 @@ class QuizThumbnail extends React.Component {
         temptARR.push(tempt);
       }
       this.setState({
-        attemptList: temptARR
+        attemptList: temptARR,
       });
       this.calculate(temptARR);
     }
     this.setState({
-      data: data
+      data: data,
     });
   }
   onClickHandler = () => {
     let question_table_id = this.props.data.id;
     if (this.state.isCompleted)
-      history.push(`/join/pre-game/${question_table_id}`);
+      this.props.history.push(`/pre-game/${question_table_id}`);
     else this.togglePopup();
   };
   togglePopup = () => {
     this.setState({
-      isShowPopup: !this.state.isShowPopup
+      isShowPopup: !this.state.isShowPopup,
     });
   };
-  calculate = attemptList => {
+  calculate = (attemptList) => {
     let accuracyArr = [];
-    attemptList.forEach(answerRecord => {
+    attemptList.forEach((answerRecord) => {
       accuracyArr.push(this.calculateAccuracy(answerRecord));
     });
     let accuracy = Math.max(...accuracyArr);
     this.setState({
-      accuracy: accuracy
+      accuracy: accuracy,
     });
   };
 
-  calculateAccuracy = data => {
+  calculateAccuracy = (data) => {
     //calculate the accuracy
     let rightAnswer = 0;
-    data.forEach(attempt => {
+    data.forEach((attempt) => {
       if (attempt.question.type === 1) {
         if (attempt.question_choice.is_right === 1) rightAnswer++;
       } else if (attempt.question.type === 2) {
@@ -99,14 +100,14 @@ class QuizThumbnail extends React.Component {
       }
     });
     let textQuestion = 0;
-    data.forEach(sub => {
+    data.forEach((sub) => {
       if (sub.question.type === 3) textQuestion++;
     });
     let accuracy =
       (rightAnswer / (data.length - textQuestion)).toFixed(2) * 100;
     return accuracy;
   };
-  accuracyColor = accuracy => {
+  accuracyColor = (accuracy) => {
     switch (true) {
       case accuracy <= 10:
         return "#ff0000";
@@ -187,15 +188,18 @@ class QuizThumbnail extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    showListQuestionAnswer: question_table_id => {
+    showListQuestionAnswer: (question_table_id) => {
       dispatch(actions.showListQuestionAnswer(question_table_id));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    user: state.user
+    user: state.user,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(QuizThumbnail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(QuizThumbnail));

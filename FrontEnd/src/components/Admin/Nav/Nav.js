@@ -1,8 +1,9 @@
 import React from "react";
 import "./Nav.scss";
-import history from "../../../history";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { withRouter } from "react-router-dom";
+
 class AdminNav extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +21,7 @@ class AdminNav extends React.Component {
         <div className="admin-nav-btn">
           <button
             onClick={() => {
-              history.push("/join");
+              this.props.history.push("/join");
             }}
           >
             <FontAwesomeIcon icon={faPlusCircle} />
@@ -32,4 +33,4 @@ class AdminNav extends React.Component {
   }
 }
 
-export default AdminNav;
+export default withRouter(AdminNav);

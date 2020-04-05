@@ -2,6 +2,8 @@ import React from "react";
 import "./ProgressCircle.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBullseye } from "@fortawesome/free-solid-svg-icons";
+import { withRouter } from "react-router-dom";
+
 class ProgressCircle extends React.Component {
   constructor(props) {
     super(props);
@@ -29,4 +31,4 @@ class ProgressCircle extends React.Component {
   }
 }
 
-export default ProgressCircle;
+export default withRouter(ProgressCircle);

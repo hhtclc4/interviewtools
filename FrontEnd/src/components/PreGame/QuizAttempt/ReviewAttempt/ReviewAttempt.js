@@ -5,7 +5,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import ReviewQuestion from "./ReviewQuestion/ReviewQuestion";
-import history from "../../../../history";
+import { withRouter } from "react-router-dom";
 class ReviewAttempt extends React.Component {
   constructor(props) {
     super(props);
@@ -17,17 +17,17 @@ class ReviewAttempt extends React.Component {
           choice_id: 0,
           multi_choice_id: 0,
           multi_choice: {
-            question_choices: []
+            question_choices: [],
           },
           question: {
             type: 1,
-            question_choices: []
+            question_choices: [],
           },
           question_choice: {
-            is_right: false
-          }
-        }
-      ]
+            is_right: false,
+          },
+        },
+      ],
     };
   }
 
@@ -39,14 +39,14 @@ class ReviewAttempt extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log(nextProps.attempt);
     this.setState({
-      data: nextProps.attempt
+      data: nextProps.attempt,
     });
   }
   calculateAccuracy = () => {
     let { data } = this.state;
     let rightAnswer = this.correctAnswer();
     let textQuestion = 0;
-    data.forEach(sub => {
+    data.forEach((sub) => {
       if (sub.question.type === 3) textQuestion++;
     });
     let accuracy =
@@ -57,7 +57,7 @@ class ReviewAttempt extends React.Component {
     let { data } = this.state;
     //calculate the accuracy
     let rightAnswer = 0;
-    data.forEach(attempt => {
+    data.forEach((attempt) => {
       if (attempt.question.type === 1) {
         if (attempt.question_choice.is_right === 1) rightAnswer++;
       } else if (attempt.question.type === 2) {
@@ -88,7 +88,7 @@ class ReviewAttempt extends React.Component {
   textAnswer = () => {
     let { data } = this.state;
     let textAnswer = 0;
-    data.forEach(attempt => {
+    data.forEach((attempt) => {
       if (attempt.question.type === 3) textAnswer++;
     });
     return textAnswer;
@@ -97,7 +97,7 @@ class ReviewAttempt extends React.Component {
     let { data } = this.state;
     let unAttemptAnswer = 0;
     //   data.length - (this.correctAnswer() + this.inCorrectAnswer());
-    data.forEach(attempt => {
+    data.forEach((attempt) => {
       if (attempt.question.type === 1) {
         if (attempt.question_choice.is_right === 2) unAttemptAnswer++;
       } else if (attempt.question.type === 2) {
@@ -107,7 +107,7 @@ class ReviewAttempt extends React.Component {
     });
     return unAttemptAnswer;
   };
-  getQuestionBorderColor = data => {
+  getQuestionBorderColor = (data) => {
     let answerColor = [];
     let multiRightCount = 0;
     let questionRightTotal = 0;
@@ -163,6 +163,7 @@ class ReviewAttempt extends React.Component {
   };
   render() {
     let { data } = this.state;
+    let { history } = this.props;
     let question_table_id = parseInt(this.props.match.params.question_table_id);
     let accuracy = 0;
     accuracy = this.calculateAccuracy();
@@ -197,7 +198,7 @@ class ReviewAttempt extends React.Component {
       <div className="review-attempt-container">
         <div className="review-attempt-nav">
           <button
-            onClick={() => history.push(`/join/pre-game/${question_table_id}`)}
+            onClick={() => history.push(`/pre-game/${question_table_id}`)}
           >
             <span>
               <FontAwesomeIcon icon={faTimes} />
@@ -208,7 +209,7 @@ class ReviewAttempt extends React.Component {
           <div className="review-sumary">
             <div className="stick-top-action-container">
               <button
-                onClick={() => history.push(`/join/game/${question_table_id}`)}
+                onClick={() => history.push(`/game/${question_table_id}`)}
               >
                 Play again
               </button>
@@ -247,7 +248,7 @@ class ReviewAttempt extends React.Component {
                         ? {
                             borderTopRightRadius: "30px",
                             borderBottomRightRadius: "30px",
-                            width: progressBar
+                            width: progressBar,
                           }
                         : { width: progressBar }
                     }
@@ -309,12 +310,15 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     getAttempt: (question_table_id, attempt_id) => {
       dispatch(actions.getAttempt(question_table_id, attempt_id));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    attempt: state.attempt
+    attempt: state.attempt,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewAttempt);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ReviewAttempt));

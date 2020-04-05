@@ -1,5 +1,7 @@
 import React from "react";
 import "./DoQuiz.scss";
+import { withRouter } from "react-router-dom";
+
 import DoingQuiz from "../../components/DoingQuiz/DoingQuiz";
 class DoQuiz extends React.Component {
   constructor(props) {
@@ -8,7 +10,7 @@ class DoQuiz extends React.Component {
   }
 
   componentDidMount() {
-    document.title = "Join a quiz"
+    document.title = "Join a quiz";
   }
   render() {
     return (
@@ -21,4 +23,4 @@ class DoQuiz extends React.Component {
   }
 }
 
-export default DoQuiz;
+export default withRouter(DoQuiz);

@@ -16,7 +16,7 @@ router.post("/api/quiz_attempt", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     AnswerRecord.max("id", {
       where: {
-        user_id: authData.user_id.id,
+        user_id: authData.user_id,
         question_table_id: req.body.question_table_id
       }
     })
@@ -25,7 +25,7 @@ router.post("/api/quiz_attempt", verifyToken, (req, res) => {
           let attempt = await AnswerRecord.findAll({
             where: {
               id: i,
-              user_id: authData.user_id.id,
+              user_id: authData.user_id,
               question_table_id: req.body.question_table_id
             },
             include: [
@@ -57,20 +57,34 @@ router.post("/api/quiz_attempt", verifyToken, (req, res) => {
   });
 });
 //login check email password
-router.post("/api/get_user", (req, res) =>
+router.post("/api/login_user", (req, res) =>
   User.findOne({
     where: {
       email: req.body.email,
       password: req.body.password
-    },
-    attributes: ["id"]
-  }).then(user_id => {
-    if (user_id === null) res.sendStatus(403);
+    }
+  }).then(user => {
+    if (user.id === null) res.sendStatus(403);
     else {
-      jwt.sign({ user_id }, "hoangtri", function(err, token) {
+      jwt.sign({ user_id: user.id }, "hoangtri", function(err, token) {
         if (err) res.sendStatus(403);
-        res.send({ token: token });
+        res.send({ data: user, token: token });
       });
+    }
+  })
+);
+router.post("/api/get_user", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      User.findOne({
+        where: {
+          id: authData.user_id
+        }
+      })
+        .then(data => res.send(data))
+
+        .catch(err => console.log(err));
     }
   })
 );
@@ -81,14 +95,14 @@ router.post("/api/user_answer", verifyToken, (req, res) => {
     else {
       AnswerRecord.max("id", {
         where: {
-          user_id: authData.user_id.id,
+          user_id: authData.user_id,
           question_table_id: req.body[0].question_table_id
         }
       })
         .then(async id => {
           let recordAnswer = async () => {
             for (let i = 0; i < req.body.length; i++) {
-              req.body[i].user_id = authData.user_id.id;
+              req.body[i].user_id = authData.user_id;
               req.body[i].id = id + 1;
               let { question_choices } = req.body[i].multi_choice;
               if (req.body[i].type !== 2)
@@ -150,7 +164,7 @@ router.post("/api/attempt_record", verifyToken, (req, res) => {
         ],
         where: {
           id: req.body.attempt_id,
-          user_id: authData.user_id.id,
+          user_id: authData.user_id,
           question_table_id: req.body.question_table_id
         }
       })
@@ -167,7 +181,7 @@ router.post("/api/is_user_did_table", verifyToken, (req, res) =>
     else {
       AnswerRecord.findOne({
         where: {
-          user_id: authData.user_id.id,
+          user_id: authData.user_id,
           question_table_id: req.body.question_table_id
         }
       })
@@ -185,7 +199,7 @@ router.post("/api/report", verifyToken, async (req, res) =>
     else {
       QuestionTable.findAll({
         where: {
-          admin: authData.user_id.id,
+          admin: authData.user_id,
           is_finish: true
         },
         include: [
@@ -237,7 +251,7 @@ router.post("/api/get_completed_table", verifyToken, async (req, res) =>
     else {
       AnswerRecord.findAll({
         where: {
-          user_id: authData.user_id.id
+          user_id: authData.user_id
         },
         attributes: [
           Sequelize.fn("DISTINCT", Sequelize.col("question_table_id")),
@@ -273,7 +287,7 @@ router.post("/api/get_completed_table", verifyToken, async (req, res) =>
                       }
                     ],
                     where: {
-                      user_id: authData.user_id.id
+                      user_id: authData.user_id
                     }
                   },
                   {
@@ -310,7 +324,7 @@ router.post("/api/get_user_question_table", verifyToken, (req, res) =>
     else {
       User.findAll({
         where: {
-          id: authData.user_id.id
+          id: authData.user_id
         },
         include: [
           {

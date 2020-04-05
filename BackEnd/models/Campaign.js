@@ -16,8 +16,8 @@ const Campaign = db.define(
       defaultValue: null,
       primaryKey: false
     },
-    subject_id: {
-      type: "INT",
+    image: {
+      type: "LONGTEXT",
       allowNull: true,
       defaultValue: null,
       primaryKey: false

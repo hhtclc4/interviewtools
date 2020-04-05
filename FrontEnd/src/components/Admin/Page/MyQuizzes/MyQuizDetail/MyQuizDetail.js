@@ -1,10 +1,9 @@
 import React from "react";
 import "./MyQuizDetail.scss";
-import { withRouter } from "react-router-dom";
+import { withRouter, Route } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faBook } from "@fortawesome/free-solid-svg-icons";
-import { Route } from 'react-router-dom'
 
 class MyQuizDetail extends React.Component {
   constructor(props) {
@@ -19,16 +18,16 @@ class MyQuizDetail extends React.Component {
       level: 0,
       played: 0,
       title: "DOTA",
-      questions: []
+      questions: [],
     };
   }
   componentDidMount() {
     let { data } = this.props;
     this.setState({
-      ...data
+      ...data,
     });
   }
-  suffix = value => {
+  suffix = (value) => {
     switch (value) {
       case 1:
         return "st";
@@ -40,7 +39,7 @@ class MyQuizDetail extends React.Component {
         return "th";
     }
   };
-  gradeTitlePart = grade => {
+  gradeTitlePart = (grade) => {
     let title = "";
     let suffix = this.suffix(grade);
     if (grade === null) title = null;
@@ -110,8 +109,8 @@ class MyQuizDetail extends React.Component {
                   <span>
                     <FontAwesomeIcon icon={faPlay} color="#6B7C93" />
                   </span>
-              Played {played} times
-            </div>
+                  Played {played} times
+                </div>
                 <div className="grade">
                   <span>
                     <FontAwesomeIcon icon={faBook} color="#6B7C93" />
@@ -127,6 +126,5 @@ class MyQuizDetail extends React.Component {
     );
   }
 }
-
 
 export default withRouter(MyQuizDetail);
