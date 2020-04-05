@@ -47,3 +47,5 @@ export const CHECK_CANDIDATE = "CHECK_CANDIDATE";
 // access to push
 export const ACCESS_TO_PUSH = "ACCESS_TO_PUSH";
 export const ACCESS_TO_PUSH_QUIZ = "ACCESS_TO_PUSH_QUIZ";
+//interview
+export const SHOW_INTERVIEW = "SHOW_INTERVIEW";

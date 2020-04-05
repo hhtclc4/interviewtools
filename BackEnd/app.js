@@ -18,7 +18,7 @@ app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 //test DB
 db.authenticate()
   .then(() => console.log("Database connected..."))
-  .catch(err => console.log("Error: " + err));
+  .catch((err) => console.log("Error: " + err));
 //routers
 app.use(association);
 app.use(routersCampaign);
