@@ -7,6 +7,7 @@ import { fakeEmails } from "./FakeEmails";
 import InterviewThumbnail from "./Thumbnail/Thumbnail";
 import { Menu, Dropdown, Button, Icon } from "antd";
 import { withRouter } from "react-router-dom";
+import InterviewPopup from './Popup'
 
 class HRInterview extends React.Component {
   _isMounted = false;
@@ -22,6 +23,7 @@ class HRInterview extends React.Component {
       chosenEmails: [],
       isFocusCreater: false,
       isFocusEmails: false,
+      isShowPopup: false,// State for Popup
     };
   }
   componentDidMount() {
@@ -78,7 +80,7 @@ class HRInterview extends React.Component {
     }
   };
 
-  handleMenuClick = (e) => {
+  handleMenuClick = (e) => { //function of ant design
     console.log("click", e);
   };
 
@@ -88,6 +90,17 @@ class HRInterview extends React.Component {
     });
     //this.outsideClick.current.click();
   };
+
+  toggleInterviewPopup = () => {
+    let { isShowPopup } = this.state;
+
+    if (isShowPopup === true) {
+      this.setState({
+        isShowPopup: !isShowPopup,
+      });
+    }
+  }
+
 
   render() {
     const menu = (
@@ -106,7 +119,6 @@ class HRInterview extends React.Component {
           <div className="col-md-9">
             <div
               className="creater-container"
-              style={this.state.isFocusCreater ? { zIndex: "15" } : null}
             >
               <div className="create-new-interview-period-container d-flex flex-column">
                 <div className="interview-section-title">
@@ -114,9 +126,6 @@ class HRInterview extends React.Component {
                 </div>
                 <div
                   className="create-new-interview-period d-flex flex-row justify-content-between p-3 flex-wrap"
-                  style={
-                    this.state.isFocusCreater ? { borderRadius: "10px" } : null
-                  }
                 >
                   <div className="cni-name mb-2 mr-2">
                     <p>Set interview name</p>
@@ -185,8 +194,12 @@ class HRInterview extends React.Component {
                   </div>
                   <div className="cni-btn align-self-center mt-3 mb-5">
                     <button
-                      onClick={(e) =>
-                        this.handleClickCreateNew(isFocusCreater, isFocusEmails)
+                      onClick={() => {
+                        this.setState({
+                          isShowPopup: !this.state.isShowPopup,
+                        })
+                        this.toggleInterviewPopup()
+                      }
                       }
                       style={
                         this.state.isFocusCreater || isFocusEmails
@@ -242,7 +255,6 @@ class HRInterview extends React.Component {
                               icon={faPlus}
                               size="lg"
                               color="white"
-                              onClick={(e) => this.chooseEmailHandler(email)}
                             />
                           </button>
                         </div>
@@ -271,7 +283,6 @@ class HRInterview extends React.Component {
                                 icon={faMinus}
                                 size="lg"
                                 color="white"
-                                onClick={(e) => this.removeEmailHandler(email)}
                               />
                             </button>
                           </div>
@@ -302,7 +313,14 @@ class HRInterview extends React.Component {
             <InterviewThumbnail />
           </div>
         </div>
-      </div>
+        {
+          this.state.isShowPopup ?
+            (<InterviewPopup
+              closePopup={this.toggleInterviewPopup}
+            />)
+            : null
+        }
+      </div >
     );
   }
 }
