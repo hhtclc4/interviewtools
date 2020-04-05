@@ -3,27 +3,45 @@ import "./RecruitThumbnail.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
-  faMapMarkerAlt
+  faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import history from "../../history";
+import { withRouter } from "react-router-dom";
 class RecruitThumbnail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       postFeature: "none",
       data: {
+        id: 0,
         title: "",
+        subject_id: 0,
+        company_address: "",
+        level_id: 0,
+        amount_required: 0,
+        work_type_id: 0,
+        sex: 0,
+        experience: 0,
         salary: 0,
-        work_address: "",
-        location: ""
-      }
+        deadline: "",
+        user_id: 0,
+        work_description: "",
+        candidate_req: "",
+        candidate_benefits: "",
+        location: "",
+        subjects: [
+          {
+            id: 0,
+            title: "",
+          },
+        ],
+      },
     };
   }
 
   componentDidMount() {
     let { data } = this.props;
     this.setState({
-      data
+      data,
     });
   }
   render() {
@@ -34,8 +52,10 @@ class RecruitThumbnail extends React.Component {
         <div
           className="recruit-thumb-container"
           onClick={() => {
+            localStorage.setItem("campaign_id", this.props.data.id);
             localStorage.setItem("campaign_index", this.props.index);
-            history.push("/detail_recruit");
+
+            this.props.history.push("/detail_recruit");
           }}
         >
           <div className="re-crop-img">
@@ -85,4 +105,4 @@ class RecruitThumbnail extends React.Component {
   }
 }
 
-export default RecruitThumbnail;
+export default withRouter(RecruitThumbnail);

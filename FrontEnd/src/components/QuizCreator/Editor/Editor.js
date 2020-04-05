@@ -7,7 +7,7 @@ import "font-awesome/css/font-awesome.min.css";
 //import ToggleBox from '../ToggleBox/ToggleBox';
 import { connect } from "react-redux";
 import * as actions from "./../../../redux/actions/index";
-import history from "../../../history";
+import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,
@@ -16,7 +16,7 @@ import {
   faEyeSlash,
   faGraduationCap,
   faBook,
-  faUpload
+  faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import CreatePopUp from "./CreatePopUp";
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
@@ -28,6 +28,7 @@ class QuizCreatorEditor extends React.Component {
   constructor() {
     super();
     this.state = {
+      accessToPush: false,
       showPopupCreate: false,
       showPopupEdit: false,
       showPopupPreview: false,
@@ -46,11 +47,11 @@ class QuizCreatorEditor extends React.Component {
         is_public: true,
         subject: {
           id: 0,
-          title: ""
+          title: "",
         },
         grade_begin: null,
-        grade_end: null
-      }
+        grade_end: null,
+      },
     };
   }
   togglePopup = () => {
@@ -59,12 +60,12 @@ class QuizCreatorEditor extends React.Component {
     if (showPopupEdit === true) {
       this.setState({
         showPopupEdit: !showPopupEdit,
-        dataEdit: {}
+        dataEdit: {},
       });
     }
     if (showPopupCreate === true) {
       this.setState({
-        showPopupCreate: !showPopupCreate
+        showPopupCreate: !showPopupCreate,
       });
     }
   };
@@ -74,7 +75,7 @@ class QuizCreatorEditor extends React.Component {
 
     if (showPopupPreview === true) {
       this.setState({
-        showPopupPreview: !showPopupPreview
+        showPopupPreview: !showPopupPreview,
       });
     }
   };
@@ -84,7 +85,7 @@ class QuizCreatorEditor extends React.Component {
 
     if (showPopupSubject === true) {
       this.setState({
-        showPopupSubject: !showPopupSubject
+        showPopupSubject: !showPopupSubject,
       });
     }
   };
@@ -94,7 +95,7 @@ class QuizCreatorEditor extends React.Component {
 
     if (showPopUpImport === true) {
       this.setState({
-        showPopUpImport: !showPopUpImport
+        showPopUpImport: !showPopUpImport,
       });
     }
   };
@@ -104,18 +105,21 @@ class QuizCreatorEditor extends React.Component {
 
     if (showTeleport === true) {
       this.setState({
-        showTeleport: !showTeleport
+        showTeleport: !showTeleport,
       });
     }
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     // use data take from step 3(storage), this is step 4
+    this.setState({
+      accessToPush: nextProps.accessToPush.push,
+    });
     if (nextProps.question === null) {
       if (nextProps.questionTable.is_finish)
         this.setState({ disabledIfFinished: true });
       this.setState({
-        table: nextProps.questionTable
+        table: nextProps.questionTable,
       });
     } else {
       let newTable = { ...this.state.table };
@@ -127,11 +131,11 @@ class QuizCreatorEditor extends React.Component {
     // take data via param on URL, run first, this is step 1
     let { question_table_id } = this.props.match.params;
     this.setState({
-      question_table_id: question_table_id
+      question_table_id: question_table_id,
     });
     this.props.showListQuestionAnswer(question_table_id);
   }
-  onClickDeleteHandler = index => {
+  onClickDeleteHandler = (index) => {
     let question_id = this.state.table.questions[index].id;
     this.props.deleteQuestionAndAnswersAPI(question_id, index);
   };
@@ -140,15 +144,15 @@ class QuizCreatorEditor extends React.Component {
       showPopupEdit: true,
       dataEdit: {
         index: index,
-        ...data
-      }
+        ...data,
+      },
     });
   };
   onClickFinishQuizHandler = () => {
     let { question_table_id } = this.props.match.params;
     this.props.finishQuestionTable(question_table_id);
   };
-  gradeTitlePart = grade => {
+  gradeTitlePart = (grade) => {
     if (grade === null) return null;
     if (grade === 1) return "Internship";
     if (grade === 2) return "Fresher";
@@ -172,20 +176,23 @@ class QuizCreatorEditor extends React.Component {
     this.setState({
       table: {
         ...this.state.table,
-        is_public: check
-      }
+        is_public: check,
+      },
     });
     this.props.updateTable({ id, is_public: check });
   };
   onClickTeleportHandler = () => {
     this.setState({
-      showTeleport: !this.state.showTeleport
+      showTeleport: !this.state.showTeleport,
     });
     this.togglePopupTeleport();
   };
   render() {
     let { image, subject, title, is_public } = this.state.table;
-    let { disabledIfFinished } = this.state;
+    let { disabledIfFinished, accessToPush } = this.state;
+    //after finish the quiz, then push to join page
+    if (accessToPush) this.props.history.push("/join/activity");
+
     let gradeTitle = this.gradeTitle();
     let element = this.state.table.questions.map((data, index) => {
       return (
@@ -209,7 +216,7 @@ class QuizCreatorEditor extends React.Component {
           <div className="button-group">
             <button
               className="b-exit button"
-              onClick={() => history.push("/join")}
+              onClick={() => this.props.history.push("/join")}
             >
               EXIT
             </button>
@@ -229,7 +236,7 @@ class QuizCreatorEditor extends React.Component {
               <button
                 onClick={() => {
                   this.setState({
-                    showPopupCreate: !this.state.showPopupCreate
+                    showPopupCreate: !this.state.showPopupCreate,
                   });
                   this.togglePopup();
                 }}
@@ -265,7 +272,7 @@ class QuizCreatorEditor extends React.Component {
                 className="quiz-image-choice-overlay"
                 onClick={() => {
                   this.setState({
-                    showPopupPreview: !this.state.showPopupPreview
+                    showPopupPreview: !this.state.showPopupPreview,
                   });
                   this.togglePopupPreview();
                 }}
@@ -292,7 +299,7 @@ class QuizCreatorEditor extends React.Component {
                       size="lg"
                       onClick={() => {
                         this.setState({
-                          showPopupSubject: !this.state.showPopupSubject
+                          showPopupSubject: !this.state.showPopupSubject,
                         });
                         this.togglePopupSubject();
                       }}
@@ -320,7 +327,7 @@ class QuizCreatorEditor extends React.Component {
                 <button
                   onClick={() => {
                     this.setState({
-                      showPopupPreview: !this.state.showPopupPreview
+                      showPopupPreview: !this.state.showPopupPreview,
                     });
                     this.togglePopupPreview();
                   }}
@@ -335,7 +342,7 @@ class QuizCreatorEditor extends React.Component {
                 <button
                   onClick={() => {
                     this.setState({
-                      showPopupSubject: !this.state.showPopupSubject
+                      showPopupSubject: !this.state.showPopupSubject,
                     });
                     this.togglePopupSubject();
                   }}
@@ -351,7 +358,7 @@ class QuizCreatorEditor extends React.Component {
                 <button
                   onClick={() => {
                     this.setState({
-                      showPopUpImport: !this.state.showPopUpImport
+                      showPopUpImport: !this.state.showPopUpImport,
                     });
                     this.togglePopupImport();
                   }}
@@ -399,8 +406,11 @@ class QuizCreatorEditor extends React.Component {
           ) : null}
 
           {this.state.showTeleport ? (
-            <Teleport               match={this.props.match}
-            closePopup={this.togglePopupTeleport} title={title} />
+            <Teleport
+              match={this.props.match}
+              closePopup={this.togglePopupTeleport}
+              title={title}
+            />
           ) : null}
         </div>
       </div>
@@ -410,25 +420,29 @@ class QuizCreatorEditor extends React.Component {
 const mapDispatchToProps = (dispatch, props) => {
   // connect to redux by function, load data from data base, this is step 2
   return {
-    showListQuestionAnswer: question_table_id => {
+    showListQuestionAnswer: (question_table_id) => {
       dispatch(actions.showListQuestionAnswer(question_table_id));
     },
     deleteQuestionAndAnswersAPI: (id, index) => {
       dispatch(actions.deleteQuestionAndAnswersAPI(id, index));
     },
-    finishQuestionTable: id => {
+    finishQuestionTable: (id) => {
       dispatch(actions.finishQuestionTable(id));
     },
-    updateTable: data => {
+    updateTable: (data) => {
       dispatch(actions.updateTable(data));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   //connect to redux by props, loadded data store here, this is step 3
   return {
     questionTable: state.questionTable,
-    question: state.question
+    question: state.question,
+    accessToPush: state.accessToPush,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(QuizCreatorEditor);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(QuizCreatorEditor));

@@ -2,7 +2,7 @@ import React from "react";
 import "./LoginPopup.scss";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 class LoginPopup extends React.Component {
   constructor(props) {
@@ -13,24 +13,24 @@ class LoginPopup extends React.Component {
       isLoading: false,
       isDisplay: "block",
       checkLogin: false,
-      token: ""
+      token: "",
     };
   }
-  onSubmitHandler = event => {
+  onSubmitHandler = (event) => {
     event.preventDefault();
     this.setState({
-      isLoading: true
+      isLoading: true,
     });
     this.props.loginAPI(this.state);
   };
-  onChangeHandler = e => {
+  onChangeHandler = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      isLoading: nextProps.login.isLoading
+      isLoading: nextProps.login.isLoading,
     });
     console.log(nextProps);
   }
@@ -78,8 +78,7 @@ class LoginPopup extends React.Component {
                       className={isLoading ? "fa fa-spinner fa-spin" : ""}
                     ></div>
                     LOGIN
-                </button>
-
+                  </button>
 
                   <button
                     className="b-close"
@@ -87,7 +86,7 @@ class LoginPopup extends React.Component {
                     onClick={this.props.togglePopup}
                   >
                     Close
-                </button>
+                  </button>
                 </div>
               </div>
               <div className="create-new-acc">
@@ -104,17 +103,17 @@ class LoginPopup extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    loginAPI: state => {
+    loginAPI: (state) => {
       dispatch(actions.loginAPI(state));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    login: state.login
+    login: state.login,
   };
 };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginPopup);
+)(withRouter(LoginPopup));

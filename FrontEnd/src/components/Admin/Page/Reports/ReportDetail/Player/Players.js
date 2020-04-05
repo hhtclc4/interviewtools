@@ -1,5 +1,7 @@
 import React from "react";
 import "./Players.scss";
+import { withRouter } from "react-router-dom";
+
 class ReportPlayers extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +10,7 @@ class ReportPlayers extends React.Component {
       correctAnswer: 0,
       inCorrectAnswer: 0,
       unAttempt: 0,
-      totalQuestion: 0
+      totalQuestion: 0,
     };
   }
   componentDidMount() {
@@ -16,23 +18,23 @@ class ReportPlayers extends React.Component {
     let accuracy = this.calculate(data.answer_records);
     accuracyForPlayers(accuracy);
   }
-  calculate = attemptList => {
+  calculate = (attemptList) => {
     let accuracyArr = [];
-    attemptList.forEach(answerRecord => {
+    attemptList.forEach((answerRecord) => {
       accuracyArr.push(this.calculateAccuracy(answerRecord));
     });
     let accuracy = Math.max(...accuracyArr);
     this.setState({
-      accuracy: accuracy
+      accuracy: accuracy,
     });
     return accuracy;
   };
 
-  calculateAccuracy = data => {
+  calculateAccuracy = (data) => {
     //calculate the accuracy
     let correctAnswer = 0;
     let unAttempt = 0;
-    data.forEach(attempt => {
+    data.forEach((attempt) => {
       if (attempt.question.type === 1) {
         if (attempt.question_choice.is_right === 1) correctAnswer++;
         if (attempt.question_choice.is_right === 2) unAttempt++;
@@ -51,7 +53,7 @@ class ReportPlayers extends React.Component {
       }
     });
     let textQuestion = 0;
-    data.forEach(sub => {
+    data.forEach((sub) => {
       if (sub.question.type === 3) textQuestion++;
     });
     if (correctAnswer > this.state.correctAnswer)
@@ -59,7 +61,7 @@ class ReportPlayers extends React.Component {
         correctAnswer: correctAnswer,
         totalQuestion: data.length - textQuestion,
         unAttempt: unAttempt,
-        inCorrectAnswer: data.length - textQuestion - correctAnswer - unAttempt
+        inCorrectAnswer: data.length - textQuestion - correctAnswer - unAttempt,
       });
     let accuracy =
       (correctAnswer / (data.length - textQuestion)).toFixed(2) * 100;
@@ -96,4 +98,4 @@ class ReportPlayers extends React.Component {
   }
 }
 
-export default ReportPlayers;
+export default withRouter(ReportPlayers);

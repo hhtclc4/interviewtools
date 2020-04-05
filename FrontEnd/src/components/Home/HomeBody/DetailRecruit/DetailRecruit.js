@@ -3,16 +3,19 @@ import "./DetailRecruit.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
-  faMapMarkerAlt
+  faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import SendCV from "./SendCVPopup";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
+import { withRouter } from "react-router-dom";
+
 class DetailRecruit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       showSendCVPopUp: false,
+      isSendCvBefore: false,
       data: {
         id: 0,
         title: "",
@@ -33,19 +36,29 @@ class DetailRecruit extends React.Component {
         subjects: [
           {
             id: 0,
-            title: ""
-          }
-        ]
-      }
+            title: "",
+          },
+        ],
+      },
     };
   }
   componentDidMount() {
+    let id = localStorage.getItem("campaign_id");
     let index = localStorage.getItem("campaign_index");
+
     this.props.showCampaign(index);
+    this.props.checkIfCandidateSendCVBefore(id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log(nextProps.candidate);
+
+    //   this.setState({
+    //     isSendCvBefore: true
+    //   });
+    // }
     this.setState({
-      data: nextProps.campaign
+      data: nextProps.campaign,
+      isSendCvBefore: nextProps.candidate.campaign_id === 0 ? false : true,
     });
   }
   toggleSendCVPopUp = () => {
@@ -53,12 +66,12 @@ class DetailRecruit extends React.Component {
 
     if (showSendCVPopUp === true) {
       this.setState({
-        showSendCVPopUp: !showSendCVPopUp
+        showSendCVPopUp: !showSendCVPopUp,
       });
     }
   };
   render() {
-    let { data } = this.state;
+    let { data, isSendCvBefore } = this.state;
     return (
       <div className="detail-recruit-container">
         <div className="dr-nav-container">
@@ -111,7 +124,7 @@ class DetailRecruit extends React.Component {
                 <div className="job-desc-about">
                   <div className="job-title">{data.title}</div>
                   <div className="job-subject-list d-flex flex-row justify-content-start">
-                    {data.subjects.map(subject => {
+                    {data.subjects.map((subject) => {
                       return (
                         <div key={subject.id} className="job-subject">
                           {subject.title}
@@ -144,10 +157,12 @@ class DetailRecruit extends React.Component {
                     <p>{data.location}</p>
                   </div>
                   <button
+                    disabled={isSendCvBefore}
+                    style={isSendCvBefore ? { opacity: "0.6" } : null}
                     className="apply-btn"
                     onClick={() => {
                       this.setState({
-                        showSendCVPopUp: !this.state.showSendCVPopUp
+                        showSendCVPopUp: !this.state.showSendCVPopUp,
                       });
                       this.toggleSendCVPopUp();
                     }}
@@ -173,15 +188,22 @@ class DetailRecruit extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    showCampaign: index => {
+    showCampaign: (index) => {
       dispatch(actions.showCampaign(index));
-    }
+    },
+    checkIfCandidateSendCVBefore: (campaign_id) => {
+      dispatch(actions.checkIfCandidateSendCVBefore(campaign_id));
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    campaign: state.campaign
+    campaign: state.campaign,
+    candidate: state.candidate,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailRecruit);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(DetailRecruit));

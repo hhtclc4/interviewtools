@@ -1,6 +1,7 @@
 import React from "react";
 import "./CreatedQuizzes.scss";
 import QuizThumbnail from "../../../../utils/QuizThumbnail/QuizThumbnail";
+import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
@@ -10,8 +11,8 @@ class CreatedQuizzes extends React.Component {
     super(props);
     this.state = {
       data: {
-        question_tables: []
-      }
+        question_tables: [],
+      },
     };
   }
   componentDidMount() {
@@ -22,7 +23,7 @@ class CreatedQuizzes extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     //console.log("created", nextProps.user);
     this.setState({
-      data: nextProps.user[0]
+      data: nextProps.user[0],
     });
   }
   render() {
@@ -49,13 +50,16 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListQuestionTable: () => {
       dispatch(actions.showListQuestionTable());
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    user: state.user
+    user: state.user,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CreatedQuizzes);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CreatedQuizzes));

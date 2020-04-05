@@ -3,12 +3,13 @@ import "./CompletedQuizzes.scss";
 import QuizThumbnail from "../../../../utils/QuizThumbnail/QuizThumbnail";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
+import { withRouter } from "react-router-dom";
 
 class CompletedQuizzes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
     };
   }
   componentDidMount() {
@@ -18,7 +19,7 @@ class CompletedQuizzes extends React.Component {
     console.log("completed", nextProps.completed);
     let { completedQuiz } = nextProps.completed;
     this.setState({
-      data: completedQuiz
+      data: completedQuiz,
     });
   }
 
@@ -54,14 +55,17 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListUserDoQuestionTable: () => {
       dispatch(actions.showListUserDoQuestionTable());
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
     user: state.user,
-    completed: state.completed
+    completed: state.completed,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CompletedQuizzes);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CompletedQuizzes));

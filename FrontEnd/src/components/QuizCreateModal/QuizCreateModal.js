@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
 import "./QuizCreateModal.scss";
-import history from "../../history";
+import { withRouter } from "react-router-dom";
 
 class QuizCreate extends React.Component {
   constructor(props) {
@@ -11,9 +11,13 @@ class QuizCreate extends React.Component {
       id: 0,
       data: {
         title: "",
-        subject_id: 0
+        subject_id: 0,
       },
-      subject: []
+      subject: [],
+      accessToPush: {
+        question_table_id: 0,
+        push: false,
+      },
     };
   }
 
@@ -23,34 +27,38 @@ class QuizCreate extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      subject: nextProps.subject.subjects
+      subject: nextProps.subject.subjects,
+      accessToPush: nextProps.accessToPush,
     });
   }
-  onSubmitHandler = event => {
+  onSubmitHandler = (event) => {
     event.preventDefault();
     //console.log(this.state.data);
     this.props.createQuestionTable(this.state.data);
   };
 
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     let { name, value } = event.target;
     let tempt = 0;
     //set type = Integer
     if (event.target.type === "button") {
       tempt = parseInt(value);
     } else tempt = value;
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       data: {
         // object that we want to update
         ...prevState.data, // keep all other key-value pairs
-        [name]: tempt // update the value of specific key
-      }
+        [name]: tempt, // update the value of specific key
+      },
     }));
   };
 
   render() {
-    let { data } = this.state;
-    const element = this.state.subject.map(subj => {
+    let { data, accessToPush } = this.state;
+    if (accessToPush.push)
+      this.props.history.push(`/quiz/${accessToPush.question_table_id}`);
+
+    const element = this.state.subject.map((subj) => {
       return (
         //active-subject
         <div
@@ -100,9 +108,9 @@ class QuizCreate extends React.Component {
                     background: "#d9d9d9",
                     color: "black",
                     boxShadow: "none",
-                    top: 0
+                    top: 0,
                   }}
-                  onClick={() => history.push("/")}
+                  onClick={() => this.props.history.push("/")}
                 >
                   Cancel
                 </button>
@@ -120,15 +128,19 @@ const mapDispatchToProps = (dispatch, props) => {
     showListSubject: () => {
       dispatch(actions.showListSubject());
     },
-    createQuestionTable: data => {
+    createQuestionTable: (data) => {
       dispatch(actions.createQuestionTable(data));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    subject: state.subject
+    subject: state.subject,
+    accessToPush: state.accessToPush,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(QuizCreate);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(QuizCreate));

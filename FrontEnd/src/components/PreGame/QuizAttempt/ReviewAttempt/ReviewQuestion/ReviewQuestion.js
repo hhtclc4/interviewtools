@@ -1,5 +1,6 @@
 import React from "react";
 import "./ReviewQuestion.scss";
+import { withRouter } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
@@ -11,40 +12,40 @@ class ReviewQuestion extends React.Component {
         question: {
           question: "",
           question_choices: [],
-          is_one_right_ans: 1
+          is_one_right_ans: 1,
         },
         question_choice: {
           id: 0,
-          is_right: 0
+          is_right: 0,
         },
         multi_choice: {
           question_choice: {
             id: 0,
-            is_right: 0
-          }
-        }
+            is_right: 0,
+          },
+        },
       },
-      rightQuestionColor: ""
+      rightQuestionColor: "",
     };
   }
   componentDidMount() {
     let { data, answerColor } = this.props;
     this.setState({
       data: data,
-      rightQuestionColor: answerColor
+      rightQuestionColor: answerColor,
     });
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     let { answerColor } = nextProps;
     // console.log("answerColor", answerColor);
     this.setState({
-      rightQuestionColor: answerColor
+      rightQuestionColor: answerColor,
     });
   }
   render() {
     //console.log(this.state.rightQuestionColor);
     let { index, data } = this.props;
-    let answerElm = data.question.question_choices.map(answerList => {
+    let answerElm = data.question.question_choices.map((answerList) => {
       let choiceColor = "";
       //question unattempt
       if (answerList.is_right === 1) choiceColor = "#00c985";
@@ -96,4 +97,4 @@ class ReviewQuestion extends React.Component {
   }
 }
 
-export default ReviewQuestion;
+export default withRouter(ReviewQuestion);

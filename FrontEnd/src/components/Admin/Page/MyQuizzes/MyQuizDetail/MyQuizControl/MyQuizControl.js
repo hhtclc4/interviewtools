@@ -1,6 +1,6 @@
 import React from "react";
 import "./MyQuizControl.scss";
-import { withRouter } from "react-router-dom";
+import { withRouter, NavLink } from "react-router-dom";
 
 import { connect } from "react-redux";
 import * as actions from "../../../../../../redux/actions/index";
@@ -16,7 +16,7 @@ import {
   faUser,
   faComments,
   faEye,
-  faEyeSlash
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 
 import QuizControlQuestionDetail from "./QuestionDetail/QuestionDetail";
@@ -35,8 +35,8 @@ class MyQuizControl extends React.Component {
       title: "DOTA",
       questions: [],
       subject: {
-        title: ""
-      }
+        title: "",
+      },
     };
   }
   componentDidMount() {
@@ -49,7 +49,7 @@ class MyQuizControl extends React.Component {
     for (let i = 0; i < question_tables.length; i++)
       if (question_tables[i].id === question_table_id) {
         this.setState({
-          ...question_tables[i]
+          ...question_tables[i],
         });
         break;
       }
@@ -134,14 +134,13 @@ class MyQuizControl extends React.Component {
             </div>
             <div className="action-btn-group">
               <button className="action-btn b-host">Live game</button>
-              <button
+              <NavLink
                 className="action-btn b-host"
-                onClick={() => {
-                  history.push(`/admin/quiz/homework/${question_table_id}`);
-                }}
+                exact
+                to={`/admin/quiz/homework/${question_table_id}`}
               >
                 Homework
-              </button>
+              </NavLink>
             </div>
           </div>
 
@@ -194,13 +193,13 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListQuestionTable: () => {
       dispatch(actions.showListQuestionTable());
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    user: state.user
+    user: state.user,
   };
 };
 export default connect(

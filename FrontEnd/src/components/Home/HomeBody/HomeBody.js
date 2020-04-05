@@ -4,6 +4,7 @@ import RecruitThumbnail from "../../../utils/RecruitThumbnail/RecruitThumbnail";
 import { Tabs, Panel } from "../../../utils/Tab/Tabs";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
+import { withRouter } from "react-router-dom";
 class HomeBody extends React.Component {
   constructor(props) {
     super(props);
@@ -25,9 +26,9 @@ class HomeBody extends React.Component {
           user_id: 0,
           work_description: "",
           candidate_req: "",
-          candidate_benefits: ""
-        }
-      ]
+          candidate_benefits: "",
+        },
+      ],
     };
   }
 
@@ -37,7 +38,7 @@ class HomeBody extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      data: nextProps.campaign
+      data: nextProps.campaign,
     });
     console.log(nextProps);
   }
@@ -85,14 +86,17 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListCampaign: () => {
       dispatch(actions.showListCampaign());
-    }
+    },
   };
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    campaign: state.campaign
+    campaign: state.campaign,
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeBody);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(HomeBody));

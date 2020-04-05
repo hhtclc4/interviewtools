@@ -1,5 +1,6 @@
 import React from "react";
 import "./QuestionDetail.scss";
+import { withRouter } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle, faClock } from "@fortawesome/free-solid-svg-icons";
@@ -9,20 +10,20 @@ class QuizControlQuestionDetail extends React.Component {
     this.state = {
       question: "",
       time: 0,
-      question_choices: [{ id: 0, answer: "", is_right: false }]
+      question_choices: [{ id: 0, answer: "", is_right: false }],
     };
   }
   componentDidMount() {
     let { data } = this.props;
     console.log(data);
     this.setState({
-      ...data
+      ...data,
     });
   }
   render() {
     let { index } = this.props;
     let { question, time, question_choices } = this.state;
-    let element = question_choices.map(data => {
+    let element = question_choices.map((data) => {
       return (
         <div className="q-content" key={data.id}>
           <span>
@@ -68,4 +69,4 @@ class QuizControlQuestionDetail extends React.Component {
   }
 }
 
-export default QuizControlQuestionDetail;
+export default withRouter(QuizControlQuestionDetail);

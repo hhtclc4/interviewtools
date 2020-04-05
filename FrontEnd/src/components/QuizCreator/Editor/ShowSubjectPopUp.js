@@ -2,6 +2,8 @@ import React from "react";
 import "./Editor.scss";
 import { connect } from "react-redux";
 import * as actions from "./../../../redux/actions/index";
+import { withRouter } from "react-router-dom";
+
 class ShowSubjectPopUp extends React.Component {
   constructor(props) {
     super(props);
@@ -10,23 +12,23 @@ class ShowSubjectPopUp extends React.Component {
       subjects: [],
       subject: {
         id: 0,
-        title: ""
-      }
+        title: "",
+      },
     };
   }
   componentDidMount() {
     let { data } = this.props;
     this.props.showListSubject();
     this.setState({
-      ...data
+      ...data,
     });
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      subjects: nextProps.subject.subjects
+      subjects: nextProps.subject.subjects,
     });
   }
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     let { subjects } = this.state;
     let { name, value } = event.target;
     let tempt = 0;
@@ -36,14 +38,14 @@ class ShowSubjectPopUp extends React.Component {
       for (let i = 0; i < subjects.length; i++)
         if (subjects[i].id === tempt)
           this.setState({
-            subject: subjects[i]
+            subject: subjects[i],
           });
     } else tempt = value;
     this.setState({
-      [name]: tempt
+      [name]: tempt,
     });
   };
-  onSubmitHandler = event => {
+  onSubmitHandler = (event) => {
     event.preventDefault();
     console.log(this.state);
     this.props.updateTable(this.state);
@@ -53,7 +55,7 @@ class ShowSubjectPopUp extends React.Component {
   render() {
     let { subjects, title, subject_id } = this.state;
 
-    const element = subjects.map(subj => {
+    const element = subjects.map((subj) => {
       return (
         //active-subject
         <div
@@ -127,15 +129,18 @@ const mapDispatchToProps = (dispatch, props) => {
     showListSubject: () => {
       dispatch(actions.showListSubject());
     },
-    updateTable: data => {
+    updateTable: (data) => {
       dispatch(actions.updateTable(data));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    subject: state.subject
+    subject: state.subject,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ShowSubjectPopUp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ShowSubjectPopUp));

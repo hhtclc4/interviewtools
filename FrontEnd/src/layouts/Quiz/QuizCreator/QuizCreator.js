@@ -1,13 +1,15 @@
 import React from "react";
 import QuizCreateEditor from "../../../components/QuizCreator/Editor/Editor";
 import "./QuizCreator.scss";
+import { withRouter } from "react-router-dom";
+
 class QuizCreator extends React.Component {
   componentDidMount() {
-    document.title = "Quiz Creator"
+    document.title = "Quiz Creator";
   }
   render() {
-    return <QuizCreateEditor match={this.props.match} />;
+    return <QuizCreateEditor />;
   }
 }
 
-export default QuizCreator;
+export default withRouter(QuizCreator);

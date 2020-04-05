@@ -2,12 +2,14 @@ import React from "react";
 import "./QuestionShow.scss";
 import TimeBar from "../Timebar/TimeBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { withRouter } from "react-router-dom";
+
 import {
   faCheckSquare,
   faAngleRight,
   faPause,
   faCheck,
-  faTimes
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 class QuestionShow extends React.Component {
@@ -22,14 +24,14 @@ class QuestionShow extends React.Component {
       type: 1,
       disableButton: false,
       clicked: false,
-      mutiCheckArr: []
+      mutiCheckArr: [],
     };
   }
   componentDidMount() {
     let { question } = this.props;
     this.setState({
       ...question,
-      clicked: false
+      clicked: false,
     });
   }
   componentWillUnmount() {
@@ -38,7 +40,7 @@ class QuestionShow extends React.Component {
       let index = localStorage.getItem("choiceIndex");
       if (index === null) {
         let questionChoice = {
-          id: 0
+          id: 0,
         };
         this.props.recordAnswer(this.state.id, questionChoice, {}, null, type);
       } else
@@ -54,7 +56,7 @@ class QuestionShow extends React.Component {
       let multiArr = { question_choices: [] };
       for (let i = 0; i < mutiCheckArr.length; i++)
         multiArr.question_choices[i] = {
-          id: question_choices[mutiCheckArr[i]].id
+          id: question_choices[mutiCheckArr[i]].id,
         };
       console.log("multiArr", multiArr);
       this.props.recordAnswer(this.state.id, { id: 0 }, multiArr, null, type);
@@ -62,35 +64,35 @@ class QuestionShow extends React.Component {
       this.props.recordAnswer(this.state.id, { id: 0 }, {}, answer_text, type);
     }
   }
-  onClickCheckAnswer = index => {
+  onClickCheckAnswer = (index) => {
     //let { index, question } = this.props;
     let { question_choices, disableButton, type, mutiCheckArr } = this.state;
     if (type === 1) {
       if (disableButton === false) {
         this.setState({
-          clicked: true
+          clicked: true,
         });
         if (question_choices[index].is_right) {
-          this.setState(preState => ({
+          this.setState((preState) => ({
             question_choices: preState.question_choices.map((qChoice, i) => {
               return i === index ? { ...qChoice, check: true } : qChoice;
-            })
+            }),
           }));
         } else {
-          this.setState(preState => ({
+          this.setState((preState) => ({
             question_choices: preState.question_choices.map((qChoice, i) => {
               return i === index ? { ...qChoice, check: false } : qChoice;
-            })
+            }),
           }));
-          this.setState(preState => ({
-            question_choices: preState.question_choices.map(qChoice => {
+          this.setState((preState) => ({
+            question_choices: preState.question_choices.map((qChoice) => {
               return qChoice.is_right ? { ...qChoice, check: true } : qChoice;
-            })
+            }),
           }));
         }
         this.props.doneQuestionHandler();
         this.setState({
-          disableButton: true
+          disableButton: true,
         });
       }
     } else {
@@ -100,7 +102,7 @@ class QuestionShow extends React.Component {
         if (mutiCheckArr[i] === index) {
           Arr.splice(i, 1);
           this.setState({
-            mutiCheckArr: [...Arr]
+            mutiCheckArr: [...Arr],
           });
           unCheck = true;
           break;
@@ -108,7 +110,7 @@ class QuestionShow extends React.Component {
       if (!unCheck) {
         Arr.push(index);
         this.setState({
-          mutiCheckArr: [...Arr]
+          mutiCheckArr: [...Arr],
         });
       }
     }
@@ -120,49 +122,49 @@ class QuestionShow extends React.Component {
       if (question_choices[i].is_right) rightNumber++;
     //if (mutiCheckArr.length === rightNumber)
     this.setState({
-      clicked: true
+      clicked: true,
     });
     for (let index = 0; index < mutiCheckArr.length; index++)
       if (question_choices[mutiCheckArr[index]].is_right) {
-        this.setState(preState => ({
+        this.setState((preState) => ({
           question_choices: preState.question_choices.map((qChoice, i) => {
             return i === mutiCheckArr[index]
               ? { ...qChoice, check: true }
               : { ...qChoice };
-          })
+          }),
         }));
       } else {
-        this.setState(preState => ({
+        this.setState((preState) => ({
           question_choices: preState.question_choices.map((qChoice, i) => {
             return i === mutiCheckArr[index]
               ? { ...qChoice, check: false }
               : { ...qChoice };
-          })
+          }),
         }));
-        this.setState(preState => ({
-          question_choices: preState.question_choices.map(qChoice => {
+        this.setState((preState) => ({
+          question_choices: preState.question_choices.map((qChoice) => {
             return qChoice.is_right
               ? { ...qChoice, check: true }
               : { ...qChoice };
-          })
+          }),
         }));
       }
     if (mutiCheckArr.length !== rightNumber)
-      this.setState(preState => ({
-        question_choices: preState.question_choices.map(qChoice => {
+      this.setState((preState) => ({
+        question_choices: preState.question_choices.map((qChoice) => {
           return qChoice.is_right
             ? { ...qChoice, check: true }
             : { ...qChoice };
-        })
+        }),
       }));
 
     this.props.doneQuestionHandler();
   };
-  onChangeTextHandler = event => {
+  onChangeTextHandler = (event) => {
     let value = event.target.value;
     let name = event.target.name;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
   render() {
@@ -174,7 +176,7 @@ class QuestionShow extends React.Component {
       clicked,
       type,
       mutiCheckArr,
-      answer_text
+      answer_text,
     } = this.state;
     let { questionsLength, index } = this.props;
     console.log("questonchoices", question_choices);
@@ -294,4 +296,4 @@ class QuestionShow extends React.Component {
   }
 }
 
-export default QuestionShow;
+export default withRouter(QuestionShow);

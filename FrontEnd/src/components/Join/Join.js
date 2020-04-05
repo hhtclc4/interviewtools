@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 import QuizDetailTable from "../../utils/QuizThumbnail/QuizDetailTable/QuizDetailTable";
 import QuizThumbnail from "../../utils/QuizThumbnail/QuizThumbnail";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 class Join extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +13,7 @@ class Join extends React.Component {
       code: 0,
       user: {
         id: 0,
-        avatar: null
+        avatar: null,
       },
       questionTable: {},
       showQuizCode: false,
@@ -21,10 +21,10 @@ class Join extends React.Component {
       subjects: [
         {
           title: "",
-          question_tables: []
-        }
+          question_tables: [],
+        },
       ],
-      isFocusInput: false
+      isFocusInput: false,
     };
   }
 
@@ -41,10 +41,10 @@ class Join extends React.Component {
       showQuizCode: user.showQuizCode,
       questionTable: user.questionTable,
       completedQuiz: completed.completedQuiz,
-      subjects: subject.tablesBySubject
+      subjects: subject.tablesBySubject,
     });
   }
-  onChangeHandler = event => {
+  onChangeHandler = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
   enterCodeOnClickHandler = () => {
@@ -53,10 +53,10 @@ class Join extends React.Component {
 
   togglePopup = () => {
     this.setState({
-      showQuizCode: !this.state.showQuizCode
+      showQuizCode: !this.state.showQuizCode,
     });
   };
-  showLimitTableBySubject = question_tables => {
+  showLimitTableBySubject = (question_tables) => {
     let arr = [];
     for (let i = 0; i < 5; i++)
       if (typeof question_tables[i] !== "undefined") {
@@ -89,24 +89,24 @@ class Join extends React.Component {
     return arr;
   };
 
-  focusInputQuizCode = e => {
+  focusInputQuizCode = (e) => {
     if (this.node.contains(e.target)) {
       this.setState({
-        isFocusInput: true
+        isFocusInput: true,
       });
       return;
     } else {
       this.setState({
-        isFocusInput: false
+        isFocusInput: false,
       });
     }
   };
-  fileChangedHandler = event => {
+  fileChangedHandler = (event) => {
     let fileReader = new FileReader();
     let { user } = this.state;
     if (event.target.files[0]) {
       fileReader.readAsDataURL(event.target.files[0]); // fileReader.result -> URL.
-      fileReader.onload = progressEvent => {
+      fileReader.onload = (progressEvent) => {
         let url = fileReader.result;
         //console.log("url", url);
         // Something like: data:image/png;base64,iVBORw...Ym57Ad6m6uHj96js
@@ -155,7 +155,7 @@ class Join extends React.Component {
                 name="code"
                 onChange={this.onChangeHandler}
                 placeholder="Enter some quiz code "
-                ref={node => (this.node = node)}
+                ref={(node) => (this.node = node)}
                 autoComplete="off"
               />
               <button onClick={this.enterCodeOnClickHandler}>Join</button>
@@ -178,7 +178,7 @@ class Join extends React.Component {
                 style={{ display: "none" }}
                 type="file"
                 onChange={this.fileChangedHandler}
-                ref={fileInput => (this.fileInput = fileInput)}
+                ref={(fileInput) => (this.fileInput = fileInput)}
               />
               <div
                 className="add-profile-overlay"
@@ -229,7 +229,7 @@ class Join extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getQuestionTableByCode: code => {
+    getQuestionTableByCode: (code) => {
       dispatch(actions.getQuestionTableByCode(code));
     },
     showListUserDoQuestionTable: () => {
@@ -238,17 +238,17 @@ const mapDispatchToProps = (dispatch, props) => {
     showListTableBySubject: () => {
       dispatch(actions.showListTableBySubject());
     },
-    updateUser: user => {
+    updateUser: (user) => {
       dispatch(actions.updateUser(user));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
     user: state.user,
     completed: state.completed,
-    subject: state.subject
+    subject: state.subject,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Join);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Join));

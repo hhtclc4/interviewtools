@@ -5,112 +5,61 @@ import QuizCreator from "./layouts/Quiz/QuizCreator/QuizCreator";
 import QuizCreateModal from "./layouts/Quiz/QuizCreateModal/QuizCreateModal";
 
 import DoQuiz from "./layouts/DoQuiz/DoQuiz";
-import { Router, Route, Switch } from "react-router-dom";
-import history from "./history";
-
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Join from "./layouts/Join/Join";
 import Home from "./layouts/Home/Home";
 import PreGame from "./components/PreGame/PreGame";
 import ReviewAttempt from "./components/PreGame/QuizAttempt/ReviewAttempt/ReviewAttempt";
 import AdminLayout from "./layouts/Admin/Admin";
 import QuizStart from "./components/Join/QuizStart/QuizStart";
-import UserSettings from './components/Join/UserSettings/Settings'
-import Recruit from './layouts/Recruit/Recruit'
-import ReportDetail from './components/Admin/Page/Reports/ReportDetail/ReportDetail'
-import RecruitThumbnail from './utils/RecruitThumbnail/RecruitThumbnail'
+import UserSettings from "./components/Join/UserSettings/Settings";
+import Recruit from "./layouts/Recruit/Recruit";
+import ReportDetail from "./components/Admin/Page/Reports/ReportDetail/ReportDetail";
 
-import HRCampaign from './components/HR/Campaign/Campaign'
+import HRCampaign from "./components/HR/Campaign/Campaign";
 
-
-import DetailRecruit from './components/Home/HomeBody/DetailRecruit/DetailRecruit'
-import HRlayout from './layouts/HR/HR'
+import DetailRecruit from "./components/Home/HomeBody/DetailRecruit/DetailRecruit";
+import HRlayout from "./layouts/HR/HR";
 class App extends React.Component {
   render() {
     return (
       <div className="page-container">
-        <Router history={history}>
+        <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route
-              path="/quiz/:question_table_id"
-              render={({ match }) => <QuizCreator match={match} />}
+            <Route path="/quiz/:question_table_id" component={QuizCreator} />}
             />
-
-            <Route
-              exact
-              path="/join"
-              render={({ match }) => <Join match={match} />}
-            />
-
-            <Route
-              exact
-              path="/admin/quiz/:admin"
-              render={({ match }) => <QuizCreateModal match={match} />}
-            />
-            <Route
-              exact path="/admin"
-              render={({ match }) => <AdminLayout match={match} />}
-            />
-
-            <Route
-              path="/join/game/:question_table_id"
-              render={({ match }) => <DoQuiz match={match} />}
-            />
-
-            <Route
-              path="/join/:question_table_id/start"
-              render={({ match }) => <QuizStart match={match} />}
-            />
-
+            <Route path="/join">
+              <Join />
+            </Route>
+            <Route path="/create/quiz/:admin" component={QuizCreateModal} />
+            <Route path="/admin">
+              <AdminLayout />
+            </Route>
+            <Route path="/game/:question_table_id" component={DoQuiz} />
+            <Route path="/start/:question_table_id" component={QuizStart} />
             <Route
               exact
-              path="/join/pre-game/:question_table_id"
-              render={({ match }) => <PreGame match={match} />}
+              path="/pre-game/:question_table_id"
+              component={PreGame}
             />
             <Route
-              path="/join/pre-game/:question_table_id/review"
-              render={({ match }) => <ReviewAttempt match={match} />}
+              path="/pre-game/:question_table_id/review"
+              component={ReviewAttempt}
             />
-
-            <Route
-              path="/join/settings"
-              render={({ match }) => <UserSettings match={match} />}
-            />
-
+            <Route path="/join/settings" component={UserSettings} />
             {/* <Route
               path="/signup"
               component = {SignUp}
             /> */}
-            <Route
-              path="/recruit_signup"
-              render={({ match }) => <Recruit match={match} />}
-            />
+            <Route path="/recruit_signup" component={Recruit} />
             <Route
               path="/admin/reports/report_detail"
-              render={({ match }) => <ReportDetail match={match} />}
+              component={ReportDetail}
             />
-
-            <Route
-              path="/join/testUI"
-              render={({ match }) => <RecruitThumbnail match={match} />}
-            />
-
-
-            <Route
-              path="/HR"
-              render={({ match }) => <HRlayout match={match} />}
-            />
-
-            <Route
-              path="/Campaign"
-              render={({ match }) => <HRCampaign match={match} />}
-            />
-
-            <Route
-              path="/detail_recruit"
-              render={({ match }) => <DetailRecruit match={match} />}
-            />
-
+            <Route path="/HR" component={HRlayout} />
+            <Route path="/Campaign" component={HRCampaign} />
+            <Route path="/detail_recruit" component={DetailRecruit} />
           </Switch>
         </Router>
       </div>

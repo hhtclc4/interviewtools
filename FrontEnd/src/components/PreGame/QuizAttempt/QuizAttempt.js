@@ -1,26 +1,26 @@
 import React from "react";
 import "./QuizAttempt.scss";
-import history from "../../../history";
+import { withRouter } from "react-router-dom";
 class QuizAttempt extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
-      accuracy: 0
+      accuracy: 0,
     };
   }
   componentDidMount() {
     let { data } = this.props;
     //let { data } = this.state;
     this.setState({
-      data: data
+      data: data,
     });
   }
   calculateAccuracy = () => {
     let { data } = this.props;
     //calculate the accuracy
     let rightAnswer = 0;
-    data.forEach(attempt => {
+    data.forEach((attempt) => {
       if (attempt.question.type === 1) {
         if (attempt.question_choice.is_right === 1) rightAnswer++;
       } else if (attempt.question.type === 2) {
@@ -38,14 +38,14 @@ class QuizAttempt extends React.Component {
       }
     });
     let textQuestion = 0;
-    data.forEach(sub => {
+    data.forEach((sub) => {
       if (sub.question.type === 3) textQuestion++;
     });
     let accuracy =
       (rightAnswer / (data.length - textQuestion)).toFixed(2) * 100;
     return accuracy;
   };
-  accuracyColor = accuracy => {
+  accuracyColor = (accuracy) => {
     switch (true) {
       case accuracy <= 10:
         return "#ff0000";
@@ -70,8 +70,8 @@ class QuizAttempt extends React.Component {
             <button
               onClick={() => {
                 localStorage.setItem("attempt_id", this.props.data[0].id);
-                history.push(
-                  `/join/pre-game/${this.props.data[0].question_table_id}/review`
+                this.props.history.push(
+                  `/pre-game/${this.props.data[0].question_table_id}/review`
                 );
               }}
             >
@@ -91,4 +91,4 @@ class QuizAttempt extends React.Component {
   }
 }
 
-export default QuizAttempt;
+export default withRouter(QuizAttempt);
