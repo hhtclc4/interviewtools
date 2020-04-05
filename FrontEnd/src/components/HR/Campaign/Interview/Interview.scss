@@ -196,4 +196,26 @@ $shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 
     z-index: 10;
     display: none;
   }
+
+  .interview-popup-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    overflow-x: hidden;
+    z-index: 10;
+    .interview-popup-inner {
+      height: 100%;
+      .interview-popup-content {
+        background-color: white;
+        border-radius: 5px;
+        @extend .create-new-interview-period;
+      }
+    }
+  }
 }
