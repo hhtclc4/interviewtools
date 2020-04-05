@@ -59,7 +59,6 @@ class MyQuizControl extends React.Component {
     console.log("match", this.props.match);
     let gradeTitle = localStorage.getItem("gradeTitle");
     let { title, image, played, questions, subject } = this.state;
-    let { history } = this.props;
     let element = questions.map((data, index) => {
       return (
         <QuizControlQuestionDetail key={index} data={data} index={index} />

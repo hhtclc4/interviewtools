@@ -58,15 +58,17 @@ class HomeBody extends React.Component {
             <div className="candidate-job-seek container-fluid">
               <div className="candidate-job-seek-header p-3 d-flex flex-row">
                 <img
-                  className="candidate-post-icon"
+                  className="candidate-post-icon align-self-center"
                   alt="news"
                   src={require("../images/news.png")}
                 />
-                <h4 className="flex-grow-1">RECENT HOT JOB</h4>
-                <h4>See all >></h4>
+                <h4 className="flex-grow-1 align-self-center">
+                  RECENT HOT JOB
+                </h4>
+                <h4 className="align-self-center">See all >></h4>
               </div>
               <div className="candidate-job-seek-body">
-                <div className="recruit-list pb-4">
+                <div className="recruit-list">
                   <Tabs selected={0}>
                     <Panel title="">{tabElm}</Panel>
                     <Panel>Tabs2</Panel>
