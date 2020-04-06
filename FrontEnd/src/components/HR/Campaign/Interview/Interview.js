@@ -250,7 +250,9 @@ class HRInterview extends React.Component {
                           <p>
                             <FontAwesomeIcon icon={faEnvelope} /> {email.email}
                           </p>
-                          <button className="choose-email">
+                          <button className="choose-email"
+                            onClick={(e) => this.chooseEmailHandler(email)}
+                          >
                             <FontAwesomeIcon
                               icon={faPlus}
                               size="lg"
@@ -278,7 +280,9 @@ class HRInterview extends React.Component {
                               <FontAwesomeIcon icon={faEnvelope} />
                               {email.email}
                             </p>
-                            <button className="remove-email">
+                            <button className="remove-email"
+                              onClick={(e) => this.removeEmailHandler(email)}
+                            >
                               <FontAwesomeIcon
                                 icon={faMinus}
                                 size="lg"
