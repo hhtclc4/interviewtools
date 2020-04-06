@@ -127,7 +127,7 @@ export const createCandidate = (data) => {
   return (dispatch) => {
     axios({
       method: "post",
-      url: URLs.GROUP_CANDIDATES_API_URL,
+      url: URLs.CREATE_CANDIDATE_API_URL,
       headers: {
         "content-type": "application/json",
         "user-token": localStorage.getItem("token"),
@@ -161,6 +161,51 @@ export const checkIfCandidateSendCVBefore = (campaign_id) => {
         console.log("check a candidate for campaign", res.data);
         dispatch({
           type: types.CHECK_CANDIDATE,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const getCandidate = (campaign_id) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.GROUP_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+      data: { campaign_id },
+    })
+      .then((res) => {
+        console.log("get candidate from campaign", res.data);
+        dispatch({
+          type: types.SHOW_GROUP_CANDIDATES,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const createInterview = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.INTERVIEW_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("interview", res.data);
+        dispatch({
+          type: types.SHOW_INTERVIEW,
           data: res.data,
         });
       })
