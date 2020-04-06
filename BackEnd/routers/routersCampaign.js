@@ -67,6 +67,16 @@ router.post("/api/create_candidate", verifyToken, (req, res) => {
     }
   });
 });
+router.post("/api/interview", verifyToken, (req, res) => {
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      Interview.create(req.body)
+        .then((data) => res.send(data))
+        .catch((err) => console.log(err));
+    }
+  });
+});
 router.post("/api/group_candidates", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
