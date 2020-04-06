@@ -78,20 +78,17 @@ router.post("/api/interview", verifyToken, (req, res) => {
   });
 });
 router.post("/api/group_candidates", verifyToken, (req, res) => {
-  jwt.verify(req.token, "hoangtri", (err, authData) => {
-    if (err) res.sendStatus(403);
-    else {
-      Group_Candidates.findAll({
-        where: {
-          campaign_id: req.body.campaign_id,
-          interview_id: null,
-        },
-        include: [User],
-      })
-        .then((data) => res.send(data))
-        .catch((err) => console.log(err));
-    }
-  });
+
+  Group_Candidates.findAll({
+    where: {
+      campaign_id: req.body.campaign_id,
+      interview_id: null,
+    },
+    include: [User],
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+
 });
 
 function verifyToken(req, res, next) {

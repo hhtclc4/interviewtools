@@ -3,7 +3,7 @@ import "./Interview.scss";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { fakeEmails } from "./FakeEmails";
+// import { fakeEmails } from "./FakeEmails";
 import InterviewThumbnail from "./Thumbnail/Thumbnail";
 import { Menu, Dropdown, Button, Icon } from "antd";
 import { withRouter } from "react-router-dom";
@@ -18,7 +18,14 @@ class HRInterview extends React.Component {
       campaign_id: 1,
       candidateEmails: [
         {
-          email: "",
+          cv: "",
+          description: "",
+          user: {
+            id: 0,
+            name: "",
+            email: "",
+            password: ""
+          }
         },
       ],
       interview: {
@@ -38,13 +45,8 @@ class HRInterview extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     let candidateEmails = this.state;
-    candidateEmails = fakeEmails;
     let { campaign_id } = this.state;
-    if (this._isMounted) {
-      this.setState({
-        candidateEmails: candidateEmails,
-      });
-    }
+
     this.props.getCandidate(campaign_id);
   }
 
@@ -231,6 +233,10 @@ class HRInterview extends React.Component {
               </div>
               <div className=" initialized-interviews d-flex flex-row flex-wrap">
                 <InterviewThumbnail />
+                <button
+                  className="adjust-icon-btn align-self-center"
+                ><FontAwesomeIcon className="adjust-icon" icon={faPlus} size="2x" color="#339AF0" />
+                </button>
               </div>
               <div
                 className="screen-dedicate d-flex flex-row flex-wrap justify-content-between"
@@ -277,8 +283,9 @@ class HRInterview extends React.Component {
                   </div>
                 </div>
                 <div className="chosen-application-container">
-                  <div className="interview-section-title">
-                    Chosen Emails for <button>save</button>
+                  <div className="interview-section-title d-flex flex-row justify-content-between">
+                    <p> Chosen Emails for</p>
+                    <button className="save-emails-btn">Save</button>
                   </div>
 
                   <div className="chosen-application">
