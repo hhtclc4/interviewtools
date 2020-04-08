@@ -37,12 +37,15 @@ export const QUESTION_TABLE_CODE_API_URL = `${domain}/api/get_question_table_cod
 export const USER_ATTEMPT_API_URL = `${domain}/api/quiz_attempt`;
 export const CHECK_USER_DO_QUIZ_API_URL = `${domain}/api/is_user_did_table`;
 export const GET_COMPLETED_TABLE = `${domain}/api/get_completed_table`;
-// campaign
+// campaign - group_campaign
 export const CAMPAIGN_API_URL = `${domain}/api/campaign`;
-export const GROUP_CANDIDATES_API_URL = `${domain}/api/group_candidates`;
+export const AVAILABLE_CANDIDATES_API_URL = `${domain}/api/get_available_candidates`;
+export const INTERVIEW_CANDIDATES_API_URL = `${domain}/api/get_interview_candidates`;
+export const UPDATE_CANDIDATES_API_URL = `${domain}/api/update_group_candidates`;
 
 // candidate
 export const CANDIDATE_API_URL = `${domain}/api/candidate`;
 export const CREATE_CANDIDATE_API_URL = `${domain}/api/create_candidate`;
 // interview
-export const INTERVIEW_API_URL = `${domain}/api/interview`;
+export const GET_INTERVIEW_API_URL = `${domain}/api/get_interview`;
+export const CREATE_INTERVIEW_API_URL = `${domain}/api/create_interview`;

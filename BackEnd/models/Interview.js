@@ -9,32 +9,44 @@ const Interview = db.define(
       defaultValue: null,
       primaryKey: true,
       foreignKey: [Object],
-      autoIncrement: true
+      autoIncrement: true,
     },
     name: {
       type: "VARCHAR(200)",
       allowNull: true,
       defaultValue: null,
-      primaryKey: false
+      primaryKey: false,
     },
     date: {
       type: "DATE",
       allowNull: true,
       defaultValue: null,
-      primaryKey: false
+      primaryKey: false,
     },
     time: {
       type: "TIME",
       allowNull: true,
       defaultValue: null,
-      primaryKey: false
+      primaryKey: false,
+    },
+    choose_from: {
+      type: "INT",
+      allowNull: true,
+      defaultValue: null,
+      primaryKey: false,
+    },
+    choose_to: {
+      type: "INT",
+      allowNull: true,
+      defaultValue: null,
+      primaryKey: false,
     },
     campaign_id: {
       type: "INT",
       allowNull: true,
       defaultValue: null,
-      primaryKey: false
-    }
+      primaryKey: false,
+    },
   },
   { underscored: true }
 );

@@ -1,118 +1,275 @@
-import React from 'react'
-import './Interview.scss'
+import React from "react";
+import "./Interview.scss";
 import { Menu, Dropdown, Button, Icon } from "antd";
+import { withRouter } from "react-router-dom";
+
+import { connect } from "react-redux";
+import * as actions from "../../../../redux/actions/index";
 class InterviewPopup extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      listDay: [
+        {
+          key: "",
+          name: "",
+        },
+      ],
+      selectDate: {
+        key: "",
+        name: "",
+      },
+      selectHour: "12",
+      selectMinute: "00",
+      name: "",
+      choose_from: 0,
+      choose_to: 0,
+    };
+  }
+  componentDidMount() {
+    let listDay = this.getDay();
+    this.setState({
+      listDay: listDay,
+      selectDate: listDay[1],
+    });
+  }
+  orderNumber = (number) => {
+    switch (number) {
+      case 1:
+        return `${number}st`;
+      case 2:
+        return `${number}nd`;
+      case 3:
+        return `${number}rd`;
+      default:
+        return `${number}th`;
     }
-    render() {
-
-        const menu = (
-            <Menu onClick={this.handleMenuClick}>
-                <Menu.Item key="1">1st menu item</Menu.Item>
-                <Menu.Item key="2">2nd menu item</Menu.Item>
-                <Menu.Item key="3">3rd item</Menu.Item>
-            </Menu>
-        );
-        return (
-            <div className="interview-popup-container">
-                <div className="interview-popup-inner container-fluid">
-                    <div className="row " style={{ height: '100%' }}>
-                        <div className="col-md-3"></div>
-                        <div className="col-lg-6 d-flex flex-column justify-content-around">
-                            <div className="interview-popup-content p-3">
-                                <div className="interview-popup-header d-flex flex-row">
-                                    <img alt="interview"
-                                        src={require("../../images/Interview.png")}
-                                        style={{ width: '60px', marginRight: '5px' }}
-                                    />
-                                    <p className="align-self-center">Create new interview period</p>
-                                </div>
-                                <div
-                                    className="create-new-interview-period d-flex flex-column justify-content-between p-3 flex-wrap"
-                                >
-                                    <div className="cni-name mb-2 mr-2">
-                                        <p>Set interview name</p>
-                                        <input
-                                            className="interview-period-attribute"
-                                            placeholder="Enter interview name..."
-                                        />
-                                    </div>
-                                    <div className="cni-time mb-2 mr-2">
-                                        <p>Pick interview time</p>
-                                        <div className="cin-time-attribute d-flex flex-row">
-                                            <div className="cni-time-week-day">
-                                                <Dropdown
-                                                    overlay={menu}
-                                                    trigger={["click"]}
-                                                    className="mr-1"
-                                                >
-                                                    <Button style={{ top: "0" }}>
-                                                        Week day <Icon type="down" />
-                                                    </Button>
-                                                </Dropdown>
-                                            </div>
-                                            <div className="cni-time-month">
-                                                <Dropdown
-                                                    overlay={menu}
-                                                    trigger={["click"]}
-                                                    className="mr-1"
-                                                >
-                                                    <Button style={{ top: "0" }}>
-                                                        Month <Icon type="down" />
-                                                    </Button>
-                                                </Dropdown>
-                                            </div>
-                                            <div className="cni-time-day">
-                                                <Dropdown
-                                                    overlay={menu}
-                                                    trigger={["click"]}
-                                                    className="mr-1"
-                                                >
-                                                    <Button style={{ top: "0" }}>
-                                                        Day <Icon type="down" />
-                                                    </Button>
-                                                </Dropdown>
-                                            </div>
-                                            <div className="cni-time-hour">
-                                                <Dropdown overlay={menu} trigger={["click"]}>
-                                                    <Button style={{ top: "0" }}>
-                                                        Hour <Icon type="down" />
-                                                    </Button>
-                                                </Dropdown>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="cni-target mb-2 mr-2">
-                                        <p>Set interview target</p>
-                                        <div className="cni-targer-attribute">
-                                            <input
-                                                className="interview-period-attribute-count mr-1"
-                                                placeholder="from"
-                                            />
-                                            <input
-                                                className="interview-period-attribute-count"
-                                                placeholder="to"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <button
-                                    className="float-right "
-                                    onClick={this.props.closePopup}
-                                >
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                        <div className="col-md-3"></div>
-                    </div>
-
+  };
+  getHour = () => {
+    let listHour = [];
+    for (let i = 1; i <= 24; i++) listHour.push(`${i}`);
+    return listHour;
+  };
+  getDay = () => {
+    const monthNames = [
+      0,
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    let select = [];
+    let d = new Date();
+    let begin = d.getDate();
+    for (let i = begin; i < begin + 10; i++) {
+      let year = d.getFullYear();
+      let month = d.getMonth() + 1;
+      let daysInMonth = new Date(year, month, 0).getDate();
+      if (i <= daysInMonth)
+        select.push({
+          key: `${year}-${month}-${i}`,
+          name: `${monthNames[month]} ${this.orderNumber(i)}`,
+        });
+      else {
+        let j = i - daysInMonth;
+        if (month === 12) {
+          year++;
+          month = 1;
+        } else month++;
+        select.push({
+          key: `${year}-${month}-${j}`,
+          name: `${monthNames[month]} ${this.orderNumber(j)}`,
+        });
+      }
+    }
+    return select;
+  };
+  handleMenuDayClick = (event) => {
+    let { listDay } = this.state;
+    //get key and name in list day
+    let select = listDay.find((item) => item.key === event.key);
+    this.setState({
+      selectDate: select,
+    });
+  };
+  handleMenuHourClick = (event, listHour) => {
+    let selectName = listHour.find((item) => item === event.key);
+    this.setState({
+      selectHour: selectName,
+    });
+  };
+  handleMenuMinuteClick = (event, listMinute) => {
+    let selectName = listMinute.find((item) => item === event.key);
+    this.setState({
+      selectMinute: selectName,
+    });
+  };
+  onChangeInputHandler = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+  onSaveHandler = () => {
+    let {
+      name,
+      selectDate,
+      selectHour,
+      selectMinute,
+      choose_from,
+      choose_to,
+    } = this.state;
+    let data = {
+      name,
+      date: selectDate.key,
+      time: `${selectHour}:${selectMinute}`,
+      choose_from,
+      choose_to,
+      campaign_id: this.props.campaign_id,
+    };
+    this.props.createInterview(data);
+    this.props.closePopup();
+  };
+  render() {
+    let { selectDate, listDay, selectHour, selectMinute, name } = this.state;
+    let listHour = this.getHour();
+    let listMinute = ["00", "15", "30", "45"];
+    let day = (
+      <Menu onClick={this.handleMenuDayClick}>
+        {listDay.map((item) => {
+          return <Menu.Item key={item.key}>{item.name}</Menu.Item>;
+        })}
+      </Menu>
+    );
+    const hour = (
+      <Menu onClick={(event) => this.handleMenuHourClick(event, listHour)}>
+        {listHour.map((hour) => {
+          return <Menu.Item key={hour}>{hour}</Menu.Item>;
+        })}
+      </Menu>
+    );
+    const minute = (
+      <Menu onClick={(event) => this.handleMenuMinuteClick(event, listMinute)}>
+        {listMinute.map((minute) => {
+          return <Menu.Item key={minute}>{minute}</Menu.Item>;
+        })}
+      </Menu>
+    );
+    // console.log(this.state);
+    return (
+      <div className="interview-popup-container">
+        <div className="interview-popup-inner container-fluid">
+          <div className="row " style={{ height: "100%" }}>
+            <div className="col-md-3"></div>
+            <div className="col-lg-6 d-flex flex-column justify-content-around">
+              <div className="interview-popup-content p-3">
+                <div className="interview-popup-header d-flex flex-row">
+                  <img
+                    alt="interview"
+                    src={require("../../images/Interview.png")}
+                    style={{ width: "60px", marginRight: "5px" }}
+                  />
+                  <p className="align-self-center">
+                    Create new interview period
+                  </p>
                 </div>
+                <div className="create-new-interview-period d-flex flex-column justify-content-between p-3 flex-wrap">
+                  <div className="cni-name mb-2 mr-2">
+                    <p>Set interview name</p>
+                    <input
+                      onChange={this.onChangeInputHandler}
+                      name="name"
+                      value={name}
+                      className="interview-period-attribute"
+                      placeholder="Enter interview name..."
+                    />
+                  </div>
+                  <div className="cni-time mb-2 mr-2">
+                    <p>Pick interview time</p>
+                    <div className="cin-time-attribute d-flex flex-row">
+                      <div className="cni-time-day">
+                        <Dropdown
+                          overlay={day}
+                          trigger={["click"]}
+                          className="mr-1"
+                        >
+                          <Button style={{ top: "0" }}>
+                            <Icon type="calendar" /> {selectDate.name}
+                            <Icon type="down" />
+                          </Button>
+                        </Dropdown>
+                      </div>
+                      <div className="cni-time-hour">
+                        <Dropdown overlay={hour} trigger={["click"]}>
+                          <Button style={{ top: "0" }}>
+                            {selectHour} <Icon type="down" />
+                          </Button>
+                        </Dropdown>
+                      </div>
+                      <p>:</p>
+                      <div className="minute">
+                        <Dropdown overlay={minute} trigger={["click"]}>
+                          <Button style={{ top: "0" }}>
+                            {selectMinute} <Icon type="down" />
+                          </Button>
+                        </Dropdown>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="cni-target mb-2 mr-2">
+                    <p>Set interview target</p>
+                    <div className="cni-targer-attribute">
+                      <input
+                        onChange={this.onChangeInputHandler}
+                        type="number"
+                        name="choose_from"
+                        className="interview-period-attribute-count mr-1"
+                        placeholder="from"
+                      />
+                      <input
+                        onChange={this.onChangeInputHandler}
+                        name="choose_to"
+                        type="number"
+                        className="interview-period-attribute-count"
+                        placeholder="to"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <button className="float-right " onClick={this.onSaveHandler}>
+                  Create
+                </button>
+                <button
+                  className="float-right "
+                  onClick={this.props.closePopup}
+                >
+                  Close
+                </button>
+              </div>
             </div>
-        );
-    }
+            <div className="col-md-3"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default InterviewPopup;
+//send action to redux
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    createInterview: (data) => {
+      dispatch(actions.createInterview(data));
+    },
+  };
+};
+//get data from redux
+
+export default connect(null, mapDispatchToProps)(withRouter(InterviewPopup));

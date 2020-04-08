@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 // import { fakeEmails } from "./FakeEmails";
 import InterviewThumbnail from "./Thumbnail/Thumbnail";
-import { Menu, Dropdown, Button, Icon } from "antd";
 import { withRouter } from "react-router-dom";
 import InterviewPopup from "./Popup";
 import { connect } from "react-redux";
@@ -16,7 +15,7 @@ class HRInterview extends React.Component {
     super(props);
     this.state = {
       campaign_id: 1,
-      candidateEmails: [
+      availableCandidates: [
         {
           cv: "",
           description: "",
@@ -24,75 +23,90 @@ class HRInterview extends React.Component {
             id: 0,
             name: "",
             email: "",
-            password: ""
-          }
+            password: "",
+          },
         },
       ],
-      interview: {
-        id: 0,
-        name: "",
-        date: "",
-        time: "",
-        campaign_id: "",
-      },
-
-      chosenEmails: [],
+      interviewCandidates: [
+        {
+          cv: "",
+          description: "",
+          user: {
+            id: 0,
+            name: "",
+            email: "",
+            password: "",
+          },
+        },
+      ],
+      interviews: [
+        {
+          id: 0,
+          name: "",
+          date: "2020-01-01",
+          time: "12:00:00",
+          campaign_id: "",
+        },
+      ],
       isFocusCreater: false,
       isFocusEmails: false,
       isShowPopup: false, // State for Popup
+      interviewForcus: {
+        interview_id: -1,
+        name: "",
+      },
     };
   }
   componentDidMount() {
     this._isMounted = true;
-    let candidateEmails = this.state;
     let { campaign_id } = this.state;
-
-    this.props.getCandidate(campaign_id);
+    this.props.getInterviews(campaign_id);
+    this.props.getAvailableCandidates(campaign_id);
   }
 
-  UNSAFE_componentWillMount() { }
+  UNSAFE_componentWillMount() {}
   componentWillUnmount() {
     this._isMounted = false;
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log("nextProps", nextProps.group_candidates);
+    console.log("nextProps", nextProps);
     this.setState({
-      candidateEmails: nextProps.group_candidates,
+      availableCandidates: nextProps.availableCandidates,
+      interviewCandidates: nextProps.interviewCandidates,
+      interviews: nextProps.interview,
     });
   }
-  chooseEmailHandler = async (email) => {
-    console.log("clicked", email);
-    for (let i = 0; i < this.state.candidateEmails.length; i++) {
-      if (email.email === this.state.candidateEmails[i].email) {
-        email.isChosen = 1;
-        let tempArr = [...this.state.candidateEmails];
+  chooseEmailHandler = async (candidate) => {
+    let { interview_id } = this.state.interviewForcus;
+    for (let i = 0; i < this.state.availableCandidates.length; i++) {
+      if (candidate.user.id === this.state.availableCandidates[i].user.id) {
+        candidate.interview_id = interview_id;
+        let tempArr = [...this.state.availableCandidates];
         tempArr.splice(i, 1);
-
-        var tempArr2 = [...this.state.chosenEmails];
-        tempArr2.push(email);
+        var tempArr2 = [...this.state.interviewCandidates];
+        tempArr2.push(candidate);
         this.setState({
-          candidateEmails: tempArr,
-          chosenEmails: tempArr2,
+          availableCandidates: tempArr,
+          interviewCandidates: tempArr2,
         });
+        this.props.updateCandidatesToInterview(candidate);
       }
     }
-    console.log("candidates", this.state.candidateEmails);
-    console.log("chosen", this.state.chosenEmails);
   };
 
-  removeEmailHandler = async (email) => {
-    for (let i = 0; i < this.state.chosenEmails.length; i++) {
-      if (email.email === this.state.chosenEmails[i].email) {
-        email.isChosen = 0;
-        let tempArr = [...this.state.chosenEmails];
+  removeEmailHandler = async (candidate) => {
+    for (let i = 0; i < this.state.interviewCandidates.length; i++) {
+      if (candidate.user.id === this.state.interviewCandidates[i].user.id) {
+        candidate.interview_id = null;
+        let tempArr = [...this.state.interviewCandidates];
         tempArr.splice(i, 1);
-
-        var tempArr2 = [...this.state.candidateEmails];
-        tempArr2.push(email);
+        var tempArr2 = [...this.state.availableCandidates];
+        tempArr2.push(candidate);
         this.setState({
-          candidateEmails: tempArr2,
-          chosenEmails: tempArr,
+          availableCandidates: tempArr2,
+          interviewCandidates: tempArr,
         });
+        this.props.updateCandidatesToAvailable(candidate);
       }
     }
   };
@@ -118,125 +132,74 @@ class HRInterview extends React.Component {
       });
     }
   };
+  onClickChooseInterview = (interview_id, name) => {
+    let { campaign_id } = this.state;
+    this.setState({
+      interviewForcus: {
+        interview_id,
+        name,
+      },
+    });
+    this.props.getInterviewCandidates(campaign_id, interview_id);
+  };
 
   render() {
-    const menu = (
-      <Menu onClick={this.handleMenuClick}>
-        <Menu.Item key="1">1st menu item</Menu.Item>
-        <Menu.Item key="2">2nd menu item</Menu.Item>
-        <Menu.Item key="3">3rd item</Menu.Item>
-      </Menu>
-    );
-    // console.log("mounted", this.state.candidateEmails)
-    // console.log("chosen", this.state.chosenEmails)
-    let { isFocusCreater, isFocusEmails } = this.state;
+    let {
+      isFocusCreater,
+      isFocusEmails,
+      interviews,
+      interviewForcus,
+      campaign_id,
+    } = this.state;
+    let interviewElm = interviews.map((interview, index) => {
+      return (
+        <InterviewThumbnail
+          key={interview.id}
+          index={index}
+          data={interview}
+          onClickChooseInterview={this.onClickChooseInterview}
+          interviewForcus={interviewForcus}
+        />
+      );
+    });
     return (
       <div className="hr-interview-container container-fluid ">
         <div className="row">
           <div className="col-md-9">
             <div className="creater-container">
-              <div className="create-new-interview-period-container d-flex flex-column">
-                <div className="interview-section-title">
-                  Create New Interview Period
-                </div>
-                <div className="create-new-interview-period d-flex flex-row justify-content-between p-3 flex-wrap">
-                  <div className="cni-name mb-2 mr-2">
-                    <p>Set interview name</p>
-                    <input
-                      className="interview-period-attribute"
-                      placeholder="Enter interview name..."
-                    />
-                  </div>
-                  <div className="cni-time mb-2 mr-2">
-                    <p>Pick interview time</p>
-                    <div className="cin-time-attribute d-flex flex-row">
-                      <div className="cni-time-week-day">
-                        <Dropdown
-                          overlay={menu}
-                          trigger={["click"]}
-                          className="mr-1"
-                        >
-                          <Button style={{ top: "0" }}>
-                            Week day <Icon type="down" />
-                          </Button>
-                        </Dropdown>
-                      </div>
-                      <div className="cni-time-month">
-                        <Dropdown
-                          overlay={menu}
-                          trigger={["click"]}
-                          className="mr-1"
-                        >
-                          <Button style={{ top: "0" }}>
-                            Month <Icon type="down" />
-                          </Button>
-                        </Dropdown>
-                      </div>
-                      <div className="cni-time-day">
-                        <Dropdown
-                          overlay={menu}
-                          trigger={["click"]}
-                          className="mr-1"
-                        >
-                          <Button style={{ top: "0" }}>
-                            Day <Icon type="down" />
-                          </Button>
-                        </Dropdown>
-                      </div>
-                      <div className="cni-time-hour">
-                        <Dropdown overlay={menu} trigger={["click"]}>
-                          <Button style={{ top: "0" }}>
-                            Hour <Icon type="down" />
-                          </Button>
-                        </Dropdown>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="cni-target mb-2 mr-2">
-                    <p>Set interview target</p>
-                    <div className="cni-targer-attribute">
-                      <input
-                        className="interview-period-attribute-count mr-1"
-                        placeholder="from"
-                      />
-                      <input
-                        className="interview-period-attribute-count"
-                        placeholder="to"
-                      />
-                    </div>
-                  </div>
-                  <div className="cni-btn align-self-center mt-3 mb-5">
-                    <button
-                      onClick={() => {
-                        this.setState({
-                          isShowPopup: !this.state.isShowPopup,
-                        });
-                        this.toggleInterviewPopup();
-                      }}
-                      style={
-                        this.state.isFocusCreater || isFocusEmails
-                          ? {
+              <div className="interview-section-title">
+                Create New Interview Period
+              </div>
+              <div className=" initialized-interviews d-flex flex-row flex-wrap">
+                {interviewElm}
+                <div className="initialized-interview-container d-flex flex-row mr-2 mb-2">
+                  dấu + ở giữa nha
+                  <button
+                    className="adjust-icon-btn align-self-center"
+                    onClick={() => {
+                      this.setState({
+                        isShowPopup: !this.state.isShowPopup,
+                      });
+                      this.toggleInterviewPopup();
+                    }}
+                    style={
+                      this.state.isFocusCreater || isFocusEmails
+                        ? {
                             zIndex: "15",
                             position: "relative",
                             display: "block",
                           }
-                          : null
-                      }
-                    >
-                      Create interview
-                    </button>
-                  </div>
+                        : null
+                    }
+                  >
+                    <FontAwesomeIcon
+                      className="adjust-icon"
+                      icon={faPlus}
+                      size="3x"
+                      color="#339AF0"
+                    />
+                  </button>
                 </div>
-              </div>
-              <div className="interview-section-title">
-                Initialized Interview Period
-              </div>
-              <div className=" initialized-interviews d-flex flex-row flex-wrap">
-                <InterviewThumbnail />
-                <button
-                  className="adjust-icon-btn align-self-center"
-                ><FontAwesomeIcon className="adjust-icon" icon={faPlus} size="2x" color="#339AF0" />
-                </button>
               </div>
               <div
                 className="screen-dedicate d-flex flex-row flex-wrap justify-content-between"
@@ -251,7 +214,7 @@ class HRInterview extends React.Component {
                     Available Emails
                   </div>
                   <div className="all-application">
-                    {this.state.candidateEmails.map((candidate, index) => {
+                    {this.state.availableCandidates.map((candidate, index) => {
                       if (index % 2 === 0) {
                         var eStyle = "#d8d8d8";
                       } else {
@@ -269,6 +232,14 @@ class HRInterview extends React.Component {
                           </p>
                           <button
                             className="choose-email"
+                            disabled={
+                              interviewForcus.interview_id === -1 ? true : false
+                            }
+                            style={
+                              interviewForcus.interview_id === -1
+                                ? { opacity: "0.5" }
+                                : null
+                            }
                             onClick={(e) => this.chooseEmailHandler(candidate)}
                           >
                             <FontAwesomeIcon
@@ -284,25 +255,33 @@ class HRInterview extends React.Component {
                 </div>
                 <div className="chosen-application-container">
                   <div className="interview-section-title d-flex flex-row justify-content-between">
-                    <p> Chosen Emails for</p>
-                    <button className="save-emails-btn">Save</button>
+                    <p> Chosen Emails for {interviewForcus.name}</p>
                   </div>
 
-                  <div className="chosen-application">
-                    {this.state.chosenEmails.length ? (
-                      this.state.chosenEmails.map((email) => {
+                  <div
+                    className="chosen-application"
+                    style={
+                      interviewForcus.interview_id === -1
+                        ? { opacity: "0.7" }
+                        : { opacity: "1" }
+                    }
+                  >
+                    {this.state.interviewCandidates.length ? (
+                      this.state.interviewCandidates.map((candidate) => {
                         return (
                           <div
-                            key={email.email}
+                            key={candidate.user.id}
                             className="chosen-email d-flex flex-row flex-wrap justify-content-between"
                           >
                             <p>
                               <FontAwesomeIcon icon={faEnvelope} />
-                              {email.email}
+                              {candidate.user.email}
                             </p>
                             <button
                               className="remove-email"
-                              onClick={(e) => this.removeEmailHandler(email)}
+                              onClick={(e) =>
+                                this.removeEmailHandler(candidate)
+                              }
                             >
                               <FontAwesomeIcon
                                 icon={faMinus}
@@ -314,8 +293,8 @@ class HRInterview extends React.Component {
                         );
                       })
                     ) : (
-                        <div>NO email was chosen</div>
-                      )}
+                      <div>NO email was chosen</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -334,12 +313,14 @@ class HRInterview extends React.Component {
             <div className="interview-section-title">
               Created Interview Period
             </div>
-            <InterviewThumbnail />
-            <InterviewThumbnail />
+            {interviewElm}
           </div>
         </div>
         {this.state.isShowPopup ? (
-          <InterviewPopup closePopup={this.toggleInterviewPopup} />
+          <InterviewPopup
+            closePopup={this.toggleInterviewPopup}
+            campaign_id={campaign_id}
+          />
         ) : null}
       </div>
     );
@@ -348,18 +329,29 @@ class HRInterview extends React.Component {
 //send action to redux
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getCandidate: (campaign_id) => {
-      dispatch(actions.getCandidate(campaign_id));
+    getAvailableCandidates: (campaign_id) => {
+      dispatch(actions.getAvailableCandidates(campaign_id));
     },
-    createInterview: (data) => {
-      dispatch(actions.createInterview(data));
+    getInterviewCandidates: (campaign_id, interview_id) => {
+      dispatch(actions.getInterviewCandidates(campaign_id, interview_id));
+    },
+
+    getInterviews: (campaign_id) => {
+      dispatch(actions.getInterviews(campaign_id));
+    },
+    updateCandidatesToInterview: (data) => {
+      dispatch(actions.updateCandidatesToInterview(data));
+    },
+    updateCandidatesToAvailable: (data) => {
+      dispatch(actions.updateCandidatesToAvailable(data));
     },
   };
 };
 //get data from redux
 const mapStateToProps = (state) => {
   return {
-    group_candidates: state.group_candidates,
+    availableCandidates: state.availableCandidates,
+    interviewCandidates: state.interviewCandidates,
     interview: state.interview,
   };
 };

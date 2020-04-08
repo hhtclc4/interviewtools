@@ -169,22 +169,96 @@ export const checkIfCandidateSendCVBefore = (campaign_id) => {
       });
   };
 };
-export const getCandidate = (campaign_id) => {
+export const getAvailableCandidates = (campaign_id) => {
   return (dispatch) => {
     axios({
       method: "post",
-      url: URLs.GROUP_CANDIDATES_API_URL,
+      url: URLs.AVAILABLE_CANDIDATES_API_URL,
       headers: {
         "content-type": "application/json",
-        "user-token": localStorage.getItem("token"),
       },
       data: { campaign_id },
     })
       .then((res) => {
-        console.log("get candidate from campaign", res.data);
+        console.log("get available candidate from campaign", res.data);
         dispatch({
-          type: types.SHOW_GROUP_CANDIDATES,
+          type: types.SHOW_AVAILABLE_CANDIDATES,
           data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const getInterviewCandidates = (campaign_id, interview_id) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.INTERVIEW_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data: { campaign_id, interview_id },
+    })
+      .then((res) => {
+        console.log("get interview candidate from campaign", res.data);
+        dispatch({
+          type: types.SHOW_INTERVIEW_CANDIDATES,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+
+export const updateCandidatesToAvailable = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.UPDATE_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("update candidates ", res.data);
+        dispatch({
+          type: types.INSERT_AVAILABLE_CANDIDATES,
+          data,
+        });
+        dispatch({
+          type: types.DELETE_INTERVIEW_CANDIDATES,
+          data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const updateCandidatesToInterview = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.UPDATE_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("update candidates ", res.data);
+        dispatch({
+          type: types.INSERT_INTERVIEW_CANDIDATES,
+          data,
+        });
+        dispatch({
+          type: types.DELETE_AVAILABLE_CANDIDATES,
+          data,
         });
       })
       .catch((er) => {
@@ -196,16 +270,46 @@ export const createInterview = (data) => {
   return (dispatch) => {
     axios({
       method: "post",
-      url: URLs.INTERVIEW_API_URL,
+      url: URLs.CREATE_INTERVIEW_API_URL,
       headers: {
         "content-type": "application/json",
       },
       data,
     })
       .then((res) => {
-        console.log("interview", res.data);
+        console.log("new interview", res.data);
+        Swal.fire({
+          position: "center",
+          type: "success",
+          title: "Create Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false,
+        });
         dispatch({
-          type: types.SHOW_INTERVIEW,
+          type: types.CREATE_INTERVIEW,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const getInterviews = (campaign_id) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.GET_INTERVIEW_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data: { campaign_id },
+    })
+      .then((res) => {
+        console.log("get interviews", res.data);
+        dispatch({
+          type: types.SHOW_INTERVIEWS,
           data: res.data,
         });
       })

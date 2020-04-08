@@ -67,18 +67,34 @@ router.post("/api/create_candidate", verifyToken, (req, res) => {
     }
   });
 });
-router.post("/api/interview", verifyToken, (req, res) => {
-  jwt.verify(req.token, "hoangtri", (err, authData) => {
-    if (err) res.sendStatus(403);
-    else {
-      Interview.create(req.body)
-        .then((data) => res.send(data))
-        .catch((err) => console.log(err));
-    }
-  });
+///////////////interview
+router.post("/api/create_interview", (req, res) => {
+  Interview.create(req.body)
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
 });
-router.post("/api/group_candidates", verifyToken, (req, res) => {
-
+router.post("/api/get_interview", (req, res) => {
+  Interview.findAll({
+    where: {
+      campaign_id: req.body.campaign_id,
+    },
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+});
+router.post("/api/get_interview_candidates", (req, res) => {
+  Group_Candidates.findAll({
+    where: {
+      campaign_id: req.body.campaign_id,
+      interview_id: req.body.interview_id,
+    },
+    include: [User],
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+});
+//get available candidates
+router.post("/api/get_available_candidates", (req, res) => {
   Group_Candidates.findAll({
     where: {
       campaign_id: req.body.campaign_id,
@@ -88,9 +104,18 @@ router.post("/api/group_candidates", verifyToken, (req, res) => {
   })
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
-
 });
+router.post("/api/update_group_candidates", (req, res) => {
+  Group_Candidates.update(req.body, {
+    where: {
+      candidate_id: req.body.candidate_id,
+      campaign_id: req.body.campaign_id,
+    },
+  })
 
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+});
 function verifyToken(req, res, next) {
   const header = req.headers["user-token"];
   if (typeof header !== "undefined") {
