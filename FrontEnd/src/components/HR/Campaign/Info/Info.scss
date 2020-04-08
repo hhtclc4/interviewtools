@@ -1,0 +1,41 @@
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+
+.hr-info-container {
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 10px;
+
+    .hr-title-field {
+        font-size: 24px;
+        font-family: QuickSand;
+        font-weight: 600;
+    }
+    .hr-editor-field {
+        background-color: white;
+        box-shadow: $shadow;
+        .wrapper-editor {
+            border: none;
+        }
+
+        .text-input-editor {
+            padding: 0 15px;
+        }
+    }
+    .hr-info-single-field,
+    .hr-info-double-field {
+        .hr-info-combobox-field {
+            padding: 0px 10px;
+            .ant-btn {
+                width: 100%;
+                top: 0;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                height: 70px;
+                font-size: 16px;
+                font-weight: 550;
+            }
+        }
+    }
+}
