@@ -17,6 +17,37 @@ $background-color: #f2f2f2;
       height: 150px;
       background-color: white;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+      .hr-crop-img {
+        height: 100%;
+        width: 150px;
+        overflow: hidden;
+        margin-right: 10px;
+        .hr-recruit-img {
+          height: 100%;
+          width: auto;
+        }
+      }
+
+      .hr-campaign-header-info {
+        width: 70%;
+        .hr-header-title {
+          width: 100%;
+          font-size: 24px;
+          font-weight: bold;
+        }
+      }
+
+      .hr-campaign-header-options {
+        width: 15%;
+        .hr-option-background {
+          padding: 5px 10px;
+          background-color: #f2f2f2;
+          border-radius: 50%;
+          &:hover {
+            background-color: #e0e0e0;
+          }
+        }
+      }
     }
     .hr-campaign-tabs {
       .order-display {
