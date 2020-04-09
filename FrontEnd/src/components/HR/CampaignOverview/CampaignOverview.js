@@ -45,6 +45,10 @@ class CampaignOverview extends React.Component {
       data,
     });
   }
+  onClickModifyHandler = () => {
+    let { data } = this.state;
+    this.props.history.push(`/campaign/${data.id}`);
+  };
   render() {
     let { data } = this.state;
 
@@ -100,7 +104,7 @@ class CampaignOverview extends React.Component {
           <div className="co-publish align-self-end">12 hours ago</div>
         </div>
         <div className="co-options d-flex flex-column pl-3 justify-content-around">
-          <button className="co-option-btn">
+          <button className="co-option-btn" onClick={this.onClickModifyHandler}>
             <FontAwesomeIcon icon={faPencilAlt} size="lg" color="gray" />
           </button>
           <button className="co-option-btn">

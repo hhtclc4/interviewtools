@@ -47,7 +47,7 @@ class App extends React.Component {
               path="/pre-game/:question_table_id/review"
               component={ReviewAttempt}
             />
-            <Route path="/join/settings" component={UserSettings} />
+            <Route path="/settings" component={UserSettings} />
             {/* <Route
               path="/signup"
               component = {SignUp}
@@ -58,7 +58,7 @@ class App extends React.Component {
               component={ReportDetail}
             />
             <Route path="/HR" component={HRlayout} />
-            <Route path="/Campaign" component={HRCampaign} />
+            <Route path="/campaign/:campaign_id" component={HRCampaign} />
             <Route path="/detail_recruit" component={DetailRecruit} />
           </Switch>
         </Router>

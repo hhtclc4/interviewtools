@@ -27,6 +27,16 @@ router.get("/api/campaign", (req, res) =>
     .then((data) => res.send(data))
     .catch((err) => console.log(err))
 );
+router.post("/api/campaign", (req, res) =>
+  Campaign.findOne({
+    where: {
+      id: req.body.campaign_id,
+    },
+    include: [{ model: User, attributes: ["name", "email", "phone"] }, Subject],
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err))
+);
 router.post("/api/campaign", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);

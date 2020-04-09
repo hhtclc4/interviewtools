@@ -78,10 +78,26 @@ export const showListCampaign = () => {
       });
   };
 };
-export const showCampaign = (index) => {
-  return {
-    type: types.SHOW_CAMPAIGN,
-    index,
+export const showCampaign = (campaign_id) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.CAMPAIGN_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data: { campaign_id },
+    })
+      .then((res) => {
+        console.log("res campaign", res.data);
+        dispatch({
+          type: types.SHOW_CAMPAIGN,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
   };
 };
 export const createQuestionAndAnswersAPI = (
@@ -123,6 +139,7 @@ export const createQuestionAndAnswersAPI = (
       });
   };
 };
+//////////group candidates
 export const createCandidate = (data) => {
   return (dispatch) => {
     axios({
@@ -266,6 +283,7 @@ export const updateCandidatesToInterview = (data) => {
       });
   };
 };
+////////////interview
 export const createInterview = (data) => {
   return (dispatch) => {
     axios({
@@ -296,6 +314,11 @@ export const createInterview = (data) => {
       });
   };
 };
+export const showInterviews = () => {
+  return {
+    type: types.SHOW_INTERVIEWS,
+  };
+};
 export const getInterviews = (campaign_id) => {
   return (dispatch) => {
     axios({
@@ -309,7 +332,7 @@ export const getInterviews = (campaign_id) => {
       .then((res) => {
         console.log("get interviews", res.data);
         dispatch({
-          type: types.SHOW_INTERVIEWS,
+          type: types.GET_INTERVIEWS,
           data: res.data,
         });
       })

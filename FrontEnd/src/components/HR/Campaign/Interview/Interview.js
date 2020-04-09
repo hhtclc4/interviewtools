@@ -14,7 +14,7 @@ class HRInterview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      campaign_id: 1,
+      campaign_id: this.props.match.params.campaign_id,
       availableCandidates: [
         {
           cv: "",
@@ -59,9 +59,8 @@ class HRInterview extends React.Component {
   }
   componentDidMount() {
     this._isMounted = true;
-    let { campaign_id } = this.state;
-    this.props.getInterviews(campaign_id);
-    this.props.getAvailableCandidates(campaign_id);
+    // let { campaign_id } = this.state;
+    this.props.showInterviews();
   }
 
   UNSAFE_componentWillMount() {}
@@ -329,16 +328,13 @@ class HRInterview extends React.Component {
 //send action to redux
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getAvailableCandidates: (campaign_id) => {
-      dispatch(actions.getAvailableCandidates(campaign_id));
+    showInterviews: () => {
+      dispatch(actions.showInterviews());
     },
     getInterviewCandidates: (campaign_id, interview_id) => {
       dispatch(actions.getInterviewCandidates(campaign_id, interview_id));
     },
 
-    getInterviews: (campaign_id) => {
-      dispatch(actions.getInterviews(campaign_id));
-    },
     updateCandidatesToInterview: (data) => {
       dispatch(actions.updateCandidatesToInterview(data));
     },

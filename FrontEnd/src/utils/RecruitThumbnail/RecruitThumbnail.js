@@ -43,7 +43,7 @@ class RecruitThumbnail extends React.Component {
     this.setState({
       data,
     });
-    console.log(data)
+    console.log(data);
   }
   render() {
     let { data } = this.state;
@@ -54,8 +54,6 @@ class RecruitThumbnail extends React.Component {
           className="recruit-thumb-container"
           onClick={() => {
             localStorage.setItem("campaign_id", this.props.data.id);
-            localStorage.setItem("campaign_index", this.props.index);
-
             this.props.history.push("/detail_recruit");
           }}
         >
@@ -98,8 +96,8 @@ class RecruitThumbnail extends React.Component {
           {postFeature === "new" ? (
             <div className="re-new-recruit"></div>
           ) : (
-              <div className="re-hot-recruit"></div>
-            )}
+            <div className="re-hot-recruit"></div>
+          )}
         </div>
       </div>
     );

@@ -6,7 +6,6 @@ import * as actions from "../../../../redux/actions/index";
 import { withRouter } from "react-router-dom";
 
 import Swal from "sweetalert2";
-import Group from "antd/lib/input/Group";
 
 class SendCV extends React.Component {
   constructor(props) {
@@ -138,13 +137,13 @@ class SendCV extends React.Component {
                 {localStorage.getItem("token") ? (
                   formCV()
                 ) : (
-                    <button
-                      className="login-button"
-                      onClick={this.toggleLoginPopup}
-                    >
-                      Login
-                    </button>
-                  )}
+                  <button
+                    className="login-button"
+                    onClick={this.toggleLoginPopup}
+                  >
+                    Login
+                  </button>
+                )}
                 {this.state.loginPopup ? (
                   <LoginPopup togglePopup={this.toggleLoginPopup} />
                 ) : null}

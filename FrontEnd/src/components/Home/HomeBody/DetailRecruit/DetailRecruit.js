@@ -44,18 +44,10 @@ class DetailRecruit extends React.Component {
   }
   componentDidMount() {
     let id = localStorage.getItem("campaign_id");
-    let index = localStorage.getItem("campaign_index");
-
-    this.props.showCampaign(index);
+    this.props.showCampaign(id);
     this.props.checkIfCandidateSendCVBefore(id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps.candidate);
-
-    //   this.setState({
-    //     isSendCvBefore: true
-    //   });
-    // }
     this.setState({
       data: nextProps.campaign,
       isSendCvBefore: nextProps.candidate.campaign_id === 0 ? false : true,
@@ -188,8 +180,8 @@ class DetailRecruit extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    showCampaign: (index) => {
-      dispatch(actions.showCampaign(index));
+    showCampaign: (campaign_id) => {
+      dispatch(actions.showCampaign(campaign_id));
     },
     checkIfCandidateSendCVBefore: (campaign_id) => {
       dispatch(actions.checkIfCandidateSendCVBefore(campaign_id));
