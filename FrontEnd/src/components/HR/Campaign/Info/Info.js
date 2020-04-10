@@ -8,8 +8,10 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from "draft-js";
 import { Menu, Dropdown, Button, message } from "antd";
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { Select } from 'antd';
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
+const { Option } = Select;
 class HRInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -50,6 +52,7 @@ class HRInfo extends React.Component {
     this.setState({
       data: nextProps.campaign,
     });
+    console.log(this.props)
   }
   handleButtonClick = (e) => {
     message.info("Click on left button.");
@@ -61,8 +64,13 @@ class HRInfo extends React.Component {
     console.log("click", e);
   };
 
+  handleChange = (value) => {
+    console.log(`selected ${value}`);
+  }
+
   render() {
     let { data } = this.state;
+    console.log(data)
     const menu = (
       <Menu onClick={this.handleMenuClick}>
         <Menu.Item key="1">
@@ -79,6 +87,12 @@ class HRInfo extends React.Component {
         </Menu.Item>
       </Menu>
     );
+
+    const children = [];
+    for (let i = 0; i < data.subjects.length; i++) {
+      children.push(<Option key={data.subjects[i].id}>{data.subjects[i].title}</Option>);
+    }
+    console.log("children", children);
     return (
       <div className="hr-info-container container-fluid">
         <div className="hr-info-single-field">
@@ -86,19 +100,20 @@ class HRInfo extends React.Component {
         </div>
         <div className="hr-info-single-field">
           <div className="hr-info-combobox-field">
-            <div className="hr-title-field font-weight-bold py-1 m-2 ">
+            <div className="hr-title-field font-weight-bold py-1  ml-0 ">
               Braches
             </div>
-            <Dropdown
-              overlay={menu}
-              trigger={["click"]}
-              style={{ width: "100%" }}
-              overlayStyle={{ width: "auto" }}
+            <Select
+              mode="multiple"
+              style={{ width: '100%' }}
+              placeholder="Please select"
+              onChange={this.handleChange}
+              defaultValue={[]}
             >
-              <Button>
-                Java <DownOutlined />
-              </Button>
-            </Dropdown>
+              {children}
+
+            </Select>
+            {console.log("data", data)}
           </div>
         </div>
         <div className="hr-info-single-field">
@@ -115,7 +130,7 @@ class HRInfo extends React.Component {
             <div className="col-md-6 p-0">
               <div className="hr-info-combobox-field">
                 <div className="hr-title-field font-weight-bold py-1 m-2 ">
-                  Braches
+                  Rank
                 </div>
                 <Dropdown
                   overlay={menu}
@@ -222,7 +237,7 @@ class HRInfo extends React.Component {
             onEditorStateChange={this.onEditorStateChange}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }
