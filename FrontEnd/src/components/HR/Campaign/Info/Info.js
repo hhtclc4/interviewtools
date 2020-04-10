@@ -9,9 +9,9 @@ import { EditorState } from "draft-js";
 import { Menu, Dropdown, Button, message } from "antd";
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import { Select } from 'antd';
-const { Option } = Select;
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
+const { Option } = Select;
 class HRInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -70,6 +70,7 @@ class HRInfo extends React.Component {
 
   render() {
     let { data } = this.state;
+    console.log(data)
     const menu = (
       <Menu onClick={this.handleMenuClick}>
         <Menu.Item key="1">
@@ -88,10 +89,10 @@ class HRInfo extends React.Component {
     );
 
     const children = [];
-
-    for (let i = 10; i < 36; i++) {
-      children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+    for (let i = 0; i < data.subjects.length; i++) {
+      children.push(<Option key={data.subjects[i].id}>{data.subjects[i].title}</Option>);
     }
+    console.log("children", children);
     return (
       <div className="hr-info-container container-fluid">
         <div className="hr-info-single-field">
@@ -99,18 +100,20 @@ class HRInfo extends React.Component {
         </div>
         <div className="hr-info-single-field">
           <div className="hr-info-combobox-field">
-            <div className="hr-title-field font-weight-bold py-1 m-2 ">
+            <div className="hr-title-field font-weight-bold py-1  ml-0 ">
               Braches
             </div>
             <Select
               mode="multiple"
               style={{ width: '100%' }}
               placeholder="Please select"
-              defaultValue={['a10', 'c12']}
               onChange={this.handleChange}
+              defaultValue={[]}
             >
               {children}
-            </Select>,
+
+            </Select>
+            {console.log("data", data)}
           </div>
         </div>
         <div className="hr-info-single-field">
@@ -234,7 +237,7 @@ class HRInfo extends React.Component {
             onEditorStateChange={this.onEditorStateChange}
           />
         </div>
-      </div>
+      </div >
     );
   }
 }
