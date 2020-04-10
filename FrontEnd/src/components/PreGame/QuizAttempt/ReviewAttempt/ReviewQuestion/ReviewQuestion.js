@@ -12,7 +12,7 @@ class ReviewQuestion extends React.Component {
         question: {
           question: "",
           question_choices: [],
-          is_one_right_ans: 1,
+          type: 1,
         },
         question_choice: {
           id: 0,
@@ -49,7 +49,7 @@ class ReviewQuestion extends React.Component {
       let choiceColor = "";
       //question unattempt
       if (answerList.is_right === 1) choiceColor = "#00c985";
-      if (data.question.is_one_right_ans) {
+      if (data.question.type === 1) {
         if (data.question_choice.id === answerList.id)
           if (data.question_choice.is_right === 1 && answerList.is_right === 1)
             //question right
@@ -57,7 +57,7 @@ class ReviewQuestion extends React.Component {
           else if (data.question_choice.is_right !== 1)
             //question wrong
             choiceColor = "#F14D76";
-      } else {
+      } else if (data.question.type === 2) {
         if (data.multi_choice_id !== null)
           for (let i = 0; i < data.multi_choice.question_choices.length; i++) {
             if (data.multi_choice.question_choices[i].id === answerList.id)

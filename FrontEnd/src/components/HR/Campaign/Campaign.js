@@ -13,46 +13,22 @@ class HRCampaign extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {
-        id: 0,
-        title: "",
-        subject_id: 0,
-        company_address: "",
-        level_id: 0,
-        amount_required: 0,
-        work_type_id: 0,
-        sex: 0,
-        experience: 0,
-        salary: 0,
-        deadline: "",
-        user_id: 0,
-        work_description: "",
-        candidate_req: "",
-        candidate_benefits: "",
-        location: "",
-        subjects: [
-          {
-            id: 0,
-            title: "",
-          },
-        ],
-      },
+      title: "",
       campaign_id: this.props.match.params.campaign_id,
     };
   }
   componentDidMount() {
     let { campaign_id } = this.state;
-    this.props.showCampaign(campaign_id);
     this.props.getInterviews(campaign_id);
     this.props.getAvailableCandidates(campaign_id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      data: nextProps.campaign,
+      title: nextProps.campaign.title,
     });
   }
   render() {
-    let { data } = this.state;
+    let { title } = this.state;
     return (
       <div className="hr-campaign-container">
         <HRNav />
@@ -70,9 +46,7 @@ class HRCampaign extends React.Component {
                 </div>
 
                 <div className="hr-campaign-header-info">
-                  <div className="hr-header-title text-truncate">
-                    {data.title}
-                  </div>
+                  <div className="hr-header-title text-truncate">{title}</div>
                 </div>
                 <div className="hr-campaign-header-options  d-flex flex-row  align-items-start justify-content-around">
                   <span className="hr-option-background">
@@ -83,7 +57,7 @@ class HRCampaign extends React.Component {
               <div className="hr-campaign-tabs">
                 <Tabs selected={0}>
                   <Panel title="Infomation">
-                    <HRInfo data={data} />
+                    <HRInfo />
                   </Panel>
                   <Panel title="Interview">
                     <HRInterview />
@@ -104,10 +78,6 @@ const mapDispatchToProps = (dispatch, props) => {
     getAvailableCandidates: (campaign_id) => {
       dispatch(actions.getAvailableCandidates(campaign_id));
     },
-    showCampaign: (campaign_id) => {
-      dispatch(actions.showCampaign(campaign_id));
-    },
-
     getInterviews: (campaign_id) => {
       dispatch(actions.getInterviews(campaign_id));
     },
