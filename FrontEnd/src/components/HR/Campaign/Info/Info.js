@@ -8,6 +8,8 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from "draft-js";
 import { Menu, Dropdown, Button, message } from "antd";
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { connect } from "react-redux";
+import * as actions from "../../../../redux/actions/index";
 class HRInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -37,12 +39,16 @@ class HRInfo extends React.Component {
           },
         ],
       },
+      campaign_id: this.props.match.params.campaign_id,
     };
   }
   componentDidMount() {
-    let { data } = this.props;
+    let { campaign_id } = this.state;
+    this.props.showCampaign(campaign_id);
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      data,
+      data: nextProps.campaign,
     });
   }
   handleButtonClick = (e) => {
@@ -220,5 +226,18 @@ class HRInfo extends React.Component {
     );
   }
 }
-
-export default withRouter(HRInfo);
+//send action to redux
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    showCampaign: (campaign_id) => {
+      dispatch(actions.showCampaign(campaign_id));
+    },
+  };
+};
+//get data from redux
+const mapStateToProps = (state) => {
+  return {
+    campaign: state.campaign,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HRInfo));

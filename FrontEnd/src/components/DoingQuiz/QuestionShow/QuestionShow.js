@@ -58,7 +58,6 @@ class QuestionShow extends React.Component {
         multiArr.question_choices[i] = {
           id: question_choices[mutiCheckArr[i]].id,
         };
-      console.log("multiArr", multiArr);
       this.props.recordAnswer(this.state.id, { id: 0 }, multiArr, null, type);
     } else {
       this.props.recordAnswer(this.state.id, { id: 0 }, {}, answer_text, type);
@@ -179,7 +178,6 @@ class QuestionShow extends React.Component {
       answer_text,
     } = this.state;
     let { questionsLength, index } = this.props;
-    console.log("questonchoices", question_choices);
     let colorButtons = ["#2F6DAE", "#2C9CA6", "#ECA82C", "#D4546A", "#5cd65c"];
     const element = question_choices.map((answer, index) => {
       let color = () => {

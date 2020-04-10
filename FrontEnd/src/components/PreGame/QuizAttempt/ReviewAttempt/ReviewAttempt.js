@@ -37,7 +37,7 @@ class ReviewAttempt extends React.Component {
     this.props.getAttempt(question_table_id, attempt_id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps.attempt);
+    // console.log(nextProps.attempt);
     this.setState({
       data: nextProps.attempt,
     });
@@ -158,7 +158,6 @@ class ReviewAttempt extends React.Component {
     }
 
     answerColor.push(choiceColor);
-    console.log("answerColor", answerColor);
     return answerColor;
   };
   render() {
@@ -174,7 +173,6 @@ class ReviewAttempt extends React.Component {
     let inCorrectAnswer = this.inCorrectAnswer();
     let questionAttempt = data.map((question, index) => {
       let answerColor = this.getQuestionBorderColor(question);
-      console.log("question", question);
       return (
         <ReviewQuestion
           key={index}
