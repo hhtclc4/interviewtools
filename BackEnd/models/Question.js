@@ -13,25 +13,30 @@ const Question = db.define(
       autoIncrement: true,
       defaultValue: null,
       primaryKey: true,
-      foreignKey: [Object]
+      foreignKey: [Object],
     },
     question: {
       type: "VARCHAR(100)",
       allowNull: false,
       defaultValue: null,
-      primaryKey: false
+      primaryKey: false,
     },
     time: {
       type: "DOUBLE",
       allowNull: false,
       defaultValue: 30,
-      primaryKey: false
+      primaryKey: false,
     },
     type: {
       type: "TINYINT(3)",
       allowNull: false,
-      defaultValue: 1
-    }
+      defaultValue: 1,
+    },
+    hint: {
+      type: "VARCHAR(300)",
+      defaultValue: null,
+      primaryKey: false,
+    },
   },
   { underscored: true }
 );

@@ -22,6 +22,7 @@ class QuestionShow extends React.Component {
       time: 0,
       answer_text: "",
       type: 1,
+      hint: "",
       disableButton: false,
       clicked: false,
       mutiCheckArr: [],
@@ -170,6 +171,7 @@ class QuestionShow extends React.Component {
     const {
       time,
       question,
+      hint,
       question_choices,
       disableButton,
       clicked,
@@ -271,6 +273,7 @@ class QuestionShow extends React.Component {
                     value={answer_text}
                     onChange={this.onChangeTextHandler}
                   />
+                  <p>Hint: {hint}</p>
                 </div>
               )}
             </div>

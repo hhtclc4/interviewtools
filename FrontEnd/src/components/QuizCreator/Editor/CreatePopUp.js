@@ -38,6 +38,7 @@ class QuestionCreatePopup extends React.Component {
         question: "",
         time: 30,
         type: 1,
+        hint: "",
       },
       answers: [],
       checkOneRightAnswer: {
@@ -246,7 +247,7 @@ class QuestionCreatePopup extends React.Component {
       }
     }
 
-    //console.log(this.state.temptIndex);
+    console.log(this.state.data);
   };
   handleOnChangeInput = (event) => {
     let value = event.target.value;
@@ -325,7 +326,21 @@ class QuestionCreatePopup extends React.Component {
         />
       );
     });
-
+    let divTypeText = () => {
+      return (
+        <div>
+          <p>Hint (Optional): </p>
+          <input
+            name="hint"
+            value={this.state.data.hint}
+            type="text"
+            style={{ width: "80%" }}
+            placeholder="add hint for question"
+            onChange={this.handleOnChangeInput}
+          />
+        </div>
+      );
+    };
     return (
       <div className="popup">
         <form onSubmit={this.onSubmitHandle}>
@@ -375,7 +390,9 @@ class QuestionCreatePopup extends React.Component {
                     Add another option
                   </button>
                 </div>
-              ) : null}
+              ) : (
+                divTypeText()
+              )}
 
               <hr />
             </div>

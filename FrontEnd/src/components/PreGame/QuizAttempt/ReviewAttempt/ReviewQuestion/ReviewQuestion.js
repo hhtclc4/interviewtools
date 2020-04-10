@@ -13,6 +13,7 @@ class ReviewQuestion extends React.Component {
           question: "",
           question_choices: [],
           type: 1,
+          hint: "",
         },
         question_choice: {
           id: 0,
@@ -88,7 +89,11 @@ class ReviewQuestion extends React.Component {
         </div>
         <hr />
         {data.question.type === 3 ? (
-          <label>{data.answer_text}</label>
+          <div>
+            {" "}
+            <label>{data.answer_text}</label>
+            <p>{data.hint}</p>{" "}
+          </div>
         ) : (
           <div className="review-question-options">{answerElm}</div>
         )}
