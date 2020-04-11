@@ -66,7 +66,7 @@ class DetailRecruit extends React.Component {
     let { data, isSendCvBefore } = this.state;
     return (
       <div className="detail-recruit-container">
-        <div className="dr-nav-container">
+        {/* <div className="dr-nav-container">
           <div className="logo">
             <img
               className="big-logo"
@@ -74,7 +74,7 @@ class DetailRecruit extends React.Component {
               alt="quiz-icon"
             />
           </div>
-        </div>
+        </div> */}
         <div className="dr-content container-fluid">
           <div className="dr-grid row ">
             <div className="col-sm-2"></div>

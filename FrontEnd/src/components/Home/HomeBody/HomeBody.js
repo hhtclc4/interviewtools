@@ -5,6 +5,7 @@ import { Tabs, Panel } from "../../../utils/Tab/Tabs";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import { withRouter } from "react-router-dom";
+
 class HomeBody extends React.Component {
   constructor(props) {
     super(props);
