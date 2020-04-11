@@ -1,6 +1,7 @@
 import React from "react";
 import "./HR.scss";
 import HRstaff from "../../components/HR/HR";
+import HomeNav from '../../components/Home/Nav/Nav'
 import { withRouter } from "react-router-dom";
 
 class HRlayout extends React.Component {

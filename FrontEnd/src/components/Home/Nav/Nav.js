@@ -18,6 +18,7 @@ class HomeNav extends React.Component {
         name: "",
         email: "",
         role_id: 0,
+        ava: "",
       },
     };
   }
@@ -72,15 +73,15 @@ class HomeNav extends React.Component {
           {token ? (
             data.email
           ) : (
-            <div>
-              <button className="b-log-in" onClick={this.togglePopup}>
-                Login
+              <div>
+                <button className="b-log-in" onClick={this.togglePopup}>
+                  Login
               </button>
-              <button className="b-sign-up" onClick={this.toggleSignupPopup}>
-                Sign up
+                <button className="b-sign-up" onClick={this.toggleSignupPopup}>
+                  Sign up
               </button>
-            </div>
-          )}
+              </div>
+            )}
         </div>
 
         {this.state.loginPopup ? (
