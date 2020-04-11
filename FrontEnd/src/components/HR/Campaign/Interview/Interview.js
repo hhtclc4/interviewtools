@@ -63,7 +63,7 @@ class HRInterview extends React.Component {
     this.props.showInterviews();
   }
 
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() { }
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -164,15 +164,14 @@ class HRInterview extends React.Component {
     return (
       <div className="hr-interview-container container-fluid ">
         <div className="row">
-          <div className="col-md-9">
+          <div className="col-md-12">
             <div className="creater-container">
               <div className="interview-section-title">
                 Create New Interview Period
               </div>
               <div className=" initialized-interviews d-flex flex-row flex-wrap">
                 {interviewElm}
-                <div className="initialized-interview-container d-flex flex-row mr-2 mb-2">
-                  dấu + ở giữa nha
+                <div className="initialized-interview-container d-flex flex-row mr-2 mb-2 justify-content-center">
                   <button
                     className="adjust-icon-btn align-self-center"
                     onClick={() => {
@@ -184,10 +183,10 @@ class HRInterview extends React.Component {
                     style={
                       this.state.isFocusCreater || isFocusEmails
                         ? {
-                            zIndex: "15",
-                            position: "relative",
-                            display: "block",
-                          }
+                          zIndex: "15",
+                          position: "relative",
+                          display: "block",
+                        }
                         : null
                     }
                   >
@@ -292,8 +291,8 @@ class HRInterview extends React.Component {
                         );
                       })
                     ) : (
-                      <div>NO email was chosen</div>
-                    )}
+                        <div>NO email was chosen</div>
+                      )}
                   </div>
                 </div>
               </div>
@@ -308,12 +307,12 @@ class HRInterview extends React.Component {
               }
             ></div>
           </div>
-          <div className="initialized-interviews col-sm-3">
+          {/* <div className="initialized-interviews col-sm-3">
             <div className="interview-section-title">
               Created Interview Period
             </div>
             {interviewElm}
-          </div>
+          </div> */}
         </div>
         {this.state.isShowPopup ? (
           <InterviewPopup
