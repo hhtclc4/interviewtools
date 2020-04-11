@@ -4,13 +4,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { withRouter } from "react-router-dom";
+import { Select } from 'antd';
+
+
+
+const { Option } = Select;
 
 class RecruitSignup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+
+  handleChange = (value) => {
+    console.log(`selected ${value}`);
+  }
   render() {
+
+    const children = [];
+    for (let i = 10; i < 20; i++) {
+      children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
+    }
+
+
     return (
       <div className="recruit-signup-container container ">
         <div className="section-name row pb-3 ">
@@ -38,7 +55,15 @@ class RecruitSignup extends React.Component {
                 Choose maximum 3 branches from dropdow below
               </div>
               <div>
-                <input />
+                <Select
+                  mode="multiple"
+                  style={{ width: '100%' }}
+                  placeholder="Please select"
+
+                  onChange={this.handleChange}
+                >
+                  {children}
+                </Select>
               </div>
             </div>
             <div className="single-field py-4">
@@ -66,7 +91,15 @@ class RecruitSignup extends React.Component {
                 <div className=" font-weight-bold py-1">Rank</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
-                  <input />
+                  <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="Please select"
+
+                    onChange={this.handleChange}
+                  >
+                    {children}
+                  </Select>
                 </div>
               </div>
             </div>
@@ -75,14 +108,30 @@ class RecruitSignup extends React.Component {
                 <div className=" font-weight-bold py-1">Type of work</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
-                  <input />
+                  <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="Please select"
+
+                    onChange={this.handleChange}
+                  >
+                    {children}
+                  </Select>
                 </div>
               </div>
               <div className="field-1 ml-3">
                 <div className=" font-weight-bold py-1">Sex</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
-                  <input />
+                  <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="Please select"
+
+                    onChange={this.handleChange}
+                  >
+                    {children}
+                  </Select>
                 </div>
               </div>
             </div>
@@ -101,7 +150,15 @@ class RecruitSignup extends React.Component {
                 <div className=" font-weight-bold py-1">Experience</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
-                  <input />
+                  <Select
+                    mode="multiple"
+                    style={{ width: '100%' }}
+                    placeholder="Please select"
+
+                    onChange={this.handleChange}
+                  >
+                    {children}
+                  </Select>
                 </div>
               </div>
             </div>

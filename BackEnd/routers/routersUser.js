@@ -62,11 +62,12 @@ router.post("/api/login_user", (req, res) =>
     where: {
       email: req.body.email,
       password: req.body.password
+
     }
   }).then(user => {
     if (user.id === null) res.sendStatus(403);
     else {
-      jwt.sign({ user_id: user.id }, "hoangtri", function(err, token) {
+      jwt.sign({ user_id: user.id }, "hoangtri", function (err, token) {
         if (err) res.sendStatus(403);
         res.send({ data: user, token: token });
       });
@@ -383,6 +384,6 @@ function verifyToken(req, res, next) {
   }
 }
 
-router.delete("/api/user/:id", (req, res) => {});
+router.delete("/api/user/:id", (req, res) => { });
 
 module.exports = router;

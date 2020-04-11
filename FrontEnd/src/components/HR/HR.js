@@ -71,7 +71,11 @@ class HRstaff extends React.Component {
                 <p className="hr-campaign-count align-self-center">
                   All campaigns ({data.length})
                 </p>
-                <button className="hr-create-campaign-btn align-self-center">
+                <button className="hr-create-campaign-btn align-self-center"
+                  onClick={() => {
+                    this.props.history.push("/recruit_signup");
+                  }}
+                >
                   Create new campaign
                 </button>
               </div>

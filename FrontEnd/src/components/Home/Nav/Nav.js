@@ -71,7 +71,7 @@ class HomeNav extends React.Component {
         </div>
         <div className="button-group">
           {token ? (
-            data.email
+            <div>{data.email}</div>
           ) : (
               <div>
                 <button className="b-log-in" onClick={this.togglePopup}>
