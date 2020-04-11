@@ -6,9 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from "draft-js";
-import { Menu, Dropdown, Button, message } from "antd";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
-import { Select } from 'antd';
+import { Select } from "antd";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 const { Option } = Select;
@@ -23,11 +21,10 @@ class HRInfo extends React.Component {
         subject_id: 0,
         company_address: "",
         level_id: 0,
-        amount_required: 0,
+        amount_required: "",
         work_type_id: 0,
-        sex: 0,
         experience: 0,
-        salary: 0,
+        salary: "",
         deadline: "",
         user_id: 0,
         work_description: "",
@@ -40,63 +37,138 @@ class HRInfo extends React.Component {
             title: "",
           },
         ],
+        user: {
+          name: "",
+          email: "",
+          phone: "",
+        },
+        level: {
+          id: 0,
+          name: "",
+        },
+        work_type: {
+          id: 0,
+          name: "",
+        },
       },
+      listSubjects: [{ id: 0 }],
+      listLevels: [{ id: 0 }],
+      listWorkTypes: [{ id: 0 }],
+
       campaign_id: this.props.match.params.campaign_id,
     };
   }
   componentDidMount() {
     let { campaign_id } = this.state;
     this.props.showCampaign(campaign_id);
+    this.props.showListSubject();
+    this.props.showListWorkType();
+    this.props.showListLevel();
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.setState({
       data: nextProps.campaign,
+      listSubjects: nextProps.subject.subjects,
+      listLevels: nextProps.level,
+      listWorkTypes: nextProps.work_type,
     });
-    console.log(this.props)
   }
   handleButtonClick = (e) => {
-    message.info("Click on left button.");
     console.log("click left button", e);
   };
 
   handleMenuClick = (e) => {
-    message.info("Click on menu item.");
     console.log("click", e);
   };
 
-  handleChange = (value) => {
-    console.log(`selected ${value}`);
-  }
+  onChangeSelectSingle = (key, value) => {
+    let { data } = this.state;
+    this.props.updateCampaign({ ...data, [key]: value });
+  };
+  onChangeSelectMulti = (arrValue) => {
+    let { data, campaign_id, listSubjects } = this.state;
+    let campaign_subject = [];
+    let newSubjects = [];
+    for (let i = 0; i < arrValue.length; i++) {
+      campaign_subject.push({ campaign_id, subject_id: arrValue[i] });
+      newSubjects.push(listSubjects.find((sub) => sub.id === arrValue[i]));
+    }
 
+    this.props.updateCampaign({
+      ...data,
+      subjects: newSubjects,
+      campaign_subject,
+    });
+  };
+  onBlurInputHandler = (key, value) => {
+    let { data } = this.state;
+    this.props.updateCampaign({ ...data, [key]: value });
+  };
+  levelMenu = () => {
+    let { listLevels } = this.state;
+    let menu = listLevels.map((level) => {
+      return (
+        <Option key={level.id} value={level.id}>
+          {level.name}
+        </Option>
+      );
+    });
+    return menu;
+  };
+  workTypeMenu = () => {
+    let { listWorkTypes } = this.state;
+    let menu = listWorkTypes.map((type) => {
+      return (
+        <Option key={type.id} value={type.id}>
+          {type.name}
+        </Option>
+      );
+    });
+    return menu;
+  };
+  subjectMenu = () => {
+    let { listSubjects } = this.state;
+    let menu = listSubjects.map((subject) => {
+      return (
+        <Option key={subject.id} value={subject.id}>
+          {subject.title}
+        </Option>
+      );
+    });
+    return menu;
+  };
+  experienceMenu = () => {
+    let arr = [0, 1, 2, 3];
+    let menu = arr.map((num) => {
+      return (
+        <Option key={num} value={num}>
+          {num === 0 ? "Non require" : `${num} years`}
+        </Option>
+      );
+    });
+    return menu;
+  };
   render() {
     let { data } = this.state;
-    console.log(data)
-    const menu = (
-      <Menu onClick={this.handleMenuClick}>
-        <Menu.Item key="1">
-          <UserOutlined />
-          1st menu item
-        </Menu.Item>
-        <Menu.Item key="2">
-          <UserOutlined />
-          2nd menu item
-        </Menu.Item>
-        <Menu.Item key="3">
-          <UserOutlined />
-          3rd item
-        </Menu.Item>
-      </Menu>
-    );
 
-    const children = [];
-    for (let i = 0; i < data.subjects.length; i++) {
-      children.push(<Option key={data.subjects[i].id}>{data.subjects[i].title}</Option>);
-    }
-    console.log("children", children);
+    let levelMenu = this.levelMenu();
+    let workTypeMenu = this.workTypeMenu();
+    let currentSubjects = data.subjects.map((subject) => {
+      return subject.id;
+      // [1,2,3]
+    });
+    let subjectMenu = this.subjectMenu();
+    let experienceMenu = this.experienceMenu();
     return (
       <div className="hr-info-container container-fluid">
         <div className="hr-info-single-field">
-          <HREditable title="Title" content={data.title} />
+          <HREditable
+            title="Title"
+            name="title"
+            content={data.title}
+            onBlurInputHandler={this.onBlurInputHandler}
+          />
         </div>
         <div className="hr-info-single-field">
           <div className="hr-info-combobox-field">
@@ -105,43 +177,48 @@ class HRInfo extends React.Component {
             </div>
             <Select
               mode="multiple"
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
               placeholder="Please select"
-              onChange={this.handleChange}
-              defaultValue={[]}
+              onChange={this.onChangeSelectMulti}
+              value={currentSubjects}
             >
-              {children}
-
+              {subjectMenu}
             </Select>
-            {console.log("data", data)}
           </div>
         </div>
         <div className="hr-info-single-field">
-          <HREditable title="Destination" content="This is the destination" />
+          <HREditable
+            title="Company Adress"
+            name="company_address"
+            content={data.company_address}
+            onBlurInputHandler={this.onBlurInputHandler}
+          />
         </div>
         <div className="hr-info-double-field d-flex flex-row container-fluid p-0">
           <div className="row" style={{ width: "100%", margin: "0" }}>
             <div className="col-md-6 p-0">
               <HREditable
                 title="Number of personel in need"
-                content="This is the title"
+                name="amount_required"
+                content={data.amount_required.toString()}
+                onBlurInputHandler={this.onBlurInputHandler}
               />
             </div>
             <div className="col-md-6 p-0">
               <div className="hr-info-combobox-field">
                 <div className="hr-title-field font-weight-bold py-1 m-2 ">
-                  Rank
+                  Level
                 </div>
-                <Dropdown
-                  overlay={menu}
-                  trigger={["click"]}
+                <Select
                   style={{ width: "100%" }}
-                  overlayStyle={{ width: "auto" }}
+                  placeholder="Please select"
+                  onChange={(value) =>
+                    this.onChangeSelectSingle("level_id", value)
+                  }
+                  value={data.level_id}
                 >
-                  <Button>
-                    Java <DownOutlined />
-                  </Button>
-                </Dropdown>
+                  {levelMenu}
+                </Select>
               </div>
             </div>
           </div>
@@ -153,33 +230,16 @@ class HRInfo extends React.Component {
                 <div className="hr-title-field font-weight-bold py-1 m-2 ">
                   Type of work
                 </div>
-                <Dropdown
-                  overlay={menu}
-                  trigger={["click"]}
+                <Select
                   style={{ width: "100%" }}
-                  overlayStyle={{ width: "auto" }}
+                  placeholder="Please select"
+                  onChange={(value) =>
+                    this.onChangeSelectSingle("work_type_id", value)
+                  }
+                  value={data.work_type_id}
                 >
-                  <Button>
-                    Java <DownOutlined />
-                  </Button>
-                </Dropdown>
-              </div>
-            </div>
-            <div className="col-md-6 p-0">
-              <div className="hr-info-combobox-field">
-                <div className="hr-title-field font-weight-bold py-1 m-2 ">
-                  Sex
-                </div>
-                <Dropdown
-                  overlay={menu}
-                  trigger={["click"]}
-                  style={{ width: "100%" }}
-                  overlayStyle={{ width: "auto" }}
-                >
-                  <Button>
-                    Java <DownOutlined />
-                  </Button>
-                </Dropdown>
+                  {workTypeMenu}
+                </Select>
               </div>
             </div>
           </div>
@@ -187,43 +247,64 @@ class HRInfo extends React.Component {
         <div className="hr-info-double-field d-flex flex-row container-fluid p-0">
           <div className="row" style={{ width: "100%", margin: "0" }}>
             <div className="col-md-6 p-0">
-              <HREditable title="Salary" content="This is the title" />
+              <HREditable
+                title="Salary"
+                name="salary"
+                content={data.salary}
+                onBlurInputHandler={this.onBlurInputHandler}
+              />
             </div>
             <div className="col-md-6 p-0">
               <div className="hr-info-combobox-field">
                 <div className="hr-title-field font-weight-bold py-1 m-2 ">
-                  Experience
+                  Experience (Year)
                 </div>
-                <Dropdown
-                  overlay={menu}
-                  trigger={["click"]}
+                <Select
                   style={{ width: "100%" }}
-                  overlayStyle={{ width: "auto" }}
+                  placeholder="Please select"
+                  onChange={(value) =>
+                    this.onChangeSelectSingle("experience", value)
+                  }
+                  value={data.experience}
                 >
-                  <Button>
-                    Java <DownOutlined />
-                  </Button>
-                </Dropdown>
+                  {experienceMenu}
+                </Select>
               </div>
             </div>
           </div>
         </div>
         <div className="hr-info-double-field d-flex flex-row">
+          {/* ///////////////////////////////////////////////////////////// */}
+          {/* ///////////////////////////////////////////////////////////// */}
+
+          {/* ///////////////////////////////////////////////////////////// */}
+
           <HREditable
             title="Application Deadline"
-            content="This is the title"
+            name={data.deadline}
+            content={data.deadline}
+            onBlurInputHandler={this.onBlurInputHandler}
           />
           <HREditable
             title="Name of application receiver"
-            content="This is the title"
+            name=""
+            content={data.user.name}
+            disabled={true}
           />
         </div>
         <div className="hr-info-double-field d-flex flex-row">
           <HREditable
             title="Email that receive application"
-            content="This is the title"
+            name=""
+            content={data.user.email}
+            disabled={true}
           />
-          <HREditable title="Phone number" content="This is the title" />
+          <HREditable
+            title="Phone number"
+            name=""
+            content={data.user.phone}
+            disabled={true}
+          />
         </div>
 
         <div className="hr-title-field font-weight-bold py-1 m-2 ">
@@ -237,7 +318,31 @@ class HRInfo extends React.Component {
             onEditorStateChange={this.onEditorStateChange}
           />
         </div>
-      </div >
+
+        <div className="hr-title-field font-weight-bold py-1 m-2 ">
+          Candidate Requirement
+        </div>
+        <div className="hr-editor-field  py-2 m-2">
+          <Editor
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapper-editor"
+            editorClassName="text-input-editor"
+            onEditorStateChange={this.onEditorStateChange}
+          />
+        </div>
+
+        <div className="hr-title-field font-weight-bold py-1 m-2 ">
+          Candidate Benefits
+        </div>
+        <div className="hr-editor-field  py-2 m-2">
+          <Editor
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapper-editor"
+            editorClassName="text-input-editor"
+            onEditorStateChange={this.onEditorStateChange}
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -247,12 +352,27 @@ const mapDispatchToProps = (dispatch, props) => {
     showCampaign: (campaign_id) => {
       dispatch(actions.showCampaign(campaign_id));
     },
+    showListSubject: () => {
+      dispatch(actions.showListSubject());
+    },
+    updateCampaign: (data) => {
+      dispatch(actions.updateCampaign(data));
+    },
+    showListLevel: () => {
+      dispatch(actions.showListLevel());
+    },
+    showListWorkType: () => {
+      dispatch(actions.showListWorkType());
+    },
   };
 };
 //get data from redux
 const mapStateToProps = (state) => {
   return {
     campaign: state.campaign,
+    subject: state.subject,
+    work_type: state.work_type,
+    level: state.level,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HRInfo));

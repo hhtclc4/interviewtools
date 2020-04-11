@@ -100,6 +100,29 @@ export const showCampaign = (campaign_id) => {
       });
   };
 };
+export const updateCampaign = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "put",
+      url: URLs.CAMPAIGN_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("update campaign", res.data);
+        if (res.data)
+          dispatch({
+            type: types.SHOW_CAMPAIGN,
+            data,
+          });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const createQuestionAndAnswersAPI = (
   question_table_id,
   question,
@@ -592,6 +615,46 @@ export const showListSubject = () => {
         console.log("res subject", res.data);
         dispatch({
           type: types.SHOW_SUBJECT,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const showListWorkType = () => {
+  return (dispatch) => {
+    axios({
+      method: "get",
+      url: URLs.WORK_TYPE_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        dispatch({
+          type: types.SHOW_WORK_TYPE,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const showListLevel = () => {
+  return (dispatch) => {
+    axios({
+      method: "get",
+      url: URLs.LEVEL_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        dispatch({
+          type: types.SHOW_LEVEL,
           data: res.data,
         });
       })

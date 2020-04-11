@@ -10,6 +10,9 @@ import completed from "./CompletedQuiz";
 import teleport from "./Teleport";
 import report from "./Report";
 import campaign from "./Campaign";
+import campaigns from "./Campaigns";
+import work_type from "./Work_Type";
+import level from "./Level";
 import availableCandidates from "./Available_Candidates";
 import interviewCandidates from "./Interview_Candidates";
 import candidate from "./Candidate";
@@ -28,10 +31,13 @@ const myReducer = combineReducers({
   teleport,
   report,
   campaign,
+  campaigns,
   availableCandidates,
   interviewCandidates,
   candidate,
   accessToPush,
   interview,
+  work_type,
+  level,
 });
 export default myReducer;

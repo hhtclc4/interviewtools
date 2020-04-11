@@ -12,6 +12,7 @@ const MultiChoices = require("../models/MultiChoices");
 const MultiChoices_Choices = require("../models/MultiChoices_Choices");
 const Work_Type = require("../models/Work_Type");
 const Campaign = require("../models/Campaign");
+const Campaign_Subject = require("../models/Campaign_Subject");
 const Group_Candidates = require("../models/Group_Candidates");
 const Level = require("../models/Level");
 const Interview = require("../models/Interview");
@@ -32,12 +33,17 @@ router.post("/api/campaign", (req, res) =>
     where: {
       id: req.body.campaign_id,
     },
-    include: [{ model: User, attributes: ["name", "email", "phone"] }, Subject],
+    include: [
+      { model: User, attributes: ["name", "email", "phone"] },
+      Subject,
+      Work_Type,
+      Level,
+    ],
   })
     .then((data) => res.send(data))
     .catch((err) => console.log(err))
 );
-router.post("/api/campaign", verifyToken, (req, res) => {
+router.post("/api/create_campaign", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
@@ -48,6 +54,28 @@ router.post("/api/campaign", verifyToken, (req, res) => {
     }
   });
 });
+router.put("/api/campaign", (req, res) => {
+  Campaign.update(req.body, {
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then((data) => {
+      if (req.body.campaign_subject !== undefined)
+        Campaign_Subject.destroy({
+          where: {
+            campaign_id: req.body.id,
+          },
+        }).then(() =>
+          Campaign_Subject.bulkCreate(req.body.campaign_subject).then(
+            res.send(data)
+          )
+        );
+      else res.send(data);
+    })
+    .catch((err) => console.log(err));
+});
+/////////// candidate
 router.post("/api/candidate", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
@@ -126,6 +154,16 @@ router.post("/api/update_group_candidates", (req, res) => {
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
 });
+router.get("/api/work_type", (req, res) =>
+  Work_Type.findAll()
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err))
+);
+router.get("/api/level", (req, res) =>
+  Level.findAll()
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err))
+);
 function verifyToken(req, res, next) {
   const header = req.headers["user-token"];
   if (typeof header !== "undefined") {

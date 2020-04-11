@@ -49,3 +49,6 @@ export const CREATE_CANDIDATE_API_URL = `${domain}/api/create_candidate`;
 // interview
 export const GET_INTERVIEW_API_URL = `${domain}/api/get_interview`;
 export const CREATE_INTERVIEW_API_URL = `${domain}/api/create_interview`;
+///
+export const WORK_TYPE_API_URL = `${domain}/api/work_type`;
+export const LEVEL_API_URL = `${domain}/api/level`;

@@ -44,7 +44,7 @@ class HRstaff extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      data: nextProps.campaign,
+      data: nextProps.campaigns,
     });
     console.log(nextProps);
   }
@@ -100,7 +100,7 @@ const mapDispatchToProps = (dispatch, props) => {
 
 const mapStateToProps = (state) => {
   return {
-    campaign: state.campaign,
+    campaigns: state.campaigns,
   };
 };
 
