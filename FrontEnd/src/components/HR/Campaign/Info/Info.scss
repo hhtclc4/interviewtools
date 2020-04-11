@@ -37,10 +37,13 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
                 font-weight: 550;
             }
 
+            .ant-select-selection {
+                height: 71px;
+            }
             .ant-select-selection__rendered {
-                height: 68px;
+                height: 63px;
                 .ant-select-selection__choice {
-                    height: 68px;
+                    height: 60px;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -53,13 +56,13 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
                 ul > .ant-select-search {
                     position: relative;
                     top: 50%;
-                    height: 62px;
+                    height: 60px;
                 }
             }
             .ant-select-selection__placeholder {
                 font-size: 18px;
                 vertical-align: baseline;
-                height: 68px;
+                height: 66px;
             }
         }
     }
