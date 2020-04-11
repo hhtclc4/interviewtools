@@ -137,13 +137,20 @@ class SendCV extends React.Component {
                 {localStorage.getItem("token") ? (
                   formCV()
                 ) : (
-                  <button
-                    className="login-button"
-                    onClick={this.toggleLoginPopup}
-                  >
-                    Login
+                    <div className="send-cv-btn-group float-right">
+                      <button
+                        className="login-button"
+                        onClick={this.toggleLoginPopup}
+                      >
+                        Login
                   </button>
-                )}
+                      <button
+                        onClick={this.props.closePopup} className="close-popup-btn"
+                      >
+                        Close
+                 </button>
+                    </div>
+                  )}
                 {this.state.loginPopup ? (
                   <LoginPopup togglePopup={this.toggleLoginPopup} />
                 ) : null}
@@ -151,8 +158,8 @@ class SendCV extends React.Component {
             </div>
             <div className="col-md-3"></div>
           </div>
-        </div>
-      </div>
+        </div >
+      </div >
     );
   }
 }

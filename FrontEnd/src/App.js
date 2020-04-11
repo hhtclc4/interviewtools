@@ -59,7 +59,7 @@ class App extends React.Component {
             />
             <Route path="/HR" component={HRlayout} />
             <Route path="/campaign/:campaign_id" component={HRCampaign} />
-            <Route path="/detail_recruit" component={DetailRecruit} />
+            {/* <Route path="/detail_recruit" component={DetailRecruit} /> */}
           </Switch>
         </Router>
       </div>

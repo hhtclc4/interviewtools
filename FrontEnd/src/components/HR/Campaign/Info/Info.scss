@@ -36,6 +36,31 @@ $shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
                 font-size: 16px;
                 font-weight: 550;
             }
+
+            .ant-select-selection__rendered {
+                height: 68px;
+                .ant-select-selection__choice {
+                    height: 68px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    .ant-select-selection__choice__content {
+                        font-size: 18px;
+                        text-align: center;
+                    }
+                }
+
+                ul > .ant-select-search {
+                    position: relative;
+                    top: 50%;
+                    height: 62px;
+                }
+            }
+            .ant-select-selection__placeholder {
+                font-size: 18px;
+                vertical-align: baseline;
+                height: 68px;
+            }
         }
     }
 }
