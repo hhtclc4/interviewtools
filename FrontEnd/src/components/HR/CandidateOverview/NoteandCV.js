@@ -15,7 +15,7 @@ class NoteandCV extends React.Component {
                     <div className="col-md-8 d-flex flex-column justify-content-center">
                         <div className="note-and-cv-popup-inner">
                             <div className="note-and-cv-tabs">
-                                <Tabs selected={1}>
+                                <Tabs selected={this.props.openTab}>
                                     <Panel title="CV">
                                         CV-content
                                     </Panel>

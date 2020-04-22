@@ -5,11 +5,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons'
 import { faUserEdit, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import CanOverview from '../../../CandidateOverview/CanOverview'
+import CandidatePopup from './CandidatePopup'
 
 class InterviewControl extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            isShowCandidatePopup: false,
+        }
+    }
+
+    toggleCandidatePopup = () => {
+        let { isShowCandidatePopup } = this.state;
+
+        if (isShowCandidatePopup === true) {
+            this.setState({
+                isShowCandidatePopup: !isShowCandidatePopup,
+            });
+        }
     }
     render() {
         return (
@@ -29,36 +42,27 @@ class InterviewControl extends React.Component {
                             <span>Time</span>
                         </div>
 
-                        <button className="in-control-add">
+                        <button className="in-control-add"
+                            onClick={() => {
+                                this.setState({
+                                    isShowCandidatePopup: !this.state.isShowCandidatePopup,
+                                });
+                                this.toggleCandidatePopup();
+                            }}
+                        >
                             <span><FontAwesomeIcon icon={faUserPlus} style={{ marginRight: '5px' }} size="lg" color="#393A68" /></span>
                         </button>
                     </div>
 
                 </div>
                 <div className="interview-control-body p-2">
-                    <div className="in-control-partions d-flex flex-row px-2">
-                        <div className="time-partion">
-                            Time
-                        </div>
-                        <div className="name-partion">
-                            Name
-                        </div>
-                        <div className="email-partion">
-                            Email
-                        </div>
-                        <div className="phone-partion">Phone</div>
-                        <div className="cv-partion">
-                            CV
-                        </div>
-                        <div className="note-partion">
-                            Note
-                        </div>
-                    </div>
-                    <hr />
                     <div className="interview-candidate-list">
-                        <CanOverview />
-                        <CanOverview />
-                        <CanOverview />
+                        <CanOverview partion="true"
+                            from="control"
+                        />
+                        <CanOverview color="#f1f1f1" />
+                        <CanOverview color="#fff" />
+                        <CanOverview color="#f1f1f1" />
                     </div>
                 </div>
                 <div className="interview-control-footer p-2">
@@ -69,6 +73,12 @@ class InterviewControl extends React.Component {
                         <span>Mr.Tri</span>
                     </div>
                 </div>
+
+                {this.state.isShowCandidatePopup ? (
+                    <CandidatePopup
+                        closePopup={this.toggleCandidatePopup}
+                    />
+                ) : null}
             </div>
         );
     }

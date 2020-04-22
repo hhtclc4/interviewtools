@@ -1,25 +1,28 @@
 .candidate-overview-container {
     height: 40px;
     width: 100%;
-    background-color: #bfbfbf;
     .time-partion {
-        width: 10%;
     }
     .name-partion {
-        width: 15%;
+        min-width: 10%;
     }
     .email-partion {
-        width: 20%;
+        min-width: 15%;
     }
     .phone-partion {
-        width: 20%;
+        min-width: 15%;
     }
     .cv-partion {
-        width: 15%;
+        min-width: 5%;
+        .cv-btn {
+            top: 0;
+            border: none;
+            background-color: transparent;
+        }
     }
 
     .note-partion {
-        width: 10%;
+        min-width: 5%;
         .note-btn {
             top: 0;
             border: none;
@@ -27,6 +30,17 @@
         }
     }
 
+    .level-partion {
+        min-width: 0%;
+    }
+
+    .subject-partion {
+        min-width: 0%;
+    }
+
+    hr {
+        margin-top: 0;
+    }
     .note-and-cv-popup-container {
         position: fixed;
         height: 100%;
