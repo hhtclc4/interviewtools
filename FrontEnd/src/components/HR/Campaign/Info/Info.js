@@ -212,7 +212,6 @@ class HRInfo extends React.Component {
                 </div>
                 <Select
                   style={{ width: "100%" }}
-                  mode="multiple"
                   placeholder="Please select"
                   onChange={(value) =>
                     this.onChangeSelectSingle("level_id", value)
@@ -234,7 +233,6 @@ class HRInfo extends React.Component {
                 </div>
                 <Select
                   style={{ width: "100%" }}
-                  mode="multiple"
                   placeholder="Please select"
                   onChange={(value) =>
                     this.onChangeSelectSingle("work_type_id", value)
@@ -245,10 +243,6 @@ class HRInfo extends React.Component {
                 </Select>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="hr-info-double-field d-flex flex-row container-fluid p-0">
-          <div className="row" style={{ width: "100%", margin: "0" }}>
             <div className="col-md-6 p-0">
               <HREditable
                 title="Salary"
@@ -257,6 +251,10 @@ class HRInfo extends React.Component {
                 onBlurInputHandler={this.onBlurInputHandler}
               />
             </div>
+          </div>
+        </div>
+        <div className="hr-info-double-field d-flex flex-row container-fluid p-0">
+          <div className="row" style={{ width: "100%", margin: "0" }}>
             <div className="col-md-6 p-0">
               <div className="hr-info-combobox-field">
                 <div className="hr-title-field font-weight-bold py-1 m-2 ">
@@ -264,7 +262,6 @@ class HRInfo extends React.Component {
                 </div>
                 <Select
                   style={{ width: "100%" }}
-                  mode="multiple"
                   placeholder="Please select"
                   onChange={(value) =>
                     this.onChangeSelectSingle("experience", value)
@@ -275,6 +272,14 @@ class HRInfo extends React.Component {
                 </Select>
               </div>
             </div>
+            <div className="col-md-6 p-0">
+              <HREditable
+                title="Application Deadline"
+                name={data.deadline}
+                content={data.deadline}
+                onBlurInputHandler={this.onBlurInputHandler}
+              />
+            </div>
           </div>
         </div>
         <div className="hr-info-double-field d-flex flex-row">
@@ -284,15 +289,15 @@ class HRInfo extends React.Component {
           {/* ///////////////////////////////////////////////////////////// */}
 
           <HREditable
-            title="Application Deadline"
-            name={data.deadline}
-            content={data.deadline}
-            onBlurInputHandler={this.onBlurInputHandler}
-          />
-          <HREditable
             title="Name of application receiver"
             name=""
             content={data.user.name}
+            disabled={true}
+          />
+          <HREditable
+            title="Phone number"
+            name=""
+            content={data.user.phone}
             disabled={true}
           />
         </div>
@@ -301,12 +306,6 @@ class HRInfo extends React.Component {
             title="Email that receive application"
             name=""
             content={data.user.email}
-            disabled={true}
-          />
-          <HREditable
-            title="Phone number"
-            name=""
-            content={data.user.phone}
             disabled={true}
           />
         </div>

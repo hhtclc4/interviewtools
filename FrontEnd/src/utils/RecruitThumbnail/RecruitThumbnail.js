@@ -14,6 +14,7 @@ class RecruitThumbnail extends React.Component {
       data: {
         id: 0,
         title: "",
+        image: "",
         subject_id: 0,
         company_address: "",
         level_id: 0,
@@ -61,7 +62,11 @@ class RecruitThumbnail extends React.Component {
             <img
               className="display-center"
               alt="re-post"
-              src={require("../QuizThumbnail/images/thumbnail.jpg")}
+              src={
+                data.image !== null
+                  ? data.image
+                  : require("../QuizThumbnail/images/thumbnail.jpg")
+              }
             />
           </div>
           <div className="re-flat-info d-flex flex-row">
