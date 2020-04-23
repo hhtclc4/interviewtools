@@ -22,12 +22,7 @@ const Campaign = db.define(
       defaultValue: null,
       primaryKey: false,
     },
-    company_address: {
-      type: "VARCHAR(200)",
-      allowNull: true,
-      defaultValue: "Đại học Sư phạm Kĩ thuật TP.HCM, số 1 Võ Văn Ngân",
-      primaryKey: false,
-    },
+
     level_id: {
       type: "INT",
       allowNull: true,
@@ -35,10 +30,10 @@ const Campaign = db.define(
       primaryKey: false,
       foreignKey: [Object],
     },
-    amount_required: {
-      type: "INT",
+    salary: {
+      type: "double",
       allowNull: true,
-      defaultValue: null,
+      defaultValue: 0,
       primaryKey: false,
     },
     work_type_id: {
@@ -47,25 +42,6 @@ const Campaign = db.define(
       defaultValue: null,
       primaryKey: false,
       foreignKey: [Object],
-    },
-
-    experience: {
-      type: "INT",
-      allowNull: true,
-      defaultValue: "0",
-      primaryKey: false,
-    },
-    salary: {
-      type: "DOUBLE",
-      allowNull: true,
-      defaultValue: "0",
-      primaryKey: false,
-    },
-    deadline: {
-      type: "DATE",
-      allowNull: true,
-      defaultValue: null,
-      primaryKey: false,
     },
     user_id: {
       type: "INT",
@@ -80,17 +56,10 @@ const Campaign = db.define(
       defaultValue: null,
       primaryKey: false,
     },
-    candidate_req: {
-      type: "VARCHAR(200)",
+    status: {
+      type: "INT",
       allowNull: true,
-      defaultValue: null,
-      primaryKey: false,
-    },
-    candidate_benefits: {
-      type: "VARCHAR(200)",
-      allowNull: true,
-      defaultValue: null,
-      primaryKey: false,
+      defaultValue: 1,
     },
   },
   { underscored: true }

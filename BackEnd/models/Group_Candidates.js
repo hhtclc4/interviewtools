@@ -8,34 +8,40 @@ const Group_Candidates = db.define(
       allowNull: false,
       defaultValue: null,
       primaryKey: true,
-      foreignKey: [Object]
+      foreignKey: [Object],
     },
     candidate_id: {
       type: "INT",
       allowNull: false,
       defaultValue: null,
       primaryKey: true,
-      foreignKey: [Object]
+      foreignKey: [Object],
     },
     interview_id: {
       type: "INT",
       allowNull: true,
       defaultValue: null,
       primaryKey: false,
-      foreignKey: [Object]
+      foreignKey: [Object],
     },
     cv: {
       type: "VARCHAR(300)",
       allowNull: true,
       defaultValue: null,
-      primaryKey: false
+      primaryKey: false,
     },
     description: {
       type: "VARCHAR(200)",
       allowNull: true,
       defaultValue: null,
-      primaryKey: false
-    }
+      primaryKey: false,
+    },
+    interview_time: {
+      type: "TIME",
+      allowNull: true,
+      defaultValue: null,
+      primaryKey: false,
+    },
   },
   { underscored: true }
 );

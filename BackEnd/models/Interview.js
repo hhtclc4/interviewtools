@@ -23,25 +23,25 @@ const Interview = db.define(
       defaultValue: null,
       primaryKey: false,
     },
-    time: {
+    time_from: {
       type: "TIME",
       allowNull: true,
       defaultValue: null,
       primaryKey: false,
     },
-    choose_from: {
-      type: "INT",
-      allowNull: true,
-      defaultValue: null,
-      primaryKey: false,
-    },
-    choose_to: {
-      type: "INT",
+    time_to: {
+      type: "TIME",
       allowNull: true,
       defaultValue: null,
       primaryKey: false,
     },
     campaign_id: {
+      type: "INT",
+      allowNull: true,
+      defaultValue: null,
+      primaryKey: false,
+    },
+    user_id: {
       type: "INT",
       allowNull: true,
       defaultValue: null,

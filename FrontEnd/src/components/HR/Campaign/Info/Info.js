@@ -19,18 +19,12 @@ class HRInfo extends React.Component {
         id: 0,
         title: "",
         subject_id: 0,
-        company_address: "",
         level_id: 0,
-        amount_required: "",
         work_type_id: 0,
-        experience: 0,
-        salary: "",
-        deadline: "",
+        salary: 0,
         user_id: 0,
         work_description: "",
-        candidate_req: "",
-        candidate_benefits: "",
-        location: "",
+        status: true,
         subjects: [
           {
             id: 0,
@@ -138,17 +132,7 @@ class HRInfo extends React.Component {
     });
     return menu;
   };
-  experienceMenu = () => {
-    let arr = [0, 1, 2, 3];
-    let menu = arr.map((num) => {
-      return (
-        <Option key={num} value={num}>
-          {num === 0 ? "Non require" : `${num} years`}
-        </Option>
-      );
-    });
-    return menu;
-  };
+
   render() {
     let { data } = this.state;
 
@@ -159,7 +143,6 @@ class HRInfo extends React.Component {
       // [1,2,3]
     });
     let subjectMenu = this.subjectMenu();
-    let experienceMenu = this.experienceMenu();
     return (
       <div className="hr-info-container container-fluid">
         <div className="hr-info-single-field">
@@ -173,7 +156,7 @@ class HRInfo extends React.Component {
         <div className="hr-info-single-field">
           <div className="hr-info-combobox-field">
             <div className="hr-title-field font-weight-bold py-1  ml-0 ">
-              Braches
+              Majors
             </div>
             <Select
               mode="multiple"
@@ -187,24 +170,9 @@ class HRInfo extends React.Component {
             </Select>
           </div>
         </div>
-        <div className="hr-info-single-field">
-          <HREditable
-            title="Company Adress"
-            name="company_address"
-            content={data.company_address}
-            onBlurInputHandler={this.onBlurInputHandler}
-          />
-        </div>
+
         <div className="hr-info-double-field d-flex flex-row container-fluid p-0">
           <div className="row" style={{ width: "100%", margin: "0" }}>
-            <div className="col-md-6 p-0">
-              <HREditable
-                title="Number of personel in need"
-                name="amount_required"
-                content={data.amount_required.toString()}
-                onBlurInputHandler={this.onBlurInputHandler}
-              />
-            </div>
             <div className="col-md-6 p-0">
               <div className="hr-info-combobox-field">
                 <div className="hr-title-field font-weight-bold py-1 m-2 ">
@@ -222,10 +190,6 @@ class HRInfo extends React.Component {
                 </Select>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="hr-info-double-field">
-          <div className="row" style={{ width: "100%", margin: "0" }}>
             <div className="col-md-6 p-0">
               <div className="hr-info-combobox-field">
                 <div className="hr-title-field font-weight-bold py-1 m-2 ">
@@ -244,6 +208,10 @@ class HRInfo extends React.Component {
                 </Select>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="hr-info-double-field">
+          <div className="row" style={{ width: "100%", margin: "0" }}>
             <div className="col-md-6 p-0">
               <HREditable
                 title="Salary"
@@ -252,57 +220,29 @@ class HRInfo extends React.Component {
                 onBlurInputHandler={this.onBlurInputHandler}
               />
             </div>
-          </div>
-        </div>
-        <div className="hr-info-double-field d-flex flex-row container-fluid p-0">
-          <div className="row" style={{ width: "100%", margin: "0" }}>
-            <div className="col-md-6 p-0">
-              <div className="hr-info-combobox-field">
-                <div className="hr-title-field font-weight-bold py-1 m-2 ">
-                  Experience (Year)
-                </div>
-                <Select
-                  style={{ width: "100%" }}
-                  placeholder="Please select"
-                  onChange={(value) =>
-                    this.onChangeSelectSingle("experience", value)
-                  }
-                  value={data.experience}
-                >
-                  {experienceMenu}
-                </Select>
-              </div>
-            </div>
             <div className="col-md-6 p-0">
               <HREditable
-                title="Application Deadline"
-                name={data.deadline}
-                content={data.deadline}
-                onBlurInputHandler={this.onBlurInputHandler}
+                title="Name of application receiver"
+                name=""
+                content={data.user.name}
+                disabled={true}
               />
             </div>
           </div>
         </div>
+
         <div className="hr-info-double-field d-flex flex-row">
           {/* ///////////////////////////////////////////////////////////// */}
           {/* ///////////////////////////////////////////////////////////// */}
 
           {/* ///////////////////////////////////////////////////////////// */}
 
-          <HREditable
-            title="Name of application receiver"
-            name=""
-            content={data.user.name}
-            disabled={true}
-          />
           <HREditable
             title="Phone number"
             name=""
             content={data.user.phone}
             disabled={true}
           />
-        </div>
-        <div className="hr-info-double-field d-flex flex-row">
           <HREditable
             title="Email that receive application"
             name=""
@@ -310,33 +250,10 @@ class HRInfo extends React.Component {
             disabled={true}
           />
         </div>
+        <div className="hr-info-double-field d-flex flex-row"></div>
 
         <div className="hr-title-field font-weight-bold py-1 m-2 ">
           Job description
-        </div>
-        <div className="hr-editor-field  py-2 m-2">
-          <Editor
-            toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapper-editor"
-            editorClassName="text-input-editor"
-            onEditorStateChange={this.onEditorStateChange}
-          />
-        </div>
-
-        <div className="hr-title-field font-weight-bold py-1 m-2 ">
-          Candidate Requirement
-        </div>
-        <div className="hr-editor-field  py-2 m-2">
-          <Editor
-            toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapper-editor"
-            editorClassName="text-input-editor"
-            onEditorStateChange={this.onEditorStateChange}
-          />
-        </div>
-
-        <div className="hr-title-field font-weight-bold py-1 m-2 ">
-          Candidate Benefits
         </div>
         <div className="hr-editor-field  py-2 m-2">
           <Editor

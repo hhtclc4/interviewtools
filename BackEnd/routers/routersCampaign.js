@@ -116,10 +116,13 @@ router.post("/api/get_interview", (req, res) => {
     where: {
       campaign_id: req.body.campaign_id,
     },
+    include: [{ model: Group_Candidates, include: [User] }],
   })
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
 });
+//get interview candidates
+
 router.post("/api/get_interview_candidates", (req, res) => {
   Group_Candidates.findAll({
     where: {

@@ -19,11 +19,15 @@ class InterviewPopup extends React.Component {
         key: "",
         name: "",
       },
-      selectHour: "12",
-      selectMinute: "00",
+      time_from: {
+        selectHour: "12",
+        selectMinute: "00",
+      },
+      time_to: {
+        selectHour: "12",
+        selectMinute: "00",
+      },
       name: "",
-      choose_from: 0,
-      choose_to: 0,
     };
   }
   componentDidMount() {
@@ -100,16 +104,40 @@ class InterviewPopup extends React.Component {
       selectDate: select,
     });
   };
-  handleMenuHourClick = (event, listHour) => {
+  handleMenuHourFromClick = (event, listHour) => {
     let selectName = listHour.find((item) => item === event.key);
     this.setState({
-      selectHour: selectName,
+      time_from: {
+        ...this.state.time_from,
+        selectHour: selectName,
+      },
     });
   };
-  handleMenuMinuteClick = (event, listMinute) => {
+  handleMenuHourToClick = (event, listHour) => {
+    let selectName = listHour.find((item) => item === event.key);
+    this.setState({
+      time_to: {
+        ...this.state.time_from,
+        selectHour: selectName,
+      },
+    });
+  };
+  handleMenuMinuteFromClick = (event, listMinute) => {
     let selectName = listMinute.find((item) => item === event.key);
     this.setState({
-      selectMinute: selectName,
+      time_from: {
+        ...this.state.time_from,
+        selectMinute: selectName,
+      },
+    });
+  };
+  handleMenuMinuteToClick = (event, listMinute) => {
+    let selectName = listMinute.find((item) => item === event.key);
+    this.setState({
+      time_to: {
+        ...this.state.time_from,
+        selectMinute: selectName,
+      },
     });
   };
   onChangeInputHandler = (e) => {
@@ -118,27 +146,19 @@ class InterviewPopup extends React.Component {
     });
   };
   onSaveHandler = () => {
-    let {
-      name,
-      selectDate,
-      selectHour,
-      selectMinute,
-      choose_from,
-      choose_to,
-    } = this.state;
+    let { name, selectDate, time_from, time_to } = this.state;
     let data = {
       name,
       date: selectDate.key,
-      time: `${selectHour}:${selectMinute}`,
-      choose_from,
-      choose_to,
+      time_from: `${time_from.selectHour}:${time_from.selectMinute}`,
+      time_to: `${time_to.selectHour}:${time_to.selectMinute}`,
       campaign_id: this.props.campaign_id,
     };
     this.props.createInterview(data);
     this.props.closePopup();
   };
   render() {
-    let { selectDate, listDay, selectHour, selectMinute, name } = this.state;
+    let { selectDate, listDay, time_from, time_to, name } = this.state;
     let listHour = this.getHour();
     let listMinute = ["00", "15", "30", "45"];
     let day = (
@@ -206,10 +226,13 @@ class InterviewPopup extends React.Component {
                           </Button>
                         </Dropdown>
                       </div>
+
+                      <p>Time from </p>
+
                       <div className="cni-time-hour">
                         <Dropdown overlay={hour} trigger={["click"]}>
                           <Button style={{ top: "0" }}>
-                            {selectHour} <Icon type="down" />
+                            {time_from.selectHour} <Icon type="down" />
                           </Button>
                         </Dropdown>
                       </div>
@@ -217,29 +240,28 @@ class InterviewPopup extends React.Component {
                       <div className="minute">
                         <Dropdown overlay={minute} trigger={["click"]}>
                           <Button style={{ top: "0" }}>
-                            {selectMinute} <Icon type="down" />
+                            {time_from.selectMinute} <Icon type="down" />
                           </Button>
                         </Dropdown>
                       </div>
-                    </div>
-                  </div>
-                  <div className="cni-target mb-2 mr-2">
-                    <p>Set interview target</p>
-                    <div className="cni-targer-attribute">
-                      <input
-                        onChange={this.onChangeInputHandler}
-                        type="number"
-                        name="choose_from"
-                        className="interview-period-attribute-count mr-1"
-                        placeholder="from"
-                      />
-                      <input
-                        onChange={this.onChangeInputHandler}
-                        name="choose_to"
-                        type="number"
-                        className="interview-period-attribute-count"
-                        placeholder="to"
-                      />
+
+                      <p>Time to </p>
+
+                      <div className="cni-time-hour">
+                        <Dropdown overlay={hour} trigger={["click"]}>
+                          <Button style={{ top: "0" }}>
+                            {time_to.selectHour} <Icon type="down" />
+                          </Button>
+                        </Dropdown>
+                      </div>
+                      <p>:</p>
+                      <div className="minute">
+                        <Dropdown overlay={minute} trigger={["click"]}>
+                          <Button style={{ top: "0" }}>
+                            {time_to.selectMinute} <Icon type="down" />
+                          </Button>
+                        </Dropdown>
+                      </div>
                     </div>
                   </div>
                 </div>

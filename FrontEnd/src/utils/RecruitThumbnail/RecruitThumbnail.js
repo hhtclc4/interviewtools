@@ -14,27 +14,32 @@ class RecruitThumbnail extends React.Component {
       data: {
         id: 0,
         title: "",
-        image: "",
         subject_id: 0,
-        company_address: "",
         level_id: 0,
-        amount_required: 0,
         work_type_id: 0,
-        sex: 0,
-        experience: 0,
         salary: 0,
-        deadline: "",
         user_id: 0,
         work_description: "",
-        candidate_req: "",
-        candidate_benefits: "",
-        location: "",
+        status: true,
         subjects: [
           {
             id: 0,
             title: "",
           },
         ],
+        user: {
+          name: "",
+          email: "",
+          phone: "",
+        },
+        level: {
+          id: 0,
+          name: "",
+        },
+        work_type: {
+          id: 0,
+          name: "",
+        },
       },
     };
   }
@@ -84,19 +89,19 @@ class RecruitThumbnail extends React.Component {
                   : data.salary + " triệu"}
               </p>
             </div>
-            <div className="re-destination d-flex flex-row">
+            {/* <div className="re-destination d-flex flex-row">
               <span className="re-adjust-icon d-flex flex-row justify-content-center">
                 <FontAwesomeIcon icon={faMapMarkerAlt} color="#FD7E14" />
               </span>
               <p>{data.location}</p>
-            </div>
+            </div> */}
           </div>
           <div className="re-required-position">
             <b>{data.title}</b>
           </div>
 
           <div className="re-company-name">
-            <p>{data.company_address}</p>
+            <p>TP HCM</p>
           </div>
           {postFeature === "new" ? (
             <div className="re-new-recruit"></div>

@@ -2,7 +2,7 @@ import React from "react";
 import "./../Interview.scss";
 import { faClock, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faUserEdit } from "@fortawesome/free-solid-svg-icons";
 
 class InterviewThumbnail extends React.Component {
   constructor(props) {
@@ -61,8 +61,16 @@ class InterviewThumbnail extends React.Component {
               {weekDay}, {month} {day}th {year} - {data.time}
             </span>
           </div>
-          <div className="interview-note">
-            Choose {data.choose_from}-{data.choose_to} candidates
+          <div className="in-control-senior-name">
+            <span>
+              <FontAwesomeIcon
+                icon={faUserEdit}
+                size="lg"
+                style={{ marginRight: "10px" }}
+                color="#393A68"
+              />
+            </span>
+            <span>Mr.Tri</span>
           </div>
         </div>
         <div className="interview-options d-flex flex-column justify-content-around align-items-center flex-grow-1">

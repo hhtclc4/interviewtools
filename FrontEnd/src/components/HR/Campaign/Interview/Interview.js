@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 // import { fakeEmails } from "./FakeEmails";
 import InterviewThumbnail from "./Thumbnail/Thumbnail";
-import InterviewControl from './Control/Control';
+import InterviewControl from "./Control/Control";
 import { withRouter } from "react-router-dom";
-import InterviewPopup from "./Popup";
-import CanOverview from '../../CandidateOverview/CanOverview';
+import InterviewPopup from "./CreateInterviewPopup";
+import CanOverview from "./Control/CandidateOverview/CanOverview";
 
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
@@ -50,6 +50,20 @@ class HRInterview extends React.Component {
           date: "2020-01-01",
           time: "12:00:00",
           campaign_id: "",
+          group_candidates: [
+            {
+              candidate_id: 0,
+              cv: "",
+              description: "",
+              interview_time: "12:00:00",
+              user: {
+                id: 0,
+                name: "",
+                email: "",
+                phone: "",
+              },
+            },
+          ],
         },
       ],
       isFocusCreater: false,
@@ -67,7 +81,7 @@ class HRInterview extends React.Component {
     this.props.showInterviews();
   }
 
-  UNSAFE_componentWillMount() { }
+  UNSAFE_componentWillMount() {}
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -154,15 +168,11 @@ class HRInterview extends React.Component {
       interviewForcus,
       campaign_id,
     } = this.state;
+    console.log("data", interviews);
+
     let interviewElm = interviews.map((interview, index) => {
       return (
-        <InterviewThumbnail
-          key={interview.id}
-          index={index}
-          data={interview}
-          onClickChooseInterview={this.onClickChooseInterview}
-          interviewForcus={interviewForcus}
-        />
+        <InterviewControl key={interview.id} index={index} data={interview} />
       );
     });
     return (
@@ -174,7 +184,7 @@ class HRInterview extends React.Component {
                 Create New Interview Period
               </div>
               <div className=" initialized-interviews d-flex flex-row flex-wrap">
-                {interviewElm}
+                {/* {interviewElm} */}
                 <div className="initialized-interview-container d-flex flex-row mr-2 mb-2 justify-content-center">
                   <button
                     className="adjust-icon-btn align-self-center"
@@ -187,10 +197,10 @@ class HRInterview extends React.Component {
                     style={
                       this.state.isFocusCreater || isFocusEmails
                         ? {
-                          zIndex: "15",
-                          position: "relative",
-                          display: "block",
-                        }
+                            zIndex: "15",
+                            position: "relative",
+                            display: "block",
+                          }
                         : null
                     }
                   >
@@ -295,18 +305,17 @@ class HRInterview extends React.Component {
                         );
                       })
                     ) : (
-                        <div>NO email was chosen</div>
-                      )}
+                      <div>NO email was chosen</div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
 
             <div className="interview-header-inner d-flex flex-row justify-content-between">
-              <div className="interview-header py-2">
-                Interview editor
-              </div>
-              <button className="interview-create-btn py-2"
+              <div className="interview-header py-2">Interview editor</div>
+              <button
+                className="interview-create-btn py-2"
                 onClick={() => {
                   this.setState({
                     isShowPopup: !this.state.isShowPopup,
@@ -314,7 +323,12 @@ class HRInterview extends React.Component {
                   this.toggleInterviewPopup();
                 }}
               >
-                <span><FontAwesomeIcon icon={faPlus} style={{ marginRight: '5px' }} /></span>
+                <span>
+                  <FontAwesomeIcon
+                    icon={faPlus}
+                    style={{ marginRight: "5px" }}
+                  />
+                </span>
                 New interview
               </button>
             </div>
@@ -333,10 +347,7 @@ class HRInterview extends React.Component {
               <div className="interview-section-title">
                 Created interviews list
               </div>
-              <div className="interview-thumbnails-list">
-                <InterviewControl />
-                <InterviewControl />
-              </div>
+              <div className="interview-thumbnails-list">{interviewElm}</div>
             </div>
             <div
               className="creater-focus-overlay"

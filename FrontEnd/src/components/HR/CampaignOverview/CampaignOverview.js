@@ -17,25 +17,31 @@ class CampaignOverview extends React.Component {
         id: 0,
         title: "",
         subject_id: 0,
-        company_address: "",
         level_id: 0,
-        amount_required: 0,
         work_type_id: 0,
-        sex: 0,
-        experience: 0,
         salary: 0,
-        deadline: "",
         user_id: 0,
         work_description: "",
-        candidate_req: "",
-        candidate_benefits: "",
-        location: "",
+        status: true,
         subjects: [
           {
             id: 0,
             title: "",
           },
         ],
+        user: {
+          name: "",
+          email: "",
+          phone: "",
+        },
+        level: {
+          id: 0,
+          name: "",
+        },
+        work_type: {
+          id: 0,
+          name: "",
+        },
       },
     };
   }
@@ -75,9 +81,7 @@ class CampaignOverview extends React.Component {
               {data.salary === 0 ? "Lương thỏa thuận" : data.salary + " triệu"}
             </p>
           </div>
-          <div className="co-job-benefit">
-            <pre>{data.candidate_benefits}</pre>
-          </div>
+
           <div className="co-job-desc ">{data.work_description}</div>
           <div className="co-subjects d-flex flex-row">
             {data.subjects.map((subject) => {
@@ -91,16 +95,7 @@ class CampaignOverview extends React.Component {
         </div>
         <div className="co-tag d-flex flex-column justify-content-around ">
           <div className="co-feature align-self-end">Hot</div>
-          <div className="co-destination align-self-end">
-            <span className="co-adjust-icon d-flex flex-row justify-content-center mr-2">
-              <FontAwesomeIcon
-                icon={faMapMarkerAlt}
-                color="#FD7E14"
-                size="lg"
-              />
-            </span>
-            <p>{data.location}</p>
-          </div>
+
           <div className="co-publish align-self-end">12 hours ago</div>
         </div>
         <div className="co-options d-flex flex-column pl-3 justify-content-around">
