@@ -5,10 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 // import { fakeEmails } from "./FakeEmails";
 import InterviewThumbnail from "./Thumbnail/Thumbnail";
+import InterviewControl from './Control/Control';
 import { withRouter } from "react-router-dom";
 import InterviewPopup from "./Popup";
+import CanOverview from '../../CandidateOverview/CanOverview';
+
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
+
 class HRInterview extends React.Component {
   _isMounted = false;
   constructor(props) {
@@ -162,10 +166,10 @@ class HRInterview extends React.Component {
       );
     });
     return (
-      <div className="hr-interview-container container-fluid ">
+      <div className="hr-interview-container container-fluid">
         <div className="row">
           <div className="col-md-12">
-            <div className="creater-container">
+            <div className="creater-container d-none">
               <div className="interview-section-title">
                 Create New Interview Period
               </div>
@@ -298,6 +302,42 @@ class HRInterview extends React.Component {
               </div>
             </div>
 
+            <div className="interview-header-inner d-flex flex-row justify-content-between">
+              <div className="interview-header py-2">
+                Interview editor
+              </div>
+              <button className="interview-create-btn py-2"
+                onClick={() => {
+                  this.setState({
+                    isShowPopup: !this.state.isShowPopup,
+                  });
+                  this.toggleInterviewPopup();
+                }}
+              >
+                <span><FontAwesomeIcon icon={faPlus} style={{ marginRight: '5px' }} /></span>
+                New interview
+              </button>
+            </div>
+            <hr />
+
+            {/* <div className="interview-available-candidates">
+              <div className="interview-section-title">
+                Available candidates
+              </div>
+              <div className="interview-candidate-list">
+                <CanOverview />
+              </div>
+            </div> */}
+
+            <div className="interview-thumbnails-list-container">
+              <div className="interview-section-title">
+                Created interviews list
+              </div>
+              <div className="interview-thumbnails-list">
+                <InterviewControl />
+                <InterviewControl />
+              </div>
+            </div>
             <div
               className="creater-focus-overlay"
               style={

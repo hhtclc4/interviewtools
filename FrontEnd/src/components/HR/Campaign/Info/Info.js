@@ -178,6 +178,7 @@ class HRInfo extends React.Component {
             <Select
               mode="multiple"
               style={{ width: "100%" }}
+              maxTagCount={3}
               placeholder="Please select"
               onChange={this.onChangeSelectMulti}
               value={currentSubjects}
@@ -198,7 +199,6 @@ class HRInfo extends React.Component {
           <div className="row" style={{ width: "100%", margin: "0" }}>
             <div className="col-md-6 p-0">
               <HREditable
-                mode="multiple"
                 title="Number of personel in need"
                 name="amount_required"
                 content={data.amount_required.toString()}
@@ -233,6 +233,7 @@ class HRInfo extends React.Component {
                 </div>
                 <Select
                   style={{ width: "100%" }}
+                  size="large"
                   placeholder="Please select"
                   onChange={(value) =>
                     this.onChangeSelectSingle("work_type_id", value)

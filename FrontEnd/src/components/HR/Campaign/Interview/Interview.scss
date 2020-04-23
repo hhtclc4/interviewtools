@@ -9,7 +9,7 @@ $shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 
 
   .interview-section-title {
     font-family: QuickSand;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: bold;
     margin: 8px 0;
     p {
@@ -247,5 +247,34 @@ $shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 
         @extend .create-new-interview-period;
       }
     }
+  }
+
+  .interview-header-inner {
+    .interview-header {
+      font-family: "Open Sans";
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: auto;
+    }
+
+    .interview-create-btn {
+      font-size: 16px;
+      color: #8854c0;
+      border-radius: 4px;
+      background-color: transparent;
+      cursor: pointer;
+      border: none;
+      outline: none;
+      top: 0;
+      &:hover {
+        border-radius: 4px;
+        background-color: #d9d9d9;
+      }
+    }
+  }
+
+  .interview-available-candidates {
+    height: 300px;
+    background-color: gray;
   }
 }
