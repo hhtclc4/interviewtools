@@ -81,6 +81,7 @@ class InterviewControl extends React.Component {
           key={candidate.candidate_id}
           data={candidate}
           color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+          from="control"
         />
       );
     });

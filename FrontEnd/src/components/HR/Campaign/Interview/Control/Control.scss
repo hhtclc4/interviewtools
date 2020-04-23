@@ -30,7 +30,7 @@ $icon-color: #393a68;
         flex-grow: 1;
         .in-control-partions {
             .time-partion {
-                width: 10%;
+                width: 15%;
             }
             .name-partion {
                 width: 15%;
@@ -155,6 +155,7 @@ $icon-color: #393a68;
                 }
             }
             .can-popup-footer {
+                background-color: $edge-color;
             }
         }
     }

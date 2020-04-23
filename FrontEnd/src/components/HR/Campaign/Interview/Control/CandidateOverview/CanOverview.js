@@ -3,6 +3,7 @@ import "./CanOverview.scss";
 import NoteandCV from "./NoteandCV";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStickyNote, faClipboard } from "@fortawesome/free-regular-svg-icons";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 class CanOverview extends React.Component {
   constructor(props) {
@@ -80,8 +81,8 @@ class CanOverview extends React.Component {
               {partion === "true" ? (
                 <>CV</>
               ) : (
-                <FontAwesomeIcon icon={faClipboard} />
-              )}
+                  <FontAwesomeIcon icon={faClipboard} />
+                )}
             </button>
           </div>
           <div className="note-partion">
@@ -98,8 +99,8 @@ class CanOverview extends React.Component {
               {partion === "true" ? (
                 <>DESCRIPTION</>
               ) : (
-                <FontAwesomeIcon icon={faStickyNote} />
-              )}
+                  <FontAwesomeIcon icon={faStickyNote} />
+                )}
             </button>
           </div>
           <div
@@ -107,22 +108,32 @@ class CanOverview extends React.Component {
             style={source === "apply" ? { display: "none" } : {}}
           >
             {(partion === "true" && from !== "control") ||
-            source === "collect" ? (
-              <>Major</>
-            ) : (
-              <div style={{ minWidth: "0%" }}></div>
-            )}
+              source === "collect" ? (
+                <>Major</>
+              ) : (
+                <div style={{ minWidth: "0%" }}></div>
+              )}
           </div>
           <div
             className="level-partion"
             style={source === "apply" ? { display: "none" } : {}}
           >
             {(partion === "true" && from !== "control") ||
-            source === "collect" ? (
-              <>Level</>
-            ) : (
-              <div style={{ minWidth: "0%" }}></div>
-            )}
+              source === "collect" ? (
+                <>Level</>
+              ) : (
+                <div style={{ minWidth: "0%" }}></div>
+              )}
+          </div>
+
+          <div className="action-btn-partion"
+            style={from === "control" ? { display: 'none', width: 'auto' } : null}
+          >
+
+            {((source === "apply" || source === "collect") && partion !== "true") ?
+              <button className="can-action-btn"><FontAwesomeIcon icon={faMinus} /></button> :
+              <button className="can-action-btn"><FontAwesomeIcon icon={faPlus} /></button>}
+
           </div>
 
           {this.state.isOpenNoteandCV ? (
