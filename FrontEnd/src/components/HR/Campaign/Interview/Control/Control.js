@@ -136,7 +136,7 @@ class InterviewControl extends React.Component {
         </div>
         <div className="interview-control-body p-2">
           <div className="interview-candidate-list">
-            <CanOverview partion="true" from="control" />
+            <CanOverview from="control" type="partion" />
             {candidateEml}
           </div>
         </div>

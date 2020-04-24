@@ -28,30 +28,54 @@ class CandidatePopup extends React.Component {
                                     <Tabs selected={0}>
                                         <Panel title="Applied">
                                             <CanOverview
-                                                partion="true"
-                                                type="available"
+                                                from="canPop"
                                                 source="apply"
-
+                                                type="partion"
                                             />
-                                            <CanOverview type="available" source="apply" />
+                                            <CanOverview
+                                                from="canPop"
+                                                source="apply"
+                                                type="canRow"
+                                            />
                                         </Panel>
                                         <Panel title="Collected">
                                             <CanOverview
-                                                partion="true"
-                                                type="available"
+                                                from="canPop"
+                                                source="collect"
+                                                type="partion"
 
                                             />
-                                            <CanOverview type="available" source="collect" />
+                                            <CanOverview
+                                                from="canPop"
+                                                source="collect"
+                                                type="canRow"
+                                            />
                                         </Panel>
                                     </Tabs>
                                 </div>
                                 <div className="can-chosen">
                                     <h4>Chosen candidates</h4>
                                     <div className="interview-candidate-list">
-                                        <CanOverview partion="true" from="control" />
-                                        <CanOverview color="#f1f1f1" />
-                                        <CanOverview color="#fff" />
-                                        <CanOverview color="#f1f1f1" />
+                                        <CanOverview
+                                            from="canPop"
+                                            type="partion"
+                                            source="chosen"
+                                        />
+                                        <CanOverview
+                                            from="canPop"
+                                            color="#f1f1f1"
+                                            source="chosen"
+                                        />
+                                        <CanOverview
+                                            from="canPop"
+                                            color="#fff"
+                                            source="chosen"
+                                        />
+                                        <CanOverview
+                                            from="canPop"
+                                            color="#f1f1f1"
+                                            source="chosen"
+                                        />
                                     </div>
                                 </div>
                             </div>
