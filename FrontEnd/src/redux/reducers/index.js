@@ -14,7 +14,6 @@ import campaigns from "./Campaigns";
 import work_type from "./Work_Type";
 import level from "./Level";
 import availableCandidates from "./Available_Candidates";
-import interviewCandidates from "./Interview_Candidates";
 import candidate from "./Candidate";
 import accessToPush from "./Access_To_Push";
 import interview from "./Interview";
@@ -33,7 +32,6 @@ const myReducer = combineReducers({
   campaign,
   campaigns,
   availableCandidates,
-  interviewCandidates,
   candidate,
   accessToPush,
   interview,

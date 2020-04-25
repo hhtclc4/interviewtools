@@ -4,7 +4,7 @@ let initialState = [];
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SHOW_AVAILABLE_CANDIDATES:
-      state = [...action.data];
+      if (action.data !== undefined) state = [...action.data];
       return [...state];
     case types.INSERT_AVAILABLE_CANDIDATES:
       state.push(action.data);

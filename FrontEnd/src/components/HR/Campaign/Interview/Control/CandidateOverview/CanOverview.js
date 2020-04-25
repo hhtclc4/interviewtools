@@ -4,6 +4,8 @@ import NoteandCV from "./NoteandCV";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStickyNote, faClipboard } from "@fortawesome/free-regular-svg-icons";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+import * as actions from "../../../../../../redux/actions/index";
 
 class CanOverview extends React.Component {
   constructor(props) {
@@ -14,7 +16,7 @@ class CanOverview extends React.Component {
       data: {
         candidate_id: 0,
         cv: "CV",
-        description: "DESCRIPTION",
+        description: "NOTE",
         interview_time: "TIME",
         user: {
           id: 0,
@@ -40,6 +42,20 @@ class CanOverview extends React.Component {
         isOpenNoteandCV: !isOpenNoteandCV,
       });
     }
+  };
+  chooseEmailHandler = async (candidate) => {
+    let { interview_id } = this.props;
+
+    candidate.interview_id = interview_id;
+    console.log(candidate);
+    this.props.updateCandidatesToInterview(candidate);
+  };
+  removeEmailHandler = async (candidate) => {
+    let { interview_id } = this.props;
+
+    candidate.interview_id = null;
+
+    this.props.updateCandidatesToAvailable(candidate, interview_id);
   };
   render() {
     let { color, type, source, from, partion } = this.props;
@@ -81,8 +97,8 @@ class CanOverview extends React.Component {
               {partion === "true" ? (
                 <>CV</>
               ) : (
-                  <FontAwesomeIcon icon={faClipboard} />
-                )}
+                <FontAwesomeIcon icon={faClipboard} />
+              )}
             </button>
           </div>
           <div className="note-partion">
@@ -97,10 +113,10 @@ class CanOverview extends React.Component {
               className="note-btn"
             >
               {partion === "true" ? (
-                <>DESCRIPTION</>
+                <>NOTE</>
               ) : (
-                  <FontAwesomeIcon icon={faStickyNote} />
-                )}
+                <FontAwesomeIcon icon={faStickyNote} />
+              )}
             </button>
           </div>
           <div
@@ -108,32 +124,46 @@ class CanOverview extends React.Component {
             style={source === "apply" ? { display: "none" } : {}}
           >
             {(partion === "true" && from !== "control") ||
-              source === "collect" ? (
-                <>Major</>
-              ) : (
-                <div style={{ minWidth: "0%" }}></div>
-              )}
+            source === "collect" ? (
+              <>Major</>
+            ) : (
+              <div style={{ minWidth: "0%" }}></div>
+            )}
           </div>
           <div
             className="level-partion"
             style={source === "apply" ? { display: "none" } : {}}
           >
             {(partion === "true" && from !== "control") ||
-              source === "collect" ? (
-                <>Level</>
-              ) : (
-                <div style={{ minWidth: "0%" }}></div>
-              )}
+            source === "collect" ? (
+              <>Level</>
+            ) : (
+              <div style={{ minWidth: "0%" }}></div>
+            )}
           </div>
 
-          <div className="action-btn-partion"
-            style={from === "control" ? { display: 'none', width: 'auto' } : null}
+          <div
+            className="action-btn-partion"
+            style={
+              from === "control" ? { display: "none", width: "auto" } : null
+            }
           >
-
-            {((source === "apply" || source === "collect") && partion !== "true") ?
-              <button className="can-action-btn"><FontAwesomeIcon icon={faMinus} /></button> :
-              <button className="can-action-btn"><FontAwesomeIcon icon={faPlus} /></button>}
-
+            {(source === "apply" || source === "collect") &&
+            partion !== "true" ? (
+              <button
+                className="can-action-btn"
+                onClick={(e) => this.chooseEmailHandler(data)}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </button>
+            ) : (
+              <button
+                className="can-action-btn"
+                onClick={(e) => this.removeEmailHandler(data)}
+              >
+                <FontAwesomeIcon icon={faMinus} />
+              </button>
+            )}
           </div>
 
           {this.state.isOpenNoteandCV ? (
@@ -152,5 +182,18 @@ class CanOverview extends React.Component {
     );
   }
 }
-
-export default CanOverview;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    updateCandidatesToInterview: (candidate) => {
+      dispatch(actions.updateCandidatesToInterview(candidate));
+    },
+    updateCandidatesToAvailable: (candidate, interview_id) => {
+      dispatch(actions.updateCandidatesToAvailable(candidate, interview_id));
+    },
+  };
+};
+//get data from redux
+const mapStateToProps = (state) => {
+  return {};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CanOverview);

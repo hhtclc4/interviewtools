@@ -31,18 +31,7 @@ class HRInterview extends React.Component {
           },
         },
       ],
-      interviewCandidates: [
-        {
-          cv: "",
-          description: "",
-          user: {
-            id: 0,
-            name: "",
-            email: "",
-            password: "",
-          },
-        },
-      ],
+
       interviews: [
         {
           id: 0,
@@ -77,8 +66,9 @@ class HRInterview extends React.Component {
   }
   componentDidMount() {
     this._isMounted = true;
-    // let { campaign_id } = this.state;
+    let { campaign_id } = this.state;
     this.props.showInterviews();
+    this.props.getAvailableCandidatesAPI(campaign_id);
   }
 
   UNSAFE_componentWillMount() {}
@@ -88,8 +78,6 @@ class HRInterview extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("nextProps", nextProps);
     this.setState({
-      availableCandidates: nextProps.availableCandidates,
-      interviewCandidates: nextProps.interviewCandidates,
       interviews: nextProps.interview,
     });
   }
@@ -100,33 +88,33 @@ class HRInterview extends React.Component {
         candidate.interview_id = interview_id;
         let tempArr = [...this.state.availableCandidates];
         tempArr.splice(i, 1);
-        var tempArr2 = [...this.state.interviewCandidates];
-        tempArr2.push(candidate);
+        // var tempArr2 = [...this.state.interviewCandidates];
+        // tempArr2.push(candidate);
         this.setState({
           availableCandidates: tempArr,
-          interviewCandidates: tempArr2,
+          // interviewCandidates: tempArr2,
         });
         this.props.updateCandidatesToInterview(candidate);
       }
     }
   };
 
-  removeEmailHandler = async (candidate) => {
-    for (let i = 0; i < this.state.interviewCandidates.length; i++) {
-      if (candidate.user.id === this.state.interviewCandidates[i].user.id) {
-        candidate.interview_id = null;
-        let tempArr = [...this.state.interviewCandidates];
-        tempArr.splice(i, 1);
-        var tempArr2 = [...this.state.availableCandidates];
-        tempArr2.push(candidate);
-        this.setState({
-          availableCandidates: tempArr2,
-          interviewCandidates: tempArr,
-        });
-        this.props.updateCandidatesToAvailable(candidate);
-      }
-    }
-  };
+  // removeEmailHandler = async (candidate) => {
+  //   for (let i = 0; i < this.state.interviewCandidates.length; i++) {
+  //     if (candidate.user.id === this.state.interviewCandidates[i].user.id) {
+  //       candidate.interview_id = null;
+  //       let tempArr = [...this.state.interviewCandidates];
+  //       tempArr.splice(i, 1);
+  //       var tempArr2 = [...this.state.availableCandidates];
+  //       tempArr2.push(candidate);
+  //       this.setState({
+  //         availableCandidates: tempArr2,
+  //         interviewCandidates: tempArr,
+  //       });
+  //       this.props.updateCandidatesToAvailable(candidate);
+  //     }
+  //   }
+  // };
 
   handleMenuClick = (e) => {
     //function of ant design
@@ -148,16 +136,6 @@ class HRInterview extends React.Component {
         isShowPopup: !isShowPopup,
       });
     }
-  };
-  onClickChooseInterview = (interview_id, name) => {
-    let { campaign_id } = this.state;
-    this.setState({
-      interviewForcus: {
-        interview_id,
-        name,
-      },
-    });
-    this.props.getInterviewCandidates(campaign_id, interview_id);
   };
 
   render() {
@@ -278,7 +256,7 @@ class HRInterview extends React.Component {
                         : { opacity: "1" }
                     }
                   >
-                    {this.state.interviewCandidates.length ? (
+                    {/* {this.state.interviewCandidates.length ? (
                       this.state.interviewCandidates.map((candidate) => {
                         return (
                           <div
@@ -306,7 +284,7 @@ class HRInterview extends React.Component {
                       })
                     ) : (
                       <div>NO email was chosen</div>
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
@@ -381,10 +359,9 @@ const mapDispatchToProps = (dispatch, props) => {
     showInterviews: () => {
       dispatch(actions.showInterviews());
     },
-    getInterviewCandidates: (campaign_id, interview_id) => {
-      dispatch(actions.getInterviewCandidates(campaign_id, interview_id));
+    getAvailableCandidatesAPI: (campaign_id) => {
+      dispatch(actions.getAvailableCandidatesAPI(campaign_id));
     },
-
     updateCandidatesToInterview: (data) => {
       dispatch(actions.updateCandidatesToInterview(data));
     },
@@ -397,7 +374,6 @@ const mapDispatchToProps = (dispatch, props) => {
 const mapStateToProps = (state) => {
   return {
     availableCandidates: state.availableCandidates,
-    interviewCandidates: state.interviewCandidates,
     interview: state.interview,
   };
 };

@@ -6,7 +6,9 @@ import { faCalendarAlt, faClock } from "@fortawesome/free-regular-svg-icons";
 import { faUserEdit, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import CanOverview from "./CandidateOverview/CanOverview";
 import CandidatePopup from "./CandidatePopup";
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../../../../../redux/actions/index";
 class InterviewControl extends React.Component {
   constructor(props) {
     super(props);
@@ -155,11 +157,24 @@ class InterviewControl extends React.Component {
         </div>
 
         {this.state.isShowCandidatePopup ? (
-          <CandidatePopup closePopup={this.toggleCandidatePopup} />
+          <CandidatePopup closePopup={this.toggleCandidatePopup} data={data} />
         ) : null}
       </div>
     );
   }
 }
 
-export default InterviewControl;
+//send action to redux
+const mapDispatchToProps = (dispatch, props) => {
+  return {};
+};
+//get data from redux
+const mapStateToProps = (state) => {
+  return {
+    campaign: state.campaign,
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(InterviewControl));

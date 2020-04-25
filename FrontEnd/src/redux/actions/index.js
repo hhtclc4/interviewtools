@@ -209,7 +209,10 @@ export const checkIfCandidateSendCVBefore = (campaign_id) => {
       });
   };
 };
-export const getAvailableCandidates = (campaign_id) => {
+export const getAvailableCandidates = () => {
+  return { type: types.SHOW_AVAILABLE_CANDIDATES };
+};
+export const getAvailableCandidatesAPI = (campaign_id) => {
   return (dispatch) => {
     axios({
       method: "post",
@@ -254,7 +257,7 @@ export const getInterviewCandidates = (campaign_id, interview_id) => {
   };
 };
 
-export const updateCandidatesToAvailable = (data) => {
+export const updateCandidatesToAvailable = (data,interview_id) => {
   return (dispatch) => {
     axios({
       method: "post",
@@ -267,13 +270,15 @@ export const updateCandidatesToAvailable = (data) => {
       .then((res) => {
         console.log("update candidates ", res.data);
         dispatch({
+          type: types.DELETE_INTERVIEW_CANDIDATES,
+          data,
+          interview_id
+        });
+        dispatch({
           type: types.INSERT_AVAILABLE_CANDIDATES,
           data,
         });
-        dispatch({
-          type: types.DELETE_INTERVIEW_CANDIDATES,
-          data,
-        });
+       
       })
       .catch((er) => {
         console.log("er", er);

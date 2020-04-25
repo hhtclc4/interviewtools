@@ -33,7 +33,27 @@ let myReducer = (state = initialState, action) => {
     case types.CREATE_INTERVIEW:
       state.push(action.data);
       return [...state];
+    case types.INSERT_INTERVIEW_CANDIDATES:
+      for (let i = 0; i < state.length; i++)
+        if (state[i].id === action.data.interview_id) {
+          state[i].group_candidates.push(action.data);
+          break;
+        }
+      return [...state];
+    case types.DELETE_INTERVIEW_CANDIDATES:
+      for (let i = 0; i < state.length; i++)
+        if (state[i].id === action.interview_id)
+          for (let j = 0; j < state[i].group_candidates.length; j++)
+            if (
+              state[i].group_candidates[j].candidate_id ===
+              action.data.candidate_id
+            ) {
+              console.log(state[i].group_candidates[j]);
+              state[i].group_candidates.splice(j, 1);
+              break;
+            }
 
+      return [...state];
     default:
       return [...state];
   }
