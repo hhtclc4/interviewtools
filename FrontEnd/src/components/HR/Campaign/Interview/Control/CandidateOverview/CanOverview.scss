@@ -23,7 +23,7 @@
     }
 
     .note-partion {
-        min-width: 14%;
+        min-width: 5%;
         .note-btn {
             top: 0;
             border: none;
@@ -32,14 +32,15 @@
     }
 
     .level-partion {
-        min-width: 0%;
+        min-width: 7%;
     }
 
     .subject-partion {
-        min-width: 0%;
+        min-width: 15%;
     }
 
     .action-btn-partion {
+        min-width: 7%;
         .can-action-btn {
             top: 0;
             background-color: transparent;

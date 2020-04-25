@@ -2,7 +2,11 @@ import React from "react";
 import "./CanOverview.scss";
 import NoteandCV from "./NoteandCV";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStickyNote, faClipboard } from "@fortawesome/free-regular-svg-icons";
+import {
+  faStickyNote,
+  faClipboard,
+  faClock,
+} from "@fortawesome/free-regular-svg-icons";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../../../redux/actions/index";
@@ -58,13 +62,56 @@ class CanOverview extends React.Component {
     this.props.updateCandidatesToAvailable(candidate, interview_id);
   };
   render() {
-    let { color, type, source, from, partion } = this.props;
+    let { color, type, source, from } = this.props;
     let { data } = this.state;
     // console.log("data", data);
+
+    let majorStyle;
+
+    if (from === "control" || source === "apply") {
+      majorStyle = {
+        display: "none",
+      };
+    } else {
+      if (source === "chosen") {
+        console.log(source);
+        majorStyle = {
+          display: "none",
+        };
+      } else {
+        majorStyle = {};
+      }
+    }
+
+    let actionBtnElm;
+    if (type === "partion") {
+      actionBtnElm = <>ACTION</>;
+    } else {
+      if (source === "apply" || source === "collect") {
+        actionBtnElm = (
+          <button
+            className="can-action-btn"
+            onClick={() => this.chooseEmailHandler(data)}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
+        );
+      } else {
+        actionBtnElm = (
+          <button
+            className="can-action-btn"
+            onClick={() => this.removeEmailHandler(data)}
+          >
+            >
+            <FontAwesomeIcon icon={faMinus} />
+          </button>
+        );
+      }
+    }
     return (
       <div
         className="candidate-overview-container"
-        style={partion === "true" ? { marginBottom: "8px" } : {}}
+        style={type === "partion" ? { marginBottom: "8px" } : {}}
       >
         <div
           className="candidate-partions-container d-flex flex-row p-2 justify-content-between"
@@ -72,13 +119,13 @@ class CanOverview extends React.Component {
         >
           <div
             className="time-partion"
-            style={
-              type === "available" && from !== "control"
-                ? { display: "none" }
-                : {}
-            }
+            style={from === "canPop" ? { display: "none" } : null}
           >
-            {data.interview_time}
+            {from === "control" && type === "partion" ? (
+              <FontAwesomeIcon icon={faClock} />
+            ) : (
+              <> {data.interview_time} </>
+            )}
           </div>
           <div className="name-partion">{data.user.name}</div>
           <div className="email-partion">{data.user.email}</div>
@@ -94,7 +141,7 @@ class CanOverview extends React.Component {
               }}
               className="cv-btn"
             >
-              {partion === "true" ? (
+              {type === "partion" ? (
                 <>CV</>
               ) : (
                 <FontAwesomeIcon icon={faClipboard} />
@@ -112,58 +159,25 @@ class CanOverview extends React.Component {
               }}
               className="note-btn"
             >
-              {partion === "true" ? (
+              {type === "partion" ? (
                 <>NOTE</>
               ) : (
                 <FontAwesomeIcon icon={faStickyNote} />
               )}
             </button>
           </div>
-          <div
-            className="subject-partion"
-            style={source === "apply" ? { display: "none" } : {}}
-          >
-            {(partion === "true" && from !== "control") ||
-            source === "collect" ? (
-              <>Major</>
-            ) : (
-              <div style={{ minWidth: "0%" }}></div>
-            )}
+          <div className="subject-partion" style={majorStyle}>
+            {type === "partion" ? <>Major</> : <>Java</>}
           </div>
-          <div
-            className="level-partion"
-            style={source === "apply" ? { display: "none" } : {}}
-          >
-            {(partion === "true" && from !== "control") ||
-            source === "collect" ? (
-              <>Level</>
-            ) : (
-              <div style={{ minWidth: "0%" }}></div>
-            )}
+          <div className="level-partion" style={majorStyle}>
+            {type === "partion" ? <>LEVEL</> : <>Senior</>}
           </div>
 
           <div
             className="action-btn-partion"
-            style={
-              from === "control" ? { display: "none", width: "auto" } : null
-            }
+            style={from === "control" ? { display: "none" } : {}}
           >
-            {(source === "apply" || source === "collect") &&
-            partion !== "true" ? (
-              <button
-                className="can-action-btn"
-                onClick={(e) => this.chooseEmailHandler(data)}
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
-            ) : (
-              <button
-                className="can-action-btn"
-                onClick={(e) => this.removeEmailHandler(data)}
-              >
-                <FontAwesomeIcon icon={faMinus} />
-              </button>
-            )}
+            {actionBtnElm}
           </div>
 
           {this.state.isOpenNoteandCV ? (
@@ -173,11 +187,7 @@ class CanOverview extends React.Component {
             />
           ) : null}
         </div>
-        <hr
-          style={
-            partion === "true" ? { display: "block" } : { display: "none" }
-          }
-        />
+        <hr />
       </div>
     );
   }

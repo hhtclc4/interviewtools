@@ -96,8 +96,9 @@ class CandidatePopup extends React.Component {
           key={candidate.candidate_id}
           data={candidate}
           interview_id={data.id}
-          type="available"
+          from="canPop"
           source="apply"
+          type="canRow"
           color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
         />
       );
@@ -109,8 +110,9 @@ class CandidatePopup extends React.Component {
             key={candidate.candidate_id}
             interview_id={data.id}
             data={candidate}
-            type="available"
+            from="canPop"
             source="collect"
+            type="canRow"
             color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
           />
         );
@@ -137,14 +139,18 @@ class CandidatePopup extends React.Component {
                   <Tabs selected={0}>
                     <Panel title="Applied">
                       <CanOverview
-                        partion="true"
-                        type="available"
+                        from="canPop"
                         source="apply"
+                        type="partion"
                       />
                       {availableApplyEml}
                     </Panel>
                     <Panel title="Collected">
-                      <CanOverview partion="true" type="available" />
+                      <CanOverview
+                        from="canPop"
+                        source="collect"
+                        type="partion"
+                      />
                       {availableCollectedEml}
                     </Panel>
                   </Tabs>

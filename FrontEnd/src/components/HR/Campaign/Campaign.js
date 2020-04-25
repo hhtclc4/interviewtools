@@ -62,6 +62,12 @@ class HRCampaign extends React.Component {
                   <Panel title="Interview">
                     <HRInterview />
                   </Panel>
+                  <Panel title="Candidate">
+                    Candidate
+                  </Panel>
+                  <Panel title="Completed Interview">
+                    Completed
+                  </Panel>
                 </Tabs>
               </div>
             </div>
