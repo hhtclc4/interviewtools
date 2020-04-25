@@ -96,7 +96,7 @@ class CandidatePopup extends React.Component {
     let availableApplyEml = availableCandidates.map((candidate, index) => {
       return (
         <CanOverview
-          key={candidate.candidate_id}
+          key={candidate.campaign_id + candidate.candidate_id}
           data={candidate}
           interview_id={data.id}
           from="canPop"

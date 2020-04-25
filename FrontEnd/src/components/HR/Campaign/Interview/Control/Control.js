@@ -22,7 +22,9 @@ class InterviewControl extends React.Component {
         id: 0,
         name: "",
         date: "2020-01-01",
-        time: "12:00:00",
+        time_from: "12:00:00",
+        time_to: "12:00:00",
+
         campaign_id: "",
         group_candidates: [
           {
@@ -82,6 +84,8 @@ class InterviewControl extends React.Component {
         <CanOverview
           key={candidate.candidate_id}
           data={candidate}
+          time_from={data.time_from}
+          time_to={data.time_to}
           color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
           from="control"
         />
