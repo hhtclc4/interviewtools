@@ -67,14 +67,12 @@ class CanOverview extends React.Component {
     // console.log("data", data);
 
     let majorStyle;
-
     if (from === "control" || source === "apply") {
       majorStyle = {
         display: "none",
       };
     } else {
       if (source === "chosen") {
-        console.log(source);
         majorStyle = {
           display: "none",
         };
@@ -102,7 +100,6 @@ class CanOverview extends React.Component {
             className="can-action-btn"
             onClick={() => this.removeEmailHandler(data)}
           >
-            >
             <FontAwesomeIcon icon={faMinus} />
           </button>
         );
@@ -124,8 +121,8 @@ class CanOverview extends React.Component {
             {from === "control" && type === "partion" ? (
               <FontAwesomeIcon icon={faClock} />
             ) : (
-              <> {data.interview_time} </>
-            )}
+                <> {data.interview_time} </>
+              )}
           </div>
           <div className="name-partion">{data.user.name}</div>
           <div className="email-partion">{data.user.email}</div>
@@ -144,8 +141,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <>CV</>
               ) : (
-                <FontAwesomeIcon icon={faClipboard} />
-              )}
+                  <FontAwesomeIcon icon={faClipboard} />
+                )}
             </button>
           </div>
           <div className="note-partion">
@@ -162,8 +159,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <>NOTE</>
               ) : (
-                <FontAwesomeIcon icon={faStickyNote} />
-              )}
+                  <FontAwesomeIcon icon={faStickyNote} />
+                )}
             </button>
           </div>
           <div className="subject-partion" style={majorStyle}>
@@ -187,7 +184,9 @@ class CanOverview extends React.Component {
             />
           ) : null}
         </div>
-        <hr />
+        <hr
+          style={type === "partion" ? { display: 'block' } : { display: 'none' }}
+        />
       </div>
     );
   }

@@ -86,6 +86,9 @@ class CandidatePopup extends React.Component {
           key={candidate.candidate_id}
           interview_id={data.id}
           data={candidate}
+          from="canPop"
+          source="chosen"
+          type="canRow"
           color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
         />
       );
@@ -155,10 +158,10 @@ class CandidatePopup extends React.Component {
                     </Panel>
                   </Tabs>
                 </div>
+                <h4>Chosen candidates</h4>
                 <div className="can-chosen">
-                  <h4>Chosen candidates</h4>
                   <div className="interview-candidate-list">
-                    <CanOverview partion="true" from="control" />
+                    <CanOverview from="canPop" source="chosen" type="partion" />
                     {chosenCandidates}
                   </div>
                 </div>

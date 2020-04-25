@@ -196,9 +196,11 @@ class InterviewPopup extends React.Component {
                     src={require("../../images/Interview.png")}
                     style={{ width: "60px", marginRight: "5px" }}
                   />
-                  <p className="align-self-center">
+                  <h4 className="align-self-center"
+                    style={{ margin: '0' }}
+                  >
                     Create new interview period
-                  </p>
+                  </h4>
                 </div>
                 <div className="create-new-interview-period d-flex flex-column justify-content-between p-3 flex-wrap">
                   <div className="cni-name mb-2 mr-2">
@@ -265,15 +267,18 @@ class InterviewPopup extends React.Component {
                     </div>
                   </div>
                 </div>
-                <button className="float-right " onClick={this.onSaveHandler}>
-                  Create
-                </button>
                 <button
-                  className="float-right "
+                  className="in-pop-action-btn float-right"
                   onClick={this.props.closePopup}
                 >
                   Close
                 </button>
+                <button className="in-pop-action-btn float-right "
+                  style={{ marginRight: '5px' }}
+                  onClick={this.onSaveHandler}>
+                  Create
+                </button>
+
               </div>
             </div>
             <div className="col-md-3"></div>
