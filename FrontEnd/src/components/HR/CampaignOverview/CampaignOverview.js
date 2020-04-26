@@ -69,7 +69,7 @@ class CampaignOverview extends React.Component {
             />
           </div>
         </div>
-        <div className="co-require-and-desc">
+        <div className="co-require-and-desc d-flex flex-column">
           <div className="co-title">
             <p className="text-truncate">{data.title}</p>
           </div>
@@ -82,7 +82,7 @@ class CampaignOverview extends React.Component {
             </p>
           </div>
 
-          <div className="co-job-desc ">{data.work_description}</div>
+          <div className="co-job-desc d-flex align-items-center">{data.work_description}</div>
           <div className="co-subjects d-flex flex-row">
             {data.subjects.map((subject) => {
               return (
