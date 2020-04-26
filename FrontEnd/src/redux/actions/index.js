@@ -256,8 +256,29 @@ export const getInterviewCandidates = (campaign_id, interview_id) => {
       });
   };
 };
-
-export const updateCandidatesToAvailable = (data,interview_id) => {
+export const updateCandidates = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.UPDATE_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("update candidates ", res.data);
+        dispatch({
+          type: types.UPDATE_INTERVIEW_CANDIDATES,
+          data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const updateCandidatesToAvailable = (data, interview_id) => {
   return (dispatch) => {
     axios({
       method: "post",
@@ -272,13 +293,12 @@ export const updateCandidatesToAvailable = (data,interview_id) => {
         dispatch({
           type: types.DELETE_INTERVIEW_CANDIDATES,
           data,
-          interview_id
+          interview_id,
         });
         dispatch({
           type: types.INSERT_AVAILABLE_CANDIDATES,
           data,
         });
-       
       })
       .catch((er) => {
         console.log("er", er);

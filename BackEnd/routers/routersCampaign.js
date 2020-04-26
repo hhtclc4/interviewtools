@@ -116,7 +116,13 @@ router.post("/api/get_interview", (req, res) => {
     where: {
       campaign_id: req.body.campaign_id,
     },
-    include: [{ model: Group_Candidates, include: [User] }],
+    include: [
+      {
+        model: Group_Candidates,
+        include: [User],
+      },
+    ],
+    order: [["id"], [Group_Candidates, "interview_time"]],
   })
     .then((data) => res.send(data))
     .catch((err) => console.log(err));

@@ -10,6 +10,7 @@ import {
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../../../redux/actions/index";
+import { Menu, Dropdown, Button, Icon } from "antd";
 
 class CanOverview extends React.Component {
   constructor(props) {
@@ -61,6 +62,39 @@ class CanOverview extends React.Component {
 
     this.props.updateCandidatesToAvailable(candidate, interview_id);
   };
+  handleMenuHourClick = (event) => {
+    let { data } = this.state;
+    this.setState({
+      data: {
+        ...data,
+        interview_time: event.key,
+      },
+    });
+    this.props.updateCandidates({ ...data, interview_time: event.key });
+  };
+
+  getHour = () => {
+    let listHour = [];
+    let { time_from, time_to } = this.props;
+    let hour_from = parseInt(`${time_from}`.split(":")[0]);
+    let hour_to = parseInt(`${time_to}`.split(":")[0]);
+    let minute_from = parseInt(`${time_from}`.split(":")[1]);
+    let minute_to = parseInt(`${time_to}`.split(":")[1]);
+    //số dư
+    let surplus = 0;
+    if (minute_to - minute_from < 0) surplus = -1;
+    else if (minute_to - minute_from > 0) surplus = 1;
+    let hour = hour_from;
+    let minute = minute_from;
+    for (let i = 0; i <= (hour_to - hour_from) * 2 + surplus; i++) {
+      listHour.push(`${hour}:${minute === 0 ? "00" : minute}:00`);
+      if (minute === 30) {
+        hour++;
+        minute = 0;
+      } else minute = 30;
+    }
+    return listHour;
+  };
   render() {
     let { color, type, source, from } = this.props;
     let { data } = this.state;
@@ -105,6 +139,16 @@ class CanOverview extends React.Component {
         );
       }
     }
+    let listHour = this.getHour();
+
+    const hour = (
+      <Menu onClick={this.handleMenuHourClick}>
+        {listHour.map((hour) => {
+          return <Menu.Item key={hour}>{hour}</Menu.Item>;
+        })}
+      </Menu>
+    );
+
     return (
       <div
         className="candidate-overview-container"
@@ -121,8 +165,17 @@ class CanOverview extends React.Component {
             {from === "control" && type === "partion" ? (
               <FontAwesomeIcon icon={faClock} />
             ) : (
-                <> {data.interview_time} </>
-              )}
+              // <> {data.interview_time} </>
+              <>
+                <div className="cni-time-hour">
+                  <Dropdown overlay={hour} trigger={["click"]}>
+                    <Button style={{ top: "0" }}>
+                      {data.interview_time} <Icon type="down" />
+                    </Button>
+                  </Dropdown>
+                </div>
+              </>
+            )}
           </div>
           <div className="name-partion">{data.user.name}</div>
           <div className="email-partion">{data.user.email}</div>
@@ -141,8 +194,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <>CV</>
               ) : (
-                  <FontAwesomeIcon icon={faClipboard} />
-                )}
+                <FontAwesomeIcon icon={faClipboard} />
+              )}
             </button>
           </div>
           <div className="note-partion">
@@ -159,8 +212,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <>NOTE</>
               ) : (
-                  <FontAwesomeIcon icon={faStickyNote} />
-                )}
+                <FontAwesomeIcon icon={faStickyNote} />
+              )}
             </button>
           </div>
           <div className="subject-partion" style={majorStyle}>
@@ -185,7 +238,9 @@ class CanOverview extends React.Component {
           ) : null}
         </div>
         <hr
-          style={type === "partion" ? { display: 'block' } : { display: 'none' }}
+          style={
+            type === "partion" ? { display: "block" } : { display: "none" }
+          }
         />
       </div>
     );
@@ -198,6 +253,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateCandidatesToAvailable: (candidate, interview_id) => {
       dispatch(actions.updateCandidatesToAvailable(candidate, interview_id));
+    },
+    updateCandidates: (candidate) => {
+      dispatch(actions.updateCandidates(candidate));
     },
   };
 };

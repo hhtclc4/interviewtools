@@ -104,42 +104,65 @@ class InterviewPopup extends React.Component {
       selectDate: select,
     });
   };
-  handleMenuHourFromClick = (event, listHour) => {
+
+  handleMenuHourClick = (event, listHour, type) => {
+    let { time_from, time_to } = this.state;
+
     let selectName = listHour.find((item) => item === event.key);
-    this.setState({
-      time_from: {
-        ...this.state.time_from,
-        selectHour: selectName,
-      },
-    });
+    if (type === "from") {
+      this.setState({
+        time_from: {
+          ...time_from,
+          selectHour: selectName,
+        },
+      });
+      if (parseInt(event.key) > parseInt(time_to.selectHour)) {
+        this.setState({
+          time_to: {
+            ...time_to,
+            selectHour: event.key,
+          },
+        });
+      }
+    } else if (type === "to") {
+      this.setState({
+        time_to: {
+          ...time_to,
+          selectHour: selectName,
+        },
+      });
+
+      if (parseInt(event.key) < parseInt(time_from.selectHour)) {
+        this.setState({
+          time_from: {
+            ...time_from,
+            selectHour: event.key,
+          },
+        });
+      }
+    }
   };
-  handleMenuHourToClick = (event, listHour) => {
-    let selectName = listHour.find((item) => item === event.key);
-    this.setState({
-      time_to: {
-        ...this.state.time_from,
-        selectHour: selectName,
-      },
-    });
-  };
-  handleMenuMinuteFromClick = (event, listMinute) => {
+  handleMenuMinuteClick = (event, listMinute, type) => {
+    let { time_from, time_to } = this.state;
+
     let selectName = listMinute.find((item) => item === event.key);
-    this.setState({
-      time_from: {
-        ...this.state.time_from,
-        selectMinute: selectName,
-      },
-    });
+    if (type === "from") {
+      this.setState({
+        time_from: {
+          ...time_from,
+          selectMinute: selectName,
+        },
+      });
+    } else if (type === "to") {
+      this.setState({
+        time_to: {
+          ...time_to,
+          selectMinute: selectName,
+        },
+      });
+    }
   };
-  handleMenuMinuteToClick = (event, listMinute) => {
-    let selectName = listMinute.find((item) => item === event.key);
-    this.setState({
-      time_to: {
-        ...this.state.time_from,
-        selectMinute: selectName,
-      },
-    });
-  };
+
   onChangeInputHandler = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
@@ -168,15 +191,39 @@ class InterviewPopup extends React.Component {
         })}
       </Menu>
     );
-    const hour = (
-      <Menu onClick={(event) => this.handleMenuHourClick(event, listHour)}>
+    const hourFrom = (
+      <Menu
+        onClick={(event) => this.handleMenuHourClick(event, listHour, "from")}
+      >
         {listHour.map((hour) => {
           return <Menu.Item key={hour}>{hour}</Menu.Item>;
         })}
       </Menu>
     );
-    const minute = (
-      <Menu onClick={(event) => this.handleMenuMinuteClick(event, listMinute)}>
+    const minuteFrom = (
+      <Menu
+        onClick={(event) =>
+          this.handleMenuMinuteClick(event, listMinute, "from")
+        }
+      >
+        {listMinute.map((minute) => {
+          return <Menu.Item key={minute}>{minute}</Menu.Item>;
+        })}
+      </Menu>
+    );
+    const hourTo = (
+      <Menu
+        onClick={(event) => this.handleMenuHourClick(event, listHour, "to")}
+      >
+        {listHour.map((hour) => {
+          return <Menu.Item key={hour}>{hour}</Menu.Item>;
+        })}
+      </Menu>
+    );
+    const minuteTo = (
+      <Menu
+        onClick={(event) => this.handleMenuMinuteClick(event, listMinute, "to")}
+      >
         {listMinute.map((minute) => {
           return <Menu.Item key={minute}>{minute}</Menu.Item>;
         })}
@@ -196,9 +243,7 @@ class InterviewPopup extends React.Component {
                     src={require("../../images/Interview.png")}
                     style={{ width: "60px", marginRight: "5px" }}
                   />
-                  <h4 className="align-self-center"
-                    style={{ margin: '0' }}
-                  >
+                  <h4 className="align-self-center" style={{ margin: "0" }}>
                     Create new interview period
                   </h4>
                 </div>
@@ -232,7 +277,7 @@ class InterviewPopup extends React.Component {
                       <p>Time from </p>
 
                       <div className="cni-time-hour">
-                        <Dropdown overlay={hour} trigger={["click"]}>
+                        <Dropdown overlay={hourFrom} trigger={["click"]}>
                           <Button style={{ top: "0" }}>
                             {time_from.selectHour} <Icon type="down" />
                           </Button>
@@ -240,7 +285,7 @@ class InterviewPopup extends React.Component {
                       </div>
                       <p>:</p>
                       <div className="minute">
-                        <Dropdown overlay={minute} trigger={["click"]}>
+                        <Dropdown overlay={minuteFrom} trigger={["click"]}>
                           <Button style={{ top: "0" }}>
                             {time_from.selectMinute} <Icon type="down" />
                           </Button>
@@ -250,7 +295,7 @@ class InterviewPopup extends React.Component {
                       <p>Time to </p>
 
                       <div className="cni-time-hour">
-                        <Dropdown overlay={hour} trigger={["click"]}>
+                        <Dropdown overlay={hourTo} trigger={["click"]}>
                           <Button style={{ top: "0" }}>
                             {time_to.selectHour} <Icon type="down" />
                           </Button>
@@ -258,7 +303,7 @@ class InterviewPopup extends React.Component {
                       </div>
                       <p>:</p>
                       <div className="minute">
-                        <Dropdown overlay={minute} trigger={["click"]}>
+                        <Dropdown overlay={minuteTo} trigger={["click"]}>
                           <Button style={{ top: "0" }}>
                             {time_to.selectMinute} <Icon type="down" />
                           </Button>
@@ -273,12 +318,13 @@ class InterviewPopup extends React.Component {
                 >
                   Close
                 </button>
-                <button className="in-pop-action-btn float-right "
-                  style={{ marginRight: '5px' }}
-                  onClick={this.onSaveHandler}>
+                <button
+                  className="in-pop-action-btn float-right "
+                  style={{ marginRight: "5px" }}
+                  onClick={this.onSaveHandler}
+                >
                   Create
                 </button>
-
               </div>
             </div>
             <div className="col-md-3"></div>
