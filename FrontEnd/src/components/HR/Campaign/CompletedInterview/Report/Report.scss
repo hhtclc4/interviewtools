@@ -1,0 +1,65 @@
+.interview-report-container {
+    border-bottom: 1px solid #dedede;
+    background-color: white;
+    .interview-report-header {
+        background-color: white;
+        .in-partion-time {
+            min-width: 24%;
+        }
+
+        .in-partion-name {
+            min-width: 19%;
+        }
+        .in-partion-total-can {
+            min-width: 13%;
+        }
+        .in-partion-acc {
+            min-width: 30%;
+            .max-acc-progress {
+                .acc-progress {
+                    padding: 2px;
+                    background-color: greenyellow;
+                    border-radius: 4px;
+                    color: white;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .in-expand-btn {
+            top: 0;
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+            background: transparent;
+            &:hover {
+                background-color: #e6e6e6;
+            }
+            border: none;
+        }
+    }
+
+    .interview-report-body {
+        height: 200px;
+        transition: all 0.4s ease;
+        .in-report-can-result {
+            min-width: 100%;
+            .can-overview-list {
+                width: 90%;
+            }
+            .can-score-list {
+                width: 10%;
+                .can-score-partion {
+                    margin-top: 8px;
+                }
+                .can-score-content {
+                    background-color: greenyellow;
+                    color: white;
+                    font-weight: bold;
+                    padding: 3px;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}

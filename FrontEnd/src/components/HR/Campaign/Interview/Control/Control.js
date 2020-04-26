@@ -88,6 +88,7 @@ class InterviewControl extends React.Component {
           time_to={data.time_to}
           color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
           from="control"
+          display={true}
         />
       );
     });
@@ -142,7 +143,11 @@ class InterviewControl extends React.Component {
         </div>
         <div className="interview-control-body p-2">
           <div className="interview-candidate-list">
-            <CanOverview from="control" type="partion" />
+            <CanOverview
+              from="control"
+              type="partion"
+              display={true}
+            />
             {candidateEml}
           </div>
         </div>

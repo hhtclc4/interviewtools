@@ -9,6 +9,8 @@ import * as actions from "../../../redux/actions/index";
 import HRNav from "../Nav/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
+
+import CompletedInterview from './CompletedInterview/CompletedInterview'
 class HRCampaign extends React.Component {
   constructor(props) {
     super(props);
@@ -55,18 +57,18 @@ class HRCampaign extends React.Component {
                 </div>
               </div>
               <div className="hr-campaign-tabs">
-                <Tabs selected={1}>
+                <Tabs selected={2}>
                   <Panel title="Infomation">
                     <HRInfo />
                   </Panel>
                   <Panel title="Interview">
                     <HRInterview />
                   </Panel>
+                  <Panel title="Completed Interview">
+                    <CompletedInterview />
+                  </Panel>
                   <Panel title="Candidate">
                     Candidate
-                  </Panel>
-                  <Panel title="Completed Interview">
-                    Completed
                   </Panel>
                 </Tabs>
               </div>

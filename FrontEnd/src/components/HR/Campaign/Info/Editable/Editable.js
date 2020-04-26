@@ -26,7 +26,7 @@ class HREditable extends React.Component {
     } else {
       //inside
       this.editInputRef.current.focus();
-      this.editInputRef.current.select();
+      //this.editInputRef.current.select();
       this.editInputRef.current.style.border = "2px solid #1092f4";
     }
   };

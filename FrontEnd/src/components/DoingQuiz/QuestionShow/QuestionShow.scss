@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 
 .question-show-container {
     display: flex;
@@ -58,14 +58,12 @@
         border-radius: 15px;
 
         .question-detail-header {
-            background-color: #F7F6F6;
+            background-color: #f7f6f6;
             width: 100%;
             height: 50px;
             display: flex;
             flex-direction: row;
             padding-left: 10px;
-
-
 
             p {
                 align-self: center;
@@ -121,11 +119,9 @@
             }
 
             .answers-divider {
-
                 position: relative;
 
                 .divider-name {
-
                     position: absolute;
                     left: 15px;
                     top: 8px;
@@ -187,8 +183,7 @@
                             position: absolute;
                             top: 30%;
                             left: 30%;
-                            animation: animateCheckRightStart 0.8s forwards,
-                                animateCheckRightEnd 0.8s forwards;
+                            animation: animateCheckRightStart 0.8s forwards, animateCheckRightEnd 0.8s forwards;
 
                             @keyframes animateCheckRightStart {
                                 from {
@@ -208,6 +203,41 @@
                                 }
                             }
                         }
+                    }
+                }
+
+                .blank-fill-question-container {
+                    width: 100%;
+                    margin: 0 10px 10px 10px;
+                    background-color: #662900;
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                    padding-top: 4rem;
+                    padding-left: 2rem;
+                    padding-right: 2rem;
+                    display: flex;
+                    flex-direction: column;
+
+                    .blank-fill-input {
+                        font-size: 20px;
+                        border: none;
+                        width: 50%;
+                        color: white;
+                        border-bottom: 3px solid #e5e5e5;
+                        background-color: #ff944d;
+                        outline: none;
+                        align-self: center;
+                        &:focus {
+                            background-color: #ff6600;
+                            color: white;
+                            border-bottom: 3px solid white;
+                        }
+                    }
+
+                    .blank-fill-hint {
+                        align-self: center;
+                        color: white;
+                        padding: 10px;
                     }
                 }
             }
@@ -255,22 +285,21 @@
         padding: 4px 10px !important;
     }
 
-
     #dropdown-button-drop-up {
         background-color: white !important;
     }
 }
 
 .w3-animate-zoom {
-    animation: animatezoom 0.6s
+    animation: animatezoom 0.6s;
 }
 
 @keyframes animatezoom {
     from {
-        transform: scale(0)
+        transform: scale(0);
     }
 
     to {
-        transform: scale(1)
+        transform: scale(1);
     }
 }

@@ -12,6 +12,9 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
+import { Input } from 'antd';
+
+const { TextArea } = Input;
 class QuestionShow extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +29,7 @@ class QuestionShow extends React.Component {
       disableButton: false,
       clicked: false,
       mutiCheckArr: [],
+      value: '',
     };
   }
   componentDidMount() {
@@ -167,6 +171,10 @@ class QuestionShow extends React.Component {
       [name]: value,
     });
   };
+
+  onChange = ({ target: { value } }) => {// Ant design component
+    this.setState({ value });
+  };
   render() {
     const {
       time,
@@ -178,6 +186,7 @@ class QuestionShow extends React.Component {
       type,
       mutiCheckArr,
       answer_text,
+      value
     } = this.state;
     let { questionsLength, index } = this.props;
     let colorButtons = ["#2F6DAE", "#2C9CA6", "#ECA82C", "#D4546A", "#5cd65c"];
@@ -265,17 +274,17 @@ class QuestionShow extends React.Component {
               {type !== 3 ? (
                 element
               ) : (
-                <div>
-                  <input
-                    type="text"
-                    name="answer_text"
-                    placeholder="add the answer for this question"
-                    value={answer_text}
-                    onChange={this.onChangeTextHandler}
-                  />
-                  <p>Hint: {hint}</p>
-                </div>
-              )}
+                  <div className="blank-fill-question-container">
+                    <TextArea
+                      className="blank-fill-input"
+                      value={value}
+                      onChange={this.onChange}
+                      placeholder="Type your answer"
+                      autoSize={{ minRows: 2, maxRows: 8 }}
+                    />
+                    <div className="blank-fill-hint">*Hint: {hint}</div>
+                  </div>
+                )}
             </div>
           </div>
           <div

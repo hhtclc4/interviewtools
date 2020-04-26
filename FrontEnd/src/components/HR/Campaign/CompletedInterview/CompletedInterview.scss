@@ -1,0 +1,31 @@
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+$concept-color: #fd7e14;
+$shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
+.completed-interview-container {
+    .completed-list-partion {
+        margin-bottom: 10px;
+        .in-partion-time {
+            min-width: 25%;
+            font-family: "Open Sans", sans-serif, Helvetica, Arial;
+            font-weight: bold;
+            color: #6b7c93;
+            font-size: 15px;
+        }
+
+        .in-partion-name {
+            min-width: 20%;
+            @extend .in-partion-time;
+        }
+        .in-partion-total-can {
+            min-width: 15%;
+            @extend .in-partion-time;
+        }
+        .in-partion-acc {
+            min-width: 35%;
+            @extend .in-partion-time;
+        }
+    }
+    .completed-list-container {
+        box-shadow: $shadow;
+    }
+}

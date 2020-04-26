@@ -90,6 +90,7 @@ class CandidatePopup extends React.Component {
           source="chosen"
           type="canRow"
           color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+          display={true}
         />
       );
     });
@@ -103,6 +104,7 @@ class CandidatePopup extends React.Component {
           source="apply"
           type="canRow"
           color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+          display={true}
         />
       );
     });
@@ -117,6 +119,7 @@ class CandidatePopup extends React.Component {
             source="collect"
             type="canRow"
             color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+            display={true}
           />
         );
       }
@@ -145,6 +148,7 @@ class CandidatePopup extends React.Component {
                         from="canPop"
                         source="apply"
                         type="partion"
+                        display={true}
                       />
                       {availableApplyEml}
                     </Panel>
@@ -153,6 +157,7 @@ class CandidatePopup extends React.Component {
                         from="canPop"
                         source="collect"
                         type="partion"
+                        display={true}
                       />
                       {availableCollectedEml}
                     </Panel>
@@ -161,7 +166,12 @@ class CandidatePopup extends React.Component {
                 <h4>Chosen candidates</h4>
                 <div className="can-chosen">
                   <div className="interview-candidate-list">
-                    <CanOverview from="canPop" source="chosen" type="partion" />
+                    <CanOverview
+                      from="canPop"
+                      source="chosen"
+                      type="partion"
+                      display={true}
+                    />
                     {chosenCandidates}
                   </div>
                 </div>
