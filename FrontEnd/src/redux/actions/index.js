@@ -389,7 +389,7 @@ export const getInterviews = (campaign_id) => {
       });
   };
 };
-export const getCompletedInterviews = (campaign_id) => {
+export const getCompletedInterviewsAPI = (campaign_id) => {
   return (dispatch) => {
     axios({
       method: "post",
@@ -402,13 +402,18 @@ export const getCompletedInterviews = (campaign_id) => {
       .then((res) => {
         console.log("get completed interviews", res.data);
         dispatch({
-          type: types.GET_COMPLETED_INTERVIEWS,
+          type: types.GET_COMPLETED_INTERVIEWS_API,
           data: res.data,
         });
       })
       .catch((er) => {
         console.log("er", er);
       });
+  };
+};
+export const getCompletedInterviews = () => {
+  return {
+    type: types.GET_COMPLETED_INTERVIEWS,
   };
 };
 /////////////////////// question table

@@ -10,8 +10,8 @@ import HRNav from "../Nav/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
-import CompletedInterview from './CompletedInterview/CompletedInterview'
-import HRCandidate from './Candidate/Candidate'
+import CompletedInterview from "./CompletedInterview/CompletedInterview";
+import HRCandidate from "./Candidate/Candidate";
 class HRCampaign extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +24,7 @@ class HRCampaign extends React.Component {
     let { campaign_id } = this.state;
     this.props.getInterviews(campaign_id);
     this.props.getAvailableCandidates(campaign_id);
+    this.props.getCompletedInterviewsAPI(campaign_id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
@@ -89,6 +90,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     getInterviews: (campaign_id) => {
       dispatch(actions.getInterviews(campaign_id));
+    },
+    getCompletedInterviewsAPI: (campaign_id) => {
+      dispatch(actions.getCompletedInterviewsAPI(campaign_id));
     },
   };
 };

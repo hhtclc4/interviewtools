@@ -40,8 +40,8 @@ class CompletedInterview extends React.Component {
     };
   }
   componentDidMount() {
-    let { campaign_id } = this.state;
-    this.props.getCompletedInterviews(campaign_id);
+    // let { campaign_id } = this.state;
+    this.props.getCompletedInterviews();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -75,8 +75,8 @@ class CompletedInterview extends React.Component {
 //send action to redux
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getCompletedInterviews: (campaign_id) => {
-      dispatch(actions.getCompletedInterviews(campaign_id));
+    getCompletedInterviews: () => {
+      dispatch(actions.getCompletedInterviews());
     },
   };
 };

@@ -26,8 +26,10 @@ let initialState = [
 ];
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.GET_COMPLETED_INTERVIEWS:
+    case types.GET_COMPLETED_INTERVIEWS_API:
       state = [...action.data];
+      return [...state];
+    case types.GET_COMPLETED_INTERVIEWS:
       return [...state];
 
     default:

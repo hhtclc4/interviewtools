@@ -12,6 +12,10 @@ class InterviewReport extends React.Component {
     this.state = {
       reportBody: false,
       accuracy: 30,
+      weekDay: "",
+      day: "",
+      month: "",
+      year: "",
     };
   }
 
@@ -22,8 +26,32 @@ class InterviewReport extends React.Component {
       reportBody: !reportBody,
     });
   };
+  componentDidMount() {
+    let { data } = this.props;
+    //get date
+    let jsDate = new Date(data.date);
+    let dtf = new Intl.DateTimeFormat("en", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+    });
+    let [{ value: mo }, , { value: da }, , { value: ye }] = dtf.formatToParts(
+      jsDate
+    );
+
+    let weekDay = jsDate.toString().split(" ");
+    this.setState({
+      day: da,
+      weekDay: weekDay[0],
+      month: mo,
+      year: ye,
+      data,
+    });
+  }
   render() {
     let { reportBody, accuracy } = this.state;
+    let { day, month, year, weekDay } = this.state;
+
     let { data } = this.props;
     let candidates = data.group_candidates.map((candidate, index) => {
       return (
@@ -46,7 +74,7 @@ class InterviewReport extends React.Component {
           <div className="in-partion-time">
             <span>
               <FontAwesomeIcon icon={faCalendarAlt} className="mr-1" />
-              Sat, Jan 18th 2020
+              {weekDay}, {month} {day}th {year}
             </span>
           </div>
           <div className="in-partion-name">{data.name}</div>
