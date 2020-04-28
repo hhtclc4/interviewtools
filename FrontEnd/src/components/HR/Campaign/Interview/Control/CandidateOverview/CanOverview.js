@@ -129,7 +129,7 @@ class CanOverview extends React.Component {
 
     let actionBtnElm;
     if (type === "partion") {
-      actionBtnElm = <>ACTION</>;
+      actionBtnElm = <b>ACTION</b>;
     } else {
       if (source === "apply" || source === "collect") {
         if (from === "hr") {
@@ -194,7 +194,7 @@ class CanOverview extends React.Component {
             style={(from === "canPop" || from === "hr") ? { display: "none" } : null}
           >
             {from === "control" && type === "partion" ? (
-              <span><FontAwesomeIcon className="mr-1" icon={faClock} />Time</span>
+              <span><FontAwesomeIcon className="mr-1" icon={faClock} /><b>TIME</b></span>
             ) : (
                 // <> {data.interview_time} </>
                 <>
@@ -208,9 +208,9 @@ class CanOverview extends React.Component {
                 </>
               )}
           </div>
-          <div className="name-partion">{data.user.name}</div>
-          <div className="email-partion">{data.user.email}</div>
-          <div className="phone-partion">{data.user.phone}</div>
+          <div className="name-partion">{type === "partion" ? <b>{data.user.name}</b> : data.user.name}</div>
+          <div className="email-partion">{type === "partion" ? <b>{data.user.email}</b> : data.user.email}</div>
+          <div className="phone-partion">{type === "partion" ? <b>{data.user.phone}</b> : data.user.phone}</div>
           <div className="cv-partion">
             <button
               onClick={() => {
@@ -223,7 +223,7 @@ class CanOverview extends React.Component {
               className="cv-btn"
             >
               {type === "partion" ? (
-                <>CV</>
+                <b>CV</b>
               ) : (
                   <FontAwesomeIcon icon={faClipboard} />
                 )}
@@ -241,17 +241,17 @@ class CanOverview extends React.Component {
               className="note-btn"
             >
               {type === "partion" ? (
-                <>NOTE</>
+                <b>NOTE</b>
               ) : (
                   <FontAwesomeIcon icon={faStickyNote} />
                 )}
             </button>
           </div>
           <div className="subject-partion" style={majorStyle}>
-            {type === "partion" ? <>Major</> : <>Java</>}
+            {type === "partion" ? <b>MAJOR</b> : <>Java</>}
           </div>
           <div className="level-partion" style={majorStyle}>
-            {type === "partion" ? <>LEVEL</> : <>Senior</>}
+            {type === "partion" ? <b>LEVEL</b> : <>Senior</>}
           </div>
 
           <div

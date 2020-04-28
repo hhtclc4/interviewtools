@@ -1,19 +1,55 @@
 $background-color: #f9f9f9;
 $unselected-tab: #c0c0c0;
 $selected-tab: #fd7e14;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
 
 .home-body-container {
   background-attachment: fixed;
   // background-color: #1A0C0F;
   background-color: $background-color;
   min-height: 100%;
-  height: 900px;
+  height: fit-content;
   margin-top: 56px;
   .video-intro {
     height: 100%;
     width: 100%;
   }
 
+  .candidate-job-search-container {
+    height: 110px;
+    box-shadow: $shadow;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+
+    .candidate-job-search {
+      position: relative;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 70%;
+      .search-ipt {
+        border: none;
+        border-bottom: 1px solid #c4c4c4;
+        text-indent: 20px;
+        width: 50%;
+        font-size: 18px;
+        font-family: "Open Sans";
+        margin-right: 10px;
+      }
+
+      .search-btn {
+        top: 0;
+        border-radius: 20px;
+        border: none;
+        padding: 8px 32px;
+        color: white;
+        font-weight: bold;
+        background-color: $selected-tab;
+        &:hover {
+          background-color: #e67300;
+        }
+      }
+    }
+  }
   .candidate-job-seek {
     .candidate-job-seek-header {
       background-color: #fd7e14;
@@ -116,6 +152,49 @@ $selected-tab: #fd7e14;
               background-color: #dad9da;
             }
           }
+        }
+      }
+    }
+  }
+
+  .candidate-job-hire {
+    height: 400px;
+    padding-top: 100px;
+    .hire-text {
+      color: black;
+      font-size: 40px;
+      width: 50%;
+      .trans-text {
+        color: $selected-tab;
+      }
+
+      .trans-bg-text {
+        font-size: 100px;
+        color: #999999;
+        opacity: 0.1;
+        position: relative;
+        top: -25%;
+        left: -20%;
+      }
+    }
+
+    .hire-steps {
+      color: gray;
+      .hire-step {
+        background-color: #fff;
+        height: 320px;
+        width: 260px;
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 10px;
+        align-items: center;
+        .step-img {
+          width: 90px;
+        }
+        p {
+          font-weight: bold;
         }
       }
     }

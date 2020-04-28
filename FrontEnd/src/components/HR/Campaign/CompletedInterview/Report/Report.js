@@ -115,7 +115,7 @@ class InterviewReport extends React.Component {
                   width: "100%",
                 }}
               />
-              <div className="can-score-content ml-auto">100%</div>
+              <div className="can-score-content ml-auto mt-2">100%</div>
             </div>
           </div>
         </div>

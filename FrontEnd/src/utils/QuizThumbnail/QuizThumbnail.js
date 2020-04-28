@@ -149,7 +149,7 @@ class QuizThumbnail extends React.Component {
               {data.played !== 0 ? data.played : "0"} plays
             </div>
           </div>
-          <div className="quiz-name">
+          <div className="quiz-name text-truncate">
             <span>{data.title}</span>
           </div>
           <div className="author-name">

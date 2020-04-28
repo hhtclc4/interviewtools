@@ -75,8 +75,8 @@ class RecruitThumbnail extends React.Component {
             />
           </div>
           <div className="re-flat-info d-flex flex-row">
-            <div className="re-salary d-flex flex-row">
-              <span className="re-adjust-icon d-flex flex-row justify-content-center">
+            <div className="re-salary d-flex flex-row text-truncate pr-1">
+              <span className="re-adjust-icon d-flex flex-row justify-content-center ">
                 <FontAwesomeIcon
                   icon={faDollarSign}
                   size="sm"
@@ -89,25 +89,30 @@ class RecruitThumbnail extends React.Component {
                   : data.salary + " triệu"}
               </p>
             </div>
-            {/* <div className="re-destination d-flex flex-row">
+            <div className="re-destination d-flex flex-row">
               <span className="re-adjust-icon d-flex flex-row justify-content-center">
                 <FontAwesomeIcon icon={faMapMarkerAlt} color="#FD7E14" />
               </span>
-              <p>{data.location}</p>
-            </div> */}
+              <p>TP.HCM</p>
+            </div>
           </div>
-          <div className="re-required-position">
+          <div className="re-required-position text-truncate">
             <b>{data.title}</b>
           </div>
 
           <div className="re-company-name">
-            <p>TP HCM</p>
+            <p>Google</p>
           </div>
           {postFeature === "new" ? (
             <div className="re-new-recruit"></div>
-          ) : (
-            <div className="re-hot-recruit"></div>
-          )}
+          ) :
+            (
+              <div className="re-hot-recruit"></div>
+            )
+          }
+          <div className="re-diff p-2">
+            See Job
+          </div>
         </div>
       </div>
     );

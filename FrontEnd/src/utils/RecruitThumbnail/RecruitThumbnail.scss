@@ -21,6 +21,11 @@ $concept-color: #fd7e14;
     box-shadow: 0px 1px 1px 1px #d9d9d9;
     position: relative;
     border: 1px solid #f1f1f1;
+    &:hover {
+      .re-diff {
+        color: $concept-color;
+      }
+    }
     .re-crop-img {
       height: 110px;
       width: 100%;
@@ -70,6 +75,14 @@ $concept-color: #fd7e14;
 
     .re-company-name {
       padding: 0px 10px;
+    }
+
+    .re-diff {
+      color: #cccccc;
+      font-weight: bold;
+      font-size: 18px;
+      font-family: "Open Sans";
+      transition: color 0s ease;
     }
   }
 }

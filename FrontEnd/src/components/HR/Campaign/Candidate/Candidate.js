@@ -88,7 +88,8 @@ class HRCandidate extends React.Component {
           source="apply"
           type="canRow"
           display={true}
-          color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+          // color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+          color="#fff"
         />
       );
     });
@@ -101,7 +102,8 @@ class HRCandidate extends React.Component {
             from="hr"
             source="collect"
             type="canRow"
-            color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+            // color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+            color="#fff"
             display={true}
           />
         );
@@ -120,6 +122,7 @@ class HRCandidate extends React.Component {
                   source="apply"
                   type="partion"
                   display={true}
+                  color="#fff"
                 />
                 {availableApplyEml}
               </Panel>
@@ -129,6 +132,7 @@ class HRCandidate extends React.Component {
                   source="collect"
                   type="partion"
                   display={true}
+                  color="#fff"
                 />
                 {availableCollectedEml}
               </Panel>

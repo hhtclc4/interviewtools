@@ -58,6 +58,12 @@ class HomeBody extends React.Component {
         <div className="row">
           <div className="col-2"></div>
           <div className="col-lg-8 py-3 px-0">
+            <div className="candidate-job-search-container mx-3 mb-5">
+              <div className="candidate-job-search">
+                <input className="search-ipt" placeholder="Search jobs ..." />
+                <button className="search-btn">Search</button>
+              </div>
+            </div>
             <div className="candidate-job-seek container-fluid">
               <div className="candidate-job-seek-header p-2 d-flex flex-row">
                 <div
@@ -75,6 +81,31 @@ class HomeBody extends React.Component {
                     <Panel title="">{tabElm}</Panel>
                     <Panel>Tabs2</Panel>
                   </Tabs>
+                </div>
+              </div>
+            </div>
+            <div className="candidate-job-hire d-flex flex-row px-2 flex-wrap">
+              <div className="hire-text d-flex flex-row" >
+                <span className="mr-2">How we</span>
+                <p className="trans-text">hire</p>
+                <div className="trans-bg-text">
+                  hire
+                </div>
+              </div>
+              <div className="hire-steps d-flex flex-row flex-wrap ml-auto">
+                <div className="hire-step mr-4 ">
+                  <h4><b>Step 1</b></h4>
+                  <img alt="step" src={require("../images/step1.png")} className="step-img" />
+                  <p>
+                    Test with Online Quizzes by Department Head
+                  </p>
+                </div>
+                <div className="hire-step">
+                  <h4><b>Step 2</b></h4>
+                  <img alt="step" src={require("../images/step2.png")} className="step-img" />
+                  <p>
+                    Interview directly Department Head
+                  </p>
                 </div>
               </div>
             </div>
