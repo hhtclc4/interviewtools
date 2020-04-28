@@ -1,13 +1,14 @@
 import React from "react";
 import "./CanOverview.scss";
 import NoteandCV from "./NoteandCV";
+import InterviewsPopup from '../../../Candidate/InterviewsPopup'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStickyNote,
   faClipboard,
   faClock,
 } from "@fortawesome/free-regular-svg-icons";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../../../redux/actions/index";
 import { Menu, Dropdown, Button, Icon } from "antd";
@@ -17,6 +18,7 @@ class CanOverview extends React.Component {
     super(props);
     this.state = {
       isOpenNoteandCV: false,
+      isOpenInterviews: false,
       active: 0,
       data: {
         candidate_id: 0,
@@ -45,6 +47,16 @@ class CanOverview extends React.Component {
     if (isOpenNoteandCV === true) {
       this.setState({
         isOpenNoteandCV: !isOpenNoteandCV,
+      });
+    }
+  };
+
+  toggleInterviewsPopup = () => {
+    let { isOpenInterviews } = this.state;
+
+    if (isOpenInterviews === true) {
+      this.setState({
+        isOpenInterviews: !isOpenInterviews,
       });
     }
   };
@@ -120,14 +132,33 @@ class CanOverview extends React.Component {
       actionBtnElm = <>ACTION</>;
     } else {
       if (source === "apply" || source === "collect") {
-        actionBtnElm = (
-          <button
-            className="can-action-btn"
-            onClick={() => this.chooseEmailHandler(data)}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-          </button>
-        );
+        if (from === "hr") {
+          actionBtnElm = (
+            <button
+              className="can-action-btn"
+              onClick={() => {
+                this.setState({
+                  isOpenInterviews: !this.state.isOpenInterviews,
+                  active: 0,
+                });
+                this.toggleInterviewsPopup();
+              }}
+            >
+              <FontAwesomeIcon icon={faUserPlus} />
+            </button>
+          );
+        }
+        else {
+          actionBtnElm = (
+            <button
+              className="can-action-btn"
+              onClick={() => this.chooseEmailHandler(data)}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+          );
+        }
+
       } else {
         actionBtnElm = (
           <button
@@ -160,7 +191,7 @@ class CanOverview extends React.Component {
         >
           <div
             className="time-partion"
-            style={from === "canPop" ? { display: "none" } : null}
+            style={(from === "canPop" || from === "hr") ? { display: "none" } : null}
           >
             {from === "control" && type === "partion" ? (
               <span><FontAwesomeIcon className="mr-1" icon={faClock} />Time</span>
@@ -233,6 +264,13 @@ class CanOverview extends React.Component {
           {this.state.isOpenNoteandCV ? (
             <NoteandCV
               closePopup={this.toggleNoteandCV}
+              openTab={this.state.active}
+            />
+          ) : null}
+
+          {this.state.isOpenInterviews ? (
+            <InterviewsPopup
+              closePopup={this.toggleInterviewsPopup}
               openTab={this.state.active}
             />
           ) : null}
