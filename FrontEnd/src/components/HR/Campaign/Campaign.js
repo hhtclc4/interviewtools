@@ -58,7 +58,7 @@ class HRCampaign extends React.Component {
                 </div>
               </div>
               <div className="hr-campaign-tabs">
-                <Tabs selected={3}>
+                <Tabs selected={0}>
                   <Panel title="Infomation">
                     <HRInfo />
                   </Panel>

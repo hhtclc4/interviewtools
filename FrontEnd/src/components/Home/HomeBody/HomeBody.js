@@ -5,6 +5,8 @@ import { Tabs, Panel } from "../../../utils/Tab/Tabs";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import { withRouter } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faNewspaper } from "@fortawesome/free-regular-svg-icons";
 
 class HomeBody extends React.Component {
   constructor(props) {
@@ -57,16 +59,15 @@ class HomeBody extends React.Component {
           <div className="col-2"></div>
           <div className="col-lg-8 py-3 px-0">
             <div className="candidate-job-seek container-fluid">
-              <div className="candidate-job-seek-header p-3 d-flex flex-row">
-                <img
+              <div className="candidate-job-seek-header p-2 d-flex flex-row">
+                <div
                   className="candidate-post-icon align-self-center"
-                  alt="news"
-                  src={require("../images/news.png")}
-                />
-                <h4 className="flex-grow-1 align-self-center">
+                >
+                  <FontAwesomeIcon icon={faNewspaper} size="2x" color="white" className="align-self-center" /></div>
+                <h5 className="flex-grow-1 align-self-center">
                   RECENT HOT JOB
-                </h4>
-                <h4 className="align-self-center">See all >></h4>
+                </h5>
+                <h5 className="align-self-center">See all</h5>
               </div>
               <div className="candidate-job-seek-body">
                 <div className="recruit-list">

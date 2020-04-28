@@ -71,7 +71,14 @@ class HomeNav extends React.Component {
         </div>
         <div className="button-group">
           {token ? (
-            <div>{data.email}</div>
+            <div className="login-user">
+              <span className="user-ava">
+                <img alt="ava" src={require("../images/default-ava.png")}
+                  className="mr-1"
+                />
+              </span>
+              {data.email}
+            </div>
           ) : (
               <div>
                 <button className="b-log-in" onClick={this.togglePopup}>
