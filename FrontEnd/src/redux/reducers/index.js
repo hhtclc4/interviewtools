@@ -17,6 +17,7 @@ import availableCandidates from "./Available_Candidates";
 import candidate from "./Candidate";
 import accessToPush from "./Access_To_Push";
 import interview from "./Interview";
+import completedInterview from "./CompletedInterview";
 
 import { combineReducers } from "redux";
 const myReducer = combineReducers({
@@ -35,6 +36,7 @@ const myReducer = combineReducers({
   candidate,
   accessToPush,
   interview,
+  completedInterview,
   work_type,
   level,
 });

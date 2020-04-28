@@ -47,6 +47,11 @@ const Interview = db.define(
       defaultValue: null,
       primaryKey: false,
     },
+    status: {
+      type: "INT",
+      allowNull: true,
+      defaultValue: 0,
+    },
   },
   { underscored: true }
 );

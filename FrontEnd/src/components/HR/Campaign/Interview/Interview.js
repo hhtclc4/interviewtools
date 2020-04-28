@@ -68,7 +68,7 @@ class HRInterview extends React.Component {
     this._isMounted = true;
     let { campaign_id } = this.state;
     this.props.showInterviews();
-    this.props.getAvailableCandidatesAPI(campaign_id);
+    this.props.getAvailableCandidates();
   }
 
   UNSAFE_componentWillMount() {}
@@ -81,40 +81,6 @@ class HRInterview extends React.Component {
       interviews: nextProps.interview,
     });
   }
-  chooseEmailHandler = async (candidate) => {
-    let { interview_id } = this.state.interviewForcus;
-    for (let i = 0; i < this.state.availableCandidates.length; i++) {
-      if (candidate.user.id === this.state.availableCandidates[i].user.id) {
-        candidate.interview_id = interview_id;
-        let tempArr = [...this.state.availableCandidates];
-        tempArr.splice(i, 1);
-        // var tempArr2 = [...this.state.interviewCandidates];
-        // tempArr2.push(candidate);
-        this.setState({
-          availableCandidates: tempArr,
-          // interviewCandidates: tempArr2,
-        });
-        this.props.updateCandidatesToInterview(candidate);
-      }
-    }
-  };
-
-  // removeEmailHandler = async (candidate) => {
-  //   for (let i = 0; i < this.state.interviewCandidates.length; i++) {
-  //     if (candidate.user.id === this.state.interviewCandidates[i].user.id) {
-  //       candidate.interview_id = null;
-  //       let tempArr = [...this.state.interviewCandidates];
-  //       tempArr.splice(i, 1);
-  //       var tempArr2 = [...this.state.availableCandidates];
-  //       tempArr2.push(candidate);
-  //       this.setState({
-  //         availableCandidates: tempArr2,
-  //         interviewCandidates: tempArr,
-  //       });
-  //       this.props.updateCandidatesToAvailable(candidate);
-  //     }
-  //   }
-  // };
 
   handleMenuClick = (e) => {
     //function of ant design
@@ -157,139 +123,6 @@ class HRInterview extends React.Component {
       <div className="hr-interview-container container-fluid">
         <div className="row">
           <div className="col-md-12">
-            <div className="creater-container d-none">
-              <div className="interview-section-title">
-                Create New Interview Period
-              </div>
-              <div className=" initialized-interviews d-flex flex-row flex-wrap">
-                {/* {interviewElm} */}
-                <div className="initialized-interview-container d-flex flex-row mr-2 mb-2 justify-content-center">
-                  <button
-                    className="adjust-icon-btn align-self-center"
-                    onClick={() => {
-                      this.setState({
-                        isShowPopup: !this.state.isShowPopup,
-                      });
-                      this.toggleInterviewPopup();
-                    }}
-                    style={
-                      this.state.isFocusCreater || isFocusEmails
-                        ? {
-                            zIndex: "15",
-                            position: "relative",
-                            display: "block",
-                          }
-                        : null
-                    }
-                  >
-                    <FontAwesomeIcon
-                      className="adjust-icon"
-                      icon={faPlus}
-                      size="3x"
-                      color="#339AF0"
-                    />
-                  </button>
-                </div>
-              </div>
-              <div
-                className="screen-dedicate d-flex flex-row flex-wrap justify-content-between"
-                style={
-                  isFocusEmails
-                    ? { position: "relative", zIndex: "15", overflow: "hidden" }
-                    : null
-                }
-              >
-                <div className="all-application-container">
-                  <div className="interview-section-title">
-                    Available Emails
-                  </div>
-                  <div className="all-application">
-                    {this.state.availableCandidates.map((candidate, index) => {
-                      if (index % 2 === 0) {
-                        var eStyle = "#d8d8d8";
-                      } else {
-                        eStyle = "#f2f2f2";
-                      }
-                      return (
-                        <div
-                          key={candidate.user.id}
-                          className="pre-email d-flex flex-row justify-content-between"
-                          style={{ backgroundColor: eStyle }}
-                        >
-                          <p>
-                            <FontAwesomeIcon icon={faEnvelope} />{" "}
-                            {candidate.user.email}
-                          </p>
-                          <button
-                            className="choose-email"
-                            disabled={
-                              interviewForcus.interview_id === -1 ? true : false
-                            }
-                            style={
-                              interviewForcus.interview_id === -1
-                                ? { opacity: "0.5" }
-                                : null
-                            }
-                            onClick={(e) => this.chooseEmailHandler(candidate)}
-                          >
-                            <FontAwesomeIcon
-                              icon={faPlus}
-                              size="lg"
-                              color="white"
-                            />
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-                <div className="chosen-application-container">
-                  <div className="interview-section-title d-flex flex-row justify-content-between">
-                    <p> Chosen Emails for {interviewForcus.name}</p>
-                  </div>
-
-                  <div
-                    className="chosen-application"
-                    style={
-                      interviewForcus.interview_id === -1
-                        ? { opacity: "0.7" }
-                        : { opacity: "1" }
-                    }
-                  >
-                    {/* {this.state.interviewCandidates.length ? (
-                      this.state.interviewCandidates.map((candidate) => {
-                        return (
-                          <div
-                            key={candidate.user.id}
-                            className="chosen-email d-flex flex-row flex-wrap justify-content-between"
-                          >
-                            <p>
-                              <FontAwesomeIcon icon={faEnvelope} />
-                              {candidate.user.email}
-                            </p>
-                            <button
-                              className="remove-email"
-                              onClick={(e) =>
-                                this.removeEmailHandler(candidate)
-                              }
-                            >
-                              <FontAwesomeIcon
-                                icon={faMinus}
-                                size="lg"
-                                color="white"
-                              />
-                            </button>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <div>NO email was chosen</div>
-                    )} */}
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div className="interview-header-inner d-flex flex-row justify-content-between">
               <div className="interview-header py-2">Interview editor</div>
               <button
@@ -359,8 +192,8 @@ const mapDispatchToProps = (dispatch, props) => {
     showInterviews: () => {
       dispatch(actions.showInterviews());
     },
-    getAvailableCandidatesAPI: (campaign_id) => {
-      dispatch(actions.getAvailableCandidatesAPI(campaign_id));
+    getAvailableCandidates: () => {
+      dispatch(actions.getAvailableCandidates());
     },
     updateCandidatesToInterview: (data) => {
       dispatch(actions.updateCandidatesToInterview(data));

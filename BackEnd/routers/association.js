@@ -53,7 +53,9 @@ Interview.belongsTo(Campaign, {
 Interview.belongsTo(User, {
   foreignKey: "user_id",
 });
+
 ///////////// Group_Candidates
+
 Group_Candidates.belongsTo(User, {
   foreignKey: "candidate_id",
 });
@@ -90,6 +92,7 @@ User.hasMany(AnswerRecord, { foreignKey: "user_id" });
 User.hasMany(Campaign, { foreignKey: "user_id" });
 
 //////////////////// AnswerRecord
+
 AnswerRecord.belongsTo(User, { foreignKey: "user_id" });
 AnswerRecord.belongsTo(QuestionTable, { foreignKey: "question_table_id" });
 AnswerRecord.belongsTo(Question, { foreignKey: "question_id" });
@@ -114,6 +117,7 @@ QuestionTable.hasMany(AnswerRecord, {
 QuestionTable.belongsTo(Campaign, {
   foreignKey: "campaign_id",
 });
+
 ////////////////////// Question
 Question.belongsToMany(QuestionTable, {
   through: QuestionTable_Question,

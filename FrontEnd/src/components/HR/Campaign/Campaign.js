@@ -10,8 +10,8 @@ import HRNav from "../Nav/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
-import CompletedInterview from './CompletedInterview/CompletedInterview'
-import HRCandidate from './Candidate/Candidate'
+import CompletedInterview from "./CompletedInterview/CompletedInterview";
+import HRCandidate from "./Candidate/Candidate";
 class HRCampaign extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,8 @@ class HRCampaign extends React.Component {
   componentDidMount() {
     let { campaign_id } = this.state;
     this.props.getInterviews(campaign_id);
-    this.props.getAvailableCandidates(campaign_id);
+    this.props.getAvailableCandidatesAPI(campaign_id);
+    this.props.getCompletedInterviewsAPI(campaign_id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
@@ -84,11 +85,14 @@ class HRCampaign extends React.Component {
 //send action to redux
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getAvailableCandidates: (campaign_id) => {
-      dispatch(actions.getAvailableCandidates(campaign_id));
+    getAvailableCandidatesAPI: (campaign_id) => {
+      dispatch(actions.getAvailableCandidatesAPI(campaign_id));
     },
     getInterviews: (campaign_id) => {
       dispatch(actions.getInterviews(campaign_id));
+    },
+    getCompletedInterviewsAPI: (campaign_id) => {
+      dispatch(actions.getCompletedInterviewsAPI(campaign_id));
     },
   };
 };

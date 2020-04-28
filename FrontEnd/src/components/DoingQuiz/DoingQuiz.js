@@ -94,6 +94,8 @@ class DoingQuiz extends React.Component {
       }
       if (isDone === true) {
         this.props.addAnswerRecord(data);
+        let state = this.state;
+        state.isDone = false;
         let question_table_id = this.props.match.params.question_table_id;
         this.props.updateTableWithPlayed(question_table_id);
         clearTimeout(showQuestion);
