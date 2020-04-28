@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 
 import CompletedInterview from './CompletedInterview/CompletedInterview'
+import HRCandidate from './Candidate/Candidate'
 class HRCampaign extends React.Component {
   constructor(props) {
     super(props);
@@ -57,7 +58,7 @@ class HRCampaign extends React.Component {
                 </div>
               </div>
               <div className="hr-campaign-tabs">
-                <Tabs selected={2}>
+                <Tabs selected={3}>
                   <Panel title="Infomation">
                     <HRInfo />
                   </Panel>
@@ -68,7 +69,7 @@ class HRCampaign extends React.Component {
                     <CompletedInterview />
                   </Panel>
                   <Panel title="Candidate">
-                    Candidate
+                    <HRCandidate />
                   </Panel>
                 </Tabs>
               </div>

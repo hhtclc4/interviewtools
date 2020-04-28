@@ -1,0 +1,166 @@
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+$concept-color: #fd7e14;
+$shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
+
+.hr-candidate-container {
+    .hr-can-body {
+        .hr-can-header {
+            font-family: "Open Sans";
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: auto;
+        }
+
+        .hr-can-body-tabs {
+            .order-display {
+                height: 100%;
+                .tab {
+                    width: 100%;
+                    height: 80%;
+                    font-family: sans-serif;
+                    color: #444;
+                    .order-tab-display {
+                        height: 100%;
+                    }
+                }
+
+                ul.inline {
+                    background-color: #f2f2f2;
+                    list-style: none;
+                    padding: 0;
+                    margin-bottom: 0;
+                    -webkit-margin-before: 0;
+                    -webkit-margin-after: 0;
+                    -webkit-margin-start: 0px;
+                    -webkit-margin-end: 0px;
+                    -webkit-padding-start: 0px;
+                    box-shadow: none;
+                    li {
+                        display: inline-block;
+                        margin-left: 0;
+                        width: 50%;
+                        padding: 10px;
+                        border-bottom: 2px solid #eee;
+                        transition: all 0.5s;
+                        font-family: sans-serif;
+                        font-weight: 300;
+                        text-align: center;
+                        cursor: pointer;
+                        color: #aaa;
+                        &.selected {
+                            border-bottom: 2px solid #337ab7;
+                            color: #337ab7;
+                            font-weight: bold;
+                        }
+                    }
+                }
+                @media screen and (max-width: 590px) {
+                    ul.inline {
+                        li {
+                            padding: 10px 0;
+                        }
+                    }
+                }
+
+                .point-btn {
+                    display: none;
+                    height: 0;
+                    width: 0;
+                }
+            }
+        }
+    }
+}
+.in-popup-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    overflow-x: hidden;
+    z-index: 10;
+    .in-popup-inner {
+        height: 80%;
+        width: 100%;
+        background-color: white;
+        border-radius: 4px;
+        .in-popup-header {
+            background-color: #f2f2f2;
+            .in-list-img {
+                height: 50px;
+            }
+
+            .in-popup-title {
+                font-family: QuickSand;
+                align-self: center;
+                margin: 0;
+                font-size: 20px;
+            }
+        }
+
+        .in-popup-body {
+            background-color: #fff;
+            .in-popup-list {
+                padding: 10px;
+                .in-control-container-sm {
+                    border: 1px solid #c4c4c4;
+                    border-left: 6px solid $concept-color;
+                    border-top-left-radius: 4px;
+                    border-bottom-left-radius: 4px;
+                    height: fit-content;
+                    width: 31%;
+                    .in-title {
+                        height: 50px;
+                        .in-add-btn {
+                            display: none;
+                            padding: 5px;
+                            border-radius: 4px;
+                            top: 0;
+                            border: none;
+                        }
+
+                        .in-detail-btn {
+                            @extend .in-add-btn;
+                        }
+                    }
+
+                    .in-date-and-time {
+                        .in-time {
+                            border: 1px solid $concept-color;
+                        }
+                        .in-date {
+                            border: 1px solid $concept-color;
+                        }
+                    }
+
+                    .in-num {
+                        font-size: 14px;
+                        color: gray;
+                    }
+
+                    &:hover {
+                        .in-add-btn {
+                            display: block;
+                            color: white;
+                            background-color: black;
+                            opacity: 0.7;
+                            padding: 5px;
+                            border-radius: 4px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .in-popup-footer {
+            background-color: #f2f2f2;
+            .in-close-btn {
+                top: 0;
+            }
+        }
+    }
+}

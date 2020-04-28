@@ -130,7 +130,7 @@ class CandidatePopup extends React.Component {
         <div className="row m-0" style={{ width: "100%", height: "100%" }}>
           <div className="col-sm-1"></div>
           <div className="col-lg-10 d-flex flex-column justify-content-center">
-            <div className="candidate-popup-inner">
+            <div className="candidate-popup-inner ">
               <div className="can-popup-header p-2 d-flex flex-row justify-content-start">
                 <img
                   className="can-img"
@@ -139,7 +139,7 @@ class CandidatePopup extends React.Component {
                 />
                 <h4>Candidate editor</h4>
               </div>
-              <div className="can-popup-body p-2">
+              <div className="can-popup-body p-2 ">
                 <h4>Available candidates</h4>
                 <div className="can-popup-tabs">
                   <Tabs selected={0}>
