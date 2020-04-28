@@ -7,7 +7,65 @@ import CanOverview from "../Interview/Control/CandidateOverview/CanOverview";
 class HRCandidate extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      availableCandidates: [
+        {
+          cv: "",
+          description: "",
+          user: {
+            id: 0,
+            name: "",
+            email: "",
+            password: "",
+          },
+        },
+      ],
+      fetchDataFromThirdApp: [
+        {
+          candidate_id: 10000,
+          cv: "",
+          description: "good Java",
+          user: {
+            id: 10000,
+            name: "Hao Nguyen",
+            email: "HaoNguyen@gmail.com",
+          },
+          subject: [
+            {
+              id: 1,
+              title: "Java",
+            },
+            {
+              id: 2,
+              title: "TypeScript",
+            },
+          ],
+          level: "Senior",
+        },
+
+        {
+          candidate_id: 10001,
+          cv: "",
+          description: "good Python",
+          user: {
+            id: 10001,
+            name: "Nghia Nguyen",
+            email: "NghiaNguyen@gmail.com",
+          },
+          subject: [
+            {
+              id: 1,
+              title: "Python",
+            },
+            {
+              id: 2,
+              title: "JavaScript",
+            },
+          ],
+          level: "Senior",
+        },
+      ],
+    };
   }
   componentDidMount() {
     this.props.getAvailableCandidates();
@@ -19,6 +77,36 @@ class HRCandidate extends React.Component {
     });
   }
   render() {
+    let { availableCandidates, fetchDataFromThirdApp } = this.state;
+    // let { data } = this.props;
+    let availableApplyEml = availableCandidates.map((candidate, index) => {
+      return (
+        <CanOverview
+          key={candidate.campaign_id + candidate.candidate_id}
+          data={candidate}
+          from="hr"
+          source="apply"
+          type="canRow"
+          display={true}
+          color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+        />
+      );
+    });
+    let availableCollectedEml = fetchDataFromThirdApp.map(
+      (candidate, index) => {
+        return (
+          <CanOverview
+            key={candidate.candidate_id}
+            data={candidate}
+            from="hr"
+            source="collect"
+            type="canRow"
+            color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+            display={true}
+          />
+        );
+      }
+    );
     return (
       <div className="hr-candidate-container">
         <div className="hr-can-body mt-4">
@@ -33,19 +121,7 @@ class HRCandidate extends React.Component {
                   type="partion"
                   display={true}
                 />
-
-                <CanOverview
-                  from="hr"
-                  source="apply"
-                  type="canRow"
-                  display={true}
-                />
-                <CanOverview
-                  from="hr"
-                  source="apply"
-                  type="canRow"
-                  display={true}
-                />
+                {availableApplyEml}
               </Panel>
               <Panel title="Collected">
                 <CanOverview
@@ -54,18 +130,7 @@ class HRCandidate extends React.Component {
                   type="partion"
                   display={true}
                 />
-                <CanOverview
-                  from="hr"
-                  source="collect"
-                  type="canRow"
-                  display={true}
-                />
-                <CanOverview
-                  from="hr"
-                  source="collect"
-                  type="canRow"
-                  display={true}
-                />
+                {availableCollectedEml}
               </Panel>
             </Tabs>
           </div>

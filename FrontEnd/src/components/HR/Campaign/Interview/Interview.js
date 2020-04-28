@@ -68,7 +68,7 @@ class HRInterview extends React.Component {
     this._isMounted = true;
     let { campaign_id } = this.state;
     this.props.showInterviews();
-    this.props.getAvailableCandidatesAPI(campaign_id);
+    this.props.getAvailableCandidates();
   }
 
   UNSAFE_componentWillMount() {}
@@ -192,8 +192,8 @@ const mapDispatchToProps = (dispatch, props) => {
     showInterviews: () => {
       dispatch(actions.showInterviews());
     },
-    getAvailableCandidatesAPI: (campaign_id) => {
-      dispatch(actions.getAvailableCandidatesAPI(campaign_id));
+    getAvailableCandidates: () => {
+      dispatch(actions.getAvailableCandidates());
     },
     updateCandidatesToInterview: (data) => {
       dispatch(actions.updateCandidatesToInterview(data));
