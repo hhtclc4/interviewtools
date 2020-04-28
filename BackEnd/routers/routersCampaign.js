@@ -111,10 +111,12 @@ router.post("/api/create_interview", (req, res) => {
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
 });
+// get uncompleted interview
 router.post("/api/get_interview", (req, res) => {
   Interview.findAll({
     where: {
       campaign_id: req.body.campaign_id,
+      status: 0,
     },
     include: [
       {
@@ -127,6 +129,88 @@ router.post("/api/get_interview", (req, res) => {
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
 });
+
+//// get report from complete INTERVIEW
+router.post("/api/completed_interview", async (req, res) => {
+  let getQuestionTable = () =>
+    QuestionTable.findOne({
+      where: { campaign_id: req.body.campaign_id },
+    }).then((quiz) => {
+      return quiz;
+    });
+  let table_id = 0;
+  await getQuestionTable().then((quiz) => {
+    table_id = quiz.id;
+  });
+  let getListInterview = async () =>
+    Interview.findAll({
+      where: {
+        campaign_id: req.body.campaign_id,
+        status: 1,
+      },
+      include: [
+        {
+          model: Group_Candidates,
+          include: [{ model: User, attributes: ["name", "email", "phone"] }],
+        },
+        { model: User, attributes: ["name", "email", "phone"] },
+      ],
+
+      order: [["id"], [Group_Candidates, "interview_time"]],
+    })
+      .then(async (interviews) => {
+        let getRecord = async (candidate_id) =>
+          AnswerRecord.findAll({
+            where: {
+              id: 1,
+              user_id: candidate_id,
+              question_table_id: table_id,
+            },
+          }).then((data) => {
+            return data;
+          });
+        for (let i = 0; i < interviews.length; i++) {
+          // let user_record = [];
+          for (let j = 0; j < interviews[i].group_candidates.length; j++) {
+            interviews[i].group_candidates[j].answer_records = await getRecord(
+              interviews[i].group_candidates[j].candidate_id
+            );
+          }
+        }
+
+        //   let getRecord = async (candidate_id) =>
+        //   AnswerRecord.findAll({
+        //     where: {
+        //       id: 1,
+        //       user_id: candidate_id,
+        //       question_table_id: table_id,
+        //     },
+        //   }).then((data) => {
+        //     return data;
+        //   });
+        // for (let i = 0; i < interviews.length; i++) {
+        //   let user_record = [];
+        //   for (let j = 0; j < interviews[i].group_candidates.length; j++) {
+        //     await getRecord(
+        //       interviews[i].group_candidates[j].candidate_id
+        //     ).then((data) => user_record.push(data));
+
+        //     interviews[i].answer_records = user_record;
+        //   }
+        // }
+        return interviews;
+      })
+      .catch((err) => console.log(err));
+  //get interview
+
+  let interviews = [];
+  interviews = await getListInterview();
+  // modyfy interview to have a record
+  // interviews[0].group_candidates[0].answer_records = 1;
+
+  res.send(interviews);
+});
+
 //get interview candidates
 
 router.post("/api/get_interview_candidates", (req, res) => {

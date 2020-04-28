@@ -17,43 +17,43 @@ router.post("/api/quiz_attempt", verifyToken, (req, res) => {
     AnswerRecord.max("id", {
       where: {
         user_id: authData.user_id,
-        question_table_id: req.body.question_table_id
-      }
+        question_table_id: req.body.question_table_id,
+      },
     })
-      .then(async length => {
-        let attemptArr = async i => {
+      .then(async (length) => {
+        let attemptArr = async (i) => {
           let attempt = await AnswerRecord.findAll({
             where: {
               id: i,
               user_id: authData.user_id,
-              question_table_id: req.body.question_table_id
+              question_table_id: req.body.question_table_id,
             },
             include: [
               {
                 model: Question,
-                include: QuestionChoices
+                include: QuestionChoices,
               },
               QuestionChoices,
               {
                 model: MultiChoices,
-                include: QuestionChoices
-              }
-            ]
+                include: QuestionChoices,
+              },
+            ],
           });
           return attempt;
         };
         let getArr = async () => {
           let dataArr = [];
           for (let i = 1; i <= length; i++) {
-            await attemptArr(i).then(attempt => {
+            await attemptArr(i).then((attempt) => {
               dataArr.push(attempt);
             });
           }
           return dataArr;
         };
-        getArr().then(data => res.send(data));
+        getArr().then((data) => res.send(data));
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   });
 });
 //login check email password
@@ -61,10 +61,9 @@ router.post("/api/login_user", (req, res) =>
   User.findOne({
     where: {
       email: req.body.email,
-      password: req.body.password
-
-    }
-  }).then(user => {
+      password: req.body.password,
+    },
+  }).then((user) => {
     if (user.id === null) res.sendStatus(403);
     else {
       jwt.sign({ user_id: user.id }, "hoangtri", function (err, token) {
@@ -80,12 +79,12 @@ router.post("/api/get_user", verifyToken, (req, res) =>
     else {
       User.findOne({
         where: {
-          id: authData.user_id
-        }
+          id: authData.user_id,
+        },
       })
-        .then(data => res.send(data))
+        .then((data) => res.send(data))
 
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   })
 );
@@ -97,10 +96,10 @@ router.post("/api/user_answer", verifyToken, (req, res) => {
       AnswerRecord.max("id", {
         where: {
           user_id: authData.user_id,
-          question_table_id: req.body[0].question_table_id
-        }
+          question_table_id: req.body[0].question_table_id,
+        },
       })
-        .then(async id => {
+        .then(async (id) => {
           let recordAnswer = async () => {
             for (let i = 0; i < req.body.length; i++) {
               req.body[i].user_id = authData.user_id;
@@ -114,14 +113,14 @@ router.post("/api/user_answer", verifyToken, (req, res) => {
                   await AnswerRecord.create(req.body[i]);
                 } else
                   await MultiChoices.create(req.body[i].multi_choice).then(
-                    multiData => {
+                    (multiData) => {
                       req.body[i].multi_choice_id = multiData.id;
                       let data = [];
                       let { question_choices } = req.body[i].multi_choice;
                       for (let j = 0; j < question_choices.length; j++)
                         data.push({
                           multi_choice_id: multiData.id,
-                          choice_id: question_choices[j].id
+                          choice_id: question_choices[j].id,
                         });
                       MultiChoices_Choices.bulkCreate(data).then(() =>
                         AnswerRecord.create(req.body[i])
@@ -134,12 +133,12 @@ router.post("/api/user_answer", verifyToken, (req, res) => {
           await recordAnswer().then(() => {
             res.send({
               id: id + 1,
-              question_table_id: req.body[0].question_table_id
+              question_table_id: req.body[0].question_table_id,
             });
           });
         })
 
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   });
 });
@@ -152,26 +151,26 @@ router.post("/api/attempt_record", verifyToken, (req, res) => {
         include: [
           {
             model: QuestionChoices,
-            attributes: ["is_right", "id"]
+            attributes: ["is_right", "id"],
           },
           {
             model: Question,
-            include: [QuestionChoices]
+            include: [QuestionChoices],
           },
           {
             model: MultiChoices,
-            include: QuestionChoices
-          }
+            include: QuestionChoices,
+          },
         ],
         where: {
           id: req.body.attempt_id,
           user_id: authData.user_id,
-          question_table_id: req.body.question_table_id
-        }
+          question_table_id: req.body.question_table_id,
+        },
       })
-        .then(data => res.send(data))
+        .then((data) => res.send(data))
 
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   });
 });
@@ -183,14 +182,14 @@ router.post("/api/is_user_did_table", verifyToken, (req, res) =>
       AnswerRecord.findOne({
         where: {
           user_id: authData.user_id,
-          question_table_id: req.body.question_table_id
-        }
+          question_table_id: req.body.question_table_id,
+        },
       })
-        .then(data => {
+        .then((data) => {
           if (data === null) res.send(false);
           else res.send(true);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   })
 );
@@ -201,7 +200,7 @@ router.post("/api/report", verifyToken, async (req, res) =>
       QuestionTable.findAll({
         where: {
           admin: authData.user_id,
-          is_finish: true
+          is_finish: true,
         },
         include: [
           {
@@ -209,30 +208,30 @@ router.post("/api/report", verifyToken, async (req, res) =>
             include: [
               {
                 model: QuestionChoices,
-                attributes: ["is_right", "id"]
+                attributes: ["is_right", "id"],
               },
               {
                 model: Question,
-                include: [QuestionChoices]
+                include: [QuestionChoices],
               },
               {
                 model: MultiChoices,
-                include: QuestionChoices
+                include: QuestionChoices,
               },
               {
                 model: User,
-                attributes: ["id", "name"]
-              }
-            ]
+                attributes: ["id", "name"],
+              },
+            ],
           },
           {
             model: Question,
-            include: QuestionChoices
-          }
+            include: QuestionChoices,
+          },
         ],
-        attributes: ["id", "title", "played"]
+        attributes: ["id", "title", "played"],
       })
-        .then(data => {
+        .then((data) => {
           for (let i = 0; i < data.length; i++)
             if (data[i].answer_records.length === 0) {
               data.splice(i, 1);
@@ -240,7 +239,7 @@ router.post("/api/report", verifyToken, async (req, res) =>
             }
           res.send(data);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   })
 );
@@ -252,69 +251,69 @@ router.post("/api/get_completed_table", verifyToken, async (req, res) =>
     else {
       AnswerRecord.findAll({
         where: {
-          user_id: authData.user_id
+          user_id: authData.user_id,
         },
         attributes: [
           Sequelize.fn("DISTINCT", Sequelize.col("question_table_id")),
-          "question_table_id"
-        ]
+          "question_table_id",
+        ],
       })
-        .then(idTableArr => {
+        .then((idTableArr) => {
           let data = [];
           if (idTableArr.length === 0) res.send(data);
           else {
-            let getData = async idTableArr => {
+            let getData = async (idTableArr) => {
               let data = await QuestionTable.findOne({
                 where: { id: idTableArr.question_table_id },
                 include: [
                   {
                     model: Question,
-                    attributes: ["id"]
+                    attributes: ["id"],
                   },
                   {
                     model: AnswerRecord,
                     include: [
                       {
                         model: QuestionChoices,
-                        attributes: ["is_right", "id"]
+                        attributes: ["is_right", "id"],
                       },
                       {
                         model: Question,
-                        include: [QuestionChoices]
+                        include: [QuestionChoices],
                       },
                       {
                         model: MultiChoices,
-                        include: QuestionChoices
-                      }
+                        include: QuestionChoices,
+                      },
                     ],
                     where: {
-                      user_id: authData.user_id
-                    }
+                      user_id: authData.user_id,
+                    },
                   },
                   {
                     model: User,
 
-                    attributes: ["name"]
-                  }
+                    attributes: ["name"],
+                  },
                 ],
-                attributes: ["id", "title", "image", "played", "admin"]
+                attributes: ["id", "title", "image", "played", "admin"],
               });
               return data;
             };
             let getDataArr = async () => {
               let dataArr = [];
               for (let i = 0; i < idTableArr.length; i++) {
-                await getData(idTableArr[i]).then(dataTable => {
+                await getData(idTableArr[i]).then((dataTable) => {
                   dataArr.push(dataTable);
                   //if (i === idTableArr.length - 1) res.send(data);
                 });
               }
               return dataArr;
             };
-            getDataArr().then(data => res.send(data));
+            getDataArr().then((data) => res.send(data));
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   })
 );
@@ -325,7 +324,7 @@ router.post("/api/get_user_question_table", verifyToken, (req, res) =>
     else {
       User.findAll({
         where: {
-          id: authData.user_id
+          id: authData.user_id,
         },
         include: [
           {
@@ -333,28 +332,28 @@ router.post("/api/get_user_question_table", verifyToken, (req, res) =>
             include: [
               {
                 model: Question,
-                include: QuestionChoices
+                include: QuestionChoices,
               },
-              Subject
-            ]
-          }
-        ]
+              Subject,
+            ],
+          },
+        ],
       })
-        .then(data => res.send(data))
-        .catch(err => console.log(err));
+        .then((data) => res.send(data))
+        .catch((err) => console.log(err));
     }
   })
 );
 
 router.post("/api/user", (req, res) => {
   User.create(req.body)
-    .then(data => {
+    .then((data) => {
       res.send({
         mess: "Create User Successfully",
-        data
+        data,
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 router.post("/api/getuser", verifyToken, (req, res) => {
   //console.log(req.headers["user-token"]);
@@ -368,11 +367,11 @@ router.post("/api/getuser", verifyToken, (req, res) => {
 router.put("/api/update_user", (req, res) =>
   User.update(req.body, {
     where: {
-      id: req.body.id
-    }
+      id: req.body.id,
+    },
   })
-    .then(data => res.send(req.body))
-    .catch(err => sendStatus(404))
+    .then((data) => res.send(req.body))
+    .catch((err) => sendStatus(404))
 );
 function verifyToken(req, res, next) {
   const header = req.headers["user-token"];
@@ -384,6 +383,6 @@ function verifyToken(req, res, next) {
   }
 }
 
-router.delete("/api/user/:id", (req, res) => { });
+router.delete("/api/user/:id", (req, res) => {});
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const db = require("../database");
+const Sequelize = require("sequelize");
 
 const Group_Candidates = db.define(
   "group_candidates",
@@ -42,6 +43,7 @@ const Group_Candidates = db.define(
       defaultValue: null,
       primaryKey: false,
     },
+    answer_records: Sequelize.VIRTUAL,
   },
   { underscored: true }
 );

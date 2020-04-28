@@ -389,6 +389,28 @@ export const getInterviews = (campaign_id) => {
       });
   };
 };
+export const getCompletedInterviews = (campaign_id) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.GET_COMPLETED_INTERVIEW_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data: { campaign_id },
+    })
+      .then((res) => {
+        console.log("get completed interviews", res.data);
+        dispatch({
+          type: types.GET_COMPLETED_INTERVIEWS,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 /////////////////////// question table
 export const teleportQuestionAndAnswersAPI = (title) => {
   return (dispatch) => {
