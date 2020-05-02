@@ -11,11 +11,35 @@ class InterviewReport extends React.Component {
     super(props);
     this.state = {
       reportBody: false,
-      accuracy: 30,
       weekDay: "",
       day: "",
       month: "",
       year: "",
+      data: {
+        id: 0,
+        name: "",
+        date: "2020-01-01",
+        time: "12:00:00",
+        campaign_id: "",
+        totalAccuracy: 0,
+        group_candidates: [
+          {
+            candidate_id: 0,
+            cv: "",
+            description: "",
+            interview_time: "12:00:00",
+            answer_records: [],
+            accuracy: 0,
+
+            user: {
+              id: 0,
+              name: "",
+              email: "",
+              phone: "",
+            },
+          },
+        ],
+      },
     };
   }
 
@@ -28,6 +52,8 @@ class InterviewReport extends React.Component {
   };
   componentDidMount() {
     let { data } = this.props;
+    let state = this.state;
+    state.data = data;
     //get date
     let jsDate = new Date(data.date);
     let dtf = new Intl.DateTimeFormat("en", {
@@ -48,11 +74,11 @@ class InterviewReport extends React.Component {
       data,
     });
   }
+
   render() {
-    let { reportBody, accuracy } = this.state;
+    let { reportBody, accuracy, data } = this.state;
     let { day, month, year, weekDay } = this.state;
 
-    let { data } = this.props;
     let candidates = data.group_candidates.map((candidate, index) => {
       return (
         <CanOverview
@@ -83,8 +109,11 @@ class InterviewReport extends React.Component {
           </div>
           <div className="in-partion-acc">
             <div className="max-acc-progress">
-              <div className="acc-progress" style={{ width: `${accuracy}%` }}>
-                100%
+              <div
+                className="acc-progress"
+                style={{ width: `${data.totalAccuracy}%` }}
+              >
+                {data.totalAccuracy}%
               </div>
             </div>
           </div>

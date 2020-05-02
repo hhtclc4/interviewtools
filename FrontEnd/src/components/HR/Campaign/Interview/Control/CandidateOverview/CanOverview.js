@@ -1,7 +1,7 @@
 import React from "react";
 import "./CanOverview.scss";
 import NoteandCV from "./NoteandCV";
-import InterviewsPopup from '../../../Candidate/InterviewsPopup'
+import InterviewsPopup from "../../../Candidate/InterviewsPopup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStickyNote,
@@ -147,8 +147,7 @@ class CanOverview extends React.Component {
               <FontAwesomeIcon icon={faUserPlus} />
             </button>
           );
-        }
-        else {
+        } else {
           actionBtnElm = (
             <button
               className="can-action-btn"
@@ -158,7 +157,6 @@ class CanOverview extends React.Component {
             </button>
           );
         }
-
       } else {
         actionBtnElm = (
           <button
@@ -191,26 +189,37 @@ class CanOverview extends React.Component {
         >
           <div
             className="time-partion"
-            style={(from === "canPop" || from === "hr") ? { display: "none" } : null}
+            style={
+              from === "canPop" || from === "hr" ? { display: "none" } : null
+            }
           >
             {from === "control" && type === "partion" ? (
-              <span><FontAwesomeIcon className="mr-1" icon={faClock} /><b>TIME</b></span>
+              <span>
+                <FontAwesomeIcon className="mr-1" icon={faClock} />
+                <b>TIME</b>
+              </span>
             ) : (
-                // <> {data.interview_time} </>
-                <>
-                  <div className="cni-time-hour">
-                    <Dropdown overlay={hour} trigger={["click"]}>
-                      <Button style={{ top: "0" }}>
-                        {data.interview_time} <Icon type="down" />
-                      </Button>
-                    </Dropdown>
-                  </div>
-                </>
-              )}
+              // <> {data.interview_time} </>
+              <>
+                <div className="cni-time-hour">
+                  <Dropdown overlay={hour} trigger={["click"]}>
+                    <Button style={{ top: "0" }}>
+                      {data.interview_time} <Icon type="down" />
+                    </Button>
+                  </Dropdown>
+                </div>
+              </>
+            )}
           </div>
-          <div className="name-partion">{type === "partion" ? <b>{data.user.name}</b> : data.user.name}</div>
-          <div className="email-partion">{type === "partion" ? <b>{data.user.email}</b> : data.user.email}</div>
-          <div className="phone-partion">{type === "partion" ? <b>{data.user.phone}</b> : data.user.phone}</div>
+          <div className="name-partion">
+            {type === "partion" ? <b>{data.user.name}</b> : data.user.name}
+          </div>
+          <div className="email-partion">
+            {type === "partion" ? <b>{data.user.email}</b> : data.user.email}
+          </div>
+          <div className="phone-partion">
+            {type === "partion" ? <b>{data.user.phone}</b> : data.user.phone}
+          </div>
           <div className="cv-partion">
             <button
               onClick={() => {
@@ -225,8 +234,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>CV</b>
               ) : (
-                  <FontAwesomeIcon icon={faClipboard} />
-                )}
+                <FontAwesomeIcon icon={faClipboard} />
+              )}
             </button>
           </div>
           <div className="note-partion">
@@ -243,8 +252,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>NOTE</b>
               ) : (
-                  <FontAwesomeIcon icon={faStickyNote} />
-                )}
+                <FontAwesomeIcon icon={faStickyNote} />
+              )}
             </button>
           </div>
           <div className="subject-partion" style={majorStyle}>
@@ -270,6 +279,7 @@ class CanOverview extends React.Component {
 
           {this.state.isOpenInterviews ? (
             <InterviewsPopup
+              data={data}
               closePopup={this.toggleInterviewsPopup}
               openTab={this.state.active}
             />

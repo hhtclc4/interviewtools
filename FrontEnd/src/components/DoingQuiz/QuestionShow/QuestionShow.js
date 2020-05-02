@@ -12,7 +12,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
-import { Input } from 'antd';
+import { Input } from "antd";
 
 const { TextArea } = Input;
 class QuestionShow extends React.Component {
@@ -29,7 +29,6 @@ class QuestionShow extends React.Component {
       disableButton: false,
       clicked: false,
       mutiCheckArr: [],
-      value: '',
     };
   }
   componentDidMount() {
@@ -172,7 +171,8 @@ class QuestionShow extends React.Component {
     });
   };
 
-  onChange = ({ target: { value } }) => {// Ant design component
+  onChange = ({ target: { value } }) => {
+    // Ant design component
     this.setState({ value });
   };
   render() {
@@ -186,7 +186,6 @@ class QuestionShow extends React.Component {
       type,
       mutiCheckArr,
       answer_text,
-      value
     } = this.state;
     let { questionsLength, index } = this.props;
     let colorButtons = ["#2F6DAE", "#2C9CA6", "#ECA82C", "#D4546A", "#5cd65c"];
@@ -274,17 +273,18 @@ class QuestionShow extends React.Component {
               {type !== 3 ? (
                 element
               ) : (
-                  <div className="blank-fill-question-container">
-                    <TextArea
-                      className="blank-fill-input"
-                      value={value}
-                      onChange={this.onChange}
-                      placeholder="Type your answer"
-                      autoSize={{ minRows: 2, maxRows: 8 }}
-                    />
-                    <div className="blank-fill-hint">*Hint: {hint}</div>
-                  </div>
-                )}
+                <div className="blank-fill-question-container">
+                  <TextArea
+                    className="blank-fill-input"
+                    name="answer_text"
+                    value={answer_text}
+                    onChange={this.onChangeTextHandler}
+                    placeholder="Type your answer"
+                    autoSize={{ minRows: 2, maxRows: 8 }}
+                  />
+                  <div className="blank-fill-hint">*Hint: {hint}</div>
+                </div>
+              )}
             </div>
           </div>
           <div

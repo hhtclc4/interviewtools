@@ -26,7 +26,7 @@ class CompletedInterview extends React.Component {
               cv: "",
               description: "",
               interview_time: "12:00:00",
-              answer_record: [],
+              answer_records: [],
               user: {
                 id: 0,
                 name: "",
