@@ -166,6 +166,24 @@ router.post("/api/completed_interview", async (req, res) => {
               user_id: candidate_id,
               question_table_id: table_id,
             },
+            include: [
+              {
+                model: QuestionChoices,
+                attributes: ["is_right", "id"],
+              },
+              {
+                model: Question,
+                include: [QuestionChoices],
+              },
+              {
+                model: MultiChoices,
+                include: QuestionChoices,
+              },
+              {
+                model: User,
+                attributes: ["id", "name"],
+              },
+            ],
           }).then((data) => {
             return data;
           });
