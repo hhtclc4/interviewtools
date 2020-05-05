@@ -345,7 +345,7 @@ class QuestionCreatePopup extends React.Component {
       <div className="popup">
         <form onSubmit={this.onSubmitHandle}>
           <div className="popup_inner">
-            <div className="popup-header">
+            <div className="popup-header d-flex flex-row">
               <p>
                 <img
                   src={require("./images/question.png")}
@@ -391,8 +391,8 @@ class QuestionCreatePopup extends React.Component {
                   </button>
                 </div>
               ) : (
-                divTypeText()
-              )}
+                  divTypeText()
+                )}
 
               <hr />
             </div>

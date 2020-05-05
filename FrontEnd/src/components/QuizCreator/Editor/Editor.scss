@@ -278,7 +278,7 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    padding: 10px 10px;
+    padding: 24px;
     margin: 10px 0;
     min-width: 300px;
     max-width: 500px;
@@ -547,7 +547,7 @@
 
       .popup-header {
         display: flex;
-        flex-direction: column !important;
+        flex-direction: column;
         justify-content: flex-start;
 
         padding: 0;

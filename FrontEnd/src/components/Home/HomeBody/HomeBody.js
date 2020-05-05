@@ -84,7 +84,7 @@ class HomeBody extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="candidate-job-hire d-flex flex-row px-2 flex-wrap">
+            <div className="candidate-job-hire d-flex flex-row px-2 flex-wrap justify-content-around">
               <div className="hire-text d-flex flex-row" >
                 <span className="mr-2">How we</span>
                 <p className="trans-text">hire</p>
