@@ -31,8 +31,8 @@ class DoingQuiz extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("question and answer", nextProps.questionTable.questions);
     this.setState({
-      questions: nextProps.questionTable.questions,
       accessToPush: nextProps.accessToPush.push,
+      questions: nextProps.questionTable.questions,
     });
   }
   recordAnswer = (
@@ -66,40 +66,41 @@ class DoingQuiz extends React.Component {
   };
   createQuestion = () => {
     let { questions, count, isDone, changeQuestion, data } = this.state;
-    for (let i = count; i < questions.length; i++) {
-      if (changeQuestion === false) {
-        showQuestion = setTimeout(() => {
+    if (isDone === true) {
+      this.props.addAnswerRecord(data);
+      let state = this.state;
+      state.isDone = false;
+      let question_table_id = this.props.match.params.question_table_id;
+      this.props.updateTableWithPlayed(question_table_id);
+      clearTimeout(showQuestion);
+    } else
+      for (let i = count; i < questions.length; i++) {
+        if (changeQuestion === false) {
+          showQuestion = setTimeout(() => {
+            if (count < questions.length - 1 && isDone === false) {
+              this.setState({
+                count: count + 1,
+              });
+            } else {
+              this.setState({
+                isDone: true,
+              });
+            }
+          }, questions[count].time * 1000);
+        } else {
           if (count < questions.length - 1 && isDone === false) {
             this.setState({
               count: count + 1,
+              changeQuestion: false,
             });
           } else {
             this.setState({
               isDone: true,
+              changeQuestion: false,
             });
           }
-        }, questions[count].time * 1000);
-      } else {
-        if (count < questions.length - 1 && isDone === false) {
-          this.setState({
-            count: count + 1,
-            changeQuestion: false,
-          });
-        } else {
-          this.setState({
-            isDone: true,
-            changeQuestion: false,
-          });
         }
-      }
-      if (isDone === true) {
-        this.props.addAnswerRecord(data);
-        let state = this.state;
-        state.isDone = false;
-        let question_table_id = this.props.match.params.question_table_id;
-        this.props.updateTableWithPlayed(question_table_id);
-        clearTimeout(showQuestion);
-      } else
+
         return (
           <QuestionShow
             questionsLength={questions.length}
@@ -110,18 +111,21 @@ class DoingQuiz extends React.Component {
             recordAnswer={this.recordAnswer}
           />
         );
-    }
+      }
   };
 
   render() {
-    let element = "";
-    if (this.state.questions[0].id !== 0) element = this.createQuestion();
-    else element = "";
     let question_table_id = this.props.match.params.question_table_id;
+    let element = "";
+
     if (this.state.accessToPush)
       this.props.history.push(`/pre-game/${question_table_id}/review`);
+    else {
+      if (this.state.questions[0].id !== 0) element = this.createQuestion();
+      else element = "";
 
-    //let question = this.createQuestion();
+      //let question = this.createQuestion();
+    }
     return <div className="doing-quiz-container">{element}</div>;
   }
 }
