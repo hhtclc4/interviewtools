@@ -1,6 +1,6 @@
 // control/_
 
-$edge-color: #e6e6e6;
+$edge-color: #e4e6eb;
 $container-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.15);
 $icon-color: #393a68;
 .interview-control-container {
@@ -11,7 +11,8 @@ $icon-color: #393a68;
     border-bottom-left-radius: 5px;
     background-color: white;
     .interview-control-header {
-        background-color: $edge-color;
+        background-color: #fff;
+        border-bottom: 1px solid $edge-color;
         .in-control-options-group {
             .in-control-add {
                 top: 0;
@@ -57,7 +58,8 @@ $icon-color: #393a68;
     }
 
     .interview-control-footer {
-        background-color: $edge-color;
+        background-color: #fff;
+        border-top: 1px solid $edge-color;
     }
 
     .candidate-popup-container {

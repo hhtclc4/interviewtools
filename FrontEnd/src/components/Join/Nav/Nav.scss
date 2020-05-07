@@ -11,8 +11,7 @@
     z-index: 10;
     position: fixed;
     overflow: hidden;
-    top: 0; 
-    margin-bottom: 56px;
+    top: 0;
     .logo {
         img {
             height: 56px;
@@ -34,7 +33,7 @@
             position: relative;
 
             min-width: 100px;
-            border: 1px solid #EBEBEC;
+            border: 1px solid #ebebec;
             display: flex;
             border-radius: 25px;
             font-size: 16px;
@@ -51,7 +50,6 @@
             top: 8px;
             width: 25px;
         }
-
     }
 
     @media screen and (max-width: 930px) {
@@ -76,15 +74,13 @@
         justify-content: flex-start;
         flex-grow: 1;
 
-
-
         .tab-link {
             padding: 0 10px;
             display: flex;
             flex-direction: column;
 
             a {
-                color: #8F9098;
+                color: #8f9098;
                 font-weight: bold;
                 height: 60px;
                 padding-right: 20px;
@@ -101,20 +97,17 @@
             }
 
             .active-link {
-                color: #FD7E14;
-                border-bottom: 4px solid #FD7E14;
+                color: #fd7e14;
+                border-bottom: 4px solid #fd7e14;
                 font-size: 18px;
             }
-
         }
 
-        @media screen and (max-width:742px) {
+        @media screen and (max-width: 742px) {
             .tab-name {
                 display: none;
             }
         }
-
-
 
         .activity-link {
             height: 60px;
@@ -126,12 +119,12 @@
         }
     }
 
-    @media screen and (max-width:742px) {
+    @media screen and (max-width: 742px) {
         .tab-field {
             justify-content: center;
-            a{
-                padding-top: 20px!important;
-                padding-right: 10px!important;
+            a {
+                padding-top: 20px !important;
+                padding-right: 10px !important;
             }
         }
     }
@@ -153,8 +146,8 @@
             font-family: sans-serif;
             color: white;
             font-weight: bold;
-            background-color: #FD7E14;
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 #FD7E14, 0 4px 6px rgba(0, 0, 0, 0.45);
+            background-color: #fd7e14;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 #fd7e14, 0 4px 6px rgba(0, 0, 0, 0.45);
         }
 
         button:hover {
@@ -168,18 +161,18 @@
             border-radius: 50%;
             padding: 5px 10px;
             padding-bottom: 7px;
-            border: 1px solid #FD7E14;
-            color: #FD7E14;
+            border: 1px solid #fd7e14;
+            color: #fd7e14;
             height: fit-content;
             align-self: center;
         }
 
         .ant-btn.ant-dropdown-trigger:hover {
-            color: #FD7E14;
+            color: #fd7e14;
         }
 
         .ant-btn.ant-dropdown-trigger.ant-dropdown-open {
-            color: #FD7E14;
+            color: #fd7e14;
         }
     }
 }
