@@ -107,6 +107,8 @@ class CanOverview extends React.Component {
     }
     return listHour;
   };
+
+
   render() {
     let { color, type, source, from, display } = this.props;
     let { data } = this.state;
@@ -181,7 +183,7 @@ class CanOverview extends React.Component {
     return (
       <div
         className={display ? "candidate-overview-container" : "d-none"}
-        style={type === "partion" ? { marginBottom: "8px" } : {}}
+        style={type === "partion" ? { marginBottom: "8px", borderBottom: 'none' } : {}}
       >
         <div
           className="candidate-partions-container d-flex flex-row p-2 justify-content-between"
@@ -199,17 +201,17 @@ class CanOverview extends React.Component {
                 <b>TIME</b>
               </span>
             ) : (
-              // <> {data.interview_time} </>
-              <>
-                <div className="cni-time-hour">
-                  <Dropdown overlay={hour} trigger={["click"]}>
-                    <Button style={{ top: "0" }}>
-                      {data.interview_time} <Icon type="down" />
-                    </Button>
-                  </Dropdown>
-                </div>
-              </>
-            )}
+                // <> {data.interview_time} </>
+                <>
+                  <div className="cni-time-hour">
+                    <Dropdown overlay={hour} trigger={["click"]}>
+                      <Button style={{ top: "0" }}>
+                        {data.interview_time} <Icon type="down" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+                </>
+              )}
           </div>
           <div className="name-partion">
             {type === "partion" ? <b>{data.user.name}</b> : data.user.name}
@@ -234,8 +236,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>CV</b>
               ) : (
-                <FontAwesomeIcon icon={faClipboard} />
-              )}
+                  <FontAwesomeIcon icon={faClipboard} />
+                )}
             </button>
           </div>
           <div className="note-partion">
@@ -252,8 +254,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>NOTE</b>
               ) : (
-                <FontAwesomeIcon icon={faStickyNote} />
-              )}
+                  <FontAwesomeIcon icon={faStickyNote} />
+                )}
             </button>
           </div>
           <div className="subject-partion" style={majorStyle}>
@@ -268,6 +270,7 @@ class CanOverview extends React.Component {
             style={from === "control" ? { display: "none" } : {}}
           >
             {actionBtnElm}
+
           </div>
 
           {this.state.isOpenNoteandCV ? (

@@ -1,6 +1,7 @@
 // control/_
 
-$edge-color: #e4e6eb;
+//$edge-color: #e4e6eb;
+$edge-color: #ccced2;
 $container-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.15);
 $icon-color: #393a68;
 .interview-control-container {
@@ -13,6 +14,11 @@ $icon-color: #393a68;
     .interview-control-header {
         background-color: #fff;
         border-bottom: 1px solid $edge-color;
+
+        .in-control-name {
+            font-family: "Open Sans";
+            font-weight: 600;
+        }
         .in-control-options-group {
             .in-control-add {
                 top: 0;

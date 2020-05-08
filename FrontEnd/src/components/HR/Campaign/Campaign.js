@@ -8,10 +8,11 @@ import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import HRNav from "../Nav/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-regular-svg-icons";
-
+import { faTrashAlt, faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
+import { faInfo, faTasks, faUsers } from "@fortawesome/free-solid-svg-icons";
 import CompletedInterview from "./CompletedInterview/CompletedInterview";
 import HRCandidate from "./Candidate/Candidate";
+
 class HRCampaign extends React.Component {
   constructor(props) {
     super(props);
@@ -60,16 +61,24 @@ class HRCampaign extends React.Component {
               </div>
               <div className="hr-campaign-tabs">
                 <Tabs selected={0}>
-                  <Panel title="Infomation">
+                  <Panel title="Infomation"
+                    iconAwe={<FontAwesomeIcon icon={faInfo} color="#337ab7" />}
+                  >
                     <HRInfo />
                   </Panel>
-                  <Panel title="Interview">
+                  <Panel title="Interview"
+                    iconAwe={<FontAwesomeIcon icon={faTasks} color="#337ab7" size="lg" />}
+                  >
                     <HRInterview />
                   </Panel>
-                  <Panel title="Completed Interview">
+                  <Panel title="Completed Interview"
+                    iconAwe={<FontAwesomeIcon icon={faCalendarCheck} color="#4caf50" size="lg" />}
+                  >
                     <CompletedInterview />
                   </Panel>
-                  <Panel title="Candidate">
+                  <Panel title="Candidate"
+                    iconAwe={<FontAwesomeIcon icon={faUsers} color="#337ab7" size="lg" />}
+                  >
                     <HRCandidate />
                   </Panel>
                 </Tabs>

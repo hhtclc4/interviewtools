@@ -1,4 +1,7 @@
 $background-color: #f2f2f2;
+$line-color: #ccced2;
+$inactive-tabs-color: #5f666f;
+$text-font: "Open Sans";
 .hr-campaign-container {
   background-color: $background-color;
   height: fit-content;
@@ -33,6 +36,7 @@ $background-color: #f2f2f2;
           width: 100%;
           font-size: 24px;
           font-weight: bold;
+          font-family: $text-font;
         }
       }
 
@@ -57,9 +61,10 @@ $background-color: #f2f2f2;
         }
 
         ul.inline {
-          background-color: #f5f5f5;
+          background-color: #fff;
           list-style: none;
           padding: 0;
+          border-top: 1px solid $line-color;
           margin-bottom: 0;
           -webkit-margin-before: 0;
           -webkit-margin-after: 0;
@@ -75,14 +80,21 @@ $background-color: #f2f2f2;
             border-bottom: 2px solid #eee;
             transition: all 0.5s;
             font-family: sans-serif;
-            font-weight: 300;
+            font-weight: 600;
             text-align: center;
             cursor: pointer;
-            color: #aaa;
+            color: $inactive-tabs-color;
             &.selected {
               border-bottom: 2px solid #337ab7;
               color: #337ab7;
               font-weight: bold;
+              &:hover {
+                background-color: #fff;
+              }
+            }
+
+            &:hover {
+              background-color: #f2f2f2;
             }
           }
         }

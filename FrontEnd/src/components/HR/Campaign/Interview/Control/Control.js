@@ -86,7 +86,7 @@ class InterviewControl extends React.Component {
           data={candidate}
           time_from={data.time_from}
           time_to={data.time_to}
-          color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+          // color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
           from="control"
           display={true}
         />
@@ -95,7 +95,7 @@ class InterviewControl extends React.Component {
     return (
       <div
         className="interview-control-container d-flex flex-column justify-content-start mb-4"
-        style={{ borderLeft: "10px solid #d3d71d" }}
+        style={{ borderLeft: "10px solid #ffff00" }}
       >
         <div className="interview-control-header d-flex flex-row justify-content-between p-2">
           <div className="in-control-name  py-2">{data.name}</div>

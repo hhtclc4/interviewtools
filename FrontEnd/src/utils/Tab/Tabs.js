@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronRight, faChevronLeft, faInfo } from '@fortawesome/free-solid-svg-icons'
+
 export class Tabs extends React.Component {
     constructor(props) {
         super(props);
@@ -56,7 +57,7 @@ export class Tabs extends React.Component {
                             <li className={style} key={index}
                                 onClick={(e) => this.HandleChooseTab(index)}
                             >
-                                {elem.props.title}
+                                <span style={{ marginRight: '5px' }}>{elem.props.iconAwe}</span>{elem.props.title}
                             </li>
                         )
                     })}

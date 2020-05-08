@@ -1,7 +1,7 @@
 $shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
 $concept-color: #fd7e14;
 $shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
-
+$inactive-tabs-color: #5f666f;
 .hr-candidate-container {
     .hr-can-body {
         .hr-can-header {
@@ -45,14 +45,20 @@ $shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 
                         border-bottom: 2px solid #eee;
                         transition: all 0.5s;
                         font-family: sans-serif;
-                        font-weight: 300;
+                        font-weight: 600;
                         text-align: center;
                         cursor: pointer;
-                        color: #aaa;
+                        color: $inactive-tabs-color;
                         &.selected {
                             border-bottom: 2px solid #337ab7;
                             color: #337ab7;
                             font-weight: bold;
+                            &:hover {
+                                background-color: #fff;
+                            }
+                        }
+                        &:hover {
+                            background-color: #f2f2f2;
                         }
                     }
                 }

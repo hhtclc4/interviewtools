@@ -1,17 +1,29 @@
+@mixin center-partion {
+    padding-top: 0.2rem;
+}
+
+$text-font: "Open Sans";
+$line-color: #f2f2f2;
+
 .candidate-overview-container {
     height: fit-content;
     width: 100%;
+    border-bottom: 1px solid $line-color;
     .time-partion {
         min-width: 10%;
+        font-family: $text-font;
     }
     .name-partion {
         min-width: 10%;
+        font-family: $text-font;
     }
     .email-partion {
         min-width: 15%;
+        font-family: $text-font;
     }
     .phone-partion {
         min-width: 15%;
+        font-family: $text-font;
     }
     .cv-partion {
         min-width: 5%;
@@ -33,10 +45,12 @@
 
     .level-partion {
         min-width: 7%;
+        font-family: $text-font;
     }
 
     .subject-partion {
         min-width: 15%;
+        font-family: $text-font;
     }
 
     .action-btn-partion {
@@ -50,6 +64,7 @@
 
     hr {
         margin-top: 0;
+        background-color: #e6e6e6;
     }
     .note-and-cv-popup-container {
         position: fixed;

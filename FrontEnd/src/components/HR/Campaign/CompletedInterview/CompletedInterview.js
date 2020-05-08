@@ -27,6 +27,9 @@ class CompletedInterview extends React.Component {
               description: "",
               interview_time: "12:00:00",
               answer_records: [],
+              campaign: {
+                benchmark: 70,
+              },
               user: {
                 id: 0,
                 name: "",
@@ -47,14 +50,31 @@ class CompletedInterview extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("get Completed Interviews", nextProps.completedInterview);
     this.setState({
-      completedInterview: nextProps.completedInterview,
+      completedInterview: [...nextProps.completedInterview,]
     });
   }
+
+  accuracyColor = (accuracy) => {
+    switch (true) {
+      case accuracy <= 10:
+        return "#ff0000";
+      case accuracy <= 55:
+        return "#f5a623";
+      case accuracy <= 80:
+        return "#99cc00";
+      case accuracy <= 100:
+        return "#4caf50";
+      default:
+        return "";
+    }
+  };
+
   render() {
     let { completedInterview } = this.state;
     let reportInterviewElm = completedInterview.map((interview) => {
       return <InterviewReport key={interview.id} data={interview} />;
     });
+
     return (
       <div className="completed-interview-container pt-3">
         <div className="completed-list-partion d-flex flex-row justify-content-between px-2">

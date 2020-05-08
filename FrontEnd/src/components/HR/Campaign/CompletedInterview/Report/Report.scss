@@ -1,3 +1,4 @@
+$text-font: "Open Sans";
 .interview-report-container {
     border-bottom: 1px solid #dedede;
     background-color: white;
@@ -5,16 +6,20 @@
         background-color: white;
         .in-partion-time {
             min-width: 23%;
+            font-family: $text-font;
         }
 
         .in-partion-name {
             min-width: 19%;
+            font-family: $text-font;
         }
         .in-partion-total-can {
             min-width: 13%;
+            font-family: $text-font;
         }
         .in-partion-acc {
             min-width: 30%;
+            font-family: $text-font;
             .max-acc-progress {
                 .acc-progress {
                     padding: 2px;
@@ -41,7 +46,8 @@
 
     .interview-report-body {
         height: 200px;
-        transition: all 0.4s ease;
+        transition: height 0.2s ease;
+        transition: margin 0;
         .in-report-can-result {
             min-width: 100%;
             .can-overview-list {
@@ -53,12 +59,29 @@
                     margin-top: 8px;
                 }
                 .can-score-content {
-                    background-color: greenyellow;
-                    color: white;
-                    font-weight: bold;
-                    padding: 10px;
-                    border-radius: 4px;
                     height: 48px;
+                    border-bottom: 1px solid #f2f2f2;
+                    margin-bottom: 1px;
+                    padding-top: 2px;
+                    .score-inner {
+                        background-color: greenyellow;
+                        color: white;
+                        font-weight: bold;
+                        padding: 11px 5px;
+                        height: 42px;
+                        border-radius: 50%;
+                        width: 42px;
+                        float: right;
+                    }
+                }
+
+                .can-status-content {
+                    @extend .can-score-content;
+                    border-bottom: 1px solid #f2f2f2;
+                    .status-inner {
+                        float: right;
+                        padding: 11px 5px;
+                    }
                 }
             }
         }

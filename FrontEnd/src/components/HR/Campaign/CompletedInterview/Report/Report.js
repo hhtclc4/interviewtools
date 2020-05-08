@@ -2,7 +2,7 @@ import React from "react";
 import "./Report.scss";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
 import CanOverview from "../../Interview/Control/CandidateOverview/CanOverview";
 
@@ -15,12 +15,16 @@ class InterviewReport extends React.Component {
       day: "",
       month: "",
       year: "",
+      campaign: {
+        benchmark: 70,
+      },
       data: {
         id: 0,
         name: "",
         date: "2020-01-01",
         time: "12:00:00",
         campaign_id: "",
+
         totalAccuracy: 0,
         group_candidates: [
           {
@@ -75,8 +79,23 @@ class InterviewReport extends React.Component {
     });
   }
 
+  accuracyColor = (accuracy) => {
+    switch (true) {
+      case accuracy <= 10:
+        return "#ff0000";
+      case accuracy <= 55:
+        return "#f5a623";
+      case accuracy <= 80:
+        return "#99cc00";
+      case accuracy <= 100:
+        return "#4caf50";
+      default:
+        return "";
+    }
+  };
+
   render() {
-    let { reportBody, accuracy, data } = this.state;
+    let { reportBody, data, campaign } = this.state;
     let { day, month, year, weekDay } = this.state;
 
     let candidates = data.group_candidates.map((candidate, index) => {
@@ -86,13 +105,49 @@ class InterviewReport extends React.Component {
           data={candidate}
           from="control"
           type="canRow"
-          color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+          source="complete"
+          //color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
           display={reportBody}
         />
       );
     });
+
+
+    let scoreElm = data.group_candidates.map((score) => {
+      let accuracyColor = this.accuracyColor(score.accuracy)
+      return (
+        <div className="can-score-content"
+          key={score.candidate_id}
+        >
+          <div className="score-inner"
+            style={{ backgroundColor: accuracyColor }}
+          >
+            {score.accuracy}%
+          </div>
+        </div>
+      )
+    });
+
+    let statusElm = data.group_candidates.map((status) => {
+      return (
+        <div className="can-status-content"
+          key={status.candidate_id}
+        >
+          <div className="status-inner">
+            {
+              status.accuracy >= campaign.benchmark ?
+                <FontAwesomeIcon icon={faCheck} size="lg" color="#4caf50" /> :
+                <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
+            }
+
+          </div>
+        </div>
+      )
+    })
+
+    let totalAccuracy = this.accuracyColor(data.totalAccuracy);
     return (
-      <div className="interview-report-container py-3 pr-2 pl-0">
+      <div className="interview-report-container py-3 pr-2 pl-0" onClick={this.toggleReportBody}>
         <div
           className="interview-report-header d-flex flex-row justify-content-between ml-2 px-1 py-2"
           style={reportBody ? { backgroundColor: "#e6e6e6" } : {}}
@@ -111,7 +166,7 @@ class InterviewReport extends React.Component {
             <div className="max-acc-progress">
               <div
                 className="acc-progress"
-                style={{ width: `${data.totalAccuracy}%` }}
+                style={{ width: `${data.totalAccuracy}%`, backgroundColor: totalAccuracy }}
               >
                 {data.totalAccuracy}%
               </div>
@@ -131,20 +186,39 @@ class InterviewReport extends React.Component {
               <CanOverview display={reportBody} from="control" type="partion" />
               {candidates}
             </div>
+            <div // Khong thuoc candidate
+              className={
+                reportBody ? "can-score-list d-flex flex-column" : "d-none"
+              }
+            >
+              <div className="can-score-partion ml-auto"><b>SCORE</b></div>
+              <hr
+                style={{
+                  marginTop: "calc(10px)",
+                  marginBottom: "17px",
+                  width: "100%",
+                  backgroundColor: '#f2f2f2',
+                }}
+              />
+
+              {scoreElm}
+            </div>
+
             <div
               className={
                 reportBody ? "can-score-list d-flex flex-column" : "d-none"
               }
             >
-              <div className="can-score-partion ml-auto">SCORE</div>
+              <div className="can-score-partion ml-auto"><b>STATUS</b></div>
               <hr
                 style={{
-                  marginTop: "10px",
-                  marginBottom: "10px",
+                  marginTop: "calc(10px)",
+                  marginBottom: "17px",
                   width: "100%",
+                  backgroundColor: '#f2f2f2',
                 }}
               />
-              <div className="can-score-content ml-auto mt-2">100%</div>
+              {statusElm}
             </div>
           </div>
         </div>

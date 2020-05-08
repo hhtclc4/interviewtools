@@ -5,29 +5,60 @@ import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { withRouter } from "react-router-dom";
 import { Select } from 'antd';
-
-
+import { convertFromRaw } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
 
 const { Option } = Select;
+
+const content = {
+  "entityMap": {},
+  "blocks": [
+    {
+      "key": "637gr",
+      "text": "Initialized from content state.",
+      "type": "unstyled",
+      "depth": 0,
+      "inlineStyleRanges": [],
+      "entityRanges": [],
+      "data": {}
+    }
+  ]
+};
+
 
 class RecruitSignup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    const contentState = convertFromRaw(content);
+    this.state = {
+      contentState,
+      editorState: EditorState.createFromText(),
+    };
   }
 
+  onEditorStateChange = (editorState) => {
+    this.setState({
+      editorState,
+    });
+  };
 
+  onContentStateChange = (contentState) => {
+    this.setState({
+      contentState,
+    });
+  };
   handleChange = (value) => {
     console.log(`selected ${value}`);
   }
   render() {
-
     const children = [];
     for (let i = 10; i < 20; i++) {
       children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
     }
 
-
+    const { contentState, editorState } = this.state;
     return (
       <div className="recruit-signup-container container ">
         <div className="section-name row pb-3 ">
@@ -233,7 +264,13 @@ class RecruitSignup extends React.Component {
                 toolbarClassName="toolbarClassName"
                 wrapperClassName="wrapper-editor"
                 editorClassName="text-input-editor"
+                editorState={editorState}
                 onEditorStateChange={this.onEditorStateChange}
+              />
+              <textarea
+                style={{ width: '100%', height: '300px' }}
+                disabled
+                value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
               />
             </div>
             <div className="editor-field py-4">
