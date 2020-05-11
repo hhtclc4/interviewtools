@@ -54,20 +54,7 @@ class CompletedInterview extends React.Component {
     });
   }
 
-  accuracyColor = (accuracy) => {
-    switch (true) {
-      case accuracy <= 10:
-        return "#ff0000";
-      case accuracy <= 55:
-        return "#f5a623";
-      case accuracy <= 80:
-        return "#99cc00";
-      case accuracy <= 100:
-        return "#4caf50";
-      default:
-        return "";
-    }
-  };
+
 
   render() {
     let { completedInterview } = this.state;

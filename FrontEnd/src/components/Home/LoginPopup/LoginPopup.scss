@@ -13,8 +13,8 @@
 
     .login-popup_inner {
         position: absolute;
-        left: 50%!important;
-        top: 50%!important;
+        left: 50% !important;
+        top: 50% !important;
         background: white;
         border-radius: 5px;
         display: flex;
@@ -25,6 +25,7 @@
         min-width: 300px;
         max-width: 500px;
         transform: translate(-50%, -50%);
+        z-index: 10;
 
         .login-popup-header {
             padding: 10px;
@@ -35,7 +36,6 @@
             p {
                 font-size: 20px;
 
-
                 img {
                     height: 30px;
                     width: 30px;
@@ -44,13 +44,10 @@
         }
 
         .login-popup-body {
-
             .form-field {
                 display: flex;
                 flex-direction: column;
                 padding: 5px;
-
-               
 
                 input {
                     border-radius: 5px;
@@ -62,7 +59,6 @@
                     margin-top: 0;
                 }
             }
-
 
             button {
                 height: 40px;
@@ -76,10 +72,9 @@
 
         .login-popup-footer {
             display: flex;
-            flex-direction: column!important;
+            flex-direction: column !important;
             justify-content: flex-end;
             padding: 10px 0;
-
 
             .button-group {
                 display: flex;
@@ -87,7 +82,7 @@
                 justify-content: flex-end;
             }
 
-            a{
+            a {
                 margin-left: 10px;
             }
 
@@ -105,17 +100,17 @@
             }
 
             .b-save {
-                background-color: #00C985;
+                background-color: #00c985;
                 color: white;
                 font-size: 20px;
                 margin-left: 10px;
-                
+
                 span {
                     margin-left: 10px;
                 }
             }
 
-            .create-new-acc{
+            .create-new-acc {
                 align-self: flex-end;
                 margin-right: 15px;
             }

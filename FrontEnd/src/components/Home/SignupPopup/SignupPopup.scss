@@ -1,1 +1,192 @@
-@import '../LoginPopup/LoginPopup.scss';
+$concept-color: #f17e14;
+
+.signup-pop-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: scroll;
+    overflow-x: hidden;
+    .signup-pop-inner-container {
+        height: 100%;
+
+        .signup-pop-inner-crop {
+            width: 90%;
+            height: 40%;
+
+            overflow-y: hidden;
+            align-self: center;
+            transition: height 0.3s ease;
+            .signup-pop-inner-img {
+                width: 100%;
+                align-self: center;
+            }
+        }
+
+        .signup-pop-inner {
+            background-color: #fff;
+            border-radius: 10px;
+            height: fit-content;
+
+            transition: height 0.3s ease;
+            .signup-header {
+                position: relative;
+                padding: 20px 25px 0 25px;
+                .signup-header-text {
+                    * {
+                        font-size: 26px;
+                        font-family: QuickSand;
+                        font-weight: 900;
+                    }
+                }
+                .signup-close-btn {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    border: 0;
+                    background-color: transparent;
+                    padding: 0.1em 0.5em;
+                    border-radius: 50%;
+                    background-color: #d9d9d9;
+                    &:hover {
+                        background-color: #bfbfbf;
+                    }
+                }
+
+                .some-dash {
+                    background-color: #fdc029;
+                    height: 5px;
+
+                    margin: 0 17rem 1rem 17rem;
+                    border-radius: 2px;
+                }
+            }
+            .signup-body {
+                p {
+                    font-family: QuickSand;
+                }
+                .custom-signup-btn {
+                    background-color: #4285f4 !important;
+                    color: white !important;
+                    top: 0;
+                }
+
+                .divide-or {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: gray;
+                }
+
+                .signup-email {
+                    p {
+                        font-family: QuickSand;
+                    }
+
+                    .signup-email-input-group {
+                        position: relative;
+                        margin-bottom: 5px;
+                        span,
+                        .signup-email-icon {
+                            position: absolute;
+                            left: 26%;
+                            top: 25%;
+                        }
+                        input,
+                        .signup-email-ipt {
+                            border: 1px solid #b3b3b3;
+                            text-indent: 1.5rem;
+                            font-family: QuickSand;
+                            width: 50%;
+                            border-radius: 3px;
+                            padding: 0.5rem 0.1rem;
+                        }
+                    }
+                }
+
+                .signup-via-email-group {
+                    @keyframes slideDown {
+                        from {
+                            transform: translateY(-100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateY(0);
+                            opacity: 1;
+                        }
+                    }
+                    animation: slideDown 0.4s ease;
+                    .signup-group {
+                        @extend .signup-email-input-group;
+                    }
+                    .signup-ant-group {
+                        position: relative;
+                        .ant-select-selection {
+                            border: 1px solid #b3b3b3;
+                            border-radius: 3px;
+
+                            padding: 0.4rem 0.1rem;
+                            padding-left: 20px !important;
+                        }
+                        * {
+                            height: 100%;
+                            font-family: QuickSand;
+                            color: gray;
+                        }
+
+                        input {
+                            padding: 0;
+                        }
+
+                        .ant-select-selection__rendered {
+                            height: 100%;
+
+                            font-size: 20px;
+                            //margin: 0 !important;
+                            .ant-select-selection__placeholder {
+                                margin-left: 2px !important;
+                                font-size: 16px;
+                            }
+                        }
+
+                        li.ant-select-selection__choice {
+                            font-size: 16px;
+                            padding-top: 4px;
+                        }
+                        span.ant-select-selection__choice__remove {
+                            padding-bottom: 0px;
+                            padding-left: 20px;
+                        }
+                        span,
+                        .signup-email-icon {
+                            position: absolute;
+                            left: 26%;
+                            top: 0;
+                            z-index: 10;
+                        }
+                    }
+                }
+            }
+            .signup-footer {
+                @extend .signup-body;
+                padding: 1rem 1rem;
+                .login-btn {
+                    top: 0;
+                    background-color: #d9d9d9;
+                    color: $concept-color;
+                    font-family: QuickSand;
+                    border: none;
+                    padding: 0px 5px;
+                    border-radius: 4px;
+                    &:hover {
+                        background-color: #bfbfbf;
+                    }
+                }
+            }
+        }
+    }
+}
