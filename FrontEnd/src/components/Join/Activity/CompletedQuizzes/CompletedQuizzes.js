@@ -32,6 +32,7 @@ class CompletedQuizzes extends React.Component {
         <QuizThumbnail
           key={index}
           data={table}
+          image_index={index}
           isCompleted={true}
           userName={userName}
         />

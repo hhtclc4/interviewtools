@@ -3,11 +3,21 @@ const router = express.Router();
 const QuestionTable = require("../models/QuestionTable");
 const Question = require("../models/Question");
 const QuestionTable_Question = require("../models/QuestionTable_Question");
-const User = require("../models/User");
 const QuestionChoices = require("../models/QuestionChoices");
 const Subject = require("../models/Subject");
+const User = require("../models/User");
 const AnswerRecord = require("../models/AnswerRecord");
+const UserRole = require("../models/UserRole");
+const MultiChoices = require("../models/MultiChoices");
+const MultiChoices_Choices = require("../models/MultiChoices_Choices");
+const Work_Type = require("../models/Work_Type");
+const Campaign = require("../models/Campaign");
+const Campaign_Subject = require("../models/Campaign_Subject");
+const Group_Candidates = require("../models/Group_Candidates");
+const Level = require("../models/Level");
+const Interview = require("../models/Interview");
 const { Op } = require("sequelize");
+const Sequelize = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 
@@ -17,9 +27,9 @@ const data = {
   question_choices: {
     question_id: 1,
     answer: "aaa",
-    is_right: 1
+    is_right: 1,
   },
-  question_table_id: 1
+  question_table_id: 1,
 };
 
 router.post("/api/teleport", (req, res) => {
@@ -34,43 +44,47 @@ router.post("/api/teleport", (req, res) => {
       title: {
         // regular expression // bất kì phần tử nào trong 'a|b|c'
 
-        [Op.regexp]: `^${arr.join("|")}`
+        [Op.regexp]: `^${arr.join("|")}`,
       },
       is_public: 1,
-      is_finish: 1
+      is_finish: 1,
     },
     include: [
       {
         model: Question,
-        include: QuestionChoices
+        include: QuestionChoices,
       },
       { model: User, attributes: ["name"] },
-      Subject
     ],
-    attributes: ["id", "title", "grade_begin", "grade_end", "image"]
+    attributes: ["id", "title", "grade_begin", "grade_end", "image"],
   })
-    .then(data => res.send(data))
-    .catch(err => console.log(err));
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
 });
 //get QuestionTable list
 router.get("/api/questiontable", (req, res) =>
   QuestionTable.findAll()
-    .then(data => res.send(data))
-    .catch(err => console.log(err))
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err))
 );
 router.get("/api/questiontable/:id", (req, res) => {
   QuestionTable.findOne({
     where: {
-      id: req.params.id
+      id: req.params.id,
     },
     include: [
       {
         model: Question,
-        include: QuestionChoices
+        include: QuestionChoices,
       },
-      Subject
-    ]
-  }).then(data => {
+      {
+        model: User,
+
+        attributes: ["name"],
+      },
+      // Subject
+    ],
+  }).then((data) => {
     res.send(data);
   });
 });
@@ -88,42 +102,42 @@ router.post("/api/genarate_code", async (req, res) => {
     let count = async () => {
       let a = 0;
       await QuestionTable.count({ where: { code: code } })
-        .then(count => {
+        .then((count) => {
           if (count === 0) {
             a = 1;
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
       return a;
     };
     let check = 0;
-    await count().then(a => (check = a));
+    await count().then((a) => (check = a));
     if (check) {
       QuestionTable.update({ code: code }, { where: { id: req.body.id } })
         .then(() => {
           res.redirect(`/api/questiontable/${req.body.id}`);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
       break;
     }
   }
 });
 router.put("/api/table_update", (req, res) => {
   QuestionTable.update(req.body, { where: { id: req.body.id } })
-    .then(data => res.send(data))
-    .catch(err => console.log(err));
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
 });
 router.put("/api/table_update_played", (req, res) => {
   QuestionTable.findOne({
     where: {
-      id: req.body.id
+      id: req.body.id,
     },
-    attributes: ["played"]
-  }).then(table => {
+    attributes: ["played"],
+  }).then((table) => {
     let newPlayed = table.played + 1;
     QuestionTable.update({ played: newPlayed }, { where: { id: req.body.id } })
-      .then(data => res.send(data))
-      .catch(err => console.log(err));
+      .then((data) => res.send(data))
+      .catch((err) => console.log(err));
   });
 });
 router.post("/api/questiontable", verifyToken, (req, res) => {
@@ -132,43 +146,54 @@ router.post("/api/questiontable", verifyToken, (req, res) => {
     else {
       req.body.admin = authData.user_id;
       QuestionTable.create(req.body)
-        .then(data => res.send(data))
-        .catch(err => console.log(err));
+        .then((data) => res.send(data))
+        .catch((err) => console.log(err));
     }
   });
 });
 router.post("/api/get_question_table_by_subject", (req, res) => {
   Subject.findAll({
+    limit: 200,
+    subQuery: false,
     include: [
       {
-        model: QuestionTable,
+        model: Campaign,
         include: [
-          Question,
           {
-            model: User,
-            attributes: ["name"]
-          }
+            model: QuestionTable,
+            include: [
+              Question,
+              {
+                model: User,
+                attributes: ["name"],
+              },
+            ],
+            where: { is_public: 1 || true },
+          },
         ],
-        where: { is_public: 1 || true }
-      }
-    ]
+        attributes: ["id"],
+        // limit: 5,
+        // subQuery: false,
+      },
+    ],
+    order: Sequelize.literal("rand()"),
   })
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 router.post("/api/get_question_table_code", (req, res) => {
   QuestionTable.findOne({
     where: {
-      code: req.body.code
+      code: req.body.code,
     },
-    include: [Question, User]
+    include: [Question, User],
   })
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 function verifyToken(req, res, next) {
   const header = req.headers["user-token"];
@@ -182,25 +207,25 @@ function verifyToken(req, res, next) {
 router.put("/api/questiontable", (req, res) =>
   QuestionTable.update(req.body, {
     where: {
-      id: req.body.id
-    }
+      id: req.body.id,
+    },
   })
     .then(res.send("success " + JSON.stringify(req.body)))
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
 );
 router.delete("/api/questiontable/:id", (req, res) =>
   QuestionTable.destroy({
     where: {
-      id: req.params.id
-    }
+      id: req.params.id,
+    },
   })
     .then(res.send("success"))
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
 );
 //////////////get list subject
 router.get("/api/subject", (req, res) =>
   Subject.findAll()
-    .then(data => res.send(data))
-    .catch(err => console.log(err))
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err))
 );
 module.exports = router;

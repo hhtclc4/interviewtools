@@ -50,7 +50,7 @@ class CompletedInterview extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("get Completed Interviews", nextProps.completedInterview);
     this.setState({
-      completedInterview: [...nextProps.completedInterview,]
+      completedInterview: [...nextProps.completedInterview],
     });
   }
 
@@ -77,17 +77,25 @@ class CompletedInterview extends React.Component {
 
     return (
       <div className="completed-interview-container pt-3">
-        <div className="completed-list-partion d-flex flex-row justify-content-between px-2">
-          <div className="in-partion-time">
-            <span>
-              <FontAwesomeIcon icon={faClock} /> Date
-            </span>
+        {completedInterview[0].id === 0 ? (
+          <div>
+            <h1>None interviews completed</h1>
           </div>
-          <div className="in-partion-name ">Interview name</div>
-          <div className="in-partion-total-can">Total candidates</div>
-          <div className="in-partion-acc">Accuracy</div>
-        </div>
-        <div className="completed-list-container">{reportInterviewElm}</div>
+        ) : (
+          <div>
+            <div className="completed-list-partion d-flex flex-row justify-content-between px-2">
+              <div className="in-partion-time">
+                <span>
+                  <FontAwesomeIcon icon={faClock} /> Date
+                </span>
+              </div>
+              <div className="in-partion-name ">Interview name</div>
+              <div className="in-partion-total-can">Total candidates</div>
+              <div className="in-partion-acc">Accuracy</div>
+            </div>
+            <div className="completed-list-container">{reportInterviewElm}</div>
+          </div>
+        )}
       </div>
     );
   }

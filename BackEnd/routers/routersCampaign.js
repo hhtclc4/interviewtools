@@ -28,6 +28,34 @@ router.get("/api/campaign", (req, res) =>
     .then((data) => res.send(data))
     .catch((err) => console.log(err))
 );
+router.post("/api/campaign_of_interviewer", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      Campaign.findAll({
+        include: [
+          { model: User, attributes: ["name", "email", "phone"] },
+          Subject,
+          Work_Type,
+          Level,
+
+          {
+            model: QuestionTable,
+            attributes: ["bench_mark"],
+          },
+          {
+            model: Interview,
+            where: {
+              user_id: authData.user_id,
+            },
+          },
+        ],
+      })
+        .then((data) => res.send(data))
+        .catch((err) => console.log(err));
+    }
+  })
+);
 router.post("/api/campaign", (req, res) =>
   Campaign.findOne({
     where: {
@@ -38,6 +66,20 @@ router.post("/api/campaign", (req, res) =>
       Subject,
       Work_Type,
       Level,
+      {
+        model: QuestionTable,
+        include: [
+          {
+            model: Question,
+            include: QuestionChoices,
+          },
+          {
+            model: User,
+
+            attributes: ["name"],
+          },
+        ],
+      },
     ],
   })
     .then((data) => res.send(data))
@@ -140,7 +182,7 @@ router.post("/api/completed_interview", async (req, res) => {
     });
   let table_id = 0;
   await getQuestionTable().then((quiz) => {
-    table_id = quiz.id;
+    if (quiz !== null) table_id = quiz.id;
   });
   let getListInterview = async () =>
     Interview.findAll({
@@ -152,6 +194,10 @@ router.post("/api/completed_interview", async (req, res) => {
         {
           model: Group_Candidates,
           include: [{ model: User, attributes: ["name", "email", "phone"] }],
+        },
+        {
+          model: Campaign,
+          include: [{ model: QuestionTable, attributes: ["bench_mark"] }],
         },
         { model: User, attributes: ["name", "email", "phone"] },
       ],
@@ -187,36 +233,25 @@ router.post("/api/completed_interview", async (req, res) => {
           }).then((data) => {
             return data;
           });
-        for (let i = 0; i < interviews.length; i++) {
-          // let user_record = [];
-          for (let j = 0; j < interviews[i].group_candidates.length; j++) {
-            interviews[i].group_candidates[j].answer_records = await getRecord(
-              interviews[i].group_candidates[j].candidate_id
-            );
+        if (interviews.length) {
+          for (let i = 0; i < interviews.length; i++) {
+            // let user_record = [];
+            for (let j = 0; j < interviews[i].group_candidates.length; j++) {
+              interviews[i].group_candidates[
+                j
+              ].answer_records = await getRecord(
+                interviews[i].group_candidates[j].candidate_id
+              );
+            }
           }
+
+          return interviews;
         }
-
-        //   let getRecord = async (candidate_id) =>
-        //   AnswerRecord.findAll({
-        //     where: {
-        //       id: 1,
-        //       user_id: candidate_id,
-        //       question_table_id: table_id,
-        //     },
-        //   }).then((data) => {
-        //     return data;
-        //   });
-        // for (let i = 0; i < interviews.length; i++) {
-        //   let user_record = [];
-        //   for (let j = 0; j < interviews[i].group_candidates.length; j++) {
-        //     await getRecord(
-        //       interviews[i].group_candidates[j].candidate_id
-        //     ).then((data) => user_record.push(data));
-
-        //     interviews[i].answer_records = user_record;
-        //   }
-        // }
-        return interviews;
+        return [
+          {
+            id: 0,
+          },
+        ];
       })
       .catch((err) => console.log(err));
   //get interview

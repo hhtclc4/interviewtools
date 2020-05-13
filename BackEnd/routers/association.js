@@ -67,7 +67,6 @@ Campaign_Subject.belongsTo(Subject, { foreignKey: "subject_id" });
 //////////////UserRole
 UserRole.hasMany(User, { foreignKey: "role_id" });
 ////////////// Subject
-Subject.hasMany(QuestionTable, { foreignKey: "subject_id" });
 Subject.belongsToMany(Campaign, {
   through: Campaign_Subject,
   foreignKey: "subject_id",
@@ -101,9 +100,7 @@ AnswerRecord.belongsTo(QuestionChoices, { foreignKey: "choice_id" });
 AnswerRecord.belongsTo(MultiChoices, { foreignKey: "multi_choice_id" });
 
 ////////////////// QuestionTable
-QuestionTable.belongsTo(Subject, {
-  foreignKey: "subject_id",
-});
+
 QuestionTable.belongsTo(User, {
   foreignKey: "admin",
 });

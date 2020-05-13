@@ -1,8 +1,19 @@
 import * as types from "../actions/actionTypes";
 const initialState = {
   subjects: [],
-  tablesBySubject: [],
-  isDoneLoading: false
+  tablesBySubject: [
+    {
+      title: "",
+      campaigns: [
+        {
+          question_table: {
+            user: { name: "" },
+          },
+        },
+      ],
+    },
+  ],
+  isDoneLoading: false,
 };
 
 let myReducer = (state = initialState, action) => {

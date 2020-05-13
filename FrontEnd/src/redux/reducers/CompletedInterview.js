@@ -7,6 +7,10 @@ let initialState = [
     date: "2020-01-01",
     time: "12:00:00",
     campaign_id: "",
+
+    campaign: {
+      question_table: { bench_mark: 70 },
+    },
     group_candidates: [
       {
         candidate_id: 0,
@@ -75,44 +79,48 @@ let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_COMPLETED_INTERVIEWS_API:
       state = [...action.data];
-      for (let k = 0; k < state.length; k++) {
-        for (let j = 0; j < state[k].group_candidates.length; j++) {
-          let { answer_records } = state[k].group_candidates[j];
-          let answerRecord = [];
-          let attempt = [];
+      if (state[0].id !== 0)
+        for (let k = 0; k < state.length; k++) {
+          for (let j = 0; j < state[k].group_candidates.length; j++) {
+            let { answer_records } = state[k].group_candidates[j];
+            let answerRecord = [];
+            let attempt = [];
 
-          for (let i = 0; i < answer_records.length; i++) {
-            answerRecord.push(answer_records[i]);
-            if (
-              i === answer_records.length - 1 || //in boundary
-              answer_records[i].id !== answer_records[i + 1].id ||
-              answer_records[i].user_id !== answer_records[i + 1].user_id
-            ) {
-              attempt.push(answerRecord);
-              answerRecord = [];
-            }
-            if (
-              i === answer_records.length - 1 || //in boundary
-              answer_records[i].user_id !== answer_records[i + 1].user_id
-            ) {
-              state[k].group_candidates[j].answer_records = attempt;
-              attempt = [];
+            for (let i = 0; i < answer_records.length; i++) {
+              answerRecord.push(answer_records[i]);
+              if (
+                i === answer_records.length - 1 || //in boundary
+                answer_records[i].id !== answer_records[i + 1].id ||
+                answer_records[i].user_id !== answer_records[i + 1].user_id
+              ) {
+                attempt.push(answerRecord);
+                answerRecord = [];
+              }
+              if (
+                i === answer_records.length - 1 || //in boundary
+                answer_records[i].user_id !== answer_records[i + 1].user_id
+              ) {
+                state[k].group_candidates[j].answer_records = attempt;
+                attempt = [];
+              }
             }
           }
-        }
-        let accuracyArr = [];
+          let accuracyArr = [];
 
-        for (let i = 0; i < state[k].group_candidates.length; i++) {
-          let accuracy = calculate(state[k].group_candidates[i].answer_records);
-          accuracyArr.push(accuracy);
-          state[k].group_candidates[i].accuracy = accuracy;
-        }
+          for (let i = 0; i < state[k].group_candidates.length; i++) {
+            let accuracy = calculate(
+              state[k].group_candidates[i].answer_records
+            );
+            accuracyArr.push(accuracy);
+            state[k].group_candidates[i].accuracy = accuracy;
+          }
 
-        let accuracy = 0;
-        for (let i = 0; i < accuracyArr.length; i++) accuracy += accuracyArr[i];
-        let totalAccuracy = accuracy.toFixed(2) / accuracyArr.length;
-        state[k].totalAccuracy = totalAccuracy;
-      }
+          let accuracy = 0;
+          for (let i = 0; i < accuracyArr.length; i++)
+            accuracy += accuracyArr[i];
+          let totalAccuracy = accuracy.toFixed(2) / accuracyArr.length;
+          state[k].totalAccuracy = totalAccuracy;
+        }
 
       return [...state];
     case types.GET_COMPLETED_INTERVIEWS:

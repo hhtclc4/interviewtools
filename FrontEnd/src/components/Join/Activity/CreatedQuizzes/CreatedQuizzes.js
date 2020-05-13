@@ -30,7 +30,14 @@ class CreatedQuizzes extends React.Component {
     let { data } = this.state;
     let name = data.name;
     let quizthumb = data.question_tables.map((table, index) => {
-      return <QuizThumbnail key={index} data={table} userName={name} />;
+      return (
+        <QuizThumbnail
+          image_index={index}
+          key={index}
+          data={table}
+          userName={name}
+        />
+      );
     });
     return (
       <div className="quiz-list">

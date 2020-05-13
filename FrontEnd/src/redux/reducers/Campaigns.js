@@ -30,13 +30,23 @@ let initialState = [
       id: 0,
       name: "",
     },
+    question_table: {
+      code: 0,
+      title: "",
+      image: null,
+      played: 0,
+      user: { name: "" },
+      questions: [],
+    },
   },
 ];
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SHOW_CAMPAIGNS:
+    case types.GET_CAMPAIGNS:
       state = [...action.data];
 
+      return [...state];
+    case types.SHOW_CAMPAIGNS:
       return [...state];
 
     default:

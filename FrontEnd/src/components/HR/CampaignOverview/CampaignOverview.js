@@ -57,7 +57,7 @@ class CampaignOverview extends React.Component {
   };
   render() {
     let { data } = this.state;
-
+    let { image_index } = this.props;
     return (
       <div className="campaign-overview-container d-flex flex-row p-2">
         <div className="co-company-logo align-self-center p-2">
@@ -65,7 +65,13 @@ class CampaignOverview extends React.Component {
             <img
               className="comp-logo"
               alt="logo"
-              src={require("../images/comp-logo.png")}
+              src={
+                data.image !== null
+                  ? data.image
+                  : require(`../../../utils/campaign_img/campain_pic${
+                      image_index % 7
+                    }.png`)
+              }
             />
           </div>
         </div>
@@ -82,7 +88,9 @@ class CampaignOverview extends React.Component {
             </p>
           </div>
 
-          <div className="co-job-desc d-flex align-items-center">{data.work_description}</div>
+          <div className="co-job-desc d-flex align-items-center">
+            {data.work_description}
+          </div>
           <div className="co-subjects d-flex flex-row">
             {data.subjects.map((subject) => {
               return (
