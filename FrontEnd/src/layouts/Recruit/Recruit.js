@@ -2,8 +2,8 @@ import React from "react";
 import "./Recruit.scss";
 import { withRouter } from "react-router-dom";
 
-import RecruitNav from "../../components/Recruit/Nav/Nav";
-import RecruitSignup from "../../components/Recruit/RecruitForm/RecruitForm";
+import RecruitNav from "../../components/HR/Recruit/Nav/Nav";
+import RecruitCreate from "../../components/HR/Recruit/RecruitForm/RecruitForm";
 class Recruit extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,7 @@ class Recruit extends React.Component {
         </div>
         <div className="row">
           <div className="col-xl">
-            <RecruitSignup />
+            <RecruitCreate />
           </div>
         </div>
       </div>

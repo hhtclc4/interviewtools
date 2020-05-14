@@ -1,64 +1,92 @@
 import React from "react";
 import "./RecruitForm.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Editor } from "react-draft-wysiwyg";
+
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { withRouter } from "react-router-dom";
-import { Select } from 'antd';
-import { convertFromRaw } from 'draft-js';
-import { EditorState, convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
-
+import { Select, Divider, Input } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import EditorConvertToHTML from '../../../../utils/EditorConvertToHTML/EditorConvertToHTML'
 const { Option } = Select;
 
-const content = {
-  "entityMap": {},
-  "blocks": [
-    {
-      "key": "637gr",
-      "text": "Initialized from content state.",
-      "type": "unstyled",
-      "depth": 0,
-      "inlineStyleRanges": [],
-      "entityRanges": [],
-      "data": {}
-    }
-  ]
-};
-
-
-class RecruitSignup extends React.Component {
+let index = 0;
+class RecruitCreate extends React.Component {
   constructor(props) {
     super(props);
-    const contentState = convertFromRaw(content);
     this.state = {
-      contentState,
-      editorState: EditorState.createFromText(),
+      data: {
+        id: 0,
+        title: "",
+        subject_id: 0,
+        level_id: 0,
+        work_type_id: 0,
+        salary: 0,
+        user_id: 0,
+        work_description: "",
+        status: true,
+        subjects: [
+          {
+            id: 0,
+            title: "",
+          },
+        ],
+        user: {
+          name: "",
+          email: "",
+          phone: "",
+        },
+        level: {
+          id: 0,
+          name: "",
+        },
+        work_type: {
+          id: 0,
+          name: "",
+        },
+      },
+      listSubjects: [{ id: 0 }],
+      listLevels: [{ id: 0 }],
+      listWorkTypes: [{ id: 0 }],
+      items: ['Lương thỏa thuận'],
+      name: '',
     };
   }
 
-  onEditorStateChange = (editorState) => {
+  onNameChange = event => {
     this.setState({
-      editorState,
+      name: event.target.value,
     });
   };
 
-  onContentStateChange = (contentState) => {
+  addItem = () => {
+    console.log('addItem');
+    const { items, name } = this.state;
     this.setState({
-      contentState,
+      items: [...items, name || `New item ${index++}`],
+      name: '',
     });
   };
+  onClickCreateHandler = () => {
+    console.log(this.state.data)
+  }
+  onChangeEditorTextHandler = (work_description) => {
+    this.setState({
+      data: {
+        work_description
+      }
+    })
+    console.log(this.state.data.work_description);
+  }
   handleChange = (value) => {
     console.log(`selected ${value}`);
   }
+
   render() {
     const children = [];
+    const { items, name } = this.state;
     for (let i = 10; i < 20; i++) {
       children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
     }
-
-    const { contentState, editorState } = this.state;
     return (
       <div className="recruit-signup-container container ">
         <div className="section-name row pb-3 ">
@@ -107,7 +135,7 @@ class RecruitSignup extends React.Component {
               </div>
             </div>
             <div className="double-field py-4 d-flex flex-row">
-              <div className="field-1 mr-3">
+              {/* <div className="field-1 mr-3">
                 <div className=" font-weight-bold py-1">
                   Number of personnel in need
                 </div>
@@ -117,9 +145,9 @@ class RecruitSignup extends React.Component {
                 <div>
                   <input />
                 </div>
-              </div>
-              <div className="field-1 ml-3">
-                <div className=" font-weight-bold py-1">Rank</div>
+              </div> */}
+              <div className="field-1 mr-3">
+                <div className=" font-weight-bold py-1">Level</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
                   <Select
@@ -133,9 +161,7 @@ class RecruitSignup extends React.Component {
                   </Select>
                 </div>
               </div>
-            </div>
-            <div className="double-field py-4 d-flex flex-row">
-              <div className="field-1 mr-3">
+              <div className="field-1 ml-3">
                 <div className=" font-weight-bold py-1">Type of work</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
@@ -150,7 +176,10 @@ class RecruitSignup extends React.Component {
                   </Select>
                 </div>
               </div>
-              <div className="field-1 ml-3">
+            </div>
+            <div className="double-field py-4 d-flex flex-row">
+
+              {/* <div className="field-1 ml-3">
                 <div className=" font-weight-bold py-1">Sex</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
@@ -164,7 +193,7 @@ class RecruitSignup extends React.Component {
                     {children}
                   </Select>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="double-field py-4 d-flex flex-row">
               <div className="field-1 mr-3">
@@ -173,11 +202,42 @@ class RecruitSignup extends React.Component {
                   Set salary available maybe cause reduction in number of
                   applicants
                 </div>
+                <Select
+                  style={{ width: '100%' }}
+                  placeholder="custom dropdown render"
+                  dropdownRender={menu => (
+                    <div>
+                      {menu}
+                      <Divider style={{ margin: '4px 0' }} />
+                      <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                        <Input style={{ flex: 'auto' }} value={name} onChange={this.onNameChange} />
+                        <a
+                          style={{ flex: 'none', padding: '8px', display: 'block', cursor: 'pointer' }}
+                          onClick={this.addItem}
+                        >
+                          <PlusOutlined /> Add item
+                        </a>
+                      </div>
+                    </div>
+                  )}
+                >
+                  {items.map(item => (
+                    <Option key={item}>{item}</Option>
+                  ))}
+                </Select>
+              </div>
+              <div className="field-1 ml-3">
+                <div className=" font-weight-bold py-1">
+                  Name of application receiver
+                </div>
+                <div className="font-italic py-1 recruit-field-note">
+                  Let candidates know receiver name for convenient vocative
+                </div>
                 <div>
                   <input />
                 </div>
               </div>
-              <div className="field-1 ml-3">
+              {/* <div className="field-1 ml-3">
                 <div className=" font-weight-bold py-1">Experience</div>
                 <div className="font-italic py-1 recruit-field-note"></div>
                 <div>
@@ -191,11 +251,11 @@ class RecruitSignup extends React.Component {
                     {children}
                   </Select>
                 </div>
-              </div>
+              </div> */}
             </div>
             <hr style={{ width: "95%" }} />
             <div className="double-field py-4 d-flex flex-row">
-              <div className="field-1 mr-3">
+              {/* <div className="field-1 mr-3">
                 <div className=" font-weight-bold py-1">
                   Application Deadline
                 </div>
@@ -205,18 +265,8 @@ class RecruitSignup extends React.Component {
                 <div>
                   <input />
                 </div>
-              </div>
-              <div className="field-1 ml-3">
-                <div className=" font-weight-bold py-1">
-                  Name of application receiver
-                </div>
-                <div className="font-italic py-1 recruit-field-note">
-                  Let candidates know receiver name for convenient vocative
-                </div>
-                <div>
-                  <input />
-                </div>
-              </div>
+              </div> */}
+
             </div>
             <div className="double-field py-4 d-flex flex-row">
               <div className="field-1 mr-3">
@@ -246,47 +296,15 @@ class RecruitSignup extends React.Component {
               <div className="font-italic py-1 recruit-field-note">
                 Describe works that depend on recruitment position
               </div>
-              <Editor
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapper-editor"
-                editorClassName="text-input-editor"
-                onEditorStateChange={this.onEditorStateChange}
-              />
-            </div>
-            <div className="editor-field py-4">
-              <div className="font-weight-bold py-1">
-                Candidate requirements
-              </div>
-              <div className="font-italic py-1 recruit-field-note">
-                Required ability to effort works, prior skills
-              </div>
-              <Editor
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapper-editor"
-                editorClassName="text-input-editor"
-                editorState={editorState}
-                onEditorStateChange={this.onEditorStateChange}
-              />
-              <textarea
-                style={{ width: '100%', height: '300px' }}
-                disabled
-                value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-              />
-            </div>
-            <div className="editor-field py-4">
-              <div className="font-weight-bold py-1">Candidates benefit</div>
-              <div className="font-italic py-1 recruit-field-note">
-                About insurrance, travel, team building, training,...
-              </div>
-              <Editor
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapper-editor"
-                editorClassName="text-input-editor"
-                onEditorStateChange={this.onEditorStateChange}
+              <EditorConvertToHTML
+                onChangeEditorTextHandler={this.onChangeEditorTextHandler}
+                work_description=""
               />
             </div>
             <div className="submit-btn d-flex flex-row justify-content-center">
-              <button className="post-btn">Post</button>
+              <button className="post-btn"
+                onClick={this.onClickCreateHandler}
+              >Post</button>
             </div>
           </div>
         </div>
@@ -295,4 +313,4 @@ class RecruitSignup extends React.Component {
   }
 }
 
-export default withRouter(RecruitSignup);
+export default withRouter(RecruitCreate);

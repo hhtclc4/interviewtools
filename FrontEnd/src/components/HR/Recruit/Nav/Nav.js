@@ -13,7 +13,7 @@ class RecruitNav extends React.Component {
         <div>
           <img
             className="big-logo"
-            src={require("../../../utils/images/logo.png")}
+            src={require("../../../../utils/images/logo.png")}
             alt="quiz-icon"
           />
         </div>

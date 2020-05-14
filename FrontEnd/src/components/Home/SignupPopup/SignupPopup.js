@@ -43,7 +43,7 @@ class SignupPopup extends React.Component {
                 </img>
               </div>
               <div className="signup-pop-inner"
-                style={isShowSignup ? { height: '70%' } : {}}
+                style={isShowSignup ? { height: 'fit-content' } : {}}
               >
                 <div className="signup-header">
                   <div className="signup-header-text text-center">

@@ -32,11 +32,10 @@
         overflow: hidden;
 
         .review-sumary {
-            
             min-width: 200px;
             height: 100%;
             width: 600px;
-            
+
             padding: 0;
             display: flex;
             flex-direction: column;
@@ -51,13 +50,13 @@
                 border-top-right-radius: 0;
                 position: sticky;
                 top: 0;
-                z-index:3;
-                
+                z-index: 3;
+
                 button {
                     border: none;
                     border-radius: 10px;
                     padding: 10px 40px;
-                    background: #00C985;
+                    background: #00c985;
                     box-shadow: 0 4px 0 0 #00a06a;
                     color: white;
                     font-family: Quicksand, Helvetica, Arial;
@@ -67,7 +66,7 @@
             }
 
             .review-section-title {
-                color: #BEADA3;
+                color: #beada3;
                 font-family: Quicksand, Helvetica, Arial;
                 font-weight: 900;
                 font-size: 24px;
@@ -78,7 +77,6 @@
                 background: #662900;
                 padding: 25px;
                 border-radius: 10px;
-                
 
                 .attempt-result {
                     display: flex;
@@ -99,7 +97,7 @@
 
                         .review-point {
                             span {
-                                color: #B7ABB6;
+                                color: #b7abb6;
                                 font-size: 20px;
                             }
 
@@ -127,13 +125,12 @@
                         border-top-left-radius: 30px;
                         border-bottom-left-radius: 30px;
                         background: rgba(0, 0, 0, 0.25);
-                        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25),
-                            0 1px rgba(255, 255, 255, 0.08);
+                        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
                     }
 
                     .review-progress .review-progress-bar {
                         //width: 80%; //final accuracy
-                        background-color: #00C985;
+                        background-color: #00c985;
                         animation: progressAnimation 1s;
                     }
 
@@ -142,9 +139,11 @@
                         border-radius: 0;
                         border-top-left-radius: 30px;
                         border-bottom-left-radius: 30px;
-                        background-image:
-                            linear-gradient(to bottom,
-                                rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+                        background-image: linear-gradient(
+                            to bottom,
+                            rgba(255, 255, 255, 0.3),
+                            rgba(255, 255, 255, 0.05)
+                        );
                         transition: 0.4s linear;
                         transition-property: width, background-color;
 
@@ -159,15 +158,13 @@
                     @keyframes progressAnimation {
                         0% {
                             width: 5%;
-                            background-color: #F9BCCA;
+                            background-color: #f9bcca;
                         }
 
                         100% {
-                            background-color: #00C985;
+                            background-color: #00c985;
                         }
                     }
-
-                    
                 }
             }
 
@@ -182,7 +179,7 @@
                     margin-bottom: 25px;
                     flex-basis: 32%;
                     height: 120px;
-                    .review-blur-image{
+                    .review-blur-image {
                         position: relative;
                         width: 100px;
                         top: 1.7rem;
@@ -190,25 +187,24 @@
                         opacity: 0.3;
                     }
 
-                    .review-detail-correct{
+                    .review-detail-correct {
                         position: relative;
                         width: 100%;
                         top: -4.5rem;
                         text-align: center;
                         z-index: 1;
                         opacity: 1;
-                        h2{
+                        h2 {
                             color: white;
-                            
                         }
-                        h4{
+                        h4 {
                             color: #d9d9d9;
                         }
                     }
                 }
             }
 
-            .review-questions-container{
+            .review-questions-container {
                 background: #662900;
                 padding: 15px;
                 border-radius: 10px;
@@ -221,25 +217,24 @@
 ::-webkit-scrollbar {
     width: 8px;
     height: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     border-radius: 10px;
-    position:absolute;
+    position: absolute;
     right: 0;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background:  #FD7E14; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #fd7e14;
     border-radius: 10px;
-    position:absolute;
+    position: absolute;
     right: 0;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #801a00; 
-  }
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #801a00;
+}
