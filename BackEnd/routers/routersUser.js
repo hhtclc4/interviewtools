@@ -334,7 +334,12 @@ router.post("/api/get_user_question_table", verifyToken, (req, res) =>
                 model: Question,
                 include: QuestionChoices,
               },
-              Subject,
+              {
+                model: User,
+
+                attributes: ["name"],
+              },
+              // Subject,
             ],
           },
         ],

@@ -52,16 +52,14 @@ class RecruitThumbnail extends React.Component {
     console.log(data);
   }
   render() {
-    let { data } = this.state;
-    let { postFeature } = this.state;
+    let { image_index, role } = this.props;
+    let { postFeature, data } = this.state;
+
     return (
       <div className="recruit-thumb-wrapper ">
         <div
           className="recruit-thumb-container"
-          onClick={() => {
-            localStorage.setItem("campaign_id", this.props.data.id);
-            this.props.history.push("/detail_recruit");
-          }}
+          onClick={() => this.props.onClick(data.id)}
         >
           <div className="re-crop-img">
             <img
@@ -70,7 +68,7 @@ class RecruitThumbnail extends React.Component {
               src={
                 data.image !== null
                   ? data.image
-                  : require("../QuizThumbnail/images/thumbnail.jpg")
+                  : require(`../campaign_img/campain_pic${image_index % 7}.png`)
               }
             />
           </div>
@@ -105,13 +103,11 @@ class RecruitThumbnail extends React.Component {
           </div>
           {postFeature === "new" ? (
             <div className="re-new-recruit"></div>
-          ) :
-            (
-              <div className="re-hot-recruit"></div>
-            )
-          }
+          ) : (
+            <div className="re-hot-recruit"></div>
+          )}
           <div className="re-diff p-2">
-            See Job
+            {role === "interviewer" ? "See Detail" : "See Job"}
           </div>
         </div>
       </div>

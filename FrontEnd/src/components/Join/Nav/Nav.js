@@ -134,7 +134,7 @@ class JoinNav extends React.Component {
 
         <div className="tab-field">
           <div className="tab-link">
-            <NavLink exact to={`${match.url}`} activeClassName="active-link">
+            <NavLink exact to={`/join`} activeClassName="active-link">
               <span>
                 <FontAwesomeIcon icon={faHome} />
               </span>
@@ -142,7 +142,7 @@ class JoinNav extends React.Component {
             </NavLink>
           </div>
           <div className="tab-link">
-            <NavLink to={`${match.url}/activity`} activeClassName="active-link">
+            <NavLink to={`/join/activity`} activeClassName="active-link">
               <span>
                 <FontAwesomeIcon icon={faHistory} />
               </span>

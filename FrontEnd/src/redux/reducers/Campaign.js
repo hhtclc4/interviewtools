@@ -29,6 +29,15 @@ let initialState = {
     id: 0,
     name: "",
   },
+  question_table: {
+    id: 0,
+    code: 0,
+    title: "",
+    image: null,
+    played: 0,
+    user: { name: "" },
+    questions: [],
+  },
 };
 
 let myReducer = (state = initialState, action) => {

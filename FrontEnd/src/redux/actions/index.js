@@ -57,6 +57,33 @@ export const getUser = () => {
 };
 
 /////////////////////////////////////////////// CAMPAIGN
+export const getListCampaignOfInterviewerAPI = () => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.INTERVIEWER_CAMPAIGN_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        console.log("res list campaign", res.data);
+        dispatch({
+          type: types.GET_CAMPAIGNS,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const showListCampaignOfInterviewer = () => {
+  return {
+    type: types.SHOW_CAMPAIGNS,
+  };
+};
 export const showListCampaign = () => {
   return (dispatch) => {
     axios({
@@ -69,7 +96,7 @@ export const showListCampaign = () => {
       .then((res) => {
         console.log("res list campaign", res.data);
         dispatch({
-          type: types.SHOW_CAMPAIGNS,
+          type: types.GET_CAMPAIGNS,
           data: res.data,
         });
       })

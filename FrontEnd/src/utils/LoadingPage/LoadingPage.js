@@ -12,6 +12,7 @@ class LoadingPage extends React.Component {
     this.props.getListQuestionTable();
     this.props.getListUserDoQuestionTable();
     this.props.getListTableBySubject();
+    this.props.getListCampaignOfInterviewerAPI();
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("nextProps", nextProps);
@@ -43,14 +44,17 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     getListTableBySubject: () => {
       dispatch(actions.getListTableBySubject());
-    }
+    },
+    getListCampaignOfInterviewerAPI: () => {
+      dispatch(actions.getListCampaignOfInterviewerAPI());
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     user: state.user,
     completed: state.completed,
-    subject: state.subject
+    subject: state.subject,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoadingPage);

@@ -39,6 +39,7 @@ export const CHECK_USER_DO_QUIZ_API_URL = `${domain}/api/is_user_did_table`;
 export const GET_COMPLETED_TABLE = `${domain}/api/get_completed_table`;
 // campaign - group_campaign
 export const CAMPAIGN_API_URL = `${domain}/api/campaign`;
+export const INTERVIEWER_CAMPAIGN_API_URL = `${domain}/api/campaign_of_interviewer`;
 export const AVAILABLE_CANDIDATES_API_URL = `${domain}/api/get_available_candidates`;
 export const INTERVIEW_CANDIDATES_API_URL = `${domain}/api/get_interview_candidates`;
 export const UPDATE_CANDIDATES_API_URL = `${domain}/api/update_group_candidates`;

@@ -45,11 +45,21 @@ class HomeBody extends React.Component {
     });
     console.log(nextProps);
   }
+  onClickThumbnailHandler = (id) => {
+    localStorage.setItem("campaign_id", id);
+    this.props.history.push("/detail_recruit");
+  };
   render() {
     let { data } = this.state;
     let tabElm = data.map((campaign, index) => {
       return (
-        <RecruitThumbnail key={campaign.id} index={index} data={campaign} />
+        <RecruitThumbnail
+          key={campaign.id}
+          index={index}
+          data={campaign}
+          onClick={this.onClickThumbnailHandler}
+          image_index={index}
+        />
       );
     });
     return (
@@ -66,10 +76,14 @@ class HomeBody extends React.Component {
             </div>
             <div className="candidate-job-seek container-fluid">
               <div className="candidate-job-seek-header p-2 d-flex flex-row">
-                <div
-                  className="candidate-post-icon align-self-center"
-                >
-                  <FontAwesomeIcon icon={faNewspaper} size="2x" color="white" className="align-self-center" /></div>
+                <div className="candidate-post-icon align-self-center">
+                  <FontAwesomeIcon
+                    icon={faNewspaper}
+                    size="2x"
+                    color="white"
+                    className="align-self-center"
+                  />
+                </div>
                 <h5 className="flex-grow-1 align-self-center">
                   RECENT HOT JOB
                 </h5>
@@ -85,27 +99,33 @@ class HomeBody extends React.Component {
               </div>
             </div>
             <div className="candidate-job-hire d-flex flex-row px-2 flex-wrap justify-content-around">
-              <div className="hire-text d-flex flex-row" >
+              <div className="hire-text d-flex flex-row">
                 <span className="mr-2">How we</span>
                 <p className="trans-text">hire</p>
-                <div className="trans-bg-text">
-                  hire
-                </div>
+                <div className="trans-bg-text">hire</div>
               </div>
               <div className="hire-steps d-flex flex-row flex-wrap ml-auto">
                 <div className="hire-step mr-4 ">
-                  <h4><b>Step 1</b></h4>
-                  <img alt="step" src={require("../images/step1.png")} className="step-img" />
-                  <p>
-                    Test with Online Quizzes by Department Head
-                  </p>
+                  <h4>
+                    <b>Step 1</b>
+                  </h4>
+                  <img
+                    alt="step"
+                    src={require("../images/step1.png")}
+                    className="step-img"
+                  />
+                  <p>Test with Online Quizzes by Department Head</p>
                 </div>
                 <div className="hire-step">
-                  <h4><b>Step 2</b></h4>
-                  <img alt="step" src={require("../images/step2.png")} className="step-img" />
-                  <p>
-                    Interview directly Department Head
-                  </p>
+                  <h4>
+                    <b>Step 2</b>
+                  </h4>
+                  <img
+                    alt="step"
+                    src={require("../images/step2.png")}
+                    className="step-img"
+                  />
+                  <p>Interview directly Department Head</p>
                 </div>
               </div>
             </div>

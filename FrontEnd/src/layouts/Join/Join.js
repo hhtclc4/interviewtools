@@ -5,6 +5,7 @@ import JoinNav from "../../components/Join/Nav/Nav";
 import Activity from "../../components/Join/Activity/Activity";
 import Join from "../../components/Join/Join";
 import LoadingPage from "../../utils/LoadingPage/LoadingPage";
+import AssignQuiz from "../../components/Join/AssignQuiz/AssignQuiz";
 
 class JoinLayout extends React.Component {
   constructor(props) {
@@ -34,6 +35,9 @@ class JoinLayout extends React.Component {
           <Switch>
             <Route exact path={`${match.path}`}>
               <Join />
+            </Route>
+            <Route path={`${match.path}/assign/:campaign_id`}>
+              <AssignQuiz />
             </Route>
             <Route path={`${match.path}/activity`}>
               <Activity />

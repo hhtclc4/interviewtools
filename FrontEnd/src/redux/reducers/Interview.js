@@ -7,6 +7,10 @@ let initialState = [
     date: "2020-01-01",
     time: "12:00:00",
     campaign_id: "",
+
+    campaign: {
+      question_table: { bench_mark: 70 },
+    },
     group_candidates: [
       {
         candidate_id: 0,

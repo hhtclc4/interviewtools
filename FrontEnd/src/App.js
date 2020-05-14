@@ -17,7 +17,6 @@ import Recruit from "./layouts/Recruit/Recruit";
 import ReportDetail from "./components/Admin/Page/Reports/ReportDetail/ReportDetail";
 
 import HRCampaign from "./components/HR/Campaign/Campaign";
-import AssignQuiz from './components/Join/AssignQuiz/AssignQuiz'
 
 import DetailRecruit from "./components/Home/HomeBody/DetailRecruit/DetailRecruit";
 import HRlayout from "./layouts/HR/HR";
@@ -61,7 +60,6 @@ class App extends React.Component {
             <Route path="/HR" component={HRlayout} />
             <Route path="/campaign/:campaign_id" component={HRCampaign} />
             {/* <Route path="/detail_recruit" component={DetailRecruit} /> */}
-            <Route path="/assign" component={AssignQuiz} />
           </Switch>
         </Router>
       </div>

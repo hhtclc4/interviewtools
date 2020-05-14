@@ -10,82 +10,81 @@ const QuestionTable = db.define("question_table", {
     defaultValue: null,
     autoIncrement: true,
     primaryKey: true,
-    foreignKey: [Object]
+    foreignKey: [Object],
   },
   code: {
     type: "VARCHAR(6)",
     allowNull: true,
     defaultValue: null,
-    primaryKey: false
+    primaryKey: false,
   },
   title: {
     type: "VARCHAR(50)",
     allowNull: false,
     defaultValue: null,
-    primaryKey: false
+    primaryKey: false,
   },
   grade_begin: {
     type: "INT(11)",
     allowNull: true,
     defaultValue: null,
-    primaryKey: false
+    primaryKey: false,
   },
   grade_end: {
     type: "INT(11)",
     allowNull: true,
     defaultValue: null,
-    primaryKey: false
+    primaryKey: false,
   },
   level: {
     type: "INT(11)",
     allowNull: true,
     defaultValue: 1,
-    primaryKey: false
+    primaryKey: false,
   },
   played: {
     type: "INT(11)",
     allowNull: true,
     defaultValue: 0,
-    primaryKey: false
-  },
-  subject_id: {
-    type: "INT(11)",
-    allowNull: false,
-    defaultValue: null,
     primaryKey: false,
-    foreignKey: [Object]
   },
   image: {
     type: "longtext",
     allowNull: true,
     defaultValue: null,
-    primaryKey: false
+    primaryKey: false,
   },
   is_public: {
     type: "TINYINT(1)",
     allowNull: true,
     defaultValue: 1,
-    primaryKey: false
+    primaryKey: false,
   },
   admin: {
     type: "INT(11)",
     allowNull: false,
     defaultValue: null,
     primaryKey: false,
-    foreignKey: [Object]
+    foreignKey: [Object],
   },
   is_finish: {
     type: "TINYINT(1)",
     allowNull: false,
-    defaultValue: 0
+    defaultValue: 0,
+  },
+  bench_mark: {
+    type: "INT",
+    allowNull: true,
+    defaultValue: 70,
+    primaryKey: false,
   },
   campaign_id: {
     type: "INT",
     allowNull: true,
     defaultValue: null,
     primaryKey: false,
-    foreignKey: [Object]
-  }
+    foreignKey: [Object],
+  },
 });
 
 module.exports = QuestionTable;

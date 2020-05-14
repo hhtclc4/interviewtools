@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 import QuizDetailTable from "../../utils/QuizThumbnail/QuizDetailTable/QuizDetailTable";
 import QuizThumbnail from "../../utils/QuizThumbnail/QuizThumbnail";
+import RecruitThumbnail from "../../utils/RecruitThumbnail/RecruitThumbnail";
+
 import { NavLink, withRouter } from "react-router-dom";
 class Join extends React.Component {
   constructor(props) {
@@ -15,13 +17,45 @@ class Join extends React.Component {
         id: 0,
         avatar: null,
       },
+      campaigns: [
+        {
+          id: 0,
+          title: "",
+          subject_id: 0,
+          level_id: 0,
+          work_type_id: 0,
+          salary: 0,
+          user_id: 0,
+
+          status: true,
+          subjects: [],
+          user: {
+            name: "",
+            email: "",
+            phone: "",
+          },
+        },
+      ],
       questionTable: {},
       showQuizCode: false,
       completedQuiz: [],
       subjects: [
         {
           title: "",
-          question_tables: [],
+          campaigns: [
+            {
+              question_table: {
+                id: 0,
+                code: 0,
+                title: "",
+                image: null,
+                played: 0,
+
+                questions: [],
+                user: { name: "" },
+              },
+            },
+          ],
         },
       ],
       isFocusInput: false,
@@ -31,10 +65,11 @@ class Join extends React.Component {
   componentDidMount() {
     this.props.showListUserDoQuestionTable();
     this.props.showListTableBySubject();
+    this.props.showListCampaignOfInterviewer();
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    // console.log("subject", nextProps.user);
-    let { completed, user, subject } = nextProps;
+    console.log("subject", nextProps.subject.tablesBySubject);
+    let { completed, user, subject, campaigns } = nextProps;
 
     this.setState({
       user: user.user,
@@ -42,6 +77,7 @@ class Join extends React.Component {
       questionTable: user.questionTable,
       completedQuiz: completed.completedQuiz,
       subjects: subject.tablesBySubject,
+      campaigns,
     });
   }
   onChangeHandler = (event) => {
@@ -56,18 +92,19 @@ class Join extends React.Component {
       showQuizCode: !this.state.showQuizCode,
     });
   };
-  showLimitTableBySubject = (question_tables) => {
+  showLimitTableBySubject = (campaigns) => {
     let arr = [];
-    for (let i = 0; i < 5; i++)
-      if (typeof question_tables[i] !== "undefined") {
+    for (let i = 0; i < 5; i++) {
+      if (typeof campaigns[i] !== "undefined") {
         arr.push(
           <QuizThumbnail
             key={i}
-            data={question_tables[i]}
-            userName={question_tables[i].user.name}
+            image_index={i}
+            data={campaigns[i].question_table}
           />
         );
       }
+    }
 
     return arr;
   };
@@ -76,9 +113,7 @@ class Join extends React.Component {
     let arr = [];
     for (let i = 0; i < 5; i++)
       if (typeof subjects[i] !== "undefined") {
-        let listTable = this.showLimitTableBySubject(
-          subjects[i].question_tables
-        );
+        let listTable = this.showLimitTableBySubject(subjects[i].campaigns);
         arr.push(
           <div className="join-quiz-list-review" key={i}>
             <h3>{subjects[i].title}</h3>
@@ -125,23 +160,33 @@ class Join extends React.Component {
   componentWillUnmount() {
     document.removeEventListener("click", this.focusInputQuizCode, false);
   }
-
+  SeeInterviewOnClickHandler = (campaign_id) => {
+    this.props.history.push(`/join/assign/${campaign_id}`);
+  };
   render() {
-    let { questionTable, completedQuiz, isFocusInput, user } = this.state;
-    let quizthumbComplete = completedQuiz.map((table, index) => {
-      let userName = table.user.name;
-
+    let {
+      questionTable,
+      completedQuiz,
+      isFocusInput,
+      user,
+      campaigns,
+    } = this.state;
+    let quizthumbCompleteElm = completedQuiz.map((table, index) => {
+      return <QuizThumbnail key={index} data={table} isCompleted={true} />;
+    });
+    let campaignThumbInterviewerElm = campaigns.map((campaign, index) => {
       return (
-        <QuizThumbnail
-          key={index}
-          data={table}
-          isCompleted={true}
-          userName={userName}
+        <RecruitThumbnail
+          key={campaign.id}
+          data={campaign}
+          image_index={index}
+          role={"interviewer"}
+          onClick={this.SeeInterviewOnClickHandler}
         />
       );
     });
 
-    let quizthumbSubject = this.showLimitSubject();
+    let quizthumbSubjectElm = this.showLimitSubject();
 
     return (
       <div className="join-container">
@@ -190,10 +235,22 @@ class Join extends React.Component {
             <h5>{localStorage.getItem("username")}</h5>
             <div className="join-profile-actions">
               <NavLink to="_blank">Edit profile</NavLink>
-              <NavLink to="_blank">Activity</NavLink>
+              <NavLink to="/join/activity">Activity</NavLink>
             </div>
           </div>
         </div>
+        {/* /////////////////////////////////////////////////////////////// */}
+        <div className="join-quiz-list-review">
+          <h3>Recent Interview</h3>
+          <div
+            className="quiz-list-show-activity"
+            style={campaigns.length < 6 ? { overflow: "hidden" } : {}}
+          >
+            {campaignThumbInterviewerElm}
+          </div>
+        </div>
+        {/* ///////////////////////////////////////////////////////////////// */}
+
         {completedQuiz.length ? (
           <div className="join-quiz-list-review">
             <h3>Recent Activity</h3>
@@ -201,12 +258,12 @@ class Join extends React.Component {
               className="quiz-list-show-activity"
               style={completedQuiz.length < 6 ? { overflow: "hidden" } : {}}
             >
-              {quizthumbComplete}
+              {quizthumbCompleteElm}
             </div>
           </div>
         ) : null}
 
-        {quizthumbSubject}
+        {quizthumbSubjectElm}
         {this.state.showQuizCode ? (
           <QuizDetailTable
             togglePopup={this.togglePopup}
@@ -241,6 +298,9 @@ const mapDispatchToProps = (dispatch, props) => {
     updateUser: (user) => {
       dispatch(actions.updateUser(user));
     },
+    showListCampaignOfInterviewer: () => {
+      dispatch(actions.showListCampaignOfInterviewer());
+    },
   };
 };
 const mapStateToProps = (state) => {
@@ -249,6 +309,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     completed: state.completed,
     subject: state.subject,
+    campaigns: state.campaigns,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Join));
