@@ -11,7 +11,6 @@ import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlusCircle,
-  faPencilAlt,
   faEye,
   faEyeSlash,
   faGraduationCap,
@@ -20,34 +19,40 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CreatePopUp from "./CreatePopUp";
 import ShowPreviewPopUp from "./ShowPreviewPopUp";
-import ShowSubjectPopUp from "./ShowSubjectPopUp";
 import ShowImportPopUp from "./ShowImportPopUp";
 import Teleport from "./Teleport/ShowTeleport";
 
 class QuizCreatorEditor extends React.Component {
   constructor() {
     super();
+    this.editInputRef = React.createRef();
+
     this.state = {
       accessToPush: false,
       showPopupCreate: false,
       showPopupEdit: false,
       showPopupPreview: false,
-      showPopupSubject: false,
       showPopUpImport: false,
       showTeleport: false,
       disabledIfFinished: false,
       dataEdit: {},
       question_table_id: 1,
       //questions: [],
+      defaultContent: "",
       table: {
         title: "",
         questions: [],
         is_finish: false,
         image: null,
         is_public: true,
-        subject: {
+        campaign: {
           id: 0,
-          title: "",
+          subjects: [
+            {
+              id: 0,
+              title: "",
+            },
+          ],
         },
         grade_begin: null,
         grade_end: null,
@@ -76,16 +81,6 @@ class QuizCreatorEditor extends React.Component {
     if (showPopupPreview === true) {
       this.setState({
         showPopupPreview: !showPopupPreview,
-      });
-    }
-  };
-
-  togglePopupSubject = () => {
-    let { showPopupSubject } = this.state;
-
-    if (showPopupSubject === true) {
-      this.setState({
-        showPopupSubject: !showPopupSubject,
       });
     }
   };
@@ -187,8 +182,48 @@ class QuizCreatorEditor extends React.Component {
     });
     this.togglePopupTeleport();
   };
+
+  handleCompClick = (e) => {
+    if (!this.editRef.contains(e.target)) {
+      //outside
+      this.editInputRef.current.style.border = "none";
+      return;
+    } else {
+      //inside
+      this.editInputRef.current.focus();
+      //this.editInputRef.current.select();
+      this.editInputRef.current.style.border = "2px solid #1092f4";
+    }
+  };
+  UNSAFE_componentWillMount() {
+    document.addEventListener("click", this.handleCompClick, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleCompClick, false);
+  }
+
+  handleFocus = (e) => {
+    e.target.select();
+    //set state to compare data and defaultContent, if the same, do not send update campaign
+    this.setState({
+      defaultContent: this.state.table.title,
+    });
+  };
+  onBlurHandler = () => {
+    let { table, defaultContent } = this.state;
+    let { id, title } = table;
+    if (title !== defaultContent) {
+      this.props.updateTable({ id, title });
+    }
+  };
+  onChangeTitleHandler = (e) => {
+    this.setState({
+      table: { ...this.state.table, title: e.target.value },
+    });
+  };
   render() {
-    let { image, subject, title, is_public } = this.state.table;
+    let { image, campaign, title, is_public } = this.state.table;
     let { disabledIfFinished, accessToPush } = this.state;
     //after finish the quiz, then push to join page
     if (accessToPush) this.props.history.push("/join/activity");
@@ -289,8 +324,10 @@ class QuizCreatorEditor extends React.Component {
                   <div className="overlay-text">Edit image</div>
                 </div>
               </div>
+
+              {/* ////////////////////////// */}
               <div className="quiz-info-edit-quiz-name">
-                <div className="quiz-name">{title}</div>
+                {/* <div className="quiz-name">{title}</div>
                 <button>
                   <span>
                     <FontAwesomeIcon
@@ -305,8 +342,24 @@ class QuizCreatorEditor extends React.Component {
                       }}
                     />
                   </span>
-                </button>
+                </button> */}
+                <div
+                  className="quiz-name "
+                  ref={(node) => (this.editRef = node)}
+                  onClick={this.handleCompClick}
+                >
+                  <input
+                    defaultValue={title}
+                    type="text"
+                    name="title"
+                    onChange={this.onChangeTitleHandler}
+                    ref={this.editInputRef}
+                    onFocus={this.handleFocus}
+                    onBlur={this.onBlurHandler}
+                  />
+                </div>
               </div>
+              {/* /////////////////////// */}
               <div className="quiz-scope-data">
                 <div className="scope-public">
                   <button onClick={this.onClickChangePublic}>
@@ -335,21 +388,18 @@ class QuizCreatorEditor extends React.Component {
                   {gradeTitle}
                 </button>
               </div>
-              <div className="quiz-subject">
-                <div className="quiz-sm-icon">
-                  <FontAwesomeIcon icon={faBook} color="#6B6C77" />
+              {campaign === null ? null : (
+                <div className="quiz-subject">
+                  <div className="quiz-sm-icon">
+                    <FontAwesomeIcon icon={faBook} color="#6B6C77" />
+                  </div>
+                  <button>
+                    {campaign.subjects.map((sub) => {
+                      return `${sub.title} `;
+                    })}
+                  </button>
                 </div>
-                <button
-                  onClick={() => {
-                    this.setState({
-                      showPopupSubject: !this.state.showPopupSubject,
-                    });
-                    this.togglePopupSubject();
-                  }}
-                >
-                  {subject.title}
-                </button>
-              </div>
+              )}
 
               <div className="quiz-import">
                 <div className="quiz-sm-icon">
@@ -387,13 +437,6 @@ class QuizCreatorEditor extends React.Component {
           {this.state.showPopupPreview ? (
             <ShowPreviewPopUp
               closePopup={this.togglePopupPreview}
-              data={this.state.table}
-            />
-          ) : null}
-
-          {this.state.showPopupSubject ? (
-            <ShowSubjectPopUp
-              closePopup={this.togglePopupSubject}
               data={this.state.table}
             />
           ) : null}

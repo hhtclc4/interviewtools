@@ -11,9 +11,7 @@ class QuizCreate extends React.Component {
       id: 0,
       data: {
         title: "",
-        subject_id: 0,
       },
-      subject: [],
       accessToPush: {
         question_table_id: 0,
         push: false,
@@ -21,13 +19,10 @@ class QuizCreate extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.props.showListSubject();
-  }
+  componentDidMount() {}
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      subject: nextProps.subject.subjects,
       accessToPush: nextProps.accessToPush,
     });
   }
@@ -39,45 +34,21 @@ class QuizCreate extends React.Component {
 
   onChangeHandler = (event) => {
     let { name, value } = event.target;
-    let tempt = 0;
-    //set type = Integer
-    if (event.target.type === "button") {
-      tempt = parseInt(value);
-    } else tempt = value;
+
     this.setState((prevState) => ({
       data: {
         // object that we want to update
         ...prevState.data, // keep all other key-value pairs
-        [name]: tempt, // update the value of specific key
+        [name]: value, // update the value of specific key
       },
     }));
   };
 
   render() {
-    let { data, accessToPush } = this.state;
+    let { accessToPush } = this.state;
     if (accessToPush.push)
       this.props.history.push(`/quiz/${accessToPush.question_table_id}`);
 
-    const element = this.state.subject.map((subj) => {
-      return (
-        //active-subject
-        <div
-          className={
-            data.subject_id === subj.id ? "subject active-subject" : "subject"
-          }
-          key={subj.id}
-        >
-          <button
-            type="button"
-            name="subject_id"
-            value={subj.id}
-            onClick={this.onChangeHandler}
-          >
-            {subj.title}
-          </button>
-        </div>
-      );
-    });
     return (
       <div className="quiz-create-modal-container">
         <div className="init-quiz">
@@ -95,11 +66,6 @@ class QuizCreate extends React.Component {
                     name="title"
                     onChange={this.onChangeHandler}
                   />
-                </div>
-                <div className="init-quiz-choose-subject">
-                  <p>2. Choose the consistent subject</p>
-
-                  <div className="subject-clouds">{element}</div>
                 </div>
               </div>
               <div className="init-quiz-create-footer">
@@ -125,9 +91,6 @@ class QuizCreate extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    showListSubject: () => {
-      dispatch(actions.showListSubject());
-    },
     createQuestionTable: (data) => {
       dispatch(actions.createQuestionTable(data));
     },
@@ -136,7 +99,6 @@ const mapDispatchToProps = (dispatch, props) => {
 const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    subject: state.subject,
     accessToPush: state.accessToPush,
   };
 };

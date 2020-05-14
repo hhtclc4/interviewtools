@@ -82,6 +82,11 @@ router.get("/api/questiontable/:id", (req, res) => {
 
         attributes: ["name"],
       },
+      {
+        model: Campaign,
+        include: [Subject],
+        attributes: ["id"],
+      },
       // Subject
     ],
   }).then((data) => {

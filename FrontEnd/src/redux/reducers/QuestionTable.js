@@ -1,10 +1,13 @@
 import * as types from "../actions/actionTypes";
 const initialState = {
+  campaign: {
+    subjects: [{ id: 0, title: "" }],
+  },
   questions: [
     {
-      question_choices: []
-    }
-  ]
+      question_choices: [],
+    },
+  ],
 };
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -25,13 +28,13 @@ let myReducer = (state = initialState, action) => {
         question: action.question.question,
         time: action.question.time,
         is_one_right_ans: action.question.is_one_right_ans,
-        question_choices: [...action.question_choices]
+        question_choices: [...action.question_choices],
       };
       return { ...state };
     case types.UPDATE_QUESTION_TABLE: {
       state = {
         ...state,
-        ...action.data
+        ...action.data,
       };
       return { ...state };
     }
@@ -39,7 +42,7 @@ let myReducer = (state = initialState, action) => {
     case types.UPDATE_TIME:
       state.questions[action.index] = {
         ...state.questions[action.index],
-        time: action.data.time
+        time: action.data.time,
       };
       return { ...state };
     default:

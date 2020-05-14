@@ -198,6 +198,7 @@ router.post("/api/completed_interview", async (req, res) => {
         {
           model: Campaign,
           include: [{ model: QuestionTable, attributes: ["bench_mark"] }],
+          attributes: ["id"],
         },
         { model: User, attributes: ["name", "email", "phone"] },
       ],
