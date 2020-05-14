@@ -52,7 +52,7 @@ class App extends React.Component {
               path="/signup"
               component = {SignUp}
             /> */}
-            <Route path="/recruit_signup" component={Recruit} />
+            <Route path="/recruit_create" component={Recruit} />
             <Route
               path="/admin/reports/report_detail"
               component={ReportDetail}
