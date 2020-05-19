@@ -18,7 +18,6 @@ class HRInfo extends React.Component {
       data: {
         id: 0,
         title: "",
-        subject_id: 0,
         level_id: 0,
         work_type_id: 0,
         salary: 0,
@@ -68,13 +67,6 @@ class HRInfo extends React.Component {
       listWorkTypes: nextProps.work_type,
     });
   }
-  handleButtonClick = (e) => {
-    console.log("click left button", e);
-  };
-
-  handleMenuClick = (e) => {
-    console.log("click", e);
-  };
 
   onChangeSelectSingle = (key, value) => {
     let { data } = this.state;

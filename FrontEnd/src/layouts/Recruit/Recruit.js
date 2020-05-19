@@ -3,7 +3,7 @@ import "./Recruit.scss";
 import { withRouter } from "react-router-dom";
 
 import RecruitNav from "../../components/HR/Recruit/Nav/Nav";
-import RecruitCreate from "../../components/HR/Recruit/RecruitForm/RecruitForm";
+import RecruitEditor from "../../components/HR/Recruit/RecruitEditor/RecruitEditor";
 class Recruit extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +19,7 @@ class Recruit extends React.Component {
         </div>
         <div className="row">
           <div className="col-xl">
-            <RecruitCreate />
+            <RecruitEditor />
           </div>
         </div>
       </div>

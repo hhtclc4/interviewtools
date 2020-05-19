@@ -57,6 +57,34 @@ export const getUser = () => {
 };
 
 /////////////////////////////////////////////// CAMPAIGN
+export const createCampaignAPI = (data) => {
+  return (dispatch) => {
+    let token = localStorage.getItem("token");
+    axios({
+      method: "post",
+      url: URLs.CREATE_CAMPAIGN_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": token,
+      },
+      data: data,
+    })
+      .then((res) => {
+        console.log("res create campaign", res.data);
+        dispatch({
+          type: types.CREATE_CAMPAIGN,
+          data: res.data,
+        });
+        dispatch({
+          type: types.ACCESS_TO_PUSH_QUIZ,
+          id: res.data.id,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const getListCampaignOfInterviewerAPI = () => {
   return (dispatch) => {
     axios({

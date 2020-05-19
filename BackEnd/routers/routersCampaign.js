@@ -16,6 +16,8 @@ const Campaign_Subject = require("../models/Campaign_Subject");
 const Group_Candidates = require("../models/Group_Candidates");
 const Level = require("../models/Level");
 const Interview = require("../models/Interview");
+const Company = require("../models/Company");
+
 const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
@@ -56,6 +58,25 @@ router.post("/api/campaign_of_interviewer", verifyToken, (req, res) =>
     }
   })
 );
+router.post("/api/create_campaign", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      req.body.user_id = authData.user_id;
+      Campaign.create(req.body)
+        .then((data) => {
+          for (let i = 0; i < req.body.subjects.length; i++) {
+            req.body.subjects[i].subject_id = req.body.subjects[i].id;
+            req.body.subjects[i].campaign_id = data.id;
+          }
+          Campaign_Subject.bulkCreate(req.body.subjects).then((data) =>
+            res.send(data)
+          );
+        })
+        .catch((err) => console.log(err));
+    }
+  })
+);
 router.post("/api/campaign", (req, res) =>
   Campaign.findOne({
     where: {
@@ -85,17 +106,7 @@ router.post("/api/campaign", (req, res) =>
     .then((data) => res.send(data))
     .catch((err) => console.log(err))
 );
-router.post("/api/create_campaign", verifyToken, (req, res) => {
-  jwt.verify(req.token, "hoangtri", (err, authData) => {
-    if (err) res.sendStatus(403);
-    else {
-      req.body.user_id = authData.user_id;
-      Campaign.create(req.body)
-        .then((data) => res.send(data))
-        .catch((err) => console.log(err));
-    }
-  });
-});
+
 router.put("/api/campaign", (req, res) => {
   Campaign.update(req.body, {
     where: {

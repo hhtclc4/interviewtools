@@ -16,19 +16,11 @@ class HRstaff extends React.Component {
           id: 0,
           title: "",
           subject_id: 0,
-          company_address: "",
           level_id: 0,
-          amount_required: 0,
           work_type_id: 0,
-          sex: 0,
-          experience: 0,
           salary: 0,
-          deadline: "",
           user_id: 0,
           work_description: "",
-          candidate_req: "",
-          candidate_benefits: "",
-          location: "",
           subjects: [
             {
               id: 0,
@@ -74,14 +66,6 @@ class HRstaff extends React.Component {
                 <p className="hr-campaign-count align-self-center">
                   All campaigns ({data.length})
                 </p>
-                <button
-                  className="hr-create-campaign-btn align-self-center"
-                  onClick={() => {
-                    this.props.history.push("/recruit_signup");
-                  }}
-                >
-                  Create new campaign
-                </button>
               </div>
 
               <div className="hr-manage-body d-flex flex-row">
