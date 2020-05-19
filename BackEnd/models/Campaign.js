@@ -51,7 +51,7 @@ const Campaign = db.define(
       foreignKey: [Object],
     },
     work_description: {
-      type: "VARCHAR(200)",
+      type: "LONGTEXT",
       allowNull: true,
       defaultValue: null,
       primaryKey: false,

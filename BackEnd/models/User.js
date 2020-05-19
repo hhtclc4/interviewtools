@@ -8,40 +8,43 @@ const User = db.define("user", {
     defaultValue: null,
     autoIncrement: true,
     primaryKey: true,
-    foreignKey: [Object]
+    foreignKey: [Object],
   },
   name: {
     type: "VARCHAR(50)",
     allowNull: false,
-    primaryKey: false
+    primaryKey: false,
   },
   email: {
     type: "VARCHAR(50)",
     allowNull: true,
-    primaryKey: false
+    primaryKey: false,
   },
   password: {
     type: "VARCHAR(50)",
     allowNull: true,
-    primaryKey: false
+    primaryKey: false,
   },
   avatar: {
     type: "LONGTEXT",
     allowNull: true,
     defaultValue: null,
-    primaryKey: false
+    primaryKey: false,
   },
   role_id: {
     type: "int(11)",
     allowNull: true,
     defaultValue: 1,
-    primaryKey: false
+    primaryKey: false,
   },
   phone: {
     type: "VARCHAR(45)",
     allowNull: true,
     defaultValue: null,
-    primaryKey: false
-  }
+    primaryKey: false,
+  },
+  company_id: {
+    type: "int(11)",
+  },
 });
 module.exports = User;

@@ -1,15 +1,25 @@
-const Sequelize = require("sequelize");
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
-const QuestionChoices = require("../models/QuestionChoices");
 const QuestionTable = require("../models/QuestionTable");
+const Question = require("../models/Question");
+const QuestionTable_Question = require("../models/QuestionTable_Question");
+const QuestionChoices = require("../models/QuestionChoices");
 const Subject = require("../models/Subject");
+const User = require("../models/User");
+const AnswerRecord = require("../models/AnswerRecord");
+const UserRole = require("../models/UserRole");
 const MultiChoices = require("../models/MultiChoices");
 const MultiChoices_Choices = require("../models/MultiChoices_Choices");
+const Work_Type = require("../models/Work_Type");
+const Campaign = require("../models/Campaign");
+const Campaign_Subject = require("../models/Campaign_Subject");
+const Group_Candidates = require("../models/Group_Candidates");
+const Level = require("../models/Level");
+const Interview = require("../models/Interview");
+const Company = require("../models/Company");
 
-const Question = require("../models/Question");
-const AnswerRecord = require("../models/AnswerRecord");
+const { Op } = require("sequelize");
+
 const jwt = require("jsonwebtoken");
 // find all the number of attempt that user do quiz in page PreGame
 router.post("/api/quiz_attempt", verifyToken, (req, res) => {
@@ -81,6 +91,8 @@ router.post("/api/get_user", verifyToken, (req, res) =>
         where: {
           id: authData.user_id,
         },
+        include: Company,
+        attributes: ["name", "email", "phone"],
       })
         .then((data) => res.send(data))
 

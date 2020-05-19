@@ -18,6 +18,14 @@ class HRNav extends React.Component {
             style={{ height: "56px" }}
           />
         </div>
+        <button
+          className="hr-create-campaign-btn align-self-center"
+          onClick={() => {
+            this.props.history.push("/recruit_create");
+          }}
+        >
+          Create new campaign
+        </button>
       </div>
     );
   }
