@@ -40,7 +40,7 @@ $inactive-tabs-color: #5f666f;
                     li {
                         display: inline-block;
                         margin-left: 0;
-                        width: 50%;
+                        width: 50% !important;
                         padding: 10px;
                         border-bottom: 2px solid #eee;
                         transition: all 0.5s;

@@ -186,11 +186,11 @@ class CanOverview extends React.Component {
         style={type === "partion" ? { marginBottom: "8px", borderBottom: 'none' } : {}}
       >
         <div
-          className="candidate-partions-container d-flex flex-row p-2 justify-content-between"
+          className="candidate-partions-container d-flex flex-row p-2 justify-content-start"
           style={{ backgroundColor: color }}
         >
           <div
-            className="time-partion"
+            className="time-partion flex-fill"
             style={
               from === "canPop" || from === "hr" ? { display: "none" } : null
             }
@@ -213,16 +213,16 @@ class CanOverview extends React.Component {
                 </>
               )}
           </div>
-          <div className="name-partion">
+          <div className="name-partion text-truncate  flex-fill">
             {type === "partion" ? <b>{data.user.name}</b> : data.user.name}
           </div>
-          <div className="email-partion">
+          <div className="email-partion text-truncate  flex-fill">
             {type === "partion" ? <b>{data.user.email}</b> : data.user.email}
           </div>
-          <div className="phone-partion">
+          <div className="phone-partion text-truncate  flex-fill">
             {type === "partion" ? <b>{data.user.phone}</b> : data.user.phone}
           </div>
-          <div className="cv-partion">
+          <div className="cv-partion text-truncate  flex-fill">
             <button
               onClick={() => {
                 this.setState({
@@ -240,7 +240,7 @@ class CanOverview extends React.Component {
                 )}
             </button>
           </div>
-          <div className="note-partion">
+          <div className="note-partion text-truncate  flex-fill">
             <button
               onClick={() => {
                 this.setState({
@@ -258,15 +258,15 @@ class CanOverview extends React.Component {
                 )}
             </button>
           </div>
-          <div className="subject-partion" style={majorStyle}>
+          <div className="subject-partion text-truncate  flex-fill" style={majorStyle}>
             {type === "partion" ? <b>MAJOR</b> : <>Java</>}
           </div>
-          <div className="level-partion" style={majorStyle}>
+          <div className="level-partion text-truncate  flex-fill" style={majorStyle}>
             {type === "partion" ? <b>LEVEL</b> : <>Senior</>}
           </div>
 
           <div
-            className="action-btn-partion"
+            className="action-btn-partion  flex-fill"
             style={from === "control" ? { display: "none" } : {}}
           >
             {actionBtnElm}

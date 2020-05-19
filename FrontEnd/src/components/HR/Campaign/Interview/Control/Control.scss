@@ -37,27 +37,27 @@ $icon-color: #393a68;
 
     .interview-control-body {
         flex-grow: 1;
-        .in-control-partions {
-            .time-partion {
-                width: 15%;
-            }
-            .name-partion {
-                width: 15%;
-            }
-            .email-partion {
-                width: 20%;
-            }
-            .phone-partion {
-                width: 20%;
-            }
-            .cv-partion {
-                width: 15%;
-            }
+        // .in-control-partions {
+        //     .time-partion {
+        //         max-width: 20%;
+        //     }
+        //     .name-partion {
+        //         max-width: 15%;
+        //     }
+        //     .email-partion {
+        //         max-width: 20%;
+        //     }
+        //     .phone-partion {
+        //         max-width: 20%;
+        //     }
+        //     .cv-partion {
+        //         max-width: 15%;
+        //     }
 
-            .note-partion {
-                width: 10%;
-            }
-        }
+        //     .note-partion {
+        //         max-width: 10%;
+        //     }
+        // }
         hr {
             margin: 3px 0px 8px 0px;
         }

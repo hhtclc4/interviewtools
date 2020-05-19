@@ -2,7 +2,7 @@ import React from "react";
 import "./AssignQuiz.scss";
 import JoinNav from "../Nav/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faUserTie } from "@fortawesome/free-solid-svg-icons";
 import InterviewControl from "../../HR/Campaign/Interview/Control/Control";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
@@ -155,17 +155,23 @@ class AssignQuiz extends React.Component {
                 <div className="aq-campaign-title-and-apply flex-grow-1">
                   <h3>{data.title}</h3>
                   <p>{interviews.length} interview</p>
+                  <div className="aq-campaign-position-and-subject d-flex flex-row">
+                    <div className="aq-position">
+                      <span><FontAwesomeIcon icon={faUserTie} color="#393A68" className="mr-1" /></span>
+                      {data.level.name}
+                    </div>
+                    <div className="aq-subjects d-flex flex-row">
+                      {data.subjects.map((sub) => {
+                        return (
+                          <div key={sub.id} className="aq-subject">
+                            {sub.title}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-                <div className="aq-campaign-position-and-subject d-flex flex-row">
-                  <div className="aq-position">{data.level.name}</div>
-                  {data.subjects.map((sub) => {
-                    return (
-                      <div key={sub.id} className="aq-subject">
-                        {sub.title}
-                      </div>
-                    );
-                  })}
-                </div>
+
               </div>
             </div>
             <div className="col-sm-2" style={{ height: "100%" }}></div>
@@ -196,21 +202,21 @@ class AssignQuiz extends React.Component {
                 {data.question_table !== null ? (
                   quizThumbnailELM()
                 ) : (
-                  <>
-                    <b>No quiz for this recruitment yet</b>
-                    <img
-                      alt="quiznull"
-                      className="aq-quiz-null-img"
-                      src={require("../../HR/images/quiznull.png")}
-                    />
-                    <button className="assign-create-quiz-btn">
-                      <span>
-                        <FontAwesomeIcon icon={faPlusCircle} />
+                    <>
+                      <b>No quiz for this recruitment yet</b>
+                      <img
+                        alt="quiznull"
+                        className="aq-quiz-null-img"
+                        src={require("../../HR/images/quiznull.png")}
+                      />
+                      <button className="assign-create-quiz-btn">
+                        <span>
+                          <FontAwesomeIcon icon={faPlusCircle} />
                         Create quiz
                       </span>
-                    </button>
-                  </>
-                )}
+                      </button>
+                    </>
+                  )}
               </div>
             </div>
           </div>

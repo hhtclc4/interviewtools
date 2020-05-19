@@ -56,7 +56,7 @@ class RecruitThumbnail extends React.Component {
     let { postFeature, data } = this.state;
 
     return (
-      <div className="recruit-thumb-wrapper ">
+      <div className="recruit-thumb-wrapper mr-1 ml-1">
         <div
           className="recruit-thumb-container"
           onClick={() => this.props.onClick(data.id)}
@@ -104,8 +104,8 @@ class RecruitThumbnail extends React.Component {
           {postFeature === "new" ? (
             <div className="re-new-recruit"></div>
           ) : (
-            <div className="re-hot-recruit"></div>
-          )}
+              <div className="re-hot-recruit"></div>
+            )}
           <div className="re-diff p-2">
             {role === "interviewer" ? "See Detail" : "See Job"}
           </div>

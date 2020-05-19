@@ -11,22 +11,35 @@ $line-color: #f2f2f2;
     border-bottom: 1px solid $line-color;
     .time-partion {
         min-width: 10%;
+        max-width: 15%;
         font-family: $text-font;
+        .ant-btn {
+            padding: 0 2px !important;
+            .anticon {
+                margin-left: 1px !important;
+                display: none;
+            }
+        }
     }
     .name-partion {
-        min-width: 10%;
+        width: 10%;
+        max-width: 15%;
         font-family: $text-font;
+        padding-right: 5px;
     }
     .email-partion {
-        min-width: 15%;
+        width: 15%;
+        max-width: 20%;
         font-family: $text-font;
     }
     .phone-partion {
         min-width: 15%;
+        max-width: 20%;
         font-family: $text-font;
     }
     .cv-partion {
         min-width: 5%;
+        max-width: 9%;
         .cv-btn {
             top: 0;
             border: none;
@@ -36,6 +49,7 @@ $line-color: #f2f2f2;
 
     .note-partion {
         min-width: 5%;
+        max-width: 7%;
         .note-btn {
             top: 0;
             border: none;
@@ -45,16 +59,19 @@ $line-color: #f2f2f2;
 
     .level-partion {
         min-width: 7%;
+        max-width: 9%;
         font-family: $text-font;
     }
 
     .subject-partion {
         min-width: 15%;
+        max-width: 18%;
         font-family: $text-font;
     }
 
     .action-btn-partion {
         min-width: 7%;
+        max-width: 10%;
         .can-action-btn {
             top: 0;
             background-color: transparent;
