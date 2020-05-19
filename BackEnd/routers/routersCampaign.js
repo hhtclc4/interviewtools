@@ -17,6 +17,7 @@ const Group_Candidates = require("../models/Group_Candidates");
 const Level = require("../models/Level");
 const Interview = require("../models/Interview");
 const Company = require("../models/Company");
+const Sequelize = require("sequelize");
 
 const { Op } = require("sequelize");
 
