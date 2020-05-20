@@ -51,17 +51,24 @@ class HomeBody extends React.Component {
   };
   render() {
     let { data } = this.state;
-    let tabElm = data.map((campaign, index) => {
-      return (
+
+    let panel = [];
+    let campaignEml = [];
+    for (let i = 0; i < data.length; i++) {
+      campaignEml.push(
         <RecruitThumbnail
-          key={campaign.id}
-          index={index}
-          data={campaign}
+          key={data[i].id}
+          index={i}
+          data={data[i]}
           onClick={this.onClickThumbnailHandler}
-          image_index={index}
+          image_index={i}
         />
       );
-    });
+      if ((i + 1) % 9 === 0) {
+        panel.push(<Panel key={i}>{campaignEml}</Panel>);
+        campaignEml = [];
+      }
+    }
     return (
       <div className="home-body-container container-fluid">
         {/* <video className="video-intro" src={require("../images/outlanders_header.webm")} autoPlay={true} loop={true}></video> */}
@@ -92,8 +99,9 @@ class HomeBody extends React.Component {
               <div className="candidate-job-seek-body">
                 <div className="recruit-list">
                   <Tabs selected={0}>
-                    <Panel title="">{tabElm}</Panel>
-                    <Panel>Tabs2</Panel>
+                    {/* <Panel>{tabElm}</Panel>
+                    <Panel>Tabs2</Panel> */}
+                    {panel}
                   </Tabs>
                 </div>
               </div>

@@ -7,7 +7,8 @@ let initialState = {
   checkLogin: false,
   token: "",
   isLoading: false,
-  role_id: 0
+  role_id: 0,
+  isDoneSignUp: false,
 };
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,22 +17,26 @@ let myReducer = (state = initialState, action) => {
       state.checkLogin = true;
       state.isLoading = false;
       return {
-        ...state
+        ...state,
       };
     case types.GET_USER:
       state = { ...action.data };
       state.checkLogin = true;
 
       return {
-        ...state
+        ...state,
       };
     case types.SIGN_UP_SUCCESS:
+      state = { ...action.data };
+      state.checkLogin = true;
+      state.isLoading = false;
+      state.isDoneSignUp = true;
       return {
-        ...state
+        ...state,
       };
     case types.SIGN_UP_FAIL:
       return {
-        ...state
+        ...state,
       };
     default:
       return state;

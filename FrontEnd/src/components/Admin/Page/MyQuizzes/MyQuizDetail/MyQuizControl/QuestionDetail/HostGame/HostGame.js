@@ -1,6 +1,7 @@
 import React from "react";
 import "./HostGame.scss";
-import { Menu, Dropdown, Button, Icon } from "antd";
+import { Menu, Dropdown, Button } from "antd";
+import { Icon } from "@ant-design/compatible";
 import "antd/dist/antd.css";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -15,15 +16,15 @@ class QuizControlHostGame extends React.Component {
       listDay: [
         {
           key: "",
-          name: ""
-        }
+          name: "",
+        },
       ],
       selectDay: {
         key: "",
-        name: ""
+        name: "",
       },
       selectHour: "12",
-      selectMinute: "00"
+      selectMinute: "00",
     };
   }
   componentDidMount() {
@@ -32,7 +33,7 @@ class QuizControlHostGame extends React.Component {
     let listDay = this.getDay();
     this.setState({
       listDay: listDay,
-      selectDay: listDay[1]
+      selectDay: listDay[1],
     });
   }
   onClickGenerateCodeHandler = () => {
@@ -41,10 +42,10 @@ class QuizControlHostGame extends React.Component {
   };
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      ...nextProps.questionTable
+      ...nextProps.questionTable,
     });
   }
-  orderNumber = number => {
+  orderNumber = (number) => {
     switch (number) {
       case 1:
         return `${number}st`;
@@ -75,7 +76,7 @@ class QuizControlHostGame extends React.Component {
       "Sep",
       "Oct",
       "Nov",
-      "Dec"
+      "Dec",
     ];
     let select = [];
     let d = new Date();
@@ -87,7 +88,7 @@ class QuizControlHostGame extends React.Component {
       if (i <= daysInMonth)
         select.push({
           key: `${monthNames[month]}-${this.orderNumber(i)}`,
-          name: `${monthNames[month]} ${this.orderNumber(i)}`
+          name: `${monthNames[month]} ${this.orderNumber(i)}`,
         });
       else {
         let j = i - daysInMonth;
@@ -97,32 +98,32 @@ class QuizControlHostGame extends React.Component {
         } else month++;
         select.push({
           key: `${monthNames[month]}-${this.orderNumber(j)}`,
-          name: `${monthNames[month]} ${this.orderNumber(j)}`
+          name: `${monthNames[month]} ${this.orderNumber(j)}`,
         });
       }
     }
     return select;
   };
-  handleMenuDayClick = event => {
+  handleMenuDayClick = (event) => {
     let { listDay, selectDay } = this.state;
-    let selectName = listDay.find(item => item.key === event.key).name;
+    let selectName = listDay.find((item) => item.key === event.key).name;
     this.setState({
       selectDay: {
         ...selectDay,
-        name: selectName
-      }
+        name: selectName,
+      },
     });
   };
   handleMenuHourClick = (event, listHour) => {
-    let selectName = listHour.find(item => item === event.key);
+    let selectName = listHour.find((item) => item === event.key);
     this.setState({
-      selectHour: selectName
+      selectHour: selectName,
     });
   };
   handleMenuMinuteClick = (event, listMinute) => {
-    let selectName = listMinute.find(item => item === event.key);
+    let selectName = listMinute.find((item) => item === event.key);
     this.setState({
-      selectMinute: selectName
+      selectMinute: selectName,
     });
   };
   render() {
@@ -133,27 +134,27 @@ class QuizControlHostGame extends React.Component {
       selectHour,
       selectMinute,
       title,
-      questions
+      questions,
     } = this.state;
     let listHour = this.getHour();
     let listMinute = ["00", "15", "30", "45"];
     let day = (
       <Menu onClick={this.handleMenuDayClick}>
-        {listDay.map(item => {
+        {listDay.map((item) => {
           return <Menu.Item key={item.key}>{item.name}</Menu.Item>;
         })}
       </Menu>
     );
     const hour = (
-      <Menu onClick={event => this.handleMenuHourClick(event, listHour)}>
-        {listHour.map(hour => {
+      <Menu onClick={(event) => this.handleMenuHourClick(event, listHour)}>
+        {listHour.map((hour) => {
           return <Menu.Item key={hour}>{hour}</Menu.Item>;
         })}
       </Menu>
     );
     const minute = (
-      <Menu onClick={event => this.handleMenuMinuteClick(event, listMinute)}>
-        {listMinute.map(minute => {
+      <Menu onClick={(event) => this.handleMenuMinuteClick(event, listMinute)}>
+        {listMinute.map((minute) => {
           return <Menu.Item key={minute}>{minute}</Menu.Item>;
         })}
       </Menu>
@@ -176,14 +177,14 @@ class QuizControlHostGame extends React.Component {
         <div className="quiz-end-hour-minute">
           <div className="hour">
             <Dropdown overlay={hour} trigger={["click"]}>
-              <Button style={{ width: '100px' }}>
+              <Button style={{ width: "100px" }}>
                 {selectHour} <Icon type="down" />
               </Button>
             </Dropdown>
           </div>
           <div className="minute">
             <Dropdown overlay={minute} trigger={["click"]}>
-              <Button style={{ width: '100px' }}>
+              <Button style={{ width: "100px" }}>
                 {selectMinute} <Icon type="down" />
               </Button>
             </Dropdown>
@@ -208,18 +209,18 @@ class QuizControlHostGame extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    generateCode: question_table_id => {
+    generateCode: (question_table_id) => {
       dispatch(actions.generateCode(question_table_id));
     },
-    showListQuestionAnswer: question_table_id => {
+    showListQuestionAnswer: (question_table_id) => {
       dispatch(actions.showListQuestionAnswer(question_table_id));
-    }
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     questionTable: state.questionTable,
-    user: state.user
+    user: state.user,
   };
 };
 export default connect(

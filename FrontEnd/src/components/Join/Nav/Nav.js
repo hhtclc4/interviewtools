@@ -11,7 +11,8 @@ import {
   faHistory,
 } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import { Menu, Dropdown, Button, Icon } from "antd";
+import { Menu, Dropdown, Button } from "antd";
+import { Icon } from "@ant-design/compatible";
 
 class JoinNav extends React.Component {
   constructor(props) {

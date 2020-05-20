@@ -67,6 +67,30 @@ router.post("/api/quiz_attempt", verifyToken, (req, res) => {
       .catch((err) => console.log(err));
   });
 });
+// signup_user
+router.post("/api/signup_user", (req, res) =>
+  User.findOne({
+    where: {
+      email: req.body.email,
+    },
+  }).then((user) => {
+    if (user !== null)
+      res.send({ type: "error", message: "email have already used !" });
+    else {
+      User.create(req.body).then((data) => {
+        jwt.sign({ user_id: data.id }, "hoangtri", function (err, token) {
+          if (err) res.sendStatus(403);
+          res.send({
+            type: "success",
+            message: "Sign Up Successfully !",
+            data,
+            token: token,
+          });
+        });
+      });
+    }
+  })
+);
 //login check email password
 router.post("/api/login_user", (req, res) =>
   User.findOne({
@@ -93,7 +117,7 @@ router.post("/api/get_user", verifyToken, (req, res) =>
           id: authData.user_id,
         },
         include: Company,
-        attributes: ["name", "email", "phone"],
+        attributes: ["name", "email", "phone", "avatar"],
       })
         .then((data) => res.send(data))
 

@@ -11,7 +11,8 @@ import {
 import { faPlus, faMinus, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../../../redux/actions/index";
-import { Menu, Dropdown, Button, Icon } from "antd";
+import { Menu, Dropdown, Button } from "antd";
+import { Icon } from "@ant-design/compatible";
 
 class CanOverview extends React.Component {
   constructor(props) {
@@ -108,7 +109,6 @@ class CanOverview extends React.Component {
     return listHour;
   };
 
-
   render() {
     let { color, type, source, from, display } = this.props;
     let { data } = this.state;
@@ -183,7 +183,11 @@ class CanOverview extends React.Component {
     return (
       <div
         className={display ? "candidate-overview-container" : "d-none"}
-        style={type === "partion" ? { marginBottom: "8px", borderBottom: 'none' } : {}}
+        style={
+          type === "partion"
+            ? { marginBottom: "8px", borderBottom: "none" }
+            : {}
+        }
       >
         <div
           className="candidate-partions-container d-flex flex-row p-2 justify-content-start"
@@ -201,17 +205,17 @@ class CanOverview extends React.Component {
                 <b>TIME</b>
               </span>
             ) : (
-                // <> {data.interview_time} </>
-                <>
-                  <div className="cni-time-hour">
-                    <Dropdown overlay={hour} trigger={["click"]}>
-                      <Button style={{ top: "0" }}>
-                        {data.interview_time} <Icon type="down" />
-                      </Button>
-                    </Dropdown>
-                  </div>
-                </>
-              )}
+              // <> {data.interview_time} </>
+              <>
+                <div className="cni-time-hour">
+                  <Dropdown overlay={hour} trigger={["click"]}>
+                    <Button style={{ top: "0" }}>
+                      {data.interview_time} <Icon type="down" />
+                    </Button>
+                  </Dropdown>
+                </div>
+              </>
+            )}
           </div>
           <div className="name-partion text-truncate  flex-fill">
             {type === "partion" ? <b>{data.user.name}</b> : data.user.name}
@@ -236,8 +240,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>CV</b>
               ) : (
-                  <FontAwesomeIcon icon={faClipboard} />
-                )}
+                <FontAwesomeIcon icon={faClipboard} />
+              )}
             </button>
           </div>
           <div className="note-partion text-truncate  flex-fill">
@@ -254,14 +258,20 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>NOTE</b>
               ) : (
-                  <FontAwesomeIcon icon={faStickyNote} />
-                )}
+                <FontAwesomeIcon icon={faStickyNote} />
+              )}
             </button>
           </div>
-          <div className="subject-partion text-truncate  flex-fill" style={majorStyle}>
+          <div
+            className="subject-partion text-truncate  flex-fill"
+            style={majorStyle}
+          >
             {type === "partion" ? <b>MAJOR</b> : <>Java</>}
           </div>
-          <div className="level-partion text-truncate  flex-fill" style={majorStyle}>
+          <div
+            className="level-partion text-truncate  flex-fill"
+            style={majorStyle}
+          >
             {type === "partion" ? <b>LEVEL</b> : <>Senior</>}
           </div>
 
@@ -270,7 +280,6 @@ class CanOverview extends React.Component {
             style={from === "control" ? { display: "none" } : {}}
           >
             {actionBtnElm}
-
           </div>
 
           {this.state.isOpenNoteandCV ? (

@@ -32,7 +32,6 @@ class LoginPopup extends React.Component {
     this.setState({
       isLoading: nextProps.login.isLoading,
     });
-    console.log(nextProps);
   }
   render() {
     let { email, password, isLoading } = this.state;
