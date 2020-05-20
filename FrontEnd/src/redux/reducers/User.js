@@ -7,6 +7,7 @@ let initialState = {
     name: "",
     email: "",
     phone: "",
+    avatar: "",
     company: {
       name: "",
       image: "",
@@ -18,7 +19,6 @@ let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_USER:
       state.user = { ...action.data };
-
       return {
         ...state,
       };

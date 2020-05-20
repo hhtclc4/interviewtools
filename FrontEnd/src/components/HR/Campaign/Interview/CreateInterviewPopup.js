@@ -1,7 +1,8 @@
 import React from "react";
 import "./Interview.scss";
-import { Menu, Dropdown, Button, Icon } from "antd";
+import { Menu, Dropdown, Button } from "antd";
 import { withRouter } from "react-router-dom";
+import { Icon } from "@ant-design/compatible";
 
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";

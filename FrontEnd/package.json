@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/compatible": "^1.0.2",
     "@ant-design/icons": "^4.0.5",
     "@bumaga/tabs": "^0.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",

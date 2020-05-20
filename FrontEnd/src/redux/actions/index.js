@@ -34,6 +34,39 @@ export const loginAPI = (state) => {
       });
   };
 };
+export const signUpAPI = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.SIGN_UP_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("res user", res.data);
+        Swal.fire({
+          position: "top",
+          type: res.data.type,
+          title: res.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false,
+        });
+        if (res.data.type === "success") {
+          localStorage.setItem("token", res.data.token);
+          dispatch({
+            type: types.SIGN_UP_SUCCESS,
+            data: res.data.data,
+          });
+        }
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const getUser = () => {
   return (dispatch) => {
     axios({

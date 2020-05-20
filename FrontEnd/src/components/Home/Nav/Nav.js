@@ -18,7 +18,7 @@ class HomeNav extends React.Component {
         name: "",
         email: "",
         role_id: 0,
-        ava: "",
+        avatar: "",
       },
     };
   }
@@ -48,18 +48,18 @@ class HomeNav extends React.Component {
   render() {
     let token = localStorage.getItem("token");
     let { data } = this.state;
-    if (this.state.checkLogin || token) {
-      switch (data.role_id) {
-        case 1:
-          this.props.history.push("/HR");
-          break;
-        case 2:
-          this.props.history.push("/join");
-          break;
-        default:
-          break;
-      }
-    }
+    // if (this.state.checkLogin || token) {
+    //   switch (data.role_id) {
+    //     case 1:
+    //       this.props.history.push("/HR");
+    //       break;
+    //     case 2:
+    //       this.props.history.push("/join");
+    //       break;
+    //     default:
+    //       break;
+    //   }
+    // }
     return (
       <div className="home-nav-container">
         <div className="logo">
@@ -73,22 +73,28 @@ class HomeNav extends React.Component {
           {token ? (
             <div className="login-user">
               <span className="user-ava">
-                <img alt="ava" src={require("../images/default-ava.png")}
+                <img
+                  alt="ava"
+                  src={
+                    data.avatar
+                      ? data.avatar
+                      : require("../images/default-ava.png")
+                  }
                   className="mr-1"
                 />
               </span>
               {data.email}
             </div>
           ) : (
-              <div>
-                <button className="b-log-in" onClick={this.togglePopup}>
-                  Login
+            <div>
+              <button className="b-log-in" onClick={this.togglePopup}>
+                Login
               </button>
-                <button className="b-sign-up" onClick={this.toggleSignupPopup}>
-                  Sign up
+              <button className="b-sign-up" onClick={this.toggleSignupPopup}>
+                Sign up
               </button>
-              </div>
-            )}
+            </div>
+          )}
         </div>
 
         {this.state.loginPopup ? (
