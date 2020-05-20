@@ -8,9 +8,11 @@ $concept-color: #fd7e14;
     .co-company-logo {
         width: 20%;
         min-width: 20%;
+        height: 100%;
         .crop-comp-logo {
             width: 100%;
             overflow: hidden;
+            height: 100%;
             .comp-logo {
                 width: 100%;
                 height: auto;
@@ -54,12 +56,19 @@ $concept-color: #fd7e14;
             text-overflow: ellipsis;
             display: block;
             overflow: hidden;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
             margin-bottom: 1rem;
             flex-grow: 1;
             align-items: center;
+            .work-desc-wrapper {
+                height: 99%;
+                width: 100%;
+                border-top: 1px solid #ddd;
+            }
+
+            .work-desc-editor {
+                overflow: hidden;
+                font-size: 15px;
+            }
         }
         .co-subjects {
             .co-subject {

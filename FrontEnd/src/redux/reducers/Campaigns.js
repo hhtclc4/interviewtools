@@ -43,7 +43,7 @@ let initialState = [
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_CAMPAIGNS:
-      state = [...action.data];
+      state = [...action.data].reverse();
 
       return [...state];
     case types.SHOW_CAMPAIGNS:

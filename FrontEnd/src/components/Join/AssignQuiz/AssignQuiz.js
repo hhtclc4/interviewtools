@@ -117,7 +117,9 @@ class AssignQuiz extends React.Component {
       return <InterviewControl key={interview.id} data={interview} />;
     });
     let quizThumbnailELM = () => {
-      return <QuizThumbnail data={data.question_table} type={1} />;
+      return <QuizThumbnail data={data.question_table} type={1}
+        from="assign"
+      />;
     };
     return (
       <div className="assign-quiz-container d-flex flex-column">
@@ -198,7 +200,14 @@ class AssignQuiz extends React.Component {
               }
             >
               <div className="assign-quiz-create-header">Campaign quiz</div>
-              <div className="assign-quiz-create d-flex flex-column align-items-center">
+              <div className="assign-quiz-create d-flex flex-column align-items-start"
+                style={data.question_table !== null ? {
+                  backgroundColor: '#f2f2f2',
+                  boxShadow: 'none',
+                  padding: '0',
+                  alignItems: 'flex-start'
+                } : {}}
+              >
                 {data.question_table !== null ? (
                   quizThumbnailELM()
                 ) : (
