@@ -4,7 +4,7 @@ $concept-color: #fd7e14;
     height: 300px;
     width: 100%;
     background-color: white;
-    border-bottom: 1px solid #dedede;
+    border-bottom: 1px solid #bfbfbf;
     .co-company-logo {
         width: 20%;
         min-width: 20%;
@@ -13,6 +13,9 @@ $concept-color: #fd7e14;
             width: 100%;
             overflow: hidden;
             height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             .comp-logo {
                 width: 100%;
                 height: auto;

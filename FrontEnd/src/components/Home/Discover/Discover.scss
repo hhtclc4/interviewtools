@@ -1,0 +1,91 @@
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+$selected-tab: #fd7e14;
+$concept-color: #fd7e14;
+$container-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+.discover-page-container {
+    height: 100vh;
+    background-color: #f2f2f2;
+    .discover-main {
+        padding-top: 70px;
+        width: 96%;
+        max-width: 1300px;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        .candidate-job-search-container {
+            box-shadow: $shadow;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 1rem 1em;
+            .candidate-job-search {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                .search-ipt {
+                    border: none;
+                    border-bottom: 1px solid #beabab;
+                    text-indent: 20px;
+                    width: 30%;
+                    font-size: 18px;
+                    font-family: "Open Sans";
+                    margin-right: 10px;
+                }
+
+                .control-select-and-icon {
+                    position: relative;
+                    width: 23%;
+                    .insert-icon {
+                        position: absolute;
+                        top: 22%;
+                        left: 2%;
+                        z-index: 2;
+                    }
+
+                    .ant-select-selection__rendered {
+                        text-indent: 4%;
+                        height: 100%;
+                    }
+
+                    .ant-select.ant-select-enabled {
+                        height: 100%;
+                        .ant-select-selection {
+                            height: 100%;
+                        }
+                    }
+                }
+                .search-btn {
+                    top: 0;
+                    border-radius: 20px;
+                    border: none;
+                    padding: 8px 32px;
+                    color: white;
+                    font-weight: bold;
+                    background-color: $selected-tab;
+                    &:hover {
+                        background-color: #e67300;
+                    }
+                }
+            }
+        }
+
+        .search-result-header {
+            * {
+                font-family: QuickSand;
+                color: #a6a6a6;
+                strong {
+                    color: black;
+                }
+            }
+            border-bottom: 1px solid #cccccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-result-list {
+            height: fit-content;
+            box-shadow: $container-shadow;
+            width: 70%;
+            min-width: 480px;
+            flex-grow: 1;
+        }
+    }
+}

@@ -19,6 +19,7 @@ import ReportDetail from "./components/Admin/Page/Reports/ReportDetail/ReportDet
 import HRCampaign from "./components/HR/Campaign/Campaign";
 
 import DetailRecruit from "./components/Home/HomeBody/DetailRecruit/DetailRecruit";
+import HomeDiscover from './components/Home/Discover/Discover'
 import HRlayout from "./layouts/HR/HR";
 class App extends React.Component {
   render() {
@@ -60,6 +61,7 @@ class App extends React.Component {
             <Route path="/HR" component={HRlayout} />
             <Route path="/campaign/:campaign_id" component={HRCampaign} />
             {/* <Route path="/detail_recruit" component={DetailRecruit} /> */}
+            <Route path="/home/discover" component={HomeDiscover} />
           </Switch>
         </Router>
       </div>

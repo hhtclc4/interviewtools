@@ -1,0 +1,62 @@
+$concept-color: #fd7e14;
+
+.do-container {
+    height: 150px;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid #bfbfbf;
+    padding: 5px;
+    .do-recruit-cover-crop {
+        width: 20%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+
+        img {
+            width: 100%;
+            height: auto;
+            align-self: center;
+        }
+    }
+
+    .do-recruit-info-container {
+        padding: 0 10px;
+        * {
+            font-family: QuickSand;
+        }
+        .do-recruit-title {
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        .do-recruit-company {
+            color: #666666;
+        }
+
+        .do-recruit-detail {
+            .do-salary {
+                span {
+                    padding: 0px 6px;
+                    border-radius: 50%;
+                    border: 0.1em solid $concept-color;
+                    color: $concept-color;
+                }
+            }
+
+            .do-location {
+                span {
+                    padding: 0px 5px;
+                    border-radius: 50%;
+                    border: 0.1em solid $concept-color;
+                    color: $concept-color;
+                }
+            }
+
+            .do-post-time {
+                span {
+                    color: $concept-color;
+                }
+            }
+        }
+    }
+}
