@@ -31,7 +31,22 @@ const data = {
   },
   question_table_id: 1,
 };
-
+// router.post("/api/teleport", (req, res) => {
+//   let arr = req.body.title.split(" ");
+//   for (let i = 0; i < arr.length; i++)
+//     if (arr[i] === "") {
+//       arr.splice(i, 1);
+//       i--;
+//     }
+//   let query = `question_table.title LIKE CONCAT('%', '${arr[0]}' , '%')`;
+//   for (let i = 1; i < arr.length; i++)
+//     query += ` or question_table.title LIKE CONCAT('%', '${arr[i]}' , '%')`;
+//   db.query(`Select * from question_table where ${query}`, {
+//     type: Sequelize.QueryTypes.SELECT,
+//   }).then(function (question_table) {
+//     res.send(question_table);
+//   });
+// });
 router.post("/api/teleport", (req, res) => {
   var arr = req.body.title.split(" ");
   for (let i = 0; i < arr.length; i++)

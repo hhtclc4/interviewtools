@@ -145,6 +145,28 @@ export const showListCampaignOfInterviewer = () => {
     type: types.SHOW_CAMPAIGNS,
   };
 };
+export const searchCampaigns = (search) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.SEARCH_CAMPAIGN_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data: { search },
+    })
+      .then((res) => {
+        console.log("res Search campaign", res.data);
+        // dispatch({
+        //   type: types.GET_CAMPAIGNS,
+        //   data: res.data,
+        // });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const showListCampaign = () => {
   return (dispatch) => {
     axios({

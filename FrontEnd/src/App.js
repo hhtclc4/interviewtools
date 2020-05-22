@@ -17,8 +17,8 @@ import Recruit from "./layouts/Recruit/Recruit";
 import ReportDetail from "./components/Admin/Page/Reports/ReportDetail/ReportDetail";
 
 import HRCampaign from "./components/HR/Campaign/Campaign";
+import DetailRecruitLayout from "./layouts/DetailRecruit/DetailRecruit";
 
-import DetailRecruit from "./components/Home/HomeBody/DetailRecruit/DetailRecruit";
 import HRlayout from "./layouts/HR/HR";
 class App extends React.Component {
   render() {
@@ -27,6 +27,11 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/detail_recruit/:campaign_id"
+              component={DetailRecruitLayout}
+            />
             <Route path="/quiz/:question_table_id" component={QuizCreator} />}
             />
             <Route path="/join">
@@ -48,10 +53,6 @@ class App extends React.Component {
               component={ReviewAttempt}
             />
             <Route path="/settings" component={UserSettings} />
-            {/* <Route
-              path="/signup"
-              component = {SignUp}
-            /> */}
             <Route path="/recruit_create" component={Recruit} />
             <Route
               path="/admin/reports/report_detail"
@@ -59,7 +60,6 @@ class App extends React.Component {
             />
             <Route path="/HR" component={HRlayout} />
             <Route path="/campaign/:campaign_id" component={HRCampaign} />
-            {/* <Route path="/detail_recruit" component={DetailRecruit} /> */}
           </Switch>
         </Router>
       </div>

@@ -10,6 +10,7 @@ let initialState = {
   user_id: 0,
   work_description: "",
   status: true,
+
   subjects: [
     {
       id: 0,
@@ -20,6 +21,9 @@ let initialState = {
     name: "",
     email: "",
     phone: "",
+    company: {
+      address: "",
+    },
   },
   level: {
     id: 0,

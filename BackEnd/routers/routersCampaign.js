@@ -18,12 +18,14 @@ const Level = require("../models/Level");
 const Interview = require("../models/Interview");
 const Company = require("../models/Company");
 const Sequelize = require("sequelize");
+const db = require("../database");
 
 const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 
 ///////////////////////////////////////////
+
 router.get("/api/campaign", (req, res) =>
   Campaign.findAll({
     include: [{ model: User, attributes: ["name", "email", "phone"] }, Subject],
@@ -31,6 +33,40 @@ router.get("/api/campaign", (req, res) =>
     .then((data) => res.send(data))
     .catch((err) => console.log(err))
 );
+router.post("/api/search_campaign", async (req, res) => {
+  //set string become an array
+  let arr = req.body.search.split(" ");
+  for (let i = 0; i < arr.length; i++)
+    if (arr[i] === "") {
+      arr.splice(i, 1);
+      i--;
+    }
+  let query = `campaign.title LIKE CONCAT('%', '${arr[0]}' , '%')`;
+  for (let i = 1; i < arr.length; i++)
+    query += ` or campaign.title LIKE CONCAT('%', '${arr[i]}' , '%')`;
+
+  let search_campaign = () =>
+    db
+      .query(`Select campaign.id from campaign where ${query}`, {
+        type: Sequelize.QueryTypes.SELECT,
+      })
+      .then((campaign) => {
+        let listID = [];
+        //get list id: [1,2,3]
+        for (let i = 0; i < campaign.length; i++) listID.push(campaign[i].id);
+        return listID;
+      });
+  let listCampaign = await search_campaign();
+
+  Campaign.findAll({
+    where: {
+      id: { [Op.in]: listCampaign },
+    },
+    include: [{ model: User, attributes: ["name", "email", "phone"] }, Subject],
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+});
 router.post("/api/campaign_of_interviewer", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
@@ -84,7 +120,7 @@ router.post("/api/campaign", (req, res) =>
       id: req.body.campaign_id,
     },
     include: [
-      { model: User, attributes: ["name", "email", "phone"] },
+      { model: User, include: Company, attributes: ["name", "email", "phone"] },
       Subject,
       Work_Type,
       Level,
