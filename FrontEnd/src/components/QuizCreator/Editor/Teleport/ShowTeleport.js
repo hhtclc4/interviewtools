@@ -9,11 +9,13 @@ import QuizOverview from "./QuizOverview";
 import QuestionList from "./QuestionList";
 import Swal from "sweetalert2";
 
+let isCount = 0;
 class Teleport extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "default name",
+      search: "default name",
+      isMount: true,
       tableArr: [
         {
           id: 0,
@@ -22,14 +24,26 @@ class Teleport extends React.Component {
           image: null,
           subject: {
             id: 0,
-            title: ""
+            title: "",
+          },
+          campaign: {
+            id: 0,
+            level: {
+              name: "",
+            },
+            subjects: [
+              {
+                id: 0,
+                title: "",
+              },
+            ],
           },
           grade_begin: null,
           grade_end: null,
           user: {
-            name: ""
-          }
-        }
+            name: "",
+          },
+        },
       ],
       questionArr: [
         {
@@ -41,75 +55,75 @@ class Teleport extends React.Component {
             {
               id: 0,
               answer: "",
-              is_right: 0
-            }
-          ]
+              is_right: 0,
+            },
+          ],
         },
-        {
-          id: -1,
-          question: "",
-          type: 0,
-          time: 30,
-          question_choices: [
-            {
-              id: 0,
-              answer: "",
-              is_right: 0
-            }
-          ]
-        }
       ],
-      activeChild: -1
+      activeChild: -1,
     };
   }
   componentDidMount() {
     let { title } = this.props;
     this.setState({
-      title: title
+      search: title,
     });
-    this.props.teleportQuestionAndAnswersAPI(title);
+    this.props.teleportQuestionAndAnswersAPI(this.props.title);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.teleport.length)
+    if (nextProps.teleport.length) {
       this.setState({
         tableArr: [...nextProps.teleport],
-        questionArr: [...nextProps.teleport[0].questions]
       });
-    else
+      if (isCount === 0 || this.state.isMount) {
+        this.setState({
+          questionArr: [...nextProps.teleport[0].questions],
+        });
+        isCount++;
+        if (this.state.isMount)
+          this.setState({
+            isMount: false,
+          });
+      }
+    } else
       Swal.fire({
         position: "top",
         type: "warning",
         title: "None quiz found !!",
         showConfirmButton: false,
         timer: 1500,
-        heightAuto: false
+        heightAuto: false,
       });
   }
-  onClickGenerateQuestionHandler = questions => {
+  onClickGenerateQuestionHandler = (questions) => {
     this.setState({
-      questionArr: [...questions]
+      questionArr: [...questions],
     });
   };
-  onChangeSearchHandler = event => {
+  onChangeSearchHandler = (event) => {
     let value = event.target.value;
     let name = event.target.name;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
   onClickSearchHandler = () => {
-    this.props.teleportQuestionAndAnswersAPI(this.state.title);
+    isCount = 0;
+    this.props.teleportQuestionAndAnswersAPI(this.state.search);
   };
 
-  callbackFromChild = activeChild => {
+  callbackFromChild = (activeChild) => {
     this.setState({
-      activeChild: activeChild
+      activeChild: activeChild,
     });
   };
   render() {
-    let { title, tableArr, questionArr, activeChild } = this.state;
+    let { search, tableArr, questionArr, activeChild, isMount } = this.state;
     let defaultActive = tableArr[0].id;
-    let tableElm = tableArr.map(quiz => {
+    // if (isMount) {
+    //   this.props.teleportQuestionAndAnswersAPI(this.props.title);
+    // }
+    let tableElm = tableArr.map((quiz) => {
       return (
         <QuizOverview
           quiz={quiz}
@@ -129,8 +143,8 @@ class Teleport extends React.Component {
               <input
                 className="default-by-name-input"
                 type="text"
-                value={title}
-                name="title"
+                value={search}
+                name="search"
                 onChange={this.onChangeSearchHandler}
               />
               <FontAwesomeIcon
@@ -151,7 +165,7 @@ class Teleport extends React.Component {
           <div className="teleport-body flex-grow-1 d-flex flex-row pl-2 pt-2">
             <div className="teleport-quiz-list pb-2 pr-2">
               <p>
-                Showing the result of <b>{title}</b>
+                Showing the result of <b>{search}</b>
               </p>
               {tableArr.length ? tableElm : null}
             </div>
@@ -159,7 +173,7 @@ class Teleport extends React.Component {
 ////////////////////////////
 /////////////////////////////// */}
             <div className="teleport-question-of-quiz flex-grow-1 p-2">
-              {questionArr[0].id !== 0 ? (
+              {questionArr[0].id !== 0 || questionArr !== [] ? (
                 <QuestionList
                   question_table_id={this.props.match.params.question_table_id}
                   questionArr={questionArr}
@@ -175,15 +189,15 @@ class Teleport extends React.Component {
 const mapDispatchToProps = (dispatch, props) => {
   // connect to redux by function, load data from data base, this is step 2
   return {
-    teleportQuestionAndAnswersAPI: title => {
-      dispatch(actions.teleportQuestionAndAnswersAPI(title));
-    }
+    teleportQuestionAndAnswersAPI: (search) => {
+      dispatch(actions.teleportQuestionAndAnswersAPI(search));
+    },
   };
 };
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   //connect to redux by props, loadded data store here, this is step 3
   return {
-    teleport: state.teleport
+    teleport: state.teleport,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Teleport);

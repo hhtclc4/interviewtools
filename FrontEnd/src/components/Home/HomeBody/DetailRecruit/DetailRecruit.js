@@ -16,6 +16,7 @@ class DetailRecruit extends React.Component {
     this.state = {
       showSendCVPopUp: false,
       isSendCvBefore: false,
+      campaign_id: this.props.match.params.campaign_id,
       data: {
         id: 0,
         title: "",
@@ -33,6 +34,11 @@ class DetailRecruit extends React.Component {
         candidate_req: "",
         candidate_benefits: "",
         location: "",
+        user: {
+          company: {
+            address: "",
+          },
+        },
         subjects: [
           {
             id: 0,
@@ -43,9 +49,10 @@ class DetailRecruit extends React.Component {
     };
   }
   componentDidMount() {
-    let id = localStorage.getItem("campaign_id");
-    this.props.showCampaign(id);
-    this.props.checkIfCandidateSendCVBefore(id);
+    // let campaign_id = localStorage.getItem("campaign_id");
+    let { campaign_id } = this.state;
+    this.props.showCampaign(campaign_id);
+    this.props.checkIfCandidateSendCVBefore(campaign_id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
@@ -146,7 +153,7 @@ class DetailRecruit extends React.Component {
                         size="lg"
                       />
                     </span>
-                    <p>{data.location}</p>
+                    <p>{data.user.company.address}</p>
                   </div>
                   <button
                     disabled={isSendCvBefore}

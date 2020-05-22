@@ -18,6 +18,7 @@ const Level = require("../models/Level");
 const Interview = require("../models/Interview");
 const { Op } = require("sequelize");
 const Sequelize = require("sequelize");
+const db = require("../database");
 
 const jwt = require("jsonwebtoken");
 
@@ -31,21 +32,34 @@ const data = {
   },
   question_table_id: 1,
 };
-
-router.post("/api/teleport", (req, res) => {
-  var arr = req.body.title.split(" ");
+router.post("/api/teleport", async (req, res) => {
+  //set string become an array
+  let arr = req.body.search.split(" ");
   for (let i = 0; i < arr.length; i++)
     if (arr[i] === "") {
       arr.splice(i, 1);
       i--;
     }
+  let query = `quiz.title LIKE CONCAT('%', '${arr[0]}' , '%')`;
+  for (let i = 1; i < arr.length; i++)
+    query += ` or quiz.title LIKE CONCAT('%', '${arr[i]}' , '%')`;
+
+  let search_quiz = () =>
+    db
+      .query(`Select quiz.id from question_table as quiz where ${query}`, {
+        type: Sequelize.QueryTypes.SELECT,
+      })
+      .then((quiz) => {
+        let listID = [];
+        //get list id: [1,2,3]
+        for (let i = 0; i < quiz.length; i++) listID.push(quiz[i].id);
+        return listID;
+      });
+  let listQuiz = await search_quiz();
+
   QuestionTable.findAll({
     where: {
-      title: {
-        // regular expression // bất kì phần tử nào trong 'a|b|c'
-
-        [Op.regexp]: `^${arr.join("|")}`,
-      },
+      id: { [Op.in]: listQuiz },
       is_public: 1,
       is_finish: 1,
     },
@@ -55,12 +69,46 @@ router.post("/api/teleport", (req, res) => {
         include: QuestionChoices,
       },
       { model: User, attributes: ["name"] },
+      {
+        model: Campaign,
+        include: [Subject, Level],
+        attributes: ["id"],
+      },
     ],
     attributes: ["id", "title", "grade_begin", "grade_end", "image"],
   })
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
 });
+// router.post("/api/teleport", (req, res) => {
+//   var arr = req.body.title.split(" ");
+//   for (let i = 0; i < arr.length; i++)
+//     if (arr[i] === "") {
+//       arr.splice(i, 1);
+//       i--;
+//     }
+//   QuestionTable.findAll({
+//     where: {
+//       title: {
+//         // regular expression // bất kì phần tử nào trong 'a|b|c'
+
+//         [Op.regexp]: `^${arr.join("|")}`,
+//       },
+//       is_public: 1,
+//       is_finish: 1,
+//     },
+//     include: [
+//       {
+//         model: Question,
+//         include: QuestionChoices,
+//       },
+//       { model: User, attributes: ["name"] },
+//     ],
+//     attributes: ["id", "title", "grade_begin", "grade_end", "image"],
+//   })
+//     .then((data) => res.send(data))
+//     .catch((err) => console.log(err));
+// });
 //get QuestionTable list
 router.get("/api/questiontable", (req, res) =>
   QuestionTable.findAll()

@@ -13,6 +13,7 @@ class HomeBody extends React.Component {
     super(props);
     this.state = {
       hotTabsCount: 4,
+      search: "",
       data: [
         {
           id: 0,
@@ -47,10 +48,20 @@ class HomeBody extends React.Component {
   }
   onClickThumbnailHandler = (id) => {
     localStorage.setItem("campaign_id", id);
-    this.props.history.push("/detail_recruit");
+    this.props.history.push(`/detail_recruit/${id}`);
+  };
+  onClickSearchCampaignHandler = () => {
+    let { search } = this.state;
+    this.props.searchCampaigns(search);
+  };
+  onChangeInputHandler = (event) => {
+    let { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
   };
   render() {
-    let { data } = this.state;
+    let { data, search } = this.state;
 
     let panel = [];
     let campaignEml = [];
@@ -77,8 +88,19 @@ class HomeBody extends React.Component {
           <div className="col-lg-8 py-3 px-0">
             <div className="candidate-job-search-container mx-3 mb-5">
               <div className="candidate-job-search">
-                <input className="search-ipt" placeholder="Search jobs ..." />
-                <button className="search-btn">Search</button>
+                <input
+                  name="search"
+                  value={search}
+                  onChange={this.onChangeInputHandler}
+                  className="search-ipt"
+                  placeholder="Search jobs ..."
+                />
+                <button
+                  className="search-btn"
+                  onClick={this.onClickSearchCampaignHandler}
+                >
+                  Search
+                </button>
               </div>
             </div>
             <div className="candidate-job-seek container-fluid">
@@ -149,6 +171,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListCampaign: () => {
       dispatch(actions.showListCampaign());
+    },
+    searchCampaigns: (search) => {
+      dispatch(actions.searchCampaigns(search));
     },
   };
 };

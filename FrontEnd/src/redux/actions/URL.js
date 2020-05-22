@@ -31,6 +31,8 @@ export const USER_ATTEMPT_API_URL = `${domain}/api/quiz_attempt`;
 export const CHECK_USER_DO_QUIZ_API_URL = `${domain}/api/is_user_did_table`;
 export const GET_COMPLETED_TABLE = `${domain}/api/get_completed_table`;
 // campaign - group_campaign
+
+export const SEARCH_CAMPAIGN_API_URL = `${domain}/api/search_campaign`;
 export const CREATE_CAMPAIGN_API_URL = `${domain}/api/create_campaign`;
 export const CAMPAIGN_API_URL = `${domain}/api/campaign`;
 export const INTERVIEWER_CAMPAIGN_API_URL = `${domain}/api/campaign_of_interviewer`;
