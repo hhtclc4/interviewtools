@@ -4,6 +4,8 @@ import { Tabs, Panel } from "../../../../utils/Tab/Tabs";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import CanOverview from "../Interview/Control/CandidateOverview/CanOverview";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCubes, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 class HRCandidate extends React.Component {
   constructor(props) {
     super(props);
@@ -116,7 +118,9 @@ class HRCandidate extends React.Component {
           <hr />
           <div className="hr-can-body-tabs">
             <Tabs selected={0}>
-              <Panel title="Applied">
+              <Panel title="Applied"
+                iconAwe={<FontAwesomeIcon icon={faEnvelopeOpen} color="#337ab7" />}
+              >
                 <CanOverview
                   from="hr"
                   source="apply"
@@ -126,7 +130,9 @@ class HRCandidate extends React.Component {
                 />
                 {availableApplyEml}
               </Panel>
-              <Panel title="Collected">
+              <Panel title="Collected"
+                iconAwe={<FontAwesomeIcon icon={faCubes} color="#337ab7" />}
+              >
                 <CanOverview
                   from="hr"
                   source="collect"

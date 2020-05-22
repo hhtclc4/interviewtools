@@ -17,7 +17,7 @@
         min-height: 100%;
 
         .page-title {
-            color: #292A3A;
+            color: #292a3a;
             font-family: QuickSand;
         }
 
@@ -29,10 +29,10 @@
             border-radius: 10px;
             padding: 10px;
             padding-bottom: 0;
-
+            box-shadow: 0 4px 0 0 #e5e5e5;
             .set-section-name {
                 font-family: "PT Sans Caption";
-                color: #B69DB8;
+                color: #b69db8;
                 margin-bottom: 10px;
             }
 
@@ -54,7 +54,7 @@
                     }
 
                     .set-section-content {
-                        color: #AAA9C4;
+                        color: #aaa9c4;
                         font-size: 15px;
                     }
                 }
@@ -85,10 +85,10 @@
             border-radius: 10px;
             padding: 10px;
             padding-bottom: 0;
-
+            box-shadow: 0 4px 0 0 #e5e5e5;
             .set-section-name {
                 font-family: "PT Sans Caption";
-                color: #B69DB8;
+                color: #b69db8;
                 margin-bottom: 10px;
             }
 
@@ -102,6 +102,9 @@
                     font-weight: 600;
                     font-family: QuickSand;
                 }
+            }
+            .set-upgrade-role-section {
+                @extend .set-update-pass-section;
             }
 
             .set-delete-section {
@@ -163,14 +166,14 @@
         padding: 0;
         z-index: 15;
         padding: 10px;
-        animation: animatebottomSetPopUp 0.4s ease ;
+        animation: animatebottomSetPopUp 0.4s ease;
 
         @keyframes animatebottomSetPopUp {
             from {
                 bottom: -300px;
                 opacity: 0;
             }
-        
+
             to {
                 bottom: 0;
                 opacity: 1;
@@ -191,7 +194,5 @@
                 @extend .set-cancel-btn;
             }
         }
-
-
     }
 }

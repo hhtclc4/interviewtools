@@ -6,6 +6,9 @@ import { withRouter } from "react-router-dom";
 
 import LoginPopup from "../LoginPopup/LoginPopup";
 import SignupPopup from "../SignupPopup/SignupPopup";
+import { Menu, Dropdown, Button } from 'antd';
+
+import { Icon } from "@ant-design/compatible";
 class HomeNav extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +24,8 @@ class HomeNav extends React.Component {
         avatar: "",
       },
     };
+
+
   }
   componentDidMount() {
     let token = localStorage.getItem("token");
@@ -45,6 +50,10 @@ class HomeNav extends React.Component {
     });
     console.log(nextProps);
   }
+
+  dropUserActions = (e) => {
+    this.drop.click();
+  }
   render() {
     let token = localStorage.getItem("token");
     let { data } = this.state;
@@ -60,6 +69,20 @@ class HomeNav extends React.Component {
     //       break;
     //   }
     // }
+
+    const userActions = (
+      <Menu>
+        <Menu.Item>
+          1st menu item
+        </Menu.Item>
+        <Menu.Item>
+          2nd menu item
+        </Menu.Item>
+        <Menu.Item>
+          Log out
+        </Menu.Item>
+      </Menu>
+    );
     return (
       <div className="home-nav-container">
         <div className="logo">
@@ -71,30 +94,40 @@ class HomeNav extends React.Component {
         </div>
         <div className="button-group">
           {token ? (
-            <div className="login-user">
-              <span className="user-ava">
-                <img
-                  alt="ava"
-                  src={
-                    data.avatar
-                      ? data.avatar
-                      : require("../images/default-ava.png")
-                  }
-                  className="mr-1"
-                />
-              </span>
-              {data.email}
-            </div>
+
+            <Dropdown overlay={userActions}
+              placement="bottomRight"
+              trigger={["click"]}
+            >
+              <Button style={{ top: 0 }}
+              >
+                <div className="login-user">
+                  <span className="user-ava">
+                    <img
+                      alt="ava"
+                      src={
+                        data.avatar
+                          ? data.avatar
+                          : require("../images/default-ava.png")
+                      }
+                      className="mr-1"
+                    />
+                  </span>
+                  {data.email}
+                </div>
+              </Button>
+            </Dropdown>
+
           ) : (
-            <div>
-              <button className="b-log-in" onClick={this.togglePopup}>
-                Login
+              <div>
+                <button className="b-log-in" onClick={this.togglePopup}>
+                  Login
               </button>
-              <button className="b-sign-up" onClick={this.toggleSignupPopup}>
-                Sign up
+                <button className="b-sign-up" onClick={this.toggleSignupPopup}>
+                  Sign up
               </button>
-            </div>
-          )}
+              </div>
+            )}
         </div>
 
         {this.state.loginPopup ? (

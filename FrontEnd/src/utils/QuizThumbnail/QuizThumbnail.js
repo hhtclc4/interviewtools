@@ -124,7 +124,8 @@ class QuizThumbnail extends React.Component {
   };
   render() {
     let { isCompleted, isRunning, accuracy } = this.state;
-    let { data } = this.props;
+    let { data, from } = this.props;
+    console.log(from)
     let image_index =
       this.props.image_index !== undefined ? this.props.image_index : 0;
     let color = this.accuracyColor(accuracy);
@@ -132,7 +133,8 @@ class QuizThumbnail extends React.Component {
     let userName = "Hoang";
 
     return (
-      <div className="quiz-thumbnail-wrapper">
+      <div className="quiz-thumbnail-wrapper"
+      >
         <div
           className="quiz-thumbnail-container"
           style={isCompleted ? { height: "280px" } : { height: "240px" }}

@@ -3,6 +3,8 @@ import "./LoginPopup.scss";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import { Link, withRouter } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 class LoginPopup extends React.Component {
   constructor(props) {
@@ -38,10 +40,24 @@ class LoginPopup extends React.Component {
 
     return (
       <div className="login-popup">
+        <div className="login-cover-crop">
+          <img alt="cover" src={require("../images/signupcover.png")} />
+        </div>
         <div className="login-popup_inner">
           <form onSubmit={this.onSubmitHandler} className="form-info">
             <div className="login-popup-header">
-              <p>LOGIN</p>
+              <p><strong>LOGIN</strong></p>
+              <button
+                className="b-close"
+                type="button"
+                onClick={this.props.togglePopup}
+              >
+                <FontAwesomeIcon
+                  icon={faTimes}
+                  size="1x"
+                  color="#ff4d4d"
+                />
+              </button>
             </div>
             <div className="login-popup-body">
               <div className="form-field">
@@ -73,25 +89,22 @@ class LoginPopup extends React.Component {
               <div className="form-field">
                 <div className="button-group">
                   <button type="submit" className="btn-login">
-                    <div
-                      className={isLoading ? "fa fa-spinner fa-spin" : ""}
-                    ></div>
+                    {isLoading ? <div><FontAwesomeIcon icon={faSpinner} spin /></div> : null}
                     LOGIN
                   </button>
 
-                  <button
+                  {/* <button
                     className="b-close"
                     type="button"
                     onClick={this.props.togglePopup}
                   >
                     Close
-                  </button>
+                  </button> */}
                 </div>
               </div>
-              <div className="create-new-acc">
-                <Link to="/signup" className="link">
-                  Create an account
-                </Link>
+              <div className="create-new-acc d-flex flex-row justify-content-center mt-2">
+                <p>Don't have an account</p>
+                <button className="signup-btn">Sign up</button>
               </div>
             </div>
           </form>

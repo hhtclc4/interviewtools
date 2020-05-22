@@ -19,7 +19,7 @@
   }
 
   .button-group {
-    padding: 8px 0;
+    padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -43,7 +43,6 @@
       font-weight: bold;
       background-color: #00c985;
       box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 #00c985, 0 4px 6px rgba(0, 0, 0, 0.45);
-      top: 0;
     }
 
     button:hover {
@@ -54,14 +53,48 @@
 
     .login-user {
       font-weight: 550;
+      padding: 2px 0px;
       padding-right: 10px;
+      height: fit-content;
       .user-ava {
-        border-radius: 50%;
         img {
           height: 40px;
           width: 40px;
+          border-radius: 50%;
         }
       }
+
+      &:hover {
+        background-color: #ddd;
+        border-radius: 22px;
+      }
+    }
+
+    .ant-btn.ant-dropdown-trigger {
+      border-radius: 50%;
+      padding: 5px;
+      color: gray;
+      height: fit-content;
+      margin: 0px;
+      background-color: transparent;
+      font-weight: 900;
+      outline: none;
+    }
+
+    .ant-btn.ant-dropdown-trigger:hover {
+      color: #fd7e14;
+    }
+
+    [ant-click-animating-without-extra-node]:after {
+      -webkit-animation: none !important;
+      -moz-animation: none !important;
+      -o-animation: none !important;
+      -ms-animation: none !important;
+      animation: none !important;
+    }
+
+    .ant-btn.ant-dropdown-trigger.ant-dropdown-open {
+      color: #fd7e14;
     }
   }
 }

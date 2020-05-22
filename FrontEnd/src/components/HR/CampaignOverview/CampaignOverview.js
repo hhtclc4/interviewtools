@@ -6,7 +6,11 @@ import {
   faMapMarkerAlt,
   faPencilAlt,
   faTrashAlt,
+  faScroll,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { EditorState, convertToRaw, convertFromHTML, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
 import { withRouter } from "react-router-dom";
 
 class CampaignOverview extends React.Component {
@@ -58,6 +62,13 @@ class CampaignOverview extends React.Component {
   render() {
     let { data } = this.state;
     let { image_index } = this.props;
+
+    const sampleMarkup = data.work_description;
+    const blocksFromHTML = convertFromHTML(sampleMarkup);
+    const textState = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap,
+    );
     return (
       <div className="campaign-overview-container d-flex flex-row p-2">
         <div className="co-company-logo align-self-center p-2">
@@ -69,7 +80,7 @@ class CampaignOverview extends React.Component {
                 data.image !== null
                   ? data.image
                   : require(`../../../utils/campaign_img/campain_pic${
-                      image_index % 7
+                    image_index % 7
                     }.png`)
               }
             />
@@ -88,8 +99,16 @@ class CampaignOverview extends React.Component {
             </p>
           </div>
 
-          <div className="co-job-desc d-flex align-items-center">
-            {data.work_description}
+          <div className="co-job-desc d-flex flex-column">
+            <p className="align-self-start" style={{ fontSize: '15px' }}><span className="mr-2"><FontAwesomeIcon icon={faScroll} color="#fd7e14" /></span>Work description</p>
+            <Editor
+              wrapperClassName="work-desc-wrapper"
+              editorClassName="work-desc-editor"
+              toolbarClassName="d-none"
+              editorState={EditorState.createWithContent(
+                textState
+              )}
+            />
           </div>
           <div className="co-subjects d-flex flex-row">
             {data.subjects.map((subject) => {

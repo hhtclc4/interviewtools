@@ -1,3 +1,5 @@
+$concept-color: #fd7e14;
+
 .hr-nav-container {
   height: 56px;
   width: 100%;
@@ -10,4 +12,13 @@
   z-index: 10;
   //border-bottom: 2px solid #c4c4c4;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+  .hr-create-campaign-btn {
+    border: none;
+    border-radius: 5px;
+    background-color: $concept-color;
+    color: white;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 $concept-color, 0 4px 6px rgba(0, 0, 0, 0.45);
+    height: 40px;
+    font-weight: bold;
+  }
 }
