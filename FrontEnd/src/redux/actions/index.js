@@ -527,7 +527,7 @@ export const getCompletedInterviews = () => {
   };
 };
 /////////////////////// question table
-export const teleportQuestionAndAnswersAPI = (title) => {
+export const teleportQuestionAndAnswersAPI = (search) => {
   return (dispatch) => {
     axios({
       method: "post",
@@ -535,7 +535,7 @@ export const teleportQuestionAndAnswersAPI = (title) => {
       headers: {
         "content-type": "application/json",
       },
-      data: { title },
+      data: { search },
     })
       .then((res) => {
         console.log("res teleport", res);

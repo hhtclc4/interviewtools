@@ -15,29 +15,41 @@ class QuizOverview extends React.Component {
         image: null,
         subject: {
           id: 0,
-          title: ""
+          title: "",
+        },
+        campaign: {
+          id: 0,
+          level: {
+            name: "",
+          },
+          subjects: [
+            {
+              id: 0,
+              title: "",
+            },
+          ],
         },
         grade_begin: null,
         grade_end: null,
         user: {
-          name: ""
-        }
+          name: "",
+        },
       },
-      active: 0
+      active: 0,
     };
   }
   componentDidMount() {
     let { quiz } = this.props;
     this.setState({
-      quiz: quiz
+      quiz: quiz,
     });
   }
-  onClickGenerateQuestionHandler = questions => {
+  onClickGenerateQuestionHandler = (questions) => {
     let change = this.state.quiz;
     change.questions = questions;
   };
 
-  sendActive = activeId => {
+  sendActive = (activeId) => {
     this.props.parentCallBack(activeId);
   };
   render() {
@@ -79,11 +91,15 @@ class QuizOverview extends React.Component {
           </div>
           <div className="mr-2 text-truncate" style={{ flexBasis: "33%" }}>
             <FontAwesomeIcon icon={faBookmark} size="sm" className="mr-2" />
-            {quiz.subject.title}
+            {quiz.campaign !== null
+              ? quiz.campaign.subjects.map((sub) => {
+                  return `${sub.title} `;
+                })
+              : "None Subjects"}
           </div>
           <div className="mr-2 text-truncate" style={{ flexBasis: "33%" }}>
             <FontAwesomeIcon icon={faBook} size="sm" className="mr-2" />
-            {quiz.grade_begin}
+            {quiz.campaign !== null ? quiz.campaign.level.name : "None"}
           </div>
         </div>
       </div>
