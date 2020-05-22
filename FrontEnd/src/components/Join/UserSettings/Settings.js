@@ -57,7 +57,7 @@ class UserSettings extends React.Component {
                 break;
             }
 
-            case "password":{
+            case "password": {
                 this.setState({
                     isShowPasswordEdit: !this.state.isShowPasswordEdit
                 });
@@ -130,6 +130,11 @@ class UserSettings extends React.Component {
                         <div className="set-section-name">
                             <span style={{ marginRight: '10px' }}><FontAwesomeIcon icon={faCogs} color="#FD7E14" /></span>
                             Account settings
+                        </div>
+
+                        <div className="set-upgrade-role-section">
+                            <div className="sec-title">Update role</div>
+                            <span><FontAwesomeIcon icon={faChevronRight} /></span>
                         </div>
 
                         <div className="set-update-pass-section" onClick={() => { this.togglePopups("password") }}>

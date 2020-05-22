@@ -34,6 +34,7 @@ class SignupPopup extends React.Component {
       },
     };
   }
+
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       isLoading: nextProps.login.isLoading,
@@ -101,6 +102,7 @@ class SignupPopup extends React.Component {
       isWrongConfirmPass,
       isDoneSignUp,
     } = this.state;
+    console.log(data)
     if (isDoneSignUp) {
       this.props.togglePopup();
       return <div></div>;
@@ -109,8 +111,8 @@ class SignupPopup extends React.Component {
         <div className="signup-pop-container">
           <div className="signup-pop-inner-container">
             <div className="row" style={{ height: "100%", width: "100%" }}>
-              <div className="col-sm-3"></div>
-              <div className="col-md-6 d-flex flex-column justify-content-center">
+              <div className="col-sm-4"></div>
+              <div className="col-md-4 d-flex flex-column justify-content-center">
                 <div
                   className="signup-pop-inner-crop"
                   style={isShowSignup ? { height: "20%" } : {}}
@@ -176,6 +178,7 @@ class SignupPopup extends React.Component {
                               isShowSignup: true,
                             });
                           }}
+                          autoComplete="off"
                         />
                       </div>
                       <div
@@ -279,8 +282,8 @@ class SignupPopup extends React.Component {
                             placeholder="Enter your phone number ..."
                           />
                         </div>
-                        <div>
-                          <button onClick={this.onClickSignUp}>Sign Up</button>
+                        <div className="signup-btn">
+                          <button onClick={this.onClickSignUp}>Sign up</button>
                         </div>
                       </div>
                     </div>
@@ -291,7 +294,7 @@ class SignupPopup extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="col-sm-3"></div>
+              <div className="col-sm-4"></div>
             </div>
           </div>
         </div>
