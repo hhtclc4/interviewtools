@@ -22,8 +22,6 @@ class QuizCreate extends React.Component {
   componentDidMount() {
     let { data } = this.state;
     let campaign_id = localStorage.getItem("campaign_id");
-
-    console.log(campaign_id);
     if (campaign_id) {
       this.setState({
         data: {
