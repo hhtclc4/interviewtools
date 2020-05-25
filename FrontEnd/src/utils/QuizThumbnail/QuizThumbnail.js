@@ -28,7 +28,6 @@ class QuizThumbnail extends React.Component {
   }
   componentDidMount() {
     let { data, isCompleted } = this.props;
-    if (this.props.type === 1) console.log("11111111111111", data);
     if (typeof isCompleted !== "undefined") {
       this.setState({
         isCompleted: isCompleted,
@@ -124,8 +123,7 @@ class QuizThumbnail extends React.Component {
   };
   render() {
     let { isCompleted, isRunning, accuracy } = this.state;
-    let { data, from } = this.props;
-    console.log(from)
+    let { data } = this.props;
     let image_index =
       this.props.image_index !== undefined ? this.props.image_index : 0;
     let color = this.accuracyColor(accuracy);
@@ -133,8 +131,7 @@ class QuizThumbnail extends React.Component {
     let userName = "Hoang";
 
     return (
-      <div className="quiz-thumbnail-wrapper"
-      >
+      <div className="quiz-thumbnail-wrapper">
         <div
           className="quiz-thumbnail-container"
           style={isCompleted ? { height: "280px" } : { height: "240px" }}

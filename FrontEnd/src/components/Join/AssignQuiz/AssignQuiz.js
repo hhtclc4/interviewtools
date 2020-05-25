@@ -110,16 +110,20 @@ class AssignQuiz extends React.Component {
       });
     }
   };
+  onClickCreateQuizHandler = () => {
+    let token = localStorage.getItem("token");
+    let { history } = this.props;
+    let { campaign_id } = this.state;
+    localStorage.setItem("campaign_id", campaign_id);
+    history.push(`/create/quiz/${token}`);
+  };
   render() {
     let { data, isTop, interviews } = this.state;
-    console.log(data);
     let interviewElm = interviews.map((interview) => {
       return <InterviewControl key={interview.id} data={interview} />;
     });
     let quizThumbnailELM = () => {
-      return <QuizThumbnail data={data.question_table} type={1}
-        from="assign"
-      />;
+      return <QuizThumbnail data={data.question_table} />;
     };
     return (
       <div className="assign-quiz-container d-flex flex-column">
@@ -159,7 +163,13 @@ class AssignQuiz extends React.Component {
                   <p>{interviews.length} interview</p>
                   <div className="aq-campaign-position-and-subject d-flex flex-row">
                     <div className="aq-position">
-                      <span><FontAwesomeIcon icon={faUserTie} color="#393A68" className="mr-1" /></span>
+                      <span>
+                        <FontAwesomeIcon
+                          icon={faUserTie}
+                          color="#393A68"
+                          className="mr-1"
+                        />
+                      </span>
                       {data.level.name}
                     </div>
                     <div className="aq-subjects d-flex flex-row">
@@ -173,7 +183,6 @@ class AssignQuiz extends React.Component {
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
             <div className="col-sm-2" style={{ height: "100%" }}></div>
@@ -200,32 +209,40 @@ class AssignQuiz extends React.Component {
               }
             >
               <div className="assign-quiz-create-header">Campaign quiz</div>
-              <div className="assign-quiz-create d-flex flex-column align-items-start"
-                style={data.question_table !== null ? {
-                  backgroundColor: '#f2f2f2',
-                  boxShadow: 'none',
-                  padding: '0',
-                  alignItems: 'flex-start'
-                } : {}}
+              <div
+                className="assign-quiz-create d-flex flex-column align-items-start"
+                style={
+                  data.question_table !== null
+                    ? {
+                        backgroundColor: "#f2f2f2",
+                        boxShadow: "none",
+                        padding: "0",
+                        alignItems: "flex-start",
+                      }
+                    : {}
+                }
               >
                 {data.question_table !== null ? (
                   quizThumbnailELM()
                 ) : (
-                    <>
-                      <b>No quiz for this recruitment yet</b>
-                      <img
-                        alt="quiznull"
-                        className="aq-quiz-null-img"
-                        src={require("../../HR/images/quiznull.png")}
-                      />
-                      <button className="assign-create-quiz-btn">
-                        <span>
-                          <FontAwesomeIcon icon={faPlusCircle} />
-                        Create quiz
+                  <>
+                    <b>No quiz for this recruitment yet</b>
+                    <img
+                      alt="quiznull"
+                      className="aq-quiz-null-img"
+                      src={require("../../HR/images/quiznull.png")}
+                    />
+                    <button
+                      className="assign-create-quiz-btn"
+                      onClick={this.onClickCreateQuizHandler}
+                    >
+                      <span>
+                        <FontAwesomeIcon icon={faPlusCircle} />
+                        Create quiz for Campaign
                       </span>
-                      </button>
-                    </>
-                  )}
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>

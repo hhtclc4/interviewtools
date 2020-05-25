@@ -19,7 +19,21 @@ class QuizCreate extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let { data } = this.state;
+    let campaign_id = localStorage.getItem("campaign_id");
+
+    console.log(campaign_id);
+    if (campaign_id) {
+      this.setState({
+        data: {
+          ...data,
+          campaign_id,
+        },
+      });
+      localStorage.removeItem("campaign_id");
+    }
+  }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({

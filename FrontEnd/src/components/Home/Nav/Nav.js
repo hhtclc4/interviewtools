@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 
 import LoginPopup from "../LoginPopup/LoginPopup";
 import SignupPopup from "../SignupPopup/SignupPopup";
-import { Menu, Dropdown, Button } from 'antd';
+import { Menu, Dropdown, Button } from "antd";
 
 import { Icon } from "@ant-design/compatible";
 class HomeNav extends React.Component {
@@ -24,8 +24,6 @@ class HomeNav extends React.Component {
         avatar: "",
       },
     };
-
-
   }
   componentDidMount() {
     let token = localStorage.getItem("token");
@@ -53,7 +51,7 @@ class HomeNav extends React.Component {
 
   dropUserActions = (e) => {
     this.drop.click();
-  }
+  };
   render() {
     let token = localStorage.getItem("token");
     let { data } = this.state;
@@ -72,15 +70,9 @@ class HomeNav extends React.Component {
 
     const userActions = (
       <Menu>
-        <Menu.Item>
-          1st menu item
-        </Menu.Item>
-        <Menu.Item>
-          2nd menu item
-        </Menu.Item>
-        <Menu.Item>
-          Log out
-        </Menu.Item>
+        <Menu.Item>1st menu item</Menu.Item>
+        <Menu.Item>2nd menu item</Menu.Item>
+        <Menu.Item>Log out</Menu.Item>
       </Menu>
     );
     return (
@@ -94,13 +86,12 @@ class HomeNav extends React.Component {
         </div>
         <div className="button-group">
           {token ? (
-
-            <Dropdown overlay={userActions}
+            <Dropdown
+              overlay={userActions}
               placement="bottomRight"
               trigger={["click"]}
             >
-              <Button style={{ top: 0 }}
-              >
+              <Button style={{ top: 0 }}>
                 <div className="login-user">
                   <span className="user-ava">
                     <img
@@ -117,17 +108,16 @@ class HomeNav extends React.Component {
                 </div>
               </Button>
             </Dropdown>
-
           ) : (
-              <div>
-                <button className="b-log-in" onClick={this.togglePopup}>
-                  Login
+            <div>
+              <button className="b-log-in" onClick={this.togglePopup}>
+                Login
               </button>
-                <button className="b-sign-up" onClick={this.toggleSignupPopup}>
-                  Sign up
+              <button className="b-sign-up" onClick={this.toggleSignupPopup}>
+                Sign up
               </button>
-              </div>
-            )}
+            </div>
+          )}
         </div>
 
         {this.state.loginPopup ? (
