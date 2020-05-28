@@ -10,6 +10,7 @@ import UserNameEdit from './UserNameEdit'
 import NameEdit from './NameEdit'
 import GradeEdit from './GradeEdit'
 import PasswordEdit from './PasswordEdit'
+import PopUp from '../../../utils/PopUp/PopUp'
 class UserSettings extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +21,7 @@ class UserSettings extends React.Component {
             isShowGradeEdit: false,
             isShowPasswordEdit: false,
             isShowDeleteAcc: false,
+            isShowUpgradeAcc: false,
         }
     }
 
@@ -62,7 +64,19 @@ class UserSettings extends React.Component {
                     isShowPasswordEdit: !this.state.isShowPasswordEdit
                 });
                 console.log("name")
-                break;
+                break
+
+                ;
+            }
+
+            case "upgradeAcc": {
+                this.setState({
+                    isShowUpgradeAcc: !this.state.isShowUpgradeAcc
+                });
+                console.log("name")
+                break
+
+                ;
             }
             default:
                 return;
@@ -132,7 +146,7 @@ class UserSettings extends React.Component {
                             Account settings
                         </div>
 
-                        <div className="set-upgrade-role-section">
+                        <div className="set-upgrade-role-section" onClick={() => { this.togglePopups("upgradeAcc") }}>
                             <div className="sec-title">Update role</div>
                             <span><FontAwesomeIcon icon={faChevronRight} /></span>
                         </div>
@@ -174,9 +188,15 @@ class UserSettings extends React.Component {
 
                 {this.state.isShowPasswordEdit ? (
                     <PasswordEdit
-                        togglePopUp={() => this.togglePopups("password")}
+                        togglePopUp={() => this.togglePopup + s("password")}
                     />
                 ) : null}
+                {this.state.isShowUpgradeAcc ? (
+                    <PopUp
+                        togglePopUp={() => this.togglePopups("upgradeAcc")}
+                    />
+                ) : null}
+
             </div>
         );
     }
