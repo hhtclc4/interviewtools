@@ -43,7 +43,7 @@ class HRstaff extends React.Component {
   }
   render() {
     let { data } = this.state;
-    let tabElm = data.map((campaign, index) => {
+    let tabElm = data.reverse().map((campaign, index) => {
       return (
         <CampaignOverview
           key={campaign.id}

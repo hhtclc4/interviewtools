@@ -367,7 +367,7 @@ class QuizCreatorEditor extends React.Component {
                       <FontAwesomeIcon icon={is_public ? faEye : faEyeSlash} />
                       {/*change to faEyeSlash if private */}
                     </span>
-                    {is_public ? "Public" : "private"}{" "}
+                    {is_public ? "Public" : "Private"}{" "}
                     {/** change to "private" if private */}
                   </button>
                 </div>

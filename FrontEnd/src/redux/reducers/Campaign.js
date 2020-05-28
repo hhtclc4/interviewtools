@@ -41,6 +41,8 @@ let initialState = {
     played: 0,
     user: { name: "" },
     questions: [],
+    created_at: "12:00:00",
+    updated_at: "12:00:00",
   },
 };
 

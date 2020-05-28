@@ -1,34 +1,47 @@
 import * as types from "../actions/actionTypes";
 
 let initialState = {
+  id: 0,
   name: "",
   email: "",
   password: "",
-  checkLogin: false,
   token: "",
   isLoading: false,
   role_id: 0,
   isDoneSignUp: false,
+  isDoneLogin: false,
 };
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.LOGIN_SUCCESS:
       state = { ...action.data };
-      state.checkLogin = true;
+      state.isDoneLogin = true;
       state.isLoading = false;
       return {
         ...state,
       };
-    case types.GET_USER:
+    case types.LOGIN_FAILED:
+      state.isDoneLogin = true;
+      state.isLoading = false;
+      return {
+        ...state,
+      };
+    case types.GET_USER_SUCCESS:
       state = { ...action.data };
-      state.checkLogin = true;
+      state.isDoneLogin = true;
+
+      return {
+        ...state,
+      };
+    case types.GET_USER_FAILED:
+      state.isDoneLogin = true;
 
       return {
         ...state,
       };
     case types.SIGN_UP_SUCCESS:
       state = { ...action.data };
-      state.checkLogin = true;
+      state.isDoneLogin = true;
       state.isLoading = false;
       state.isDoneSignUp = true;
       return {

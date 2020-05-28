@@ -16,21 +16,12 @@ class HomeBody extends React.Component {
       search: "",
       data: [
         {
-          id: 0,
           title: "",
-          subject_id: 0,
-          company_address: "",
           level_id: 0,
-          amount_required: 0,
           work_type_id: 0,
-          sex: 0,
-          experience: 0,
           salary: 0,
-          deadline: "",
           user_id: 0,
           work_description: "",
-          candidate_req: "",
-          candidate_benefits: "",
         },
       ],
     };
@@ -44,7 +35,6 @@ class HomeBody extends React.Component {
     this.setState({
       data: nextProps.campaigns,
     });
-    console.log(nextProps);
   }
   onClickThumbnailHandler = (id) => {
     localStorage.setItem("campaign_id", id);
@@ -52,7 +42,7 @@ class HomeBody extends React.Component {
   };
   onClickSearchCampaignHandler = () => {
     let { search } = this.state;
-    this.props.searchCampaigns(search);
+    this.props.history.push(`/home/discover?search=${search}`);
   };
   onChangeInputHandler = (event) => {
     let { name, value } = event.target;
@@ -171,9 +161,6 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListCampaign: () => {
       dispatch(actions.showListCampaign());
-    },
-    searchCampaigns: (search) => {
-      dispatch(actions.searchCampaigns(search));
     },
   };
 };

@@ -17,7 +17,7 @@ let initialState = {
 };
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.GET_USER:
+    case types.GET_USER_SUCCESS:
       state.user = { ...action.data };
       return {
         ...state,

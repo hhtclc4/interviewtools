@@ -3,8 +3,8 @@ import "./LoginPopup.scss";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import { Link, withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 class LoginPopup extends React.Component {
   constructor(props) {
@@ -12,9 +12,9 @@ class LoginPopup extends React.Component {
     this.state = {
       email: "",
       password: "",
+      isDoneLogin: false,
       isLoading: false,
       isDisplay: "block",
-      checkLogin: false,
       token: "",
     };
   }
@@ -33,11 +33,14 @@ class LoginPopup extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       isLoading: nextProps.login.isLoading,
+      isDoneLogin: nextProps.login.isDoneLogin,
     });
   }
   render() {
-    let { email, password, isLoading } = this.state;
-
+    let { email, password, isLoading, isDoneLogin } = this.state;
+    if (isDoneLogin) {
+      this.props.togglePopup();
+    }
     return (
       <div className="login-popup">
         <div className="login-cover-crop">
@@ -46,17 +49,15 @@ class LoginPopup extends React.Component {
         <div className="login-popup_inner">
           <form onSubmit={this.onSubmitHandler} className="form-info">
             <div className="login-popup-header">
-              <p><strong>LOGIN</strong></p>
+              <p>
+                <strong>LOGIN</strong>
+              </p>
               <button
                 className="b-close"
                 type="button"
                 onClick={this.props.togglePopup}
               >
-                <FontAwesomeIcon
-                  icon={faTimes}
-                  size="1x"
-                  color="#ff4d4d"
-                />
+                <FontAwesomeIcon icon={faTimes} size="1x" color="#ff4d4d" />
               </button>
             </div>
             <div className="login-popup-body">
@@ -89,17 +90,13 @@ class LoginPopup extends React.Component {
               <div className="form-field">
                 <div className="button-group">
                   <button type="submit" className="btn-login">
-                    {isLoading ? <div><FontAwesomeIcon icon={faSpinner} spin /></div> : null}
+                    {isLoading ? (
+                      <div>
+                        <FontAwesomeIcon icon={faSpinner} spin />
+                      </div>
+                    ) : null}
                     LOGIN
                   </button>
-
-                  {/* <button
-                    className="b-close"
-                    type="button"
-                    onClick={this.props.togglePopup}
-                  >
-                    Close
-                  </button> */}
                 </div>
               </div>
               <div className="create-new-acc d-flex flex-row justify-content-center mt-2">
