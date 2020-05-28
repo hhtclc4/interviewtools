@@ -30,7 +30,18 @@ export const loginAPI = (state) => {
         });
       })
       .catch((er) => {
-        console.log("er", er);
+        Swal.fire({
+          position: "top",
+          type: "error",
+          title: "Login Failed...",
+          text: "Your User Password may not right!",
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false,
+        });
+        dispatch({
+          type: types.LOGIN_FAILED,
+        });
       });
   };
 };
@@ -79,7 +90,7 @@ export const getUser = () => {
     })
       .then((res) => {
         dispatch({
-          type: types.GET_USER,
+          type: types.GET_USER_SUCCESS,
           data: res.data,
         });
       })
@@ -157,10 +168,10 @@ export const searchCampaigns = (search) => {
     })
       .then((res) => {
         console.log("res Search campaign", res.data);
-        // dispatch({
-        //   type: types.GET_CAMPAIGNS,
-        //   data: res.data,
-        // });
+        dispatch({
+          type: types.GET_CAMPAIGNS,
+          data: res.data,
+        });
       })
       .catch((er) => {
         console.log("er", er);
@@ -308,14 +319,15 @@ export const checkIfCandidateSendCVBefore = (campaign_id) => {
       data: { campaign_id },
     })
       .then((res) => {
-        console.log("check a candidate for campaign", res.data);
+        console.log("check a candidate for campaign", res);
         dispatch({
-          type: types.CHECK_CANDIDATE,
-          data: res.data,
+          type: types.CANDIDATE_SENT_CV,
         });
       })
       .catch((er) => {
-        console.log("er", er);
+        dispatch({
+          type: types.CANDIDATE_NOT_SEND_CV,
+        });
       });
   };
 };

@@ -1,7 +1,7 @@
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAIL = "LOGIN_FAIL";
-export const GET_USER = "GET_USER";
-
+export const LOGIN_FAILED = "LOGIN_FAILED";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAILED = "GET_USER_FAILED";
 //
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAIL = "SIGN_UP_FAIL";
@@ -53,7 +53,9 @@ export const UPDATE_INTERVIEW_CANDIDATES = "UPDATE_INTERVIEW_CANDIDATES";
 
 export const SEND_CV_SUCCESS = "SEND_CV_SUCCESS";
 // candidate
-export const CHECK_CANDIDATE = "CHECK_CANDIDATE";
+export const CANDIDATE_SENT_CV = "CANDIDATE_SENT_CV";
+export const CANDIDATE_NOT_SEND_CV = "CANDIDATE_NOT_SEND_CV";
+
 // access to push
 export const ACCESS_TO_PUSH = "ACCESS_TO_PUSH";
 export const ACCESS_TO_PUSH_QUIZ = "ACCESS_TO_PUSH_QUIZ";

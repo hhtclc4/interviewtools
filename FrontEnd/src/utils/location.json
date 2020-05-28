@@ -1,5 +1,4 @@
-{
-    "1": {
+[ {
         "name": "Thành phố Cần Thơ",
         "districts": {
             "66": "Huyện Cờ Đỏ",
@@ -13,7 +12,7 @@
             "74": "Quận Thốt Nốt"
         }
     },
-    "2": {
+     {
         "name": "Thành phố Đà Nẵng",
         "districts": {
             "76": "Huyện Hòa Vang",
@@ -26,7 +25,7 @@
             "83": "Quận Thanh Khê"
         }
     },
-    "3": {
+    {
         "name": "Thành phố Hà Nội",
         "districts": {
             "85": "Huyện Ba Vì",
@@ -60,7 +59,7 @@
             "113": "Thị xã Sơn Tây"
         }
     },
-    "4": {
+     {
         "name": "Thành phố Hải Phòng",
         "districts": {
             "115": "Huyện An Dương",
@@ -80,7 +79,7 @@
             "129": "Quận Ngô Quyền"
         }
     },
-    "5": {
+      {
         "name": "Thành phố Hồ Chí Minh",
         "districts": {
             "131": "Huyện Bình Chánh",
@@ -109,7 +108,7 @@
             "154": "Quận Thủ Đức"
         }
     },
-    "6": {
+      {
         "name": "Tỉnh An Giang",
         "districts": {
             "155": "Huyện An Phú",
@@ -125,7 +124,7 @@
             "165": "Thị xã Tân Châu"
         }
     },
-    "7": {
+      {
         "name": "Tỉnh Bà Rịa-Vũng Tàu",
         "districts": {
             "166": "Huyện Châu Đức",
@@ -138,7 +137,7 @@
             "173": "Thị xã Bà Rịa"
         }
     },
-    "8": {
+      {
         "name": "Tỉnh Bắc Giang",
         "districts": {
             "174": "Huyện Hiệp Hòa",
@@ -153,7 +152,7 @@
             "183": "Thành phố Bắc Giang"
         }
     },
-    "9": {
+      {
         "name": "Tỉnh Bắc Kạn",
         "districts": {
             "184": "Huyện Ba Bể",
@@ -166,7 +165,7 @@
             "191": "Thị xã Bắc Kạn"
         }
     },
-    "10": {
+      {
         "name": "Tỉnh Bạc Liêu",
         "districts": {
             "192": "Huyện Đông Hải",
@@ -178,7 +177,7 @@
             "198": "Thành Phố Bạc Liêu"
         }
     },
-    "11": {
+      {
         "name": "Tỉnh Bắc Ninh",
         "districts": {
             "199": "Huyện Gia Bình",
@@ -191,7 +190,7 @@
             "206": "Thị xã Từ Sơn"
         }
     },
-    "12": {
+      {
         "name": "Tỉnh Bến Tre",
         "districts": {
             "207": "Huyện Ba Tri",
@@ -205,7 +204,7 @@
             "215": "Thành phố Bến Tre"
         }
     },
-    "13": {
+      {
         "name": "Tỉnh Bình Định",
         "districts": {
             "216": "Huyện An Lão",
@@ -221,7 +220,7 @@
             "226": "Thành phố Quy Nhơn"
         }
     },
-    "14": {
+      {
         "name": "Tỉnh Bình Dương",
         "districts": {
             "227": "Huyện Bến Cát",
@@ -233,7 +232,7 @@
             "233": "Thị xã Thủ Dầu Một"
         }
     },
-    "15": {
+      {
         "name": "Tỉnh Bình Phước",
         "districts": {
             "234": "Huyện Bù Đăng",
@@ -248,7 +247,7 @@
             "243": "Thị xã Phước Long"
         }
     },
-    "16": {
+      {
         "name": "Tỉnh Bình Thuận",
         "districts": {
             "244": "Huyện  Đức Linh",
@@ -263,7 +262,7 @@
             "253": "Thị xã La Gi"
         }
     },
-    "17": {
+      {
         "name": "Tỉnh Cà Mau",
         "districts": {
             "254": "Huyện Cái Nước",
@@ -277,7 +276,7 @@
             "262": "Thành phố Cà Mau"
         }
     },
-    "18": {
+      {
         "name": "Tỉnh Cao Bằng",
         "districts": {
             "263": "Huyện Bảo Lạc",
@@ -295,7 +294,7 @@
             "275": "Thị xã Cao Bằng"
         }
     },
-    "19": {
+      {
         "name": "Tỉnh Đắk Lắk",
         "districts": {
             "276": "Huyện Buôn Đôn",
@@ -315,7 +314,7 @@
             "290": "Thị xã Buôn Hồ"
         }
     },
-    "20": {
+      {
         "name": "Tỉnh Đắk Nông",
         "districts": {
             "291": "Huyện Cư Jút",
@@ -328,7 +327,7 @@
             "298": "Thị xã Gia Nghĩa"
         }
     },
-    "21": {
+      {
         "name": "Tỉnh Điện Biên",
         "districts": {
             "299": "Huyện Điện Biên",
@@ -342,7 +341,7 @@
             "307": "Thị xã Mường Lay"
         }
     },
-    "22": {
+      {
         "name": "Tỉnh Đồng Nai",
         "districts": {
             "308": "Huyện Cẩm Mỹ",
@@ -358,7 +357,7 @@
             "318": "Thị xã Long Khánh"
         }
     },
-    "23": {
+      {
         "name": "Tỉnh Đồng Tháp",
         "districts": {
             "319": "Huyện Cao Lãnh",
@@ -375,7 +374,7 @@
             "330": "Thị xã Sa Đéc"
         }
     },
-    "24": {
+      {
         "name": "Tỉnh Gia Lai",
         "districts": {
             "331": "Huyện Chư Păh",
@@ -398,7 +397,7 @@
             "348": "Thị xã An Khê"
         }
     },
-    "25": {
+      {
         "name": "Tỉnh Hà Giang",
         "districts": {
             "349": "Huyện Bắc Mê",
@@ -414,7 +413,7 @@
             "359": "Thành Phố Hà Giang"
         }
     },
-    "26": {
+      {
         "name": "Tỉnh Hà Nam",
         "districts": {
             "360": "Huyện Bình Lục",
@@ -425,7 +424,7 @@
             "365": "Thành phố Phủ Lý"
         }
     },
-    "27": {
+      {
         "name": "Tỉnh Hà Tĩnh",
         "districts": {
             "366": "Huyện Cẩm Xuyên",
@@ -442,7 +441,7 @@
             "377": "Thị xã Hồng Lĩnh"
         }
     },
-    "28": {
+      {
         "name": "Tỉnh Hải Dương",
         "districts": {
             "378": "Huyện Bình Giang",
@@ -459,7 +458,7 @@
             "389": "Thị xã Chí Linh"
         }
     },
-    "29": {
+      {
         "name": "Tỉnh Hậu Giang",
         "districts": {
             "390": "Huyện Châu Thành",
@@ -471,7 +470,7 @@
             "396": "Thị xã Ngã Bảy"
         }
     },
-    "30": {
+      {
         "name": "Tỉnh Hòa Bình",
         "districts": {
             "397": "Huyện Cao Phong",
@@ -487,7 +486,7 @@
             "407": "Thành phố Hòa Bình"
         }
     },
-    "31": {
+      {
         "name": "Tỉnh Hưng Yên",
         "districts": {
             "408": "Huyện Ân Thi",
@@ -502,7 +501,7 @@
             "417": "Thành phố Hưng Yên"
         }
     },
-    "32": {
+      {
         "name": "Tỉnh Khánh Hòa",
         "districts": {
             "418": "Huyện Cam Lâm",
@@ -516,7 +515,7 @@
             "426": "Thị xã Cam Ranh"
         }
     },
-    "33": {
+      {
         "name": "Tỉnh Kiên Giang",
         "districts": {
             "427": "Huyện An Biên",
@@ -536,7 +535,7 @@
             "441": "Thị xã Hà Tiên"
         }
     },
-    "34": {
+      {
         "name": "Tỉnh Kon Tum",
         "districts": {
             "442": "Huyện Đắk Glei",
@@ -550,7 +549,7 @@
             "450": "Thành phố Kon Tum"
         }
     },
-    "35": {
+      {
         "name": "Tỉnh Lai Châu",
         "districts": {
             "451": "Huyện Mường Tè",
@@ -562,7 +561,7 @@
             "457": "Thị xã Lai Châu"
         }
     },
-    "36": {
+      {
         "name": "Tỉnh Lâm Đồng",
         "districts": {
             "458": "Huyện Bảo Lâm",
@@ -579,7 +578,7 @@
             "469": "Thành phố Đà Lạt"
         }
     },
-    "37": {
+      {
         "name": "Tỉnh Lạng Sơn",
         "districts": {
             "470": "Huyện Bắc Sơn",
@@ -595,7 +594,7 @@
             "480": "Thành phố Lạng Sơn"
         }
     },
-    "38": {
+      {
         "name": "Tỉnh Lào Cai",
         "districts": {
             "481": "Huyện Bắc Hà",
@@ -609,7 +608,7 @@
             "489": "Thành phố Lào Cai"
         }
     },
-    "39": {
+      {
         "name": "Tỉnh Long An",
         "districts": {
             "490": "Huyện Bến Lức",
@@ -628,7 +627,7 @@
             "503": "Thành phố Tân An"
         }
     },
-    "40": {
+      {
         "name": "Tỉnh Nam Định",
         "districts": {
             "504": "Huyện Giao Thủy",
@@ -643,7 +642,7 @@
             "513": "Thành phố Nam Định"
         }
     },
-    "41": {
+      {
         "name": "Tỉnh Nghệ An",
         "districts": {
             "514": "Huyện Anh Sơn",
@@ -668,7 +667,7 @@
             "533": "Thị xã Thái Hòa"
         }
     },
-    "42": {
+      {
         "name": "Tỉnh Ninh Bình",
         "districts": {
             "534": "Huyện Gia Viễn",
@@ -681,7 +680,7 @@
             "541": "Thị xã Tam Điệp"
         }
     },
-    "43": {
+      {
         "name": "Tỉnh Ninh Thuận",
         "districts": {
             "542": "Huyên Bác ái",
@@ -693,7 +692,7 @@
             "548": "Thành phố Phan Rang-Tháp Chàm"
         }
     },
-    "44": {
+      {
         "name": "Tỉnh Phú Thọ",
         "districts": {
             "549": "Huyện Cẩm Khê",
@@ -711,7 +710,7 @@
             "561": "Thị xã Phú Thọ"
         }
     },
-    "45": {
+      {
         "name": "Tỉnh Phú Yên",
         "districts": {
             "562": "Huyện Đông Hòa",
@@ -725,7 +724,7 @@
             "570": "Thị xã Sông Cầu"
         }
     },
-    "46": {
+      {
         "name": "Tỉnh Quảng Bình",
         "districts": {
             "571": "Huyện Bố Trạch",
@@ -737,7 +736,7 @@
             "577": "Thành phố Đồng Hới"
         }
     },
-    "47": {
+      {
         "name": "Tỉnh Quảng Nam",
         "districts": {
             "578": "Huyện Bắc Trà My",
@@ -760,7 +759,7 @@
             "595": "Thành phố Tam Kỳ"
         }
     },
-    "48": {
+      {
         "name": "Tỉnh Quảng Ngãi",
         "districts": {
             "596": "Huyện Ba Tơ",
@@ -779,7 +778,7 @@
             "609": "Thành phố Quảng Ngãi"
         }
     },
-    "49": {
+      {
         "name": "Tỉnh Quảng Ninh",
         "districts": {
             "610": "Huyện Ba Chẽ",
@@ -798,7 +797,7 @@
             "623": "Thị xã Uông Bí"
         }
     },
-    "50": {
+      {
         "name": "Tỉnh Quảng Trị",
         "districts": {
             "624": "Huyện Cam Lộ",
@@ -813,7 +812,7 @@
             "633": "Thị xã Quảng Trị"
         }
     },
-    "51": {
+      {
         "name": "Tỉnh Sóc Trăng",
         "districts": {
             "634": "Huyện Châu Thành",
@@ -829,7 +828,7 @@
             "644": "Thành phố Sóc Trăng"
         }
     },
-    "52": {
+      {
         "name": "Tỉnh Sơn La",
         "districts": {
             "645": "Huyện Bắc Yên",
@@ -845,7 +844,7 @@
             "655": "Thành phố Sơn La"
         }
     },
-    "53": {
+      {
         "name": "Tỉnh Tây Ninh",
         "districts": {
             "656": "Huyện Bến Cầu",
@@ -859,7 +858,7 @@
             "664": "Thị xã Tây Ninh"
         }
     },
-    "54": {
+      {
         "name": "Tỉnh Thái Bình",
         "districts": {
             "665": "Huyện Đông Hưng",
@@ -872,7 +871,7 @@
             "672": "Thành phố Thái Bình"
         }
     },
-    "55": {
+      {
         "name": "Tỉnh Thái Nguyên",
         "districts": {
             "673": "Huyện Đại Từ",
@@ -886,7 +885,7 @@
             "681": "Thị xã Sông Công"
         }
     },
-    "56": {
+      {
         "name": "Tỉnh Thanh Hóa",
         "districts": {
             "682": "Huyện Bá Thước",
@@ -918,7 +917,7 @@
             "708": "Thị xã Sầm Sơn"
         }
     },
-    "57": {
+      {
         "name": "Tỉnh Thừa Thiên Huế",
         "districts": {
             "709": "Huyện A Lưới",
@@ -932,7 +931,7 @@
             "717": "thị xã Hương Thủy"
         }
     },
-    "58": {
+      {
         "name": "Tỉnh Tiền Giang",
         "districts": {
             "718": "Huyện Cái Bè",
@@ -947,7 +946,7 @@
             "727": "Thị xã Gò Công"
         }
     },
-    "59": {
+      {
         "name": "Tỉnh Trà Vinh",
         "districts": {
             "728": "Huyện Càng Long",
@@ -960,7 +959,7 @@
             "735": "Thành phố Trà Vinh"
         }
     },
-    "60": {
+      {
         "name": "Tỉnh Tuyên Quang",
         "districts": {
             "736": "Huyện Chiêm Hóa",
@@ -971,7 +970,7 @@
             "741": "Thành phố Tuyên Quang"
         }
     },
-    "61": {
+      {
         "name": "Tỉnh Vĩnh Long",
         "districts": {
             "742": "Huyện Bình Minh",
@@ -984,7 +983,7 @@
             "749": "Thành phố Vĩnh Long"
         }
     },
-    "62": {
+      {
         "name": "Tỉnh Vĩnh Phúc",
         "districts": {
             "750": "Huyện Bình Xuyên",
@@ -998,7 +997,7 @@
             "758": "Thị xã Phúc Yên"
         }
     },
-    "63": {
+      {
         "name": "Tỉnh Yên Bái",
         "districts": {
             "759": "Huyện Lục Yên",
@@ -1012,4 +1011,4 @@
             "767": "Thị xã Nghĩa Lộ"
         }
     }
-}
+]

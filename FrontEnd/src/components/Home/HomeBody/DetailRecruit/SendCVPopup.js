@@ -35,8 +35,7 @@ class SendCV extends React.Component {
   };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    //console.log("helu", nextProps.login);
-    let token = localStorage.getItem("token");
+    console.log("nextprop", nextProps);
     if (nextProps.candidate.campaign_id !== 0) {
       Swal.fire({
         position: "center",
@@ -46,12 +45,15 @@ class SendCV extends React.Component {
         timer: 1500,
         heightAuto: false,
       });
-      this.props.closePopup();
-    } else
+      this.props.toggleSendCVPopUp();
+    } else {
       this.setState({
         user: { ...nextProps.login },
-        loginPopup: token ? false : null,
       });
+      if (nextProps.candidate.isSendCvBefore) {
+        this.props.toggleSendCVPopUp();
+      }
+    }
   }
   onChangeInputHandler = (e) => {
     this.setState({
@@ -61,6 +63,7 @@ class SendCV extends React.Component {
   onClickSendCV = () => {
     this.props.createCandidate(this.state.candidate);
   };
+
   render() {
     let { data } = this.props;
     let { user, candidate } = this.state;
@@ -104,7 +107,10 @@ class SendCV extends React.Component {
             <button className="send-cv-btn" onClick={this.onClickSendCV}>
               Send my CV
             </button>
-            <button onClick={this.props.closePopup} className="close-popup-btn">
+            <button
+              onClick={this.props.toggleSendCVPopUp}
+              className="close-popup-btn"
+            >
               Close
             </button>
           </div>
@@ -137,29 +143,33 @@ class SendCV extends React.Component {
                 {localStorage.getItem("token") ? (
                   formCV()
                 ) : (
-                    <div className="send-cv-btn-group float-right">
-                      <button
-                        className="login-button"
-                        onClick={this.toggleLoginPopup}
-                      >
-                        Login
-                  </button>
-                      <button
-                        onClick={this.props.closePopup} className="close-popup-btn"
-                      >
-                        Close
-                 </button>
-                    </div>
-                  )}
+                  <div className="send-cv-btn-group float-right">
+                    <button
+                      className="login-button"
+                      onClick={this.toggleLoginPopup}
+                    >
+                      Login
+                    </button>
+                    <button
+                      onClick={this.props.toggleSendCVPopUp}
+                      className="close-popup-btn"
+                    >
+                      Close
+                    </button>
+                  </div>
+                )}
                 {this.state.loginPopup ? (
-                  <LoginPopup togglePopup={this.toggleLoginPopup} />
+                  <LoginPopup
+                    togglePopup={this.toggleLoginPopup}
+                    doneLogin={this.doneLogin}
+                  />
                 ) : null}
               </div>
             </div>
             <div className="col-md-3"></div>
           </div>
-        </div >
-      </div >
+        </div>
+      </div>
     );
   }
 }
@@ -173,6 +183,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     createCandidate: (data) => {
       dispatch(actions.createCandidate(data));
+    },
+    checkIfCandidateSendCVBefore: (campaign_id) => {
+      dispatch(actions.checkIfCandidateSendCVBefore(campaign_id));
     },
   };
 };

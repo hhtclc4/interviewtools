@@ -16,6 +16,7 @@ class DetailRecruit extends React.Component {
     this.state = {
       showSendCVPopUp: false,
       isSendCvBefore: false,
+      forceStop: false,
       campaign_id: this.props.match.params.campaign_id,
       data: {
         id: 0,
@@ -55,22 +56,32 @@ class DetailRecruit extends React.Component {
     this.props.checkIfCandidateSendCVBefore(campaign_id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
+    let { campaign_id, forceStop } = this.state;
+    let token = localStorage.getItem("token");
+
+    console.log("nextProps", nextProps.candidate.isSendCvBefore);
     this.setState({
       data: nextProps.campaign,
-      isSendCvBefore: nextProps.candidate.campaign_id === 0 ? false : true,
+      isSendCvBefore: nextProps.candidate.isSendCvBefore,
     });
+    if (!forceStop && token) {
+      this.props.checkIfCandidateSendCVBefore(campaign_id);
+      this.setState({
+        forceStop: true,
+      });
+    }
   }
   toggleSendCVPopUp = () => {
     let { showSendCVPopUp } = this.state;
-
-    if (showSendCVPopUp === true) {
-      this.setState({
-        showSendCVPopUp: !showSendCVPopUp,
-      });
-    }
+    this.setState({
+      showSendCVPopUp: !showSendCVPopUp,
+    });
   };
+
   render() {
     let { data, isSendCvBefore } = this.state;
+    console.log("isSendCvBefore   ", isSendCvBefore);
+
     return (
       <div className="detail-recruit-container">
         {/* <div className="dr-nav-container">
@@ -142,7 +153,7 @@ class DetailRecruit extends React.Component {
                     <p>
                       {data.salary === 0
                         ? "Lương thỏa thuận"
-                        : data.salary + " triệu"}
+                        : data.salary + " $"}
                     </p>
                   </div>
                   <div className="job-destination d-flex flex-row">
@@ -155,19 +166,23 @@ class DetailRecruit extends React.Component {
                     </span>
                     <p>{data.user.company.address}</p>
                   </div>
-                  <button
-                    disabled={isSendCvBefore}
-                    style={isSendCvBefore ? { opacity: "0.6" } : null}
-                    className="apply-btn"
-                    onClick={() => {
-                      this.setState({
-                        showSendCVPopUp: !this.state.showSendCVPopUp,
-                      });
-                      this.toggleSendCVPopUp();
-                    }}
-                  >
-                    Apply Now
-                  </button>
+                  {isSendCvBefore ? (
+                    <button
+                      disabled={true}
+                      style={{ opacity: "0.6" }}
+                      className="apply-btn"
+                    >
+                      You sent CV for this job before!
+                    </button>
+                  ) : (
+                    <button
+                      className="apply-btn"
+                      onClick={this.toggleSendCVPopUp}
+                    >
+                      Apply Now
+                    </button>
+                  )}
+
                   <hr />
                   <div className="job-info-and-require"></div>
                   {/* <div className="apply-btn"></div> */}
@@ -179,7 +194,7 @@ class DetailRecruit extends React.Component {
         </div>
 
         {this.state.showSendCVPopUp ? (
-          <SendCV closePopup={this.toggleSendCVPopUp} data={data} />
+          <SendCV toggleSendCVPopUp={this.toggleSendCVPopUp} data={data} />
         ) : null}
       </div>
     );
@@ -199,6 +214,7 @@ const mapStateToProps = (state) => {
   return {
     campaign: state.campaign,
     candidate: state.candidate,
+    login: state.login,
   };
 };
 

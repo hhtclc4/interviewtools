@@ -38,15 +38,25 @@ let initialState = [
       user: { name: "" },
       questions: [],
     },
+    company: {
+      name: "",
+      address: "",
+    },
+    created_at: "12:00:00",
+    updated_at: "12:00:00",
   },
 ];
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_CAMPAIGNS:
-      state = [...action.data].reverse();
+      state = [...action.data];
 
       return [...state];
     case types.SHOW_CAMPAIGNS:
+      return [...state];
+    case types.CREATE_CAMPAIGN:
+      state.push({ ...action.data });
+
       return [...state];
 
     default:

@@ -8,13 +8,11 @@ import LoginPopup from "../LoginPopup/LoginPopup";
 import SignupPopup from "../SignupPopup/SignupPopup";
 import { Menu, Dropdown, Button } from "antd";
 
-import { Icon } from "@ant-design/compatible";
 class HomeNav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loginPopup: false,
-      checkLogin: false,
       showSignup: false,
       data: {
         id: 0,
@@ -42,11 +40,9 @@ class HomeNav extends React.Component {
   };
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      checkLogin: nextProps.login.checkLogin,
       token: nextProps.login.token,
       data: nextProps.login,
     });
-    console.log(nextProps);
   }
 
   dropUserActions = (e) => {
@@ -55,24 +51,32 @@ class HomeNav extends React.Component {
   render() {
     let token = localStorage.getItem("token");
     let { data } = this.state;
-    // if (this.state.checkLogin || token) {
-    //   switch (data.role_id) {
-    //     case 1:
-    //       this.props.history.push("/HR");
-    //       break;
-    //     case 2:
-    //       this.props.history.push("/join");
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // }
+    let { history } = this.props;
 
     const userActions = (
       <Menu>
-        <Menu.Item>1st menu item</Menu.Item>
-        <Menu.Item>2nd menu item</Menu.Item>
-        <Menu.Item>Log out</Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            history.push("/upgrade");
+          }}
+        >
+          Upgrade
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            history.push("/setting");
+          }}
+        >
+          Setting
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
+            history.push("/");
+            localStorage.clear();
+          }}
+        >
+          Log out
+        </Menu.Item>
       </Menu>
     );
     return (

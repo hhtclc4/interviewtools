@@ -36,7 +36,7 @@ $container-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
                     width: 23%;
                     .insert-icon {
                         position: absolute;
-                        top: 22%;
+                        top: 16%;
                         left: 2%;
                         z-index: 2;
                     }
@@ -45,7 +45,6 @@ $container-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
                         text-indent: 4%;
                         height: 100%;
                     }
-
                     .ant-select.ant-select-enabled {
                         height: 100%;
                         .ant-select-selection {
