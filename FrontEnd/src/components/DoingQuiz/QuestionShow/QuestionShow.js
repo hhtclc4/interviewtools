@@ -32,6 +32,7 @@ class QuestionShow extends React.Component {
     };
   }
   componentDidMount() {
+    console.log("run");
     let { question } = this.props;
     this.setState({
       ...question,
@@ -93,7 +94,7 @@ class QuestionShow extends React.Component {
             }),
           }));
         }
-        this.props.doneQuestionHandler();
+        this.props.doneQuestionHandler(question_choices[index].is_right);
         this.setState({
           disableButton: true,
         });
@@ -160,8 +161,12 @@ class QuestionShow extends React.Component {
             : { ...qChoice };
         }),
       }));
+    let isRightAnswer = true;
+    if (mutiCheckArr.length === rightNumber)
+      for (let i = 0; i < mutiCheckArr.length; i++)
+        if (!question_choices[mutiCheckArr[i]].is_right) isRightAnswer = false;
 
-    this.props.doneQuestionHandler();
+    this.props.doneQuestionHandler(isRightAnswer);
   };
   onChangeTextHandler = (event) => {
     let value = event.target.value;
@@ -305,5 +310,4 @@ class QuestionShow extends React.Component {
     );
   }
 }
-
 export default withRouter(QuestionShow);

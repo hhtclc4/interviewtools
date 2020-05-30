@@ -99,7 +99,7 @@ router.post("/api/login_user", (req, res) =>
       password: req.body.password,
     },
   }).then((user) => {
-    if (user.id === null) res.sendStatus(403);
+    if (user === null) res.sendStatus(403);
     else {
       jwt.sign({ user_id: user.id }, "hoangtri", function (err, token) {
         if (err) res.sendStatus(403);
@@ -119,7 +119,10 @@ router.post("/api/get_user", verifyToken, (req, res) =>
         include: Company,
         attributes: ["name", "email", "phone", "avatar"],
       })
-        .then((data) => res.send(data))
+        .then((data) => {
+          if (data === null) res.sendStatus(403);
+          else res.send(data);
+        })
 
         .catch((err) => console.log(err));
     }
