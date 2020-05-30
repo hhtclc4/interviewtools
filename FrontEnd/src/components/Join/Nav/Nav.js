@@ -101,7 +101,6 @@ class JoinNav extends React.Component {
         </Menu.Item>
       </Menu>
     );
-    let { match } = this.props;
 
     // console.log(myWidth);
     return (

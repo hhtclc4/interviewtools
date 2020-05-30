@@ -1,6 +1,5 @@
 import React from "react";
-import { Select } from "antd";
-const { Option } = Select;
+
 class UpgradeAcc extends React.Component {
     constructor(props) {
         super(props);
@@ -11,13 +10,6 @@ class UpgradeAcc extends React.Component {
         }
     }
 
-    companyMenu = () => {
-        const children = [];
-        for (let i = 10; i < 36; i++) {
-            children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-        }
-        return children;
-    };
 
     chooseRoleHandler = (type) => {
         this.setState({
@@ -30,7 +22,7 @@ class UpgradeAcc extends React.Component {
                     isOpenHR: true,
                     isOpenSenior: false,
                 })
-                break
+                break;
             }
 
             case "Senior": {
@@ -38,6 +30,7 @@ class UpgradeAcc extends React.Component {
                     isOpenSenior: true,
                     isOpenHR: false,
                 })
+                break;
             }
             default:
                 return
@@ -45,7 +38,6 @@ class UpgradeAcc extends React.Component {
     }
     render() {
         let { isOpenPricing, isOpenHR, isOpenSenior } = this.state;
-        let companyMenu = this.companyMenu();
         return (
             <div className="upgrade-acc-container">
                 <div className="upgrade-acc-title">Upgrade your new role</div>
@@ -53,7 +45,6 @@ class UpgradeAcc extends React.Component {
                     <div className="role-symbol pr-3 pt-4 pb-2"
                         onClick={() => this.chooseRoleHandler("HR")}
                         style={isOpenHR ? {
-                            background: 'rgb(107,90,220)',
                             background: 'linear-gradient(90deg, rgba(107,90,220,1) 0%, rgba(143,84,233,1) 52%, rgba(190,75,249,1) 100%)'
                         } : {}}
                     >
@@ -61,13 +52,11 @@ class UpgradeAcc extends React.Component {
                             style={{ width: '80%' }}
                             alt="HR" src={require("./images/HRstaff.png")}
                         />
-
                         <p className="text-center"><strong>as a Human Resources Staff</strong></p>
                     </div>
                     <div className="role-symbol pr-3 pt-4 pb-2"
                         onClick={() => this.chooseRoleHandler("Senior")}
                         style={isOpenSenior ? {
-                            background: 'rgb(107,90,220)',
                             background: 'linear-gradient(90deg, rgba(107,90,220,1) 0%, rgba(143,84,233,1) 52%, rgba(190,75,249,1) 100%)'
                         } : {}}
                     >
@@ -84,7 +73,7 @@ class UpgradeAcc extends React.Component {
                 >
                     <div className="ua-choose-company mb-4">
                         <p className="ua-section-title">Choose your company</p>
-                        <div class="dropdown">
+                        {/* <div class="dropdown">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Dropdown link
                             </a>
@@ -94,7 +83,7 @@ class UpgradeAcc extends React.Component {
                                 <a class="dropdown-item" href="#">Another action</a>
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="ua-choose-plan">
                         <p className="ua-section-title">Choose your plan</p>

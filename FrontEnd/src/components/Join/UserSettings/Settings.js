@@ -23,7 +23,7 @@ class UserSettings extends React.Component {
             isShowGradeEdit: false,
             isShowPasswordEdit: false,
             isShowDeleteAcc: false,
-            isShowUpgradeAcc: true,
+            isShowUpgradeAcc: false,
         }
     }
 

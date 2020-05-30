@@ -43,8 +43,6 @@ class EditorConvertToHTML extends Component {
     }
     render() {
         const { editorState } = this.state;
-        let { work_description } = this.props;
-
         return (
             <div className="wysiwyg-com">
                 <Editor

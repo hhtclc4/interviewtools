@@ -19,7 +19,7 @@ import ReportDetail from "./components/Admin/Page/Reports/ReportDetail/ReportDet
 import HRCampaign from "./components/HR/Campaign/Campaign";
 import DetailRecruitLayout from "./layouts/DetailRecruit/DetailRecruit";
 
-import DetailRecruit from "./components/Home/HomeBody/DetailRecruit/DetailRecruit";
+// import DetailRecruit from "./components/Home/HomeBody/DetailRecruit/DetailRecruit";
 import HomeDiscover from "./components/Home/Discover/Discover";
 import HRlayout from "./layouts/HR/HR";
 class App extends React.Component {

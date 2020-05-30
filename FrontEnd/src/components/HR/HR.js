@@ -5,7 +5,6 @@ import CampaignOverview from "./CampaignOverview/CampaignOverview";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 import { withRouter } from "react-router-dom";
-import HomeNav from "../Home/Nav/Nav";
 
 class HRstaff extends React.Component {
   constructor(props) {

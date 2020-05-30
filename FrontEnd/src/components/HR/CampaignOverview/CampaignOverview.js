@@ -3,7 +3,6 @@ import "./CampaignOverview.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDollarSign,
-  faMapMarkerAlt,
   faPencilAlt,
   faTrashAlt,
   faScroll,
@@ -11,7 +10,6 @@ import {
 
 import {
   EditorState,
-  convertToRaw,
   convertFromHTML,
   ContentState,
 } from "draft-js";
@@ -135,7 +133,7 @@ class CampaignOverview extends React.Component {
                 data.image !== null
                   ? data.image
                   : require(`../../../utils/campaign_img/campain_pic${
-                      image_index % 7
+                    image_index % 7
                     }.png`)
               }
             />

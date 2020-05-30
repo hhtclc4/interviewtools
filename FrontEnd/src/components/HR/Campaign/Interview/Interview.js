@@ -1,14 +1,13 @@
 import React from "react";
 import "./Interview.scss";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 // import { fakeEmails } from "./FakeEmails";
-import InterviewThumbnail from "./Thumbnail/Thumbnail";
+
 import InterviewControl from "./Control/Control";
 import { withRouter } from "react-router-dom";
 import InterviewPopup from "./CreateInterviewPopup";
-import CanOverview from "./Control/CandidateOverview/CanOverview";
 
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
@@ -66,12 +65,11 @@ class HRInterview extends React.Component {
   }
   componentDidMount() {
     this._isMounted = true;
-    let { campaign_id } = this.state;
     this.props.showInterviews();
     this.props.getAvailableCandidates();
   }
 
-  UNSAFE_componentWillMount() {}
+  UNSAFE_componentWillMount() { }
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -109,7 +107,6 @@ class HRInterview extends React.Component {
       isFocusCreater,
       isFocusEmails,
       interviews,
-      interviewForcus,
       campaign_id,
     } = this.state;
     console.log("data", interviews);

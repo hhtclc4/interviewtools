@@ -44,8 +44,14 @@ let calculateAccuracy = (data) => {
   let unAttempt = 0;
   data.forEach((attempt) => {
     if (attempt.question.type === 1) {
-      if (attempt.question_choice.is_right === 1) correctAnswer++;
-      if (attempt.question_choice.is_right === 2) unAttempt++;
+      if (attempt.question_choice.is_right === 1) {
+        correctAnswer = correctAnswer + 1;
+      }
+
+      if (attempt.question_choice.is_right === 2) {
+        unAttempt = unAttempt + 1;
+      }
+
     } else if (attempt.question.type === 2) {
       let questionRightTotal = 0;
       let multiRightTotal = 0;

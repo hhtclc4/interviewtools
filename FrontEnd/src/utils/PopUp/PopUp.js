@@ -5,7 +5,7 @@ const PopUp = ({ children, openPop }) => {
 
     const node = useRef();
     const [open, setOpen] = useState(true);
-    const popUpClickHandler = (e) => {
+    let popUpClickHandler = (e) => {
         // console.log("click inside");
         if (node.current.contains(e.target)) {
             return;
@@ -18,14 +18,14 @@ const PopUp = ({ children, openPop }) => {
     }
     useEffect(() => {
         if (open) {
-            document.addEventListener("mousedown", popUpClickHandler);
+            document.addEventListener("mousedown", popUpClickHandler, false);
         } else {
-            document.removeEventListener("mousedown", popUpClickHandler);
+            document.removeEventListener("mousedown", popUpClickHandler, false);
         }
-
         return () => {
-            document.removeEventListener("mousedown", popUpClickHandler);
+            document.removeEventListener("mousedown", popUpClickHandler, false);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open]);
 
     return (

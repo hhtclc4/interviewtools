@@ -8,7 +8,7 @@ import CanOverview from "./CandidateOverview/CanOverview";
 import CandidatePopup from "./CandidatePopup";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import * as actions from "../../../../../redux/actions/index";
+// import * as actions from "../../../../../redux/actions/index";
 class InterviewControl extends React.Component {
   constructor(props) {
     super(props);

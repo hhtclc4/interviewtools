@@ -2,7 +2,7 @@ import React from "react";
 import "./LoginPopup.scss";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faSpinner } from "@fortawesome/free-solid-svg-icons";
 

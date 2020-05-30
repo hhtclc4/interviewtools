@@ -118,7 +118,7 @@ class Teleport extends React.Component {
     });
   };
   render() {
-    let { search, tableArr, questionArr, activeChild, isMount } = this.state;
+    let { search, tableArr, questionArr, activeChild } = this.state;
     let defaultActive = tableArr[0].id;
     // if (isMount) {
     //   this.props.teleportQuestionAndAnswersAPI(this.props.title);
