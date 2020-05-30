@@ -6,10 +6,13 @@ module.exports = new Sequelize("interviewtool", "root", "123456", {
     max: 5,
     min: 0,
     acquire: 30000,
-    idle: 10000
+    idle: 10000,
   },
+  useUTC: false, //for reading from database
+  timezone: "+07:00",
+
   define: {
     timestamps: false,
-    freezeTableName: true
-  }
+    freezeTableName: true,
+  },
 });

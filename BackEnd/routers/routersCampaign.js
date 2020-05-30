@@ -62,7 +62,10 @@ router.post("/api/search_campaign", async (req, res) => {
     where: {
       id: { [Op.in]: listCampaign },
     },
-    include: [{ model: User, attributes: ["name", "email", "phone"] }, Subject],
+    include: [
+      { model: User, attributes: ["name", "email", "phone"], include: Company },
+      Subject,
+    ],
   })
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
@@ -95,20 +98,36 @@ router.post("/api/campaign_of_interviewer", verifyToken, (req, res) =>
     }
   })
 );
-router.post("/api/create_campaign", verifyToken, (req, res) =>
+
+router.post("/api/create_campaign", verifyToken, async (req, res) =>
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
       req.body.user_id = authData.user_id;
       Campaign.create(req.body)
-        .then((data) => {
+        .then(async (data) => {
           for (let i = 0; i < req.body.subjects.length; i++) {
             req.body.subjects[i].subject_id = req.body.subjects[i].id;
             req.body.subjects[i].campaign_id = data.id;
           }
-          Campaign_Subject.bulkCreate(req.body.subjects).then((data) =>
-            res.send(data)
-          );
+          let createCampaignSubject = () =>
+            Campaign_Subject.bulkCreate(req.body.subjects).then((camp_sub) => {
+              return camp_sub;
+            });
+          let camp_sub = await createCampaignSubject();
+          Campaign.findOne({
+            where: {
+              id: camp_sub[0].campaign_id,
+            },
+            include: [
+              { model: User, attributes: ["name", "email", "phone"] },
+              Subject,
+              Work_Type,
+              Level,
+            ],
+          })
+            .then((campaign) => res.send(campaign))
+            .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
     }
@@ -177,8 +196,8 @@ router.post("/api/candidate", verifyToken, (req, res) => {
         },
       })
         .then((data) => {
-          if (data === null) res.send({ campaign_id: 0 });
-          else res.send(data);
+          if (data === null) res.sendStatus(403);
+          else res.sendStatus(200);
         })
         .catch((err) => console.log(err));
     }

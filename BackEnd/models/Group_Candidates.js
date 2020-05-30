@@ -43,8 +43,18 @@ const Group_Candidates = db.define(
       defaultValue: null,
       primaryKey: false,
     },
+    created_at: {
+      type: "TIMESTAMP",
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      allowNull: false,
+    },
+    updated_at: {
+      type: "TIMESTAMP",
+      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      allowNull: false,
+    },
     answer_records: Sequelize.VIRTUAL,
   },
-  { underscored: true }
+  { underscored: true, timestamps: true }
 );
 module.exports = Group_Candidates;

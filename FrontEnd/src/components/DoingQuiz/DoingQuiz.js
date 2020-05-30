@@ -1,10 +1,16 @@
 import React from "react";
 import "./DoingQuiz.scss";
-import QuestionShow from "../DoingQuiz/QuestionShow/QuestionShow";
+import QuestionShow from "./QuestionShow/QuestionShow";
+import PageNumber from "./PageNumber/PageNumber";
+import PageScore from "./PageScore/PageScore";
+
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
-var showQuestion;
+
+let showQuestion;
+let showPage;
+let pageNumber = 1;
 class DoingQuiz extends React.Component {
   constructor(props) {
     super(props);
@@ -19,9 +25,12 @@ class DoingQuiz extends React.Component {
       ],
       data: [],
       count: 0,
+      changePage: true,
       changeQuestion: false,
+      step: 1,
       isDone: false,
       accessToPush: false,
+      right_answer: 0,
     };
   }
   componentDidMount() {
@@ -35,6 +44,9 @@ class DoingQuiz extends React.Component {
       questions: nextProps.questionTable.questions,
     });
   }
+  componentWillUnmount() {
+    pageNumber = 1;
+  }
   recordAnswer = (
     question_id,
     question_choice,
@@ -44,74 +56,125 @@ class DoingQuiz extends React.Component {
   ) => {
     ///create data to send API
     let question_table_id = parseInt(this.props.match.params.question_table_id);
+    let choice_id = 0;
+    if (question_choice !== undefined) choice_id = question_choice.id;
     let data = {
       question_table_id: question_table_id,
       question_id,
-      choice_id: question_choice.id,
+      choice_id,
       multi_choice: multi_choice,
       answer_text: answer_text,
       type,
     };
     let dataPush = this.state.data;
-    dataPush.push({ ...data });
+    if (question_id) dataPush.push({ ...data });
     console.log("dataPush", dataPush);
   };
-  doneQuestionHandler = () => {
+  doneQuestionHandler = (isChooseRight) => {
     clearTimeout(showQuestion);
+    clearTimeout(showPage);
+    if (isChooseRight)
+      this.setState({
+        right_answer: this.state.right_answer + 1,
+      });
     setTimeout(() => {
       this.setState({
-        changeQuestion: true,
+        step: 3,
       });
-    }, 2000);
+    }, 1500);
   };
-  createQuestion = () => {
-    let { questions, count, isDone, changeQuestion, data } = this.state;
-    if (isDone === true) {
+  showPageNumber = () => {
+    let { isDone, step, data, right_answer, questions } = this.state;
+    if (!isDone) {
+      switch (step) {
+        case 1:
+          showPage = setTimeout(() => {
+            this.setState({
+              step: 2,
+            });
+            if (pageNumber === questions.length) pageNumber = "Done";
+            else pageNumber += 1;
+            /////////////////////////////////////// speed of change page
+          }, 3000);
+          return <PageNumber key={pageNumber} pageNumber={pageNumber} />;
+        case 2:
+          clearTimeout(showPage);
+          return this.createQuestion();
+        case 3:
+          setTimeout(() => {
+            this.setState({
+              changeQuestion: true,
+              changePage: true,
+              step: 1,
+            });
+          }, 3000);
+          return (
+            <PageScore
+              key={pageNumber}
+              right_answer={right_answer}
+              questionsLength={questions.length}
+            />
+          );
+        default:
+          return "";
+      }
+    } else {
+      // all questions is completed
       this.props.addAnswerRecord(data);
       let state = this.state;
       state.isDone = false;
+      state.changePage = false;
+
       let question_table_id = this.props.match.params.question_table_id;
       this.props.updateTableWithPlayed(question_table_id);
       clearTimeout(showQuestion);
-    } else
-      for (let i = count; i < questions.length; i++) {
-        if (changeQuestion === false) {
-          showQuestion = setTimeout(() => {
-            if (count < questions.length - 1 && isDone === false) {
-              this.setState({
-                count: count + 1,
-              });
-            } else {
-              this.setState({
-                isDone: true,
-              });
-            }
-          }, questions[count].time * 1000);
+      clearTimeout(showPage);
+    }
+  };
+  createQuestion = () => {
+    let { questions, count, isDone, changeQuestion } = this.state;
+    //changeQuestion is not permitted(not click answer), show question
+    if (changeQuestion === false) {
+      showQuestion = setTimeout(() => {
+        if (count < questions.length - 1 && isDone === false) {
+          this.setState({
+            count: count + 1,
+            step: 3,
+          });
         } else {
-          if (count < questions.length - 1 && isDone === false) {
-            this.setState({
-              count: count + 1,
-              changeQuestion: false,
-            });
-          } else {
-            this.setState({
-              isDone: true,
-              changeQuestion: false,
-            });
-          }
+          this.setState({
+            isDone: true,
+            step: 3,
+          });
         }
-
-        return (
-          <QuestionShow
-            questionsLength={questions.length}
-            key={count}
-            index={count}
-            question={questions[count]}
-            doneQuestionHandler={this.doneQuestionHandler}
-            recordAnswer={this.recordAnswer}
-          />
-        );
+      }, questions[count].time * 1000);
+    } else {
+      //changeQuestion is permitted
+      if (count < questions.length - 1 && isDone === false) {
+        this.setState({
+          count: count + 1,
+          changeQuestion: false,
+        });
+      } else {
+        this.setState({
+          isDone: true,
+          changeQuestion: false,
+        });
       }
+    }
+
+    if (!isDone)
+      return (
+        <QuestionShow
+          questionsLength={questions.length}
+          key={count}
+          index={count}
+          question={questions[count]}
+          doneQuestionHandler={this.doneQuestionHandler}
+          recordAnswer={this.recordAnswer}
+        />
+      );
+    else return <div></div>;
   };
 
   render() {
@@ -121,7 +184,7 @@ class DoingQuiz extends React.Component {
     if (this.state.accessToPush)
       this.props.history.push(`/pre-game/${question_table_id}/review`);
     else {
-      if (this.state.questions[0].id !== 0) element = this.createQuestion();
+      if (this.state.questions[0].id !== 0) element = this.showPageNumber();
       else element = "";
 
       //let question = this.createQuestion();

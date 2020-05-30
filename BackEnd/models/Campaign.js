@@ -1,4 +1,5 @@
 const db = require("../database");
+const Sequelize = require("sequelize");
 
 const Campaign = db.define(
   "campaign",
@@ -61,7 +62,22 @@ const Campaign = db.define(
       allowNull: true,
       defaultValue: 1,
     },
+    // created_at: {
+    //   type: "TIMESTAMP",
+    //   defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    //   allowNull: false,
+    // },
+    // updated_at: {
+    //   type: "TIMESTAMP",
+    //   defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+    //   allowNull: false,
+    // },
   },
-  { underscored: true }
+  {
+    createdAt: "created_at",
+    updatedAt: "updated_at",
+    underscored: true,
+    timestamps: true,
+  }
 );
 module.exports = Campaign;
