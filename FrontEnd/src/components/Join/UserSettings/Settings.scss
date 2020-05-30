@@ -1,7 +1,9 @@
+$concept-color: #fd7e14;
+$button-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 $concept-color, 0 4px 6px rgba(0, 0, 0, 0.45);
 .settings-wrapper {
     height: 100%;
     min-height: 100%;
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -193,6 +195,107 @@
             .set-save-btn {
                 @extend .set-cancel-btn;
             }
+        }
+    }
+}
+
+.upgrade-acc-container {
+    height: fit-content;
+    padding: 1rem;
+    transition: all 0.4s ease;
+    position: relative;
+    .upgrade-acc-title {
+        font-size: 28px;
+        font-family: QuickSand;
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+    .ua-role-img-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-bottom: 1rem;
+        .role-symbol {
+            height: 340px;
+            width: 45%;
+            background-color: #f2f2f2;
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+    }
+
+    .ua-pricing-container {
+        border-top: 1px solid #b3b3b3;
+        margin-top: 1rem;
+        padding: 1rem 0;
+        width: 100%;
+        background-color: #fff;
+
+        .ua-choose-company {
+        }
+        .ua-section-title {
+            font-family: QuickSand;
+            text-align: center;
+            padding-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .ua-choose-plan {
+            .plan-choices {
+                padding: 1rem 0;
+                .plan-container {
+                    background-color: #f2f2f2;
+                    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.15);
+                    border-radius: 5px;
+                    transition: all 0.3s ease;
+                    width: 33%;
+                    padding: 0.5em;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    &:hover {
+                        position: relative;
+                        top: -5px;
+                        box-shadow: none;
+                    }
+                    .plan-type {
+                        color: $concept-color;
+                        font-weight: bold;
+                        margin-bottom: 2rem;
+                    }
+
+                    img {
+                        height: 100px;
+                        margin-bottom: 2rem;
+                    }
+
+                    .plan-unit {
+                        font-size: 14px;
+                        color: #999999;
+                    }
+                }
+            }
+        }
+    }
+
+    .ua-confirm-container {
+        .ua-confirm-btn {
+            border: none;
+            border-radius: 4px;
+            background-color: $concept-color;
+            color: #fff;
+            padding: 4px 10px;
+            font-weight: bold;
+            box-shadow: $button-shadow;
         }
     }
 }

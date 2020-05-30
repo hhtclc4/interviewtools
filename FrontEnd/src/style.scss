@@ -1,11 +1,12 @@
 html,
 body,
 #root {
-    height: 100%;
+    min-height: 100vh;
+    height: fit-content;
 }
 
 .page-container {
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
@@ -17,18 +18,13 @@ p {
 }
 
 * {
-    font-family:
-        OpenSans,
-        sans-serif,
-        Helvetica,
-        Arial;
-    ;
+    font-family: OpenSans, sans-serif, Helvetica, Arial;
 }
 
-button{
-    outline: none!important;
+button {
+    outline: none !important;
 }
 
-input{
-    outline: none!important;
+input {
+    outline: none !important;
 }

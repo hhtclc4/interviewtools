@@ -11,7 +11,9 @@ import NameEdit from './NameEdit'
 import GradeEdit from './GradeEdit'
 import PasswordEdit from './PasswordEdit'
 import PopUp from '../../../utils/PopUp/PopUp'
+import UpgradeAcc from './UpgradeAcc'
 class UserSettings extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +23,7 @@ class UserSettings extends React.Component {
             isShowGradeEdit: false,
             isShowPasswordEdit: false,
             isShowDeleteAcc: false,
-            isShowUpgradeAcc: false,
+            isShowUpgradeAcc: true,
         }
     }
 
@@ -31,7 +33,7 @@ class UserSettings extends React.Component {
                 this.setState({
                     isShowAvaEdit: !this.state.isShowAvaEdit
                 });
-                console.log("ava")
+
                 break;
             }
 
@@ -39,7 +41,7 @@ class UserSettings extends React.Component {
                 this.setState({
                     isShowUserNameEdit: !this.state.isShowUserNameEdit
                 });
-                console.log("username")
+
                 break;
             }
 
@@ -47,7 +49,7 @@ class UserSettings extends React.Component {
                 this.setState({
                     isShowNameEdit: !this.state.isShowNameEdit
                 });
-                console.log("name")
+
                 break;
             }
 
@@ -55,7 +57,7 @@ class UserSettings extends React.Component {
                 this.setState({
                     isShowGradeEdit: !this.state.isShowGradeEdit
                 });
-                console.log("name")
+
                 break;
             }
 
@@ -63,7 +65,7 @@ class UserSettings extends React.Component {
                 this.setState({
                     isShowPasswordEdit: !this.state.isShowPasswordEdit
                 });
-                console.log("name")
+
                 break
 
                 ;
@@ -73,7 +75,7 @@ class UserSettings extends React.Component {
                 this.setState({
                     isShowUpgradeAcc: !this.state.isShowUpgradeAcc
                 });
-                console.log("name")
+
                 break
 
                 ;
@@ -188,13 +190,21 @@ class UserSettings extends React.Component {
 
                 {this.state.isShowPasswordEdit ? (
                     <PasswordEdit
-                        togglePopUp={() => this.togglePopup + s("password")}
-                    />
+                        togglePopUp={() => this.togglePopups("password")}
+                    >
+
+                    </PasswordEdit>
                 ) : null}
                 {this.state.isShowUpgradeAcc ? (
                     <PopUp
-                        togglePopUp={() => this.togglePopups("upgradeAcc")}
-                    />
+                        openPop={(open) => {
+                            this.setState({
+                                isShowUpgradeAcc: !open
+                            })
+                        }}
+                    >
+                        <UpgradeAcc />
+                    </PopUp>
                 ) : null}
 
             </div>

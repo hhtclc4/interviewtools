@@ -1,22 +1,21 @@
 import React, { useEffect, useState, useRef } from "react";
 import './PopUp.scss'
 
-const PopUp = ({ }) => {
+const PopUp = ({ children, openPop }) => {
 
     const node = useRef();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const popUpClickHandler = (e) => {
-        console.log("clicking anywhere");
-        if (this.node.contains(e.target)) {
-            console.log("click inside")
+        // console.log("click inside");
+        if (node.current.contains(e.target)) {
             return;
         }
 
         //outside click
-        console.log("click outside")
+        // console.log("click outside")
         setOpen(false);
+        openPop(open);
     }
-
     useEffect(() => {
         if (open) {
             document.addEventListener("mousedown", popUpClickHandler);
@@ -29,12 +28,15 @@ const PopUp = ({ }) => {
         };
     }, [open]);
 
-
     return (
-        <div className="util-popup-container">
-            <div className="util-popup-inner" ref={node}>
+        < div className="util-popup-container" >
+            <div className="util-popup-inner" ref={node}
+                style={open ? { animation: 'animatebottomSetPopUp 0.4s ease' } : { animation: 'animatebottomDisappearPopUp 0.4s ease' }}
+            >
+                {console.log(open)}
+                {children}
             </div>
-        </div>
+        </div >
     );
 
 

@@ -1,5 +1,10 @@
 $circle-chart-color: #f2f2f2;
+$btn-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 
+$background-color: #f2f2f2;
+$line-color: #ccced2;
+$inactive-tabs-color: #5f666f;
+$text-font: "Open Sans";
 .report-detail-container {
   width: 100%;
   max-width: 1200px;
@@ -14,10 +19,37 @@ $circle-chart-color: #f2f2f2;
     border-top-right-radius: 4px;
     padding: 15px;
     background-color: white;
-    .text-info {
+    .rd-text-info {
+      * {
+        font-family: "Open Sans";
+        margin-bottom: 10px;
+      }
+      .rd-quiz-name {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .rd-viewquiz {
+        width: 100px;
+        top: 0;
+        border: none;
+        border-radius: 5px;
+        box-shadow: $btn-shadow;
+        background-color: #fff;
+        &:hover {
+          background-color: #f2f2f2;
+        }
+      }
+
+      .rd-quiz-time {
+        color: #737373;
+      }
     }
 
     .chart-info {
+      p {
+        color: #b3b3b3;
+        font-family: "Open Sans";
+      }
       .chart-display {
         .circle {
           height: 82px;
@@ -29,16 +61,58 @@ $circle-chart-color: #f2f2f2;
     }
   }
   .report-detail-tabs {
-    .rd-tabs-header {
-      background-color: #f5f5f5;
-      .rd-tab {
-        top: 0 !important;
-        border: none;
-        padding: 10px 20px;
+    .order-display {
+      .tab {
+        width: 100%;
+        font-family: sans-serif;
+        color: #444;
       }
 
-      .rd-tab-active {
-        border-bottom: 3px solid #fd7e14;
+      ul.inline {
+        background-color: #f2f2f2;
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        -webkit-margin-start: 0px;
+        -webkit-margin-end: 0px;
+        -webkit-padding-start: 0px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+        li {
+          display: inline-block;
+          margin-left: 0;
+          width: 20%;
+          padding: 10px;
+          border-bottom: 2px solid #eee;
+          transition: all 0.5s;
+          font-family: "Open Sans";
+          text-align: center;
+          cursor: pointer;
+          color: $inactive-tabs-color;
+          &.selected {
+            border-bottom: 2px solid #337ab7;
+            color: #337ab7;
+            font-weight: bold;
+          }
+
+          &:hover {
+            background-color: #f2f2f2;
+          }
+        }
+      }
+      @media screen and (max-width: 590px) {
+        ul.inline {
+          li {
+            padding: 10px 0;
+          }
+        }
+      }
+
+      .point-btn {
+        display: none;
+        height: 0;
+        width: 0;
       }
     }
   }

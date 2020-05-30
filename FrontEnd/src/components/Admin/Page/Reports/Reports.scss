@@ -1,7 +1,22 @@
 $border-table-color: #ccc;
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
 
+.report-table-header {
+    * {
+        font-family: "Open Sans";
+        color: #737373;
+        font-size: 15px;
+        font-weight: 600;
+    }
+}
 .report-table-body {
     border: 1px solid $border-table-color;
+    box-shadow: $shadow;
+    * {
+        font-family: "Open Sans";
+        font-weight: 600;
+        font-size: 14px;
+    }
 }
 
 .report-quiz-container {
@@ -12,5 +27,14 @@ $border-table-color: #ccc;
         background-color: white;
         padding: 15px 10px;
         border-bottom: 1px solid $border-table-color;
+        cursor: pointer;
+        .rq-accuracy {
+            .rounded {
+                min-width: 15% !important;
+            }
+        }
+        &:hover {
+            background-color: #f2f2f2;
+        }
     }
 }

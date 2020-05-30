@@ -123,20 +123,20 @@ class ReportQuiz extends React.Component {
         }}
       >
         <div className="rq-row row">
-          <div className="rq-type col-sm">Live</div>
-          <div className="rq-name col-sm">{data.title}</div>
+          <div className="rq-name col-sm text-truncate">{data.title}</div>
           <div className="rq-players col-sm">{data.played}</div>
           <div className="rq-accuracy col-sm">
-            <span
+            <div
               className="rounded"
               style={{
                 backgroundColor: accuracyColor(),
-                padding: "8px",
-                color: "white"
+                padding: "2px 8px",
+                color: "white",
+                width: `${accuracy}%`
               }}
             >
               {accuracy}%
-            </span>
+            </div>
           </div>
           <div className="rq-option col-sm"></div>
         </div>
