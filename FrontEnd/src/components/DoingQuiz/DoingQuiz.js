@@ -87,16 +87,22 @@ class DoingQuiz extends React.Component {
     let { isDone, step, data, right_answer, questions } = this.state;
     if (!isDone) {
       switch (step) {
-        case 1:
+        case 1: {
+          let delayPage = (pageNumber === 1) ? 5200 : 1000;
           showPage = setTimeout(() => {
             this.setState({
               step: 2,
             });
-            if (pageNumber === questions.length) pageNumber = "Done";
-            else pageNumber += 1;
+            if (pageNumber === questions.length) {
+              pageNumber = "Done";
+            }
+            else {
+              pageNumber += 1;
+            }
             /////////////////////////////////////// speed of change page
-          }, 3000);
+          }, delayPage);
           return <PageNumber key={pageNumber} pageNumber={pageNumber} />;
+        }
         case 2:
           clearTimeout(showPage);
           return this.createQuestion();
@@ -107,7 +113,7 @@ class DoingQuiz extends React.Component {
               changePage: true,
               step: 1,
             });
-          }, 3000);
+          }, 1000);
           return (
             <PageScore
               key={pageNumber}

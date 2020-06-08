@@ -18,22 +18,21 @@ const PopUp = ({ children, openPop }) => {
     }
     useEffect(() => {
         if (open) {
-            document.addEventListener("mousedown", popUpClickHandler, false);
+            document.addEventListener("mousedown", popUpClickHandler);
         } else {
-            document.removeEventListener("mousedown", popUpClickHandler, false);
+            document.removeEventListener("mousedown", popUpClickHandler);
         }
         return () => {
-            document.removeEventListener("mousedown", popUpClickHandler, false);
+            document.removeEventListener("mousedown", popUpClickHandler);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open]);
 
     return (
         < div className="util-popup-container" >
-            <div className="util-popup-inner" ref={node}
-                style={open ? { animation: 'animatebottomSetPopUp 0.4s ease' } : { animation: 'animatebottomDisappearPopUp 0.4s ease' }}
+            <div className={open ? "util-popup-inner" : "util-popup-inner popup-exit"} ref={node}
+                style={open ? { animation: 'animatebottomSetPopUp 0.4s ease' } : { animation: 'animatebottomDisappearPopUp both 0.4s ease' }}
             >
-                {console.log(open)}
                 {children}
             </div>
         </div >

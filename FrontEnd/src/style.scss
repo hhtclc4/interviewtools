@@ -1,12 +1,8 @@
 html,
 body,
 #root {
-    min-height: 100vh;
-    height: fit-content;
-}
-
-.page-container {
-    min-height: 100%;
+    height: 100vh;
+    max-height: fit-content;
 }
 
 body {

@@ -1,0 +1,57 @@
+$size-of-font: 8vh;
+$font-of-text: QuickSand;
+.start-count-down {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    .count-animate {
+        padding: 0px;
+        background-color: black;
+        border-radius: 5px;
+        color: white;
+        position: absolute;
+        top: 40%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        font-size: $size-of-font;
+        text-align: center;
+        font-family: $font-of-text;
+        font-weight: bold;
+        animation: biggerAnimtationStart 1.2s infinite ease;
+        @keyframes biggerAnimtationStart {
+            0% {
+                transform: scale(1, 0.8);
+            }
+
+            50% {
+                transform: scale(1, 1);
+            }
+            60% {
+                transform: scale(1, 1);
+            }
+
+            100% {
+                transform: scale(1, 0.2);
+                color: transparent;
+            }
+        }
+    }
+
+    .show-page-num {
+        padding: 0px;
+        border-radius: 5px;
+        color: white;
+        position: absolute;
+        top: 40%;
+        width: 100%;
+        text-align: center;
+        font-size: $size-of-font;
+        font-family: $font-of-text;
+        font-weight: bold;
+    }
+
+    .go-animate {
+        @extend .show-page-num;
+        background-color: black;
+    }
+}
