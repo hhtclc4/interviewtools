@@ -1,0 +1,17 @@
+$size-of-font: 8vh;
+$font-of-text: QuickSand;
+.page-number-show-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    .number-show {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        font-size: $size-of-font;
+        color: white;
+        font-family: $font-of-text;
+        font-weight: bold;
+    }
+}

@@ -111,19 +111,21 @@ class DoingQuiz extends React.Component {
     let { isDone, step, right_answer, questions, attempt_length } = this.state;
     if (!isDone) {
       switch (step) {
-        case 1:
+        case 1: {
+          let delayPage = pageNumber === 1 ? 5200 : 1000;
           showPage = setTimeout(() => {
             this.setState({
               step: 2,
             });
             /////////////////////////////////////// speed of change page
-          }, 500);
+          }, delayPage);
           return (
             <PageNumber
               key={pageNumber}
               pageNumber={pageNumber <= questions.length ? pageNumber : "Done"}
             />
           );
+        }
         case 2:
           clearTimeout(showPage);
           return this.createQuestion();

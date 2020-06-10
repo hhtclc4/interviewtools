@@ -242,7 +242,7 @@ class QuizCreatorEditor extends React.Component {
       );
     });
     return (
-      <div className="page-container">
+      <div className="quiz-creator-page-container">
         <div className="quiz-creator-nav">
           <div className="logo">
             <img src={require("./images/logo.png")} alt="quiz-icon" />
