@@ -87,7 +87,7 @@ class DoingQuiz extends React.Component {
     };
     if (question_id) {
       pageNumber += 1;
-      // this.props.addAnswerRecord(data);
+      this.props.addAnswerRecord(data);
       console.log(data);
     }
   };
