@@ -698,7 +698,7 @@ export const showListQuestionAnswer = (question_table_id) => {
       },
     })
       .then((res) => {
-        console.log("res list question", res.data);
+        console.log("res questiontable", res.data);
         dispatch({
           type: types.SHOW_QUESTION_ANSWERS,
           data: res.data,
@@ -891,6 +891,37 @@ export const createQuestionTable = (data) => {
       });
   };
 };
+
+export const getAttemptLength = (question_table_id) => {
+  return (dispatch) => {
+    let token = localStorage.getItem("token");
+    axios({
+      method: "post",
+      url: URLs.GET_ATTEMPT_LENGTH_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": token,
+      },
+      data: { question_table_id },
+    })
+      .then((res) => {
+        console.log("res GET_ATTEMPT_LENGTH ", res.data);
+        dispatch({
+          type: types.GET_ATTEMPT_LENGTH,
+          attempt_length: res.data.attempt_length,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const doneAnswerRecord = (attempt_length) => {
+  localStorage.setItem("attempt_id", attempt_length);
+  return {
+    type: types.ACCESS_TO_PUSH,
+  };
+};
 export const addAnswerRecord = (data) => {
   return (dispatch) => {
     let token = localStorage.getItem("token");
@@ -905,10 +936,9 @@ export const addAnswerRecord = (data) => {
     })
       .then((res) => {
         console.log(res);
-        localStorage.setItem("attempt_id", res.data.id);
-        dispatch({
-          type: types.ACCESS_TO_PUSH,
-        });
+        // dispatch({
+        //   type: types.ACCESS_TO_PUSH,
+        // });
       })
       .catch((er) => {
         console.log("er", er);
@@ -1151,3 +1181,38 @@ export const getAttempt = (question_table_id, attempt_id) => {
   };
 };
 //
+
+export const getCurrentRecord = (
+  question_table_id,
+  attempt_id,
+  questionLength
+) => {
+  return (dispatch) => {
+    let token = localStorage.getItem("token");
+    axios({
+      method: "post",
+      url: URLs.CURRENT_RECORD_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": token,
+      },
+      data: { question_table_id, attempt_id },
+    })
+      .then((res) => {
+        console.log("API show Attemp record", res.data);
+        dispatch({
+          type: types.GET_CURRENT_RECORD,
+          data: res.data,
+          questionLength,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const resetAttemptRedux = () => {
+  return {
+    type: types.RESET_ATTEMPT_REDUX,
+  };
+};

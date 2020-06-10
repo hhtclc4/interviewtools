@@ -13,14 +13,15 @@ class PageNumberStart extends React.Component {
     countDown = () => {
         let { step } = this.state;
         while (step >= -1) {
+            let minus = step
+            minus -= 1
             count = setTimeout(() => {
                 this.setState({
-                    step: this.state.step - 1,
+                    step: minus
                 })
             }, 1200);
             return <StartCountDown step={step} />
         }
-        clearTimeout(count);
     }
 
     render() {

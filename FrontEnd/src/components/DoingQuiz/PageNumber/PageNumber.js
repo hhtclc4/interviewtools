@@ -11,10 +11,10 @@ class PageNumber extends React.Component {
     let { pageNumber } = this.props;
     return (
       <div className="page-number-show-container">
-        {pageNumber === 1 ?
-          <PageNumberStart /> :
-          <div className="number-show">{pageNumber}</div>
-        }
+        {/* {pageNumber === 1 ? */}
+        <PageNumberStart /> :
+        {/* <div className="number-show">{pageNumber}</div> */}
+        {/* } */}
       </div>
     );
   }

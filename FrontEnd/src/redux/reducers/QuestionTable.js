@@ -5,15 +5,19 @@ const initialState = {
   },
   questions: [
     {
+      id: 0,
+      question: "",
       question_choices: [],
+      time: 0,
     },
   ],
+  attempt_length: 0,
 };
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SHOW_QUESTION_ANSWERS: {
-      state = { ...action.data };
-      return { ...action.data };
+      state = { ...state, ...action.data };
+      return { ...state };
     }
     case types.SHOW_QUESTION_AFTER_DELETE:
       state.questions.splice(action.index, 1);
@@ -21,8 +25,6 @@ let myReducer = (state = initialState, action) => {
     case types.CREATE_QUESTION_TABLE:
       return { ...action.data };
     case types.UPDATE_QUESTION_TABLE_QUESTION:
-      console.log("redux", action.question);
-
       state.questions[action.index] = {
         ...state.questions[action.index],
         question: action.question.question,
@@ -44,6 +46,9 @@ let myReducer = (state = initialState, action) => {
         ...state.questions[action.index],
         time: action.data.time,
       };
+      return { ...state };
+    case types.GET_ATTEMPT_LENGTH:
+      state.attempt_length = action.attempt_length;
       return { ...state };
     default:
       return { ...state };
