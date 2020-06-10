@@ -39,7 +39,7 @@ class ReviewAttempt extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     // console.log(nextProps.attempt);
     this.setState({
-      data: nextProps.attempt,
+      data: nextProps.attempt.data,
     });
   }
   calculateAccuracy = () => {

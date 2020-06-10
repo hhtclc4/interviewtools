@@ -128,62 +128,95 @@ router.post("/api/get_user", verifyToken, (req, res) =>
     }
   })
 );
+router.post("/api/get_attempt_length", verifyToken, (req, res) => {
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    AnswerRecord.max("id", {
+      where: {
+        user_id: authData.user_id,
+        question_table_id: req.body.question_table_id,
+      },
+    }).then((attempt_length) => {
+      res.send({ attempt_length });
+    });
+  });
+});
+
 // record all answer that user do quiz, and then send the correct answer to client(DoQuiz page)
 router.post("/api/user_answer", verifyToken, (req, res) => {
+  jwt.verify(req.token, "hoangtri", async (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      let recordAnswer = async () => {
+        req.body.user_id = authData.user_id;
+        let { question_choices } = req.body.multi_choice;
+        if (req.body.type !== 2) await AnswerRecord.create(req.body);
+        else {
+          //unattempt Multi
+          if (!question_choices.length) {
+            await AnswerRecord.create(req.body);
+          } else
+            await MultiChoices.create(req.body.multi_choice).then(
+              (multiData) => {
+                req.body.multi_choice_id = multiData.id;
+                let data = [];
+                let { question_choices } = req.body.multi_choice;
+                for (let j = 0; j < question_choices.length; j++)
+                  data.push({
+                    multi_choice_id: multiData.id,
+                    choice_id: question_choices[j].id,
+                  });
+                MultiChoices_Choices.bulkCreate(data).then(() =>
+                  AnswerRecord.create(req.body)
+                );
+              }
+            );
+        }
+      };
+      await recordAnswer().then(() => {
+        // res.send({
+        //   id: req.body.id,
+        //   question_table_id: req.body.question_table_id,
+        // });
+        res.sendStatus(200);
+      });
+    }
+  });
+});
+
+//get
+router.post("/api/attempt_record", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      AnswerRecord.max("id", {
+      AnswerRecord.findAll({
+        include: [
+          {
+            model: QuestionChoices,
+            attributes: ["is_right", "id"],
+          },
+          {
+            model: Question,
+            include: [QuestionChoices],
+          },
+          {
+            model: MultiChoices,
+            include: QuestionChoices,
+          },
+        ],
         where: {
+          id: req.body.attempt_id,
           user_id: authData.user_id,
-          question_table_id: req.body[0].question_table_id,
+          question_table_id: req.body.question_table_id,
         },
       })
-        .then(async (id) => {
-          let recordAnswer = async () => {
-            for (let i = 0; i < req.body.length; i++) {
-              req.body[i].user_id = authData.user_id;
-              req.body[i].id = id + 1;
-              let { question_choices } = req.body[i].multi_choice;
-              if (req.body[i].type !== 2)
-                await AnswerRecord.create(req.body[i]);
-              else {
-                //unattempt Multi
-                if (!question_choices.length) {
-                  await AnswerRecord.create(req.body[i]);
-                } else
-                  await MultiChoices.create(req.body[i].multi_choice).then(
-                    (multiData) => {
-                      req.body[i].multi_choice_id = multiData.id;
-                      let data = [];
-                      let { question_choices } = req.body[i].multi_choice;
-                      for (let j = 0; j < question_choices.length; j++)
-                        data.push({
-                          multi_choice_id: multiData.id,
-                          choice_id: question_choices[j].id,
-                        });
-                      MultiChoices_Choices.bulkCreate(data).then(() =>
-                        AnswerRecord.create(req.body[i])
-                      );
-                    }
-                  );
-              }
-            }
-          };
-          await recordAnswer().then(() => {
-            res.send({
-              id: id + 1,
-              question_table_id: req.body[0].question_table_id,
-            });
-          });
-        })
+        .then((data) => res.send(data))
 
         .catch((err) => console.log(err));
     }
   });
 });
-//get
-router.post("/api/attempt_record", verifyToken, (req, res) => {
+
+router.post("/api/get_current_record_answer", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {

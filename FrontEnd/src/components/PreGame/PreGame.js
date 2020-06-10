@@ -20,7 +20,7 @@ class PreGame extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     //console.log(nextProps);
     this.setState({
-      data: nextProps.attempt,
+      data: nextProps.attempt.data,
     });
   }
   render() {

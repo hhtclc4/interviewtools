@@ -18,7 +18,10 @@ export const SUBJECT_API_URL = `${domain}/api/subject`;
 export const QUESTION_TABLE_BY_SUBJECT_API_URL = `${domain}/api/get_question_table_by_subject`;
 export const ANSWER_RECORD_API_URL = `${domain}/api/user_answer`;
 export const ATTEMPT_RECORD_API_URL = `${domain}/api/attempt_record`;
+export const CURRENT_RECORD_API_URL = `${domain}/api/get_current_record_answer`;
+
 export const GENARATE_CODE_API_URL = `${domain}/api/genarate_code`;
+export const GET_ATTEMPT_LENGTH_API_URL = `${domain}/api/get_attempt_length`;
 
 //user
 

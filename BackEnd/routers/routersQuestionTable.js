@@ -80,35 +80,6 @@ router.post("/api/teleport", async (req, res) => {
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
 });
-// router.post("/api/teleport", (req, res) => {
-//   var arr = req.body.title.split(" ");
-//   for (let i = 0; i < arr.length; i++)
-//     if (arr[i] === "") {
-//       arr.splice(i, 1);
-//       i--;
-//     }
-//   QuestionTable.findAll({
-//     where: {
-//       title: {
-//         // regular expression // bất kì phần tử nào trong 'a|b|c'
-
-//         [Op.regexp]: `^${arr.join("|")}`,
-//       },
-//       is_public: 1,
-//       is_finish: 1,
-//     },
-//     include: [
-//       {
-//         model: Question,
-//         include: QuestionChoices,
-//       },
-//       { model: User, attributes: ["name"] },
-//     ],
-//     attributes: ["id", "title", "grade_begin", "grade_end", "image"],
-//   })
-//     .then((data) => res.send(data))
-//     .catch((err) => console.log(err));
-// });
 //get QuestionTable list
 router.get("/api/questiontable", (req, res) =>
   QuestionTable.findAll()
