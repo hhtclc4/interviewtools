@@ -113,7 +113,7 @@ class DoingQuiz extends React.Component {
               changePage: true,
               step: 1,
             });
-          }, 1000);
+          }, 1500);
           return (
             <PageScore
               key={pageNumber}
