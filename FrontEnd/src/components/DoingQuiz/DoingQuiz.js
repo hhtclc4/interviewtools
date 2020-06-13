@@ -9,6 +9,7 @@ import * as actions from "./../../redux/actions/index";
 let showQuestion;
 let showPage;
 let pageNumber;
+let prevResult;
 class DoingQuiz extends React.Component {
   constructor(props) {
     super(props);
@@ -93,10 +94,17 @@ class DoingQuiz extends React.Component {
   };
   doneQuestionHandler = (isChooseRight) => {
     clearTimeout(showQuestion);
-    if (isChooseRight)
+    let right_answer = this.state.right_answer
+
+    prevResult = right_answer
+
+    if (isChooseRight) {
+      right_answer += 1
       this.setState({
-        right_answer: this.state.right_answer + 1,
+        right_answer
       });
+    }
+
     setTimeout(() => {
       this.setState({
         step: 3,
@@ -132,7 +140,7 @@ class DoingQuiz extends React.Component {
               changePage: true,
               step: 1,
             });
-          }, 500);
+          }, 2800);
           clearTimeout(showQuestion);
           let questionsLength = 0;
           for (let i = 0; i < questions.length; i++)
@@ -142,6 +150,7 @@ class DoingQuiz extends React.Component {
               key={pageNumber}
               right_answer={right_answer}
               questionsLength={questionsLength}
+              prevResult={prevResult}
             />
           );
         default:
