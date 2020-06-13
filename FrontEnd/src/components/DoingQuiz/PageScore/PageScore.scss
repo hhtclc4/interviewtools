@@ -17,21 +17,31 @@
             height: 40px;
             width: 50%;
             background-color: black;
-            opacity: 0.5;
+            opacity: 1;
             padding: 2px;
             .progress-animate {
                 height: 100%;
                 border-radius: 3px;
-                animation: changeWidthProcess 0.4s ease 0.5s forwards;
-                @keyframes changeWidthProcess {
-                    from {
-                        width: 0%;
-                    }
-                    to {
-                        width: 0%;
-                    }
-                }
+                position: relative;
+                // animation: changeWidthProcess 0.4s ease 0.5s forwards;
+                // @keyframes changeWidthProcess {
+                //     from {
+                //         width: 0%;
+                //     }
+                //     to {
+                //         width: 100%;
+                //     }
+                // }
             }
         }
     }
+}
+.tick-container {
+    color: white;
+    font-weight: 900;
+    font-family: QuickSand;
+    text-align: center;
+    font-size: 16px;
+    height: 100%;
+    padding-top: 5px;
 }

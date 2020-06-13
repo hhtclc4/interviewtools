@@ -22,6 +22,7 @@ class PageNumberStart extends React.Component {
             }, 1200);
             return <StartCountDown step={step} />
         }
+        clearTimeout(count)
     }
 
     render() {
