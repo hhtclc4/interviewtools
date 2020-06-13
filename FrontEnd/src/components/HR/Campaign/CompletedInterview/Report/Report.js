@@ -137,8 +137,8 @@ class InterviewReport extends React.Component {
             {status.accuracy >= data.campaign.question_table.bench_mark ? (
               <FontAwesomeIcon icon={faCheck} size="lg" color="#4caf50" />
             ) : (
-              <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
-            )}
+                <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
+              )}
           </div>
         </div>
       );
@@ -148,7 +148,7 @@ class InterviewReport extends React.Component {
     return (
       <div
         className="interview-report-container py-3 pr-2 pl-0"
-        onClick={this.toggleReportBody}
+      // onClick={this.toggleReportBody}
       >
         <div
           className="interview-report-header d-flex flex-row justify-content-between ml-2 px-1 py-2"

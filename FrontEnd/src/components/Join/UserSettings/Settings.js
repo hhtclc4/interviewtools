@@ -238,7 +238,7 @@ class UserSettings extends React.Component {
         ) : null}
         {this.state.isShowUpgradeAcc ? (
           <PopUp
-            openPop={(open) => {
+            openPop={(open) => {  //open duoc truyen ra
               this.setState({
                 isShowUpgradeAcc: !open,
               });

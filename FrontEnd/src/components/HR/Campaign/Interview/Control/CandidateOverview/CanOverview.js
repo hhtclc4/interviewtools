@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import * as actions from "../../../../../../redux/actions/index";
 import { Menu, Dropdown, Button } from "antd";
 import { Icon } from "@ant-design/compatible";
+import PopUp from "../../../../../../utils/PopUp/PopUp";
 
 class CanOverview extends React.Component {
   constructor(props) {
@@ -205,17 +206,17 @@ class CanOverview extends React.Component {
                 <b>TIME</b>
               </span>
             ) : (
-              // <> {data.interview_time} </>
-              <>
-                <div className="cni-time-hour">
-                  <Dropdown overlay={hour} trigger={["click"]}>
-                    <Button style={{ top: "0" }}>
-                      {data.interview_time} <Icon type="down" />
-                    </Button>
-                  </Dropdown>
-                </div>
-              </>
-            )}
+                // <> {data.interview_time} </>
+                <>
+                  <div className="cni-time-hour">
+                    <Dropdown overlay={hour} trigger={["click"]}>
+                      <Button style={{ top: "0" }}>
+                        {data.interview_time} <Icon type="down" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+                </>
+              )}
           </div>
           <div className="name-partion text-truncate  flex-fill">
             {type === "partion" ? <b>{data.user.name}</b> : data.user.name}
@@ -240,8 +241,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>CV</b>
               ) : (
-                <FontAwesomeIcon icon={faClipboard} />
-              )}
+                  <FontAwesomeIcon icon={faClipboard} />
+                )}
             </button>
           </div>
           <div className="note-partion text-truncate  flex-fill">
@@ -258,8 +259,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>NOTE</b>
               ) : (
-                <FontAwesomeIcon icon={faStickyNote} />
-              )}
+                  <FontAwesomeIcon icon={faStickyNote} />
+                )}
             </button>
           </div>
           <div
@@ -283,10 +284,18 @@ class CanOverview extends React.Component {
           </div>
 
           {this.state.isOpenNoteandCV ? (
-            <NoteandCV
-              closePopup={this.toggleNoteandCV}
-              openTab={this.state.active}
-            />
+            <PopUp
+              openPop={(open) => {
+                this.setState({
+                  isOpenNoteandCV: !open
+                })
+              }}
+            >
+              <NoteandCV
+                closePopup={this.toggleNoteandCV}
+                openTab={this.state.active}
+              />
+            </PopUp>
           ) : null}
 
           {this.state.isOpenInterviews ? (

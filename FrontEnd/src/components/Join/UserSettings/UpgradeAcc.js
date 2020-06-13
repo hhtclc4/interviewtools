@@ -58,9 +58,9 @@ class UpgradeAcc extends React.Component {
             style={
               isOpenHR
                 ? {
-                    background:
-                      "linear-gradient(90deg, rgba(107,90,220,1) 0%, rgba(143,84,233,1) 52%, rgba(190,75,249,1) 100%)",
-                  }
+                  background:
+                    "linear-gradient(90deg, rgba(107,90,220,1) 0%, rgba(143,84,233,1) 52%, rgba(190,75,249,1) 100%)",
+                }
                 : {}
             }
           >
@@ -79,9 +79,9 @@ class UpgradeAcc extends React.Component {
             style={
               isOpenSenior
                 ? {
-                    background:
-                      "linear-gradient(90deg, rgba(107,90,220,1) 0%, rgba(143,84,233,1) 52%, rgba(190,75,249,1) 100%)",
-                  }
+                  background:
+                    "linear-gradient(90deg, rgba(107,90,220,1) 0%, rgba(143,84,233,1) 52%, rgba(190,75,249,1) 100%)",
+                }
                 : {}
             }
           >

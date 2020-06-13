@@ -84,32 +84,26 @@ $line-color: #f2f2f2;
         background-color: #e6e6e6;
     }
     .note-and-cv-popup-container {
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-        overflow-x: hidden;
-        z-index: 10;
         .note-and-cv-popup-inner {
-            height: 70%;
+            height: fit-content;
             width: 100%;
             background-color: white;
             .note-and-cv-tabs {
-                height: 95%;
+                height: fit-content;
+                .CV-img-container {
+                    img {
+                        width: 100%;
+                    }
+                }
                 .order-display {
-                    height: 100%;
+                    height: fit-content;
                     .tab {
                         width: 100%;
                         font-family: sans-serif;
                         color: #444;
                         height: 100%;
                         .order-tab-display {
-                            height: 100%;
+                            height: fit-content;
                         }
                     }
 
