@@ -18,10 +18,39 @@ const Level = require("../models/Level");
 const Interview = require("../models/Interview");
 const Company = require("../models/Company");
 const Sequelize = require("sequelize");
-
 const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
+
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "hoangclc4",
+  api_key: "567799543743853",
+  api_secret: "DSLzkE8PisZQv0tfJcEAH7y33hM",
+});
+
+router.put("/api/upload_avatar_image", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", async (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      let url = "";
+      await cloudinary.uploader.upload(req.body.file, (err, result) => {
+        url = result.url;
+      });
+      User.update(
+        { avatar: url },
+        {
+          where: {
+            id: authData.user_id,
+          },
+        }
+      )
+        .then((data) => res.send({ avatar: url }))
+        .catch((err) => sendStatus(404));
+    }
+  })
+);
 // find all the number of attempt that user do quiz in page PreGame
 router.post("/api/quiz_attempt", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {
@@ -117,7 +146,6 @@ router.post("/api/get_user", verifyToken, (req, res) =>
           id: authData.user_id,
         },
         include: Company,
-        attributes: ["name", "email", "phone", "avatar"],
       })
         .then((data) => {
           if (data === null) res.sendStatus(403);
@@ -433,23 +461,20 @@ router.post("/api/user", (req, res) => {
     })
     .catch((err) => console.log(err));
 });
-router.post("/api/getuser", verifyToken, (req, res) => {
-  //console.log(req.headers["user-token"]);
-  jwt.verify(req.token, "hoangtri", (err, data) => {
+
+router.put("/api/update_user", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      res.send(data);
+      User.update(req.body, {
+        where: {
+          id: authData.user_id,
+        },
+      })
+        .then((data) => res.send(req.body))
+        .catch((err) => sendStatus(404));
     }
-  });
-});
-router.put("/api/update_user", (req, res) =>
-  User.update(req.body, {
-    where: {
-      id: req.body.id,
-    },
   })
-    .then((data) => res.send(req.body))
-    .catch((err) => sendStatus(404))
 );
 function verifyToken(req, res, next) {
   const header = req.headers["user-token"];

@@ -17,7 +17,7 @@ class LoadingPage extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("nextProps", nextProps);
     let { completed, user, subject } = nextProps;
-    if (user.isDoneLoading) localStorage.setItem("username", user[0].name);
+    if (user.isDoneLoading) localStorage.setItem("username", user.user.name);
     if (completed.isDoneLoading && user.isDoneLoading && subject.isDoneLoading)
       this.props.doneLoading();
   }

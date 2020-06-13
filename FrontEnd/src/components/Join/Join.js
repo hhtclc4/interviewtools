@@ -16,6 +16,7 @@ class Join extends React.Component {
       user: {
         id: 0,
         avatar: null,
+        role_id: 0,
       },
       campaigns: [
         {
@@ -74,7 +75,7 @@ class Join extends React.Component {
     this.setState({
       user: user.user,
       showQuizCode: user.showQuizCode,
-      questionTable: user.questionTable,
+      questionTable: user.question_table,
       completedQuiz: completed.completedQuiz,
       subjects: subject.tablesBySubject,
       campaigns,
@@ -234,21 +235,24 @@ class Join extends React.Component {
             </span>
             <h5>{localStorage.getItem("username")}</h5>
             <div className="join-profile-actions">
-              <NavLink to="_blank">Edit profile</NavLink>
+              <NavLink to="/settings">Edit profile</NavLink>
               <NavLink to="/join/activity">Activity</NavLink>
             </div>
           </div>
         </div>
         {/* /////////////////////////////////////////////////////////////// */}
-        <div className="join-quiz-list-review">
-          <h3>Recent Interview</h3>
-          <div
-            className="quiz-list-show-activity"
-            style={campaigns.length < 6 ? { overflow: "hidden" } : {}}
-          >
-            {campaignThumbInterviewerElm}
+        {campaigns.length ? (
+          <div className="join-quiz-list-review">
+            <h3>Recent Interview</h3>
+            <div
+              className="quiz-list-show-activity"
+              style={campaigns.length < 6 ? { overflow: "hidden" } : {}}
+            >
+              {campaignThumbInterviewerElm}
+            </div>
           </div>
-        </div>
+        ) : null}
+
         {/* ///////////////////////////////////////////////////////////////// */}
 
         {completedQuiz.length ? (

@@ -26,6 +26,7 @@ export const GET_ATTEMPT_LENGTH_API_URL = `${domain}/api/get_attempt_length`;
 //user
 
 export const GET_REPORT_URL = `${domain}/api/report`;
+export const UPLOAD_AVATAR_IMAGE_API = `${domain}/api/upload_avatar_image`;
 
 export const UPDATE_USER_API = `${domain}/api/update_user`;
 export const USER_QUESTION_TABLE_API_URL = `${domain}/api/get_user_question_table`;

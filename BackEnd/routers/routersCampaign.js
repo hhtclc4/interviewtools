@@ -76,7 +76,7 @@ router.post("/api/campaign_of_interviewer", verifyToken, (req, res) =>
     else {
       Campaign.findAll({
         include: [
-          { model: User, attributes: ["name", "email", "phone"] },
+          { model: User, attributes: ["name", "email", "phone", "role_id"] },
           Subject,
           Work_Type,
           Level,
@@ -139,7 +139,11 @@ router.post("/api/campaign", (req, res) =>
       id: req.body.campaign_id,
     },
     include: [
-      { model: User, include: Company, attributes: ["name", "email", "phone"] },
+      {
+        model: User,
+        include: Company,
+        attributes: ["name", "email", "phone", "role_id"],
+      },
       Subject,
       Work_Type,
       Level,

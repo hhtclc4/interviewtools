@@ -1,5 +1,5 @@
 import React from "react";
-import './PageScore.scss'
+import "./PageScore.scss";
 import { withRouter } from "react-router-dom";
 
 class PageScore extends React.Component {
@@ -35,20 +35,20 @@ class PageScore extends React.Component {
       to {
           width: ${accuracy * 100}%;
       }
-    }`
+    }`;
     return (
       <div className="score-show-container">
         <div className="progress-score-container">
           <div className="progress-score-outline">
-            <div className="progress-animate"
+            <div
+              className="progress-animate"
               style={{
                 width: `${accuracy * 100}%`,
                 backgroundColor: `${this.accuracyColor(accuracy * 100)}`,
                 progressAnimation,
-                animation: 'changeWidthProcess 0.4s ease 0.5s forwards;'
+                animation: "changeWidthProcess 0.4s ease 0.5s forwards;",
               }}
-            >
-            </div>
+            ></div>
           </div>
         </div>
       </div>

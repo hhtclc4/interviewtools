@@ -20,6 +20,10 @@ class JoinNav extends React.Component {
     this.state = {
       isOpenUserActions: false,
       myWidth: 0,
+      user: {
+        username: "",
+        role_id: 0,
+      },
     };
 
     window.addEventListener("resize", this.updateWidth);
@@ -31,8 +35,13 @@ class JoinNav extends React.Component {
 
   componentDidMount() {
     this.updateWidth();
+    this.props.getUser();
   }
-
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.setState({
+      user: nextProps.user.user,
+    });
+  }
   userActionsHandleClick = () => {
     this.setState({
       isOpenUserActions: true,
@@ -62,9 +71,8 @@ class JoinNav extends React.Component {
   };
   render() {
     let token = localStorage.getItem("token");
-    let username = localStorage.getItem("username");
+    let { username, role_id } = this.state.user;
     let { history } = this.props;
-
     let { myWidth } = this.state;
     const userActions = (
       <Menu style={{ padding: "5px 0px", width: "fit-content" }}>
@@ -73,7 +81,7 @@ class JoinNav extends React.Component {
             {username}
           </div>
         </Menu.Item>
-        <Menu.Item>
+        <Menu.Item disabled={role_id === 3 || !token ? true : false}>
           <div
             onClick={() => {
               history.push("/admin");
@@ -156,6 +164,8 @@ class JoinNav extends React.Component {
           <button
             className="b-sign-up"
             onClick={() => history.push(`/create/quiz/${token}`)}
+            disabled={role_id === 3 || !token ? true : false}
+            style={role_id === 3 ? { opacity: 0.5 } : null}
           >
             <FontAwesomeIcon icon={faPlusCircle} /> Create new Quiz
           </button>
@@ -179,18 +189,13 @@ class JoinNav extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getListQuestionTable: () => {
-      dispatch(actions.getListQuestionTable());
-    },
-
-    getListUserDoQuestionTable: () => {
-      dispatch(actions.getListUserDoQuestionTable());
+    getUser: () => {
+      dispatch(actions.getUser());
     },
   };
 };
 const mapStateToProps = (state) => {
   return {
-    questionTable: state.questionTable,
     user: state.user,
   };
 };

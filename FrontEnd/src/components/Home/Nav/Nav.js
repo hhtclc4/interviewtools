@@ -55,13 +55,30 @@ class HomeNav extends React.Component {
 
     const userActions = (
       <Menu>
-        <Menu.Item
+        {/* <Menu.Item
           onClick={() => {
             history.push("/upgrade");
           }}
         >
           Upgrade
+        </Menu.Item> */}
+        <Menu.Item
+          onClick={() => {
+            history.push("/join");
+          }}
+        >
+          Join The Quiz
         </Menu.Item>
+        {data.role_id === 1 ? (
+          <Menu.Item
+            onClick={() => {
+              history.push("/HR");
+            }}
+          >
+            Manage Campaign
+          </Menu.Item>
+        ) : null}
+
         <Menu.Item
           onClick={() => {
             history.push("/settings");
@@ -113,15 +130,15 @@ class HomeNav extends React.Component {
               </Button>
             </Dropdown>
           ) : (
-              <div>
-                <button className="b-log-in" onClick={this.togglePopup}>
-                  Login
+            <div>
+              <button className="b-log-in" onClick={this.togglePopup}>
+                Login
               </button>
-                <button className="b-sign-up" onClick={this.toggleSignupPopup}>
-                  Sign up
+              <button className="b-sign-up" onClick={this.toggleSignupPopup}>
+                Sign up
               </button>
-              </div>
-            )}
+            </div>
+          )}
         </div>
 
         {this.state.loginPopup ? (

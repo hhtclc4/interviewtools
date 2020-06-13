@@ -970,6 +970,38 @@ export const getListQuestionTable = () => {
       });
   };
 };
+export const uploadAvatarImage = (file) => {
+  return (dispatch) => {
+    let token = localStorage.getItem("token");
+    axios({
+      method: "put",
+      url: URLs.UPLOAD_AVATAR_IMAGE_API,
+      headers: {
+        "content-type": "application/json",
+        "user-token": token,
+      },
+      data: { file },
+    })
+      .then((res) => {
+        console.log("API UPLOAD FILE ", res.data);
+        Swal.fire({
+          position: "top",
+          type: "success",
+          title: "Update Profile Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false,
+        });
+        dispatch({
+          type: types.UPDATE_USER,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const updateUser = (data) => {
   return (dispatch) => {
     let token = localStorage.getItem("token");
@@ -980,10 +1012,18 @@ export const updateUser = (data) => {
         "content-type": "application/json",
         "user-token": token,
       },
-      data: data,
+      data,
     })
       .then((res) => {
-        console.log("API UPDATE_USER ", res.data);
+        // console.log("API UPDATE_USER ", res.data);
+        Swal.fire({
+          position: "top",
+          type: "success",
+          title: "Update Profile Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false,
+        });
         dispatch({
           type: types.UPDATE_USER,
           data: res.data,

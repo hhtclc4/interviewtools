@@ -4,6 +4,7 @@ let initialState = {
   isDoneLoading: false,
   showQuizCode: false,
   user: {
+    id: 0,
     name: "",
     email: "",
     phone: "",
@@ -38,7 +39,7 @@ let myReducer = (state = initialState, action) => {
     case types.SHOW_ONE_QUESTION_TABLE:
       return {
         ...state,
-        questionTable: { ...action.data },
+        question_table: { ...action.data },
         showQuizCode: true,
       };
     case types.UPDATE_USER:

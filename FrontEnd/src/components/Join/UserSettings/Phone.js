@@ -1,33 +1,34 @@
 import React from "react";
 import "./Settings.scss";
-class UserNameEdit extends React.Component {
+
+class Phone extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      phone: "",
     };
   }
   componentDidMount() {
     this.setState({
-      name: this.props.user.name,
+      phone: this.props.user.phone,
     });
   }
   onChangeHandler = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
   onSaveUpdateUserHandler = () => {
-    this.props.onSaveUpdateUserHandler({ name: this.state.name });
+    this.props.onSaveUpdateUserHandler({ phone: this.state.phone });
     this.props.togglePopUp();
   };
   render() {
     return (
       <div className="join-set-pop-up">
         <div className="join-set-pop-up-inner">
-          <h3>Pick a funny and cool name</h3>
+          <h3>Enter Your Phone Number</h3>
           <form>
             <input
-              name="name"
-              value={this.state.name}
+              name="phone"
+              value={this.state.phone}
               onChange={this.onChangeHandler}
             />
           </form>
@@ -48,4 +49,4 @@ class UserNameEdit extends React.Component {
   }
 }
 
-export default UserNameEdit;
+export default Phone;
