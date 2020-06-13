@@ -21,6 +21,7 @@ const Sequelize = require("sequelize");
 const db = require("../database");
 
 const jwt = require("jsonwebtoken");
+const cloudinary = require("./cloudinary");
 
 const data = {
   question: "what is dota",
@@ -146,7 +147,15 @@ router.post("/api/genarate_code", async (req, res) => {
     }
   }
 });
-router.put("/api/table_update", (req, res) => {
+router.put("/api/table_update", async (req, res) => {
+  if (req.body.isUpdateImage !== undefined && req.body.isUpdateImage)
+    await cloudinary.uploader.upload(
+      req.body.image,
+      (options = { format: "png" }),
+      (err, result) => {
+        req.body.image = result.url;
+      }
+    );
   QuestionTable.update(req.body, { where: { id: req.body.id } })
     .then((data) => res.send(data))
     .catch((err) => console.log(err));

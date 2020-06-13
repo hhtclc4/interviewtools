@@ -15,6 +15,7 @@ class ShowPreviewPopUp extends React.Component {
       image: null,
       grade_begin: null,
       grade_end: null,
+      isUpdateImage: false,
     };
   }
   componentDidMount() {
@@ -30,7 +31,7 @@ class ShowPreviewPopUp extends React.Component {
         let url = fileReader.result;
         //console.log("url", url);
         // Something like: data:image/png;base64,iVBORw...Ym57Ad6m6uHj96js
-        this.setState({ image: url });
+        this.setState({ image: url, isUpdateImage: true });
       };
     }
   };

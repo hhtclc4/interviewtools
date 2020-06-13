@@ -1002,6 +1002,7 @@ export const uploadAvatarImage = (file) => {
       });
   };
 };
+
 export const updateUser = (data) => {
   return (dispatch) => {
     let token = localStorage.getItem("token");

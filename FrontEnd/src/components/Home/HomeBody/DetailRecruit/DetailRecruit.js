@@ -37,6 +37,7 @@ class DetailRecruit extends React.Component {
         location: "",
         user: {
           company: {
+            id: 0,
             address: "",
           },
         },
@@ -102,21 +103,33 @@ class DetailRecruit extends React.Component {
                   <img
                     className="comp-img"
                     alt="company-1"
-                    src={require("../../images/comp-1.jpg")}
+                    src={require(`./images/${
+                      data.user.company.id !== undefined
+                        ? data.user.company.id
+                        : "0"
+                    }.2.jpg`)}
                   />
                 </div>
                 <div className="comp-img-crop">
                   <img
                     className="comp-img"
                     alt="company-1"
-                    src={require("../../images/comp-2.jpg")}
+                    src={require(`./images/${
+                      data.user.company.id !== undefined
+                        ? data.user.company.id
+                        : "0"
+                    }.3.jpg`)}
                   />
                 </div>
                 <div className="comp-img-crop mr-0">
                   <img
                     className="comp-img"
                     alt="company-1"
-                    src={require("../../images/comp-3.png")}
+                    src={require(`./images/${
+                      data.user.company.id !== undefined
+                        ? data.user.company.id
+                        : "0"
+                    }.4.jpg`)}
                   />
                 </div>
               </div>
@@ -126,7 +139,11 @@ class DetailRecruit extends React.Component {
                     <img
                       style={{ width: "80%" }}
                       alt="comp-logo"
-                      src={require("../../images/comp-logo.png")}
+                      src={require(`./images/${
+                        data.user.company.id !== undefined
+                          ? data.user.company.id
+                          : "0"
+                      }.1.jpg`)}
                     />
                   </div>
                   <div className="comp-body"></div>

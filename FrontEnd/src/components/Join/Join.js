@@ -149,7 +149,7 @@ class Join extends React.Component {
         let avtUser = user;
         avtUser.avatar = url;
         this.setState({ user: { ...user, avatar: url } });
-        this.props.updateUser(user);
+        this.props.uploadAvatarImage(url);
       };
     }
   };
@@ -299,8 +299,8 @@ const mapDispatchToProps = (dispatch, props) => {
     showListTableBySubject: () => {
       dispatch(actions.showListTableBySubject());
     },
-    updateUser: (user) => {
-      dispatch(actions.updateUser(user));
+    uploadAvatarImage: (file) => {
+      dispatch(actions.uploadAvatarImage(file));
     },
     showListCampaignOfInterviewer: () => {
       dispatch(actions.showListCampaignOfInterviewer());

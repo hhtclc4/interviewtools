@@ -19,6 +19,7 @@ const Interview = require("../models/Interview");
 const Company = require("../models/Company");
 const Sequelize = require("sequelize");
 const db = require("../database");
+const cloudinary = require("./cloudinary");
 
 const { Op } = require("sequelize");
 
@@ -208,9 +209,17 @@ router.post("/api/candidate", verifyToken, (req, res) => {
   });
 });
 router.post("/api/create_candidate", verifyToken, (req, res) => {
-  jwt.verify(req.token, "hoangtri", (err, authData) => {
+  jwt.verify(req.token, "hoangtri", async (err, authData) => {
     if (err) res.sendStatus(403);
     else {
+      if (req.body.cv.length)
+        await cloudinary.uploader.upload(
+          req.body.cv,
+          (options = { format: "png" }),
+          (err, result) => {
+            req.body.cv = result.url;
+          }
+        );
       req.body.candidate_id = authData.user_id;
       Group_Candidates.create(req.body)
         .then((data) => res.send(data))

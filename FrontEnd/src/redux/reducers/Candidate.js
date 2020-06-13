@@ -10,16 +10,11 @@ let initialState = {
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.SEND_CV_SUCCESS:
-      state = action.data;
-      return { ...state };
+      return { ...state, ...action.data, isSendCvBefore: true };
     case types.CANDIDATE_SENT_CV:
-      let tempt1 = { ...state };
-      tempt1.isSendCvBefore = true;
-      return { ...tempt1 };
+      return { ...state, isSendCvBefore: true };
     case types.CANDIDATE_NOT_SEND_CV:
-      let tempt2 = { ...state };
-      tempt2.isSendCvBefore = false;
-      return { ...tempt2 };
+      return { ...state, isSendCvBefore: false };
     default:
       return state;
   }
