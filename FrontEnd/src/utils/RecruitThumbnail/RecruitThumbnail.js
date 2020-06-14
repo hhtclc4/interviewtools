@@ -40,6 +40,14 @@ class RecruitThumbnail extends React.Component {
           id: 0,
           name: "",
         },
+        interviews: [
+          {
+            id: 0,
+            date: "2020-01-01",
+            time_from: "12:00:00",
+            time_to: "12:00:00",
+          },
+        ],
       },
     };
   }
@@ -51,6 +59,7 @@ class RecruitThumbnail extends React.Component {
     });
     console.log(data);
   }
+
   render() {
     let { image_index, role } = this.props;
     let { postFeature, data } = this.state;
@@ -108,6 +117,7 @@ class RecruitThumbnail extends React.Component {
           )}
           <div className="re-diff p-2">
             {role === "interviewer" ? "See Detail" : "See Job"}
+            {role === "interviewer" ? data.interviewDateLeft : null}
           </div>
         </div>
       </div>

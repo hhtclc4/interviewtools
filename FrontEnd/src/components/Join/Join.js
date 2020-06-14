@@ -27,7 +27,14 @@ class Join extends React.Component {
           work_type_id: 0,
           salary: 0,
           user_id: 0,
-
+          interviews: [
+            {
+              id: 0,
+              date: "2020-01-01",
+              time_from: "12:00:00",
+              time_to: "12:00:00",
+            },
+          ],
           status: true,
           subjects: [],
           user: {
