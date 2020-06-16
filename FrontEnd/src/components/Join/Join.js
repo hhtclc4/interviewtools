@@ -27,7 +27,14 @@ class Join extends React.Component {
           work_type_id: 0,
           salary: 0,
           user_id: 0,
-
+          interviews: [
+            {
+              id: 0,
+              date: "2020-01-01",
+              time_from: "12:00:00",
+              time_to: "12:00:00",
+            },
+          ],
           status: true,
           subjects: [],
           user: {
@@ -149,7 +156,7 @@ class Join extends React.Component {
         let avtUser = user;
         avtUser.avatar = url;
         this.setState({ user: { ...user, avatar: url } });
-        this.props.updateUser(user);
+        this.props.uploadAvatarImage(url);
       };
     }
   };
@@ -299,8 +306,8 @@ const mapDispatchToProps = (dispatch, props) => {
     showListTableBySubject: () => {
       dispatch(actions.showListTableBySubject());
     },
-    updateUser: (user) => {
-      dispatch(actions.updateUser(user));
+    uploadAvatarImage: (file) => {
+      dispatch(actions.uploadAvatarImage(file));
     },
     showListCampaignOfInterviewer: () => {
       dispatch(actions.showListCampaignOfInterviewer());

@@ -22,22 +22,19 @@ const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 
-const cloudinary = require("cloudinary").v2;
-
-cloudinary.config({
-  cloud_name: "hoangclc4",
-  api_key: "567799543743853",
-  api_secret: "DSLzkE8PisZQv0tfJcEAH7y33hM",
-});
-
+const cloudinary = require("./cloudinary");
 router.put("/api/upload_avatar_image", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", async (err, authData) => {
     if (err) res.sendStatus(403);
     else {
       let url = "";
-      await cloudinary.uploader.upload(req.body.file, (err, result) => {
-        url = result.url;
-      });
+      await cloudinary.uploader.upload(
+        req.body.file,
+        (options = { format: "png" }),
+        (err, result) => {
+          url = result.url;
+        }
+      );
       User.update(
         { avatar: url },
         {

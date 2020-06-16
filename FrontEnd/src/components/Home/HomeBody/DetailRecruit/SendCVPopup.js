@@ -4,8 +4,9 @@ import LoginPopup from "../../LoginPopup/LoginPopup";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import { withRouter } from "react-router-dom";
-
+import { FileJpgOutlined } from "@ant-design/icons";
 import Swal from "sweetalert2";
+import EditorConvertToHTML from "../../../../utils/EditorConvertToHTML/EditorConvertToHTML";
 
 class SendCV extends React.Component {
   constructor(props) {
@@ -63,10 +64,35 @@ class SendCV extends React.Component {
   onClickSendCV = () => {
     this.props.createCandidate(this.state.candidate);
   };
-
+  onChangeEditorTextHandler = (description) => {
+    this.setState({
+      candidate: {
+        ...this.state.candidate,
+        description,
+      },
+    });
+  };
+  fileChangedHandler = (event) => {
+    let fileReader = new FileReader();
+    let { candidate } = this.state;
+    if (event.target.files[0]) {
+      fileReader.readAsDataURL(event.target.files[0]); // fileReader.result -> URL.
+      fileReader.onload = (progressEvent) => {
+        let url = fileReader.result;
+        //console.log("url", url);
+        // Something like: data:image/png;base64,iVBORw...Ym57Ad6m6uHj96js
+        this.setState({
+          candidate: {
+            ...candidate,
+            cv: url,
+          },
+        });
+      };
+    }
+  };
   render() {
     let { data } = this.props;
-    let { user, candidate } = this.state;
+    let { user } = this.state;
     let stringSubject = "";
     data.subjects.map((subject) => {
       return (stringSubject += ` ${subject.title}`);
@@ -83,11 +109,12 @@ class SendCV extends React.Component {
           </div>
           <div className="send-cv-imp-cv d-flex flex-row justify-content-between  mb-2">
             <p>Your CV:</p>
+            <FileJpgOutlined onClick={() => this.fileInput.click()} />
             <input
-              name="cv"
-              value={candidate.cv}
-              onChange={this.onChangeInputHandler}
-              placeholder="Copy your Image URL about your CV"
+              style={{ display: "none" }}
+              type="file"
+              onChange={this.fileChangedHandler}
+              ref={(fileInput) => (this.fileInput = fileInput)}
             />
           </div>
           <div className="send-cv-special  mb-2">
@@ -95,13 +122,18 @@ class SendCV extends React.Component {
               What skills, work projects or achievements make you a strong
               candidate?
             </p>
-            <textarea
+            <EditorConvertToHTML
+              onChangeEditorTextHandler={this.onChangeEditorTextHandler}
+              text=""
+              placeholder="Write what make you more special, stronger than other candidates"
+            />
+            {/* <textarea
               name="description"
               value={candidate.description}
               onChange={this.onChangeInputHandler}
               className="special-txt"
               placeholder="Write what make you more special, stronger than other candidates"
-            ></textarea>
+            ></textarea> */}
           </div>
           <div className="send-cv-btn-group float-right">
             <button className="send-cv-btn" onClick={this.onClickSendCV}>

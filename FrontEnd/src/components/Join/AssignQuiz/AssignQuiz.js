@@ -59,7 +59,8 @@ class AssignQuiz extends React.Component {
           id: 0,
           name: "",
           date: "2020-01-01",
-          time: "12:00:00",
+          time_from: "12:00:00",
+          time_to: "12:00:00",
           campaign_id: "",
           group_candidates: [
             {

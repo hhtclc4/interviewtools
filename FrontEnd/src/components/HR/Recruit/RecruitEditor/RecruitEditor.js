@@ -70,7 +70,6 @@ class RecruitCreate extends React.Component {
         work_description,
       },
     });
-    console.log(this.state.data.work_description);
   };
 
   levelMenu = () => {
@@ -312,7 +311,8 @@ class RecruitCreate extends React.Component {
               </div>
               <EditorConvertToHTML
                 onChangeEditorTextHandler={this.onChangeEditorTextHandler}
-                work_description=""
+                text=""
+                placeholder="Describe works "
               />
             </div>
             <div className="submit-btn d-flex flex-row justify-content-center">
