@@ -80,7 +80,7 @@ class QuizCreate extends React.Component {
                   />
                 </div>
               </div>
-              <div className="init-quiz-create-footer">
+              <div className="init-quiz-create-footer mt-2">
                 <button
                   style={{
                     background: "#d9d9d9",

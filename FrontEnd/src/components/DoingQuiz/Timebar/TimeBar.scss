@@ -12,7 +12,6 @@ $bar-bg: rgba(0, 0, 0, 0.075);
 @keyframes loader {
     100% {
         width: 0%;
-       
     }
 
     95% {
@@ -39,7 +38,6 @@ $bar-bg: rgba(0, 0, 0, 0.075);
         width: 25%;
         background-color: #ff6600;
     }
-
 
     70% {
         width: 30%;
@@ -71,53 +69,50 @@ $bar-bg: rgba(0, 0, 0, 0.075);
         background-color: #ff8c1a;
     }
 
-
     40% {
         width: 60%;
-        background-color:#99ff33;
+        background-color: #99ff33;
     }
-
 
     35% {
         width: 65%;
-        background-color:#99ff33;
+        background-color: #99ff33;
     }
 
     30% {
         width: 70%;
-        background-color:#99ff33;
+        background-color: #99ff33;
     }
 
     25% {
         width: 75%;
-        background-color:#99ff33;
+        background-color: #99ff33;
     }
 
     20% {
         width: 80%;
-        background-color:#99ff33;
+        background-color: #99ff33;
     }
 
     15% {
         width: 85%;
-        background-color:#00ff00;
+        background-color: #00ff00;
     }
 
     10% {
         width: 90%;
-        background-color:#00ff00;
+        background-color: #00ff00;
     }
 
     5% {
         width: 95%;
-        background-color:#00ff00;
+        background-color: #00ff00;
     }
 
     0% {
         width: 100%;
-        background-color:#00ff00;
+        background-color: #00ff00;
     }
-
 }
 
 // Bar ============================================
@@ -139,7 +134,7 @@ $bar-bg: rgba(0, 0, 0, 0.075);
 .htprogress {
     //animation: loader 30s linear forwards;
     // Change the animation fill mode 'infinite' to 'forwards' to stop the animation from repeating.
-    
+
     color: #fff;
     padding: $bar-size;
     width: 0;
@@ -158,4 +153,5 @@ $bar-bg: rgba(0, 0, 0, 0.075);
 .time-bar-container {
     position: relative;
     height: 15px;
+    z-index: 10;
 }

@@ -1,0 +1,97 @@
+.pause-container {
+    z-index: 9;
+    background-color: #331400;
+    position: fixed;
+    width: 100%;
+    top: 70px;
+    height: 100%;
+    animation: TopDownAppear 0.6s ease;
+    @keyframes TopDownAppear {
+        from {
+            transform: translateY(-800px);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes TopUpDisappear {
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(-800px);
+        }
+    }
+
+    .pause-content {
+        position: relative;
+        width: 500px;
+        margin: 0 auto;
+        .pause-quiz-progress {
+            background-color: #993d00;
+            border-radius: 6px;
+            padding: 20px;
+            padding-top: 40px;
+            .pause-quiz-progress-bar {
+                position: relative;
+
+                .progress-display {
+                    height: 20px;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: row;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    .questions-done {
+                        background-color: red;
+                        width: 50%;
+                    }
+                    .question-present {
+                        background-color: gray;
+                        width: 20%;
+                    }
+                    .questions-left {
+                        background-color: white;
+                        width: 30%;
+                    }
+                }
+                .run {
+                    position: absolute;
+                    top: -24px;
+                    left: 50%; //progress
+                }
+                .flag {
+                    position: absolute;
+                    top: -24px;
+                    right: 0; //progress
+                }
+            }
+            .pause-legend {
+                * {
+                    color: white;
+                    font-family: QuickSand;
+                    font-size: 13px;
+                }
+            }
+
+            .pause-question-left {
+                color: white;
+                font-family: QuickSand;
+                font-size: 20px;
+            }
+            .pause-actions {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                .pause-resume-btn {
+                }
+
+                .pause-exit-btn {
+                }
+            }
+        }
+    }
+}

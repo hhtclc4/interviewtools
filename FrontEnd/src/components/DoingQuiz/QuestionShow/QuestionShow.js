@@ -10,9 +10,11 @@ import {
   faPause,
   faCheck,
   faTimes,
+  faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { faSquare } from "@fortawesome/free-regular-svg-icons";
 import { Input } from "antd";
+import PauseQuiz from "../Pause/Pause";
 
 const { TextArea } = Input;
 class QuestionShow extends React.Component {
@@ -29,6 +31,7 @@ class QuestionShow extends React.Component {
       disableButton: false,
       clicked: false,
       mutiCheckArr: [],
+      showPause: false,
     };
   }
   componentDidMount() {
@@ -176,10 +179,20 @@ class QuestionShow extends React.Component {
     });
   };
 
+
+
   onChange = ({ target: { value } }) => {
     // Ant design component
     this.setState({ value });
   };
+
+  togglePauseQuiz = () => {
+    this.setState({
+      showPause: !this.state.showPause
+    })
+  }
+
+
   render() {
     const {
       time,
@@ -259,10 +272,17 @@ class QuestionShow extends React.Component {
       <div className="question-show-container">
         <TimeBar TimeOut={time} />
         <div className="question-show-actions">
-          <button className="action-pause">
-            <span>
-              <FontAwesomeIcon icon={faPause} />
-            </span>
+          <button className="action-pause"
+            onClick={this.togglePauseQuiz}
+          >
+            {this.state.showPause ?
+              <span>
+                <FontAwesomeIcon icon={faPlay} />
+              </span> :
+              <span>
+                <FontAwesomeIcon icon={faPause} />
+              </span>
+            }
           </button>
           <div className="question-process-num">
             <span>{index + 1}</span>/{questionsLength}
@@ -278,18 +298,18 @@ class QuestionShow extends React.Component {
               {type !== 3 ? (
                 element
               ) : (
-                <div className="blank-fill-question-container">
-                  <TextArea
-                    className="blank-fill-input"
-                    name="answer_text"
-                    value={answer_text}
-                    onChange={this.onChangeTextHandler}
-                    placeholder="Type your answer"
-                    autoSize={{ minRows: 2, maxRows: 8 }}
-                  />
-                  <div className="blank-fill-hint">*Hint: {hint}</div>
-                </div>
-              )}
+                  <div className="blank-fill-question-container">
+                    <TextArea
+                      className="blank-fill-input"
+                      name="answer_text"
+                      value={answer_text}
+                      onChange={this.onChangeTextHandler}
+                      placeholder="Type your answer"
+                      autoSize={{ minRows: 2, maxRows: 8 }}
+                    />
+                    <div className="blank-fill-hint">*Hint: {hint}</div>
+                  </div>
+                )}
             </div>
           </div>
           <div
@@ -306,6 +326,11 @@ class QuestionShow extends React.Component {
             </div>
           </div>
         </div>
+        {
+          this.state.showPause ?
+            <PauseQuiz />
+            : null
+        }
       </div>
     );
   }

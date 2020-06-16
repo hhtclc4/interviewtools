@@ -9,7 +9,7 @@ class RecruitNav extends React.Component {
   }
   render() {
     return (
-      <div className="recruit-nav-container d-flex flex-row justify-content-start p-0">
+      <div className="recruit-nav-container d-flex flex-row justify-content-between p-0 pr-3">
         <div>
           <img
             className="big-logo"
@@ -17,6 +17,9 @@ class RecruitNav extends React.Component {
             alt="quiz-icon"
           />
         </div>
+        <button
+          className="recruit-exit-btn"
+        >Exit</button>
       </div>
     );
   }

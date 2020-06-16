@@ -45,7 +45,7 @@ class PageScore extends React.Component {
     console.log("prev", prevResult);
     console.log("new", right_answer);
     let { accuracy } = this.state;
-    accuracy = right_answer / questionsLength;
+    accuracy = (right_answer / questionsLength);
 
     let styleSheet = document.styleSheets[0];
 
@@ -55,8 +55,8 @@ class PageScore extends React.Component {
       0% {
           width: ${(prevResult / questionsLength) * 100}%;
           background-color: ${this.accuracyColor(
-            (prevResult / questionsLength) * 100
-          )};
+      (prevResult / questionsLength) * 100
+    )};
           border-right: 5px solid red;
       }
       20% {

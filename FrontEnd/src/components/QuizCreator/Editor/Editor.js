@@ -187,12 +187,15 @@ class QuizCreatorEditor extends React.Component {
     if (!this.editRef.contains(e.target)) {
       //outside
       this.editInputRef.current.style.border = "none";
-      return;
+      this.editInputRef.current.style.margin = "2px 0 2px 2px"
+      this.editInputRef.current.style.background = "#f2f2f2"
     } else {
       //inside
       this.editInputRef.current.focus();
       //this.editInputRef.current.select();
       this.editInputRef.current.style.border = "2px solid #1092f4";
+      this.editInputRef.current.style.margin = "0"
+      this.editInputRef.current.style.background = "#fff"
     }
   };
   UNSAFE_componentWillMount() {
@@ -344,7 +347,7 @@ class QuizCreatorEditor extends React.Component {
                   </span>
                 </button> */}
                 <div
-                  className="quiz-name "
+                  className="quiz-name mt-1"
                   ref={(node) => (this.editRef = node)}
                   onClick={this.handleCompClick}
                 >
@@ -356,6 +359,7 @@ class QuizCreatorEditor extends React.Component {
                     ref={this.editInputRef}
                     onFocus={this.handleFocus}
                     onBlur={this.onBlurHandler}
+                    className="text-truncate"
                   />
                 </div>
               </div>
