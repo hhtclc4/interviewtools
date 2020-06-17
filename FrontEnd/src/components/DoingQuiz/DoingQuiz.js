@@ -10,6 +10,7 @@ let showQuestion;
 let showPage;
 let pageNumber;
 let prevResult;
+let wrong_answer = 0;
 class DoingQuiz extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +32,7 @@ class DoingQuiz extends React.Component {
       isDone: false,
       accessToPush: false,
       right_answer: 0,
+
       attempt_length: 0,
       access: true,
       isNotDoneYet: false,
@@ -58,6 +60,7 @@ class DoingQuiz extends React.Component {
         access: false,
         right_answer: nextProps.attempt.right_answer,
       });
+      wrong_answer = nextProps.attempt.wrong_answer;
     }
   }
   componentWillUnmount() {
@@ -88,7 +91,7 @@ class DoingQuiz extends React.Component {
     };
     if (question_id) {
       pageNumber += 1;
-      //this.props.addAnswerRecord(data);
+      this.props.addAnswerRecord(data);
       console.log(data);
     }
   };
@@ -103,7 +106,7 @@ class DoingQuiz extends React.Component {
       this.setState({
         right_answer,
       });
-    }
+    } else wrong_answer += 1;
 
     setTimeout(() => {
       this.setState({
@@ -119,7 +122,7 @@ class DoingQuiz extends React.Component {
     if (!isDone) {
       switch (step) {
         case 1: {
-          let delayPage = pageNumber === 1 ? 5200 : 1000;
+          let delayPage = pageNumber === 1 ? 5500 : 1000;
           showPage = setTimeout(() => {
             this.setState({
               step: 2,
@@ -135,7 +138,7 @@ class DoingQuiz extends React.Component {
         }
         case 2:
           clearTimeout(showPage);
-          return this.createQuestion(prevResult);
+          return this.createQuestion();
         case 3:
           setTimeout(() => {
             this.setState({
@@ -170,7 +173,7 @@ class DoingQuiz extends React.Component {
       this.props.doneAnswerRecord(id);
     }
   };
-  createQuestion = (prevResult) => {
+  createQuestion = () => {
     let { questions, count, isDone, changeQuestion, right_answer } = this.state;
     let state = this.state;
     clearTimeout(showPage);
@@ -178,11 +181,12 @@ class DoingQuiz extends React.Component {
     if (changeQuestion === false) {
       showQuestion = setTimeout(() => {
         if (count < questions.length - 1 && isDone === false) {
+          state.count += 1;
+          prevResult = right_answer;
+          wrong_answer += 1;
           this.setState({
             step: 3,
           });
-          state.count += 1;
-          prevResult = right_answer;
         } else {
           this.setState({
             isDone: true,
@@ -214,10 +218,19 @@ class DoingQuiz extends React.Component {
           doneQuestionHandler={this.doneQuestionHandler}
           recordAnswer={this.recordAnswer}
           right_answer={right_answer}
-          prevResult={prevResult}
+          wrong_answer={wrong_answer}
+          onClickNextQuizHandler={this.onClickNextQuizHandler}
         />
       );
     else return <div></div>;
+  };
+  onClickNextQuizHandler = () => {
+    prevResult = this.state.right_answer;
+    wrong_answer += 1;
+
+    this.setState({
+      step: 3,
+    });
   };
   render() {
     let {

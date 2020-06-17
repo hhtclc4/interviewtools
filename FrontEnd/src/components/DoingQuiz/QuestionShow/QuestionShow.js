@@ -179,8 +179,6 @@ class QuestionShow extends React.Component {
     });
   };
 
-
-
   onChange = ({ target: { value } }) => {
     // Ant design component
     this.setState({ value });
@@ -188,10 +186,9 @@ class QuestionShow extends React.Component {
 
   togglePauseQuiz = () => {
     this.setState({
-      showPause: !this.state.showPause
-    })
-  }
-
+      showPause: !this.state.showPause,
+    });
+  };
 
   render() {
     const {
@@ -205,7 +202,7 @@ class QuestionShow extends React.Component {
       mutiCheckArr,
       answer_text,
     } = this.state;
-    let { questionsLength, index } = this.props;
+    let { questionsLength, index, wrong_answer, right_answer } = this.props;
     let colorButtons = ["#2F6DAE", "#2C9CA6", "#ECA82C", "#D4546A", "#5cd65c"];
     const element = question_choices.map((answer, index) => {
       let color = () => {
@@ -272,17 +269,16 @@ class QuestionShow extends React.Component {
       <div className="question-show-container">
         <TimeBar TimeOut={time} />
         <div className="question-show-actions">
-          <button className="action-pause"
-            onClick={this.togglePauseQuiz}
-          >
-            {this.state.showPause ?
+          <button className="action-pause" onClick={this.togglePauseQuiz}>
+            {this.state.showPause ? (
               <span>
                 <FontAwesomeIcon icon={faPlay} />
-              </span> :
+              </span>
+            ) : (
               <span>
                 <FontAwesomeIcon icon={faPause} />
               </span>
-            }
+            )}
           </button>
           <div className="question-process-num">
             <span>{index + 1}</span>/{questionsLength}
@@ -298,18 +294,18 @@ class QuestionShow extends React.Component {
               {type !== 3 ? (
                 element
               ) : (
-                  <div className="blank-fill-question-container">
-                    <TextArea
-                      className="blank-fill-input"
-                      name="answer_text"
-                      value={answer_text}
-                      onChange={this.onChangeTextHandler}
-                      placeholder="Type your answer"
-                      autoSize={{ minRows: 2, maxRows: 8 }}
-                    />
-                    <div className="blank-fill-hint">*Hint: {hint}</div>
-                  </div>
-                )}
+                <div className="blank-fill-question-container">
+                  <TextArea
+                    className="blank-fill-input"
+                    name="answer_text"
+                    value={answer_text}
+                    onChange={this.onChangeTextHandler}
+                    placeholder="Type your answer"
+                    autoSize={{ minRows: 2, maxRows: 8 }}
+                  />
+                  <div className="blank-fill-hint">*Hint: {hint}</div>
+                </div>
+              )}
             </div>
           </div>
           <div
@@ -326,11 +322,15 @@ class QuestionShow extends React.Component {
             </div>
           </div>
         </div>
-        {
-          this.state.showPause ?
-            <PauseQuiz />
-            : null
-        }
+        {this.state.showPause ? (
+          <PauseQuiz
+            togglePauseQuiz={this.togglePauseQuiz}
+            right_answer={right_answer}
+            questionsLength={questionsLength}
+            wrong_answer={wrong_answer}
+            onClickNextQuizHandler={this.props.onClickNextQuizHandler}
+          />
+        ) : null}
       </div>
     );
   }
