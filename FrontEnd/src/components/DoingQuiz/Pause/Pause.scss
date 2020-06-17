@@ -1,3 +1,5 @@
+$concept-color: #fd7e14;
+
 .pause-container {
     z-index: 9;
     background-color: #331400;
@@ -45,9 +47,13 @@
                     flex-direction: row;
                     border-radius: 10px;
                     overflow: hidden;
-                    .questions-done {
+                    .questions-done-wrong {
                         background-color: red;
-                        width: 50%;
+                        width: 30%;
+                    }
+                    .questions-done-right {
+                        background-color: #00c985;
+                        width: 20%;
                     }
                     .question-present {
                         background-color: gray;
@@ -81,15 +87,40 @@
                 color: white;
                 font-family: QuickSand;
                 font-size: 20px;
+                text-align: center;
+                margin-bottom: 10px;
             }
             .pause-actions {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 .pause-resume-btn {
+                    height: 50px;
+                    top: 0;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 0 25px;
+                    font-family: QuickSand;
+                    color: white;
+                    background-color: $concept-color;
+                    font-weight: bold;
+                    font-size: 20px;
+                    box-shadow: 0 4px 0 0 #e36802;
+                    &:hover {
+                        background-color: #fd8f35;
+                        box-shadow: 0 4px 0 0 #e36802 !important;
+                    }
                 }
 
                 .pause-exit-btn {
+                    @extend .pause-resume-btn;
+                    color: black;
+                    background-color: white;
+                    box-shadow: 0 4px 0 0 #d9d9d9;
+                    &:hover {
+                        background-color: #fff;
+                        box-shadow: 0 4px 0 0 #d9d9d9 !important;
+                    }
                 }
             }
         }

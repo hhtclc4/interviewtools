@@ -52,7 +52,7 @@ class GrowAccuracyTick extends React.Component {
         //let { prevResult, accuracy } = this.props;
         return (
             <div className="tick-container">
-                {this.state.prevResult}%
+                {Math.round(this.state.prevResult)}%
             </div>
         );
     }

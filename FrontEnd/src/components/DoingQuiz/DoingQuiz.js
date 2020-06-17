@@ -116,7 +116,7 @@ class DoingQuiz extends React.Component {
     if (!isDone) {
       switch (step) {
         case 1: {
-          let delayPage = pageNumber === 1 ? 100 : 1000;
+          let delayPage = pageNumber === 1 ? 5200 : 1000;
           showPage = setTimeout(() => {
             this.setState({
               step: 2,
@@ -140,7 +140,7 @@ class DoingQuiz extends React.Component {
               changePage: true,
               step: 1,
             });
-          }, 200);
+          }, 2800);
           clearTimeout(showQuestion);
           let questionsLength = 0;
           for (let i = 0; i < questions.length; i++)

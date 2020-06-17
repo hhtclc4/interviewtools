@@ -14,7 +14,10 @@ class PauseQuiz extends React.Component {
                     <div className="pause-quiz-progress">
                         <div className="pause-quiz-progress-bar">
                             <div className="progress-display">
-                                <div className="questions-done"></div>
+                                <div className="questions-done-right"
+                                    style={{ width: '30%' }}
+                                ></div>
+                                <div className="questions-done-wrong"></div>
                                 <div className="question-present"></div>
                                 <div className="questions-left"></div>
                             </div>
