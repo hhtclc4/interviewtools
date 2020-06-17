@@ -62,15 +62,16 @@ let calculateDateInterviewLeft = (interviews) => {
   let one_day = 1000 * 60 * 60 * 24;
   let dayArray = [];
   for (let i = 0; i < interviews.length; i++) {
-    let interviewDate = new Date(interviews[0].date);
+    let interviewDate = new Date(interviews[i].date);
 
     // Convert both dates to milliseconds
     let currentDate_ms = currentDate.getTime();
     let interviewDate_ms = interviewDate.getTime();
 
     // Calculate the difference in milliseconds
-    let difference_ms = currentDate_ms - interviewDate_ms;
-    dayArray.push(Math.round(difference_ms / one_day));
+    let difference_ms = interviewDate_ms - currentDate_ms;
+    console.log(interviews[i].id, Math.round(difference_ms / one_day));
+    if (difference_ms >= 0) dayArray.push(Math.round(difference_ms / one_day));
   }
   // Convert back to days and return
   return Math.min(...dayArray);
@@ -108,7 +109,8 @@ let myReducer = (state = initialState, action) => {
           }
         }
       }
-
+      for (let i = 0; i < state.length; i++)
+        console.log(state[i].id, state[i].interviewDateLeft);
       return [...state];
     case types.CREATE_CAMPAIGN:
       state.push({ ...action.data });
