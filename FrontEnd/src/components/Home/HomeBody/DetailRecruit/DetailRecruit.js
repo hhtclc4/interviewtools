@@ -107,7 +107,7 @@ class DetailRecruit extends React.Component {
                       data.user.company.id !== undefined
                         ? data.user.company.id
                         : "0"
-                    }.2.jpg`)}
+                      }.2.jpg`)}
                   />
                 </div>
                 <div className="comp-img-crop">
@@ -118,7 +118,7 @@ class DetailRecruit extends React.Component {
                       data.user.company.id !== undefined
                         ? data.user.company.id
                         : "0"
-                    }.3.jpg`)}
+                      }.3.jpg`)}
                   />
                 </div>
                 <div className="comp-img-crop mr-0">
@@ -129,7 +129,7 @@ class DetailRecruit extends React.Component {
                       data.user.company.id !== undefined
                         ? data.user.company.id
                         : "0"
-                    }.4.jpg`)}
+                      }.4.jpg`)}
                   />
                 </div>
               </div>
@@ -143,7 +143,7 @@ class DetailRecruit extends React.Component {
                         data.user.company.id !== undefined
                           ? data.user.company.id
                           : "0"
-                      }.1.jpg`)}
+                        }.1.jpg`)}
                     />
                   </div>
                   <div className="comp-body"></div>
@@ -192,13 +192,13 @@ class DetailRecruit extends React.Component {
                       You sent CV for this job before!
                     </button>
                   ) : (
-                    <button
-                      className="apply-btn"
-                      onClick={this.toggleSendCVPopUp}
-                    >
-                      Apply Now
-                    </button>
-                  )}
+                      <button
+                        className="apply-btn"
+                        onClick={this.toggleSendCVPopUp}
+                      >
+                        Apply Now
+                      </button>
+                    )}
 
                   <hr />
                   <div className="job-info-and-require"></div>

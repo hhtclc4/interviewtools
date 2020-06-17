@@ -4,10 +4,12 @@ import LoginPopup from "../../LoginPopup/LoginPopup";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import { withRouter } from "react-router-dom";
-import { FileJpgOutlined } from "@ant-design/icons";
+
 import Swal from "sweetalert2";
 import EditorConvertToHTML from "../../../../utils/EditorConvertToHTML/EditorConvertToHTML";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFile } from "@fortawesome/free-regular-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 class SendCV extends React.Component {
   constructor(props) {
     super(props);
@@ -92,33 +94,37 @@ class SendCV extends React.Component {
   };
   render() {
     let { data } = this.props;
-    let { user } = this.state;
+    let { user, candidate } = this.state;
     let stringSubject = "";
     data.subjects.map((subject) => {
       return (stringSubject += ` ${subject.title}`);
     });
-
     let formCV = () => {
       return (
         <div>
           <div className="send-cv-name d-flex flex-row justify-content-between  mb-2">
-            <p>Your Name: {user.name}</p>
+            <p>Your Name: <b>{user.name}</b></p>
           </div>
           <div className="send-cv-email d-flex flex-row justify-content-between  mb-2">
-            <p>Your Email: {user.email}</p>
+            <p>Your Email: <b>{user.email}</b></p>
           </div>
-          <div className="send-cv-imp-cv d-flex flex-row justify-content-between  mb-2">
+          <div className="send-cv-imp-cv d-flex flex-row justify-content  mb-4">
             <p>Your CV:</p>
-            <FileJpgOutlined onClick={() => this.fileInput.click()} />
-            <input
-              style={{ display: "none" }}
-              type="file"
-              onChange={this.fileChangedHandler}
-              ref={(fileInput) => (this.fileInput = fileInput)}
-            />
+            <button className="import-cv-btn" onClick={() => this.fileInput.click()}>
+              <span className="mr-1"><FontAwesomeIcon icon={faFile} /></span>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                onChange={this.fileChangedHandler}
+                ref={(fileInput) => (this.fileInput = fileInput)}
+              />{candidate.cv !== "" ? <b>Done</b> : <b>Import your CV here</b>}
+            </button>
+            <div className="check-cv"
+              style={candidate.cv !== "" ? { display: 'block' } : { display: 'none' }}
+            ><FontAwesomeIcon icon={faCheckCircle} color="#0BA25E" /></div>
           </div>
-          <div className="send-cv-special  mb-2">
-            <p>
+          <div className="send-cv-special  pt-2 mb-2">
+            <p className="mb-2">
               What skills, work projects or achievements make you a strong
               candidate?
             </p>
@@ -175,21 +181,21 @@ class SendCV extends React.Component {
                 {localStorage.getItem("token") ? (
                   formCV()
                 ) : (
-                  <div className="send-cv-btn-group float-right">
-                    <button
-                      className="login-button"
-                      onClick={this.toggleLoginPopup}
-                    >
-                      Login
+                    <div className="send-cv-btn-group float-right">
+                      <button
+                        className="login-button"
+                        onClick={this.toggleLoginPopup}
+                      >
+                        Login
                     </button>
-                    <button
-                      onClick={this.props.toggleSendCVPopUp}
-                      className="close-popup-btn"
-                    >
-                      Close
+                      <button
+                        onClick={this.props.toggleSendCVPopUp}
+                        className="close-popup-btn"
+                      >
+                        Close
                     </button>
-                  </div>
-                )}
+                    </div>
+                  )}
                 {this.state.loginPopup ? (
                   <LoginPopup
                     togglePopup={this.toggleLoginPopup}

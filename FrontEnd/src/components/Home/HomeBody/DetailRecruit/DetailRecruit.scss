@@ -5,6 +5,7 @@ $concept-color: #fd7e14;
   min-height: 100%;
   height: auto;
   background-color: $background-page;
+  padding-top: 60px;
   .dr-nav-container {
     height: 56px;
     width: 100%;
@@ -26,19 +27,16 @@ $concept-color: #fd7e14;
   }
 
   .dr-content {
-    margin-top: 58px;
-    min-height: 100%;
-    height: auto;
+    height: 100%;
     .dr-grid {
-      min-height: 100%;
-      height: 900px;
+      height: 100%;
       .job-content {
-        min-height: 100%;
         height: fit-content;
         background-color: white;
         display: block;
         border-left: 1px solid #c4c4c4;
         border-right: 1px solid #c4c4c4;
+        border-bottom: 1px solid #c4c4c4;
         padding-top: 20px;
 
         .comp-img-list {
@@ -55,8 +53,9 @@ $concept-color: #fd7e14;
 
         .comp-and-job-desc {
           padding-top: 30px;
+          height: 100%;
           .comp-about {
-            height: 400px;
+            height: 100%;
             flex-basis: 25%;
             .comp-header {
               border-top: 4px solid $concept-color !important;
@@ -166,17 +165,26 @@ $concept-color: #fd7e14;
         font-size: 24px;
       }
 
-      .send-cv-name {
-        font-weight: 600;
-      }
-      .send-cv-email {
-        font-weight: 600;
-      }
+      // .send-cv-name {
+      // }
+      // .send-cv-email {
+      // }
       .send-cv-imp-cv {
-        font-weight: 600;
+        .import-cv-btn {
+          top: 0;
+          border: 0;
+          padding-top: 0;
+          padding: 0 15px;
+          padding-bottom: 0px;
+          border-radius: 10px;
+          font-size: 14px;
+          &:hover {
+            background-color: #ccc;
+          }
+        }
       }
       .send-cv-special {
-        font-weight: 600;
+        border-top: 1px solid #c4c4c4;
         .special-txt {
           width: 100%;
           height: 100px;
