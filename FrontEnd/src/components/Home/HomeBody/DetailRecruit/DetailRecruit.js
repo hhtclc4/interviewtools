@@ -32,8 +32,6 @@ class DetailRecruit extends React.Component {
         deadline: "",
         user_id: 0,
         work_description: "",
-        candidate_req: "",
-        candidate_benefits: "",
         location: "",
         user: {
           company: {
@@ -89,7 +87,7 @@ class DetailRecruit extends React.Component {
           <div className="logo">
             <img
               className="big-logo"
-              src={require("../../../../utils/images/logo.png")}
+              src={require("../../../../utils/images/logo.png")} 
               alt="quiz-icon"
             />
           </div>
