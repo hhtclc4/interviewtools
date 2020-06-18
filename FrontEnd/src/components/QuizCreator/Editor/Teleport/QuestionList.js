@@ -19,30 +19,37 @@ class Teleport extends React.Component {
             {
               id: 0,
               answer: "",
-              is_right: 0
-            }
-          ]
-        }
-      ]
+              is_right: 0,
+            },
+          ],
+        },
+      ],
     };
   }
   componentDidMount() {
     let { questionArr } = this.props;
     this.setState({
-      questions: questionArr
+      questions: questionArr,
     });
   }
-  onClickAddQuestionHandler=(questionData)=>{
-    console.log(questionData)
-    let {question,type,time,question_choices}=questionData
-    let questionAPI={question,type,time}
-    this.props.createQuestionAndAnswersAPI(this.props.question_table_id,questionAPI,question_choices)
-  }
+  onClickAddQuestionHandler = (questionData) => {
+    console.log(questionData);
+    let { question, type, time, question_choices } = questionData;
+    let questionAPI = { question, type, time };
+    for (let i = 0; i < question_choices.length; i++)
+      delete question_choices[i].id;
+    console.log(question_choices);
+    this.props.createQuestionAndAnswersAPI(
+      this.props.question_table_id,
+      questionAPI,
+      question_choices
+    );
+  };
   render() {
     let { questionArr } = this.props;
     let questionElm = [];
     for (let i = 0; i < questionArr.length; i++) {
-      let answerElm = questionArr[i].question_choices.map(answer => {
+      let answerElm = questionArr[i].question_choices.map((answer) => {
         return (
           <div key={answer.id} className="cho-content">
             <span>
@@ -67,10 +74,12 @@ class Teleport extends React.Component {
               {questionArr[i].question}
             </p>
 
-            <button className="teleport-add-btn btn btn-dark position-absolute "
-            onClick={()=>this.onClickAddQuestionHandler(questionArr[i])}>
-              <FontAwesomeIcon icon={faPlus} style={{ marginRight: '5px' }} />
-                ADD
+            <button
+              className="teleport-add-btn btn btn-dark position-absolute "
+              onClick={() => this.onClickAddQuestionHandler(questionArr[i])}
+            >
+              <FontAwesomeIcon icon={faPlus} style={{ marginRight: "5px" }} />
+              ADD
             </button>
           </div>
           <div className="position-relative">
@@ -82,7 +91,7 @@ class Teleport extends React.Component {
                 top: "12%",
                 left: "10px",
                 width: "fit-content",
-                fontSize: "12px"
+                fontSize: "12px",
               }}
             >
               answer choices
@@ -105,7 +114,7 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(
         actions.createQuestionAndAnswersAPI(question_table_id, data, answers)
       );
-    }
+    },
   };
 };
 

@@ -44,7 +44,7 @@ class QuizCreatorEditor extends React.Component {
         questions: [],
         is_finish: false,
         image: null,
-        is_public: true,
+        is_public: false,
         campaign: {
           id: 0,
           subjects: [
@@ -187,15 +187,15 @@ class QuizCreatorEditor extends React.Component {
     if (!this.editRef.contains(e.target)) {
       //outside
       this.editInputRef.current.style.border = "none";
-      this.editInputRef.current.style.margin = "2px 0 2px 2px"
-      this.editInputRef.current.style.background = "#f2f2f2"
+      this.editInputRef.current.style.margin = "2px 0 2px 2px";
+      this.editInputRef.current.style.background = "#f2f2f2";
     } else {
       //inside
       this.editInputRef.current.focus();
       //this.editInputRef.current.select();
       this.editInputRef.current.style.border = "2px solid #1092f4";
-      this.editInputRef.current.style.margin = "0"
-      this.editInputRef.current.style.background = "#fff"
+      this.editInputRef.current.style.margin = "0";
+      this.editInputRef.current.style.background = "#fff";
     }
   };
   UNSAFE_componentWillMount() {
