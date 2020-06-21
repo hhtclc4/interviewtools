@@ -6,6 +6,8 @@ import PageScore from "./PageScore/PageScore";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
+import PageNumberStart from "./PageNumber/Start/Start";
+
 let showQuestion;
 let showPage;
 let pageNumber;
@@ -28,7 +30,7 @@ class DoingQuiz extends React.Component {
       count: 0,
       changePage: true,
       changeQuestion: false,
-      step: 1,
+      step: 0,
       isDone: false,
       accessToPush: false,
       right_answer: 0,
@@ -121,14 +123,23 @@ class DoingQuiz extends React.Component {
       if (questions[i].type !== 3) questionsLength += 1;
     if (!isDone) {
       switch (step) {
+        case 0:
+          return (
+            <PageNumberStart
+              close={() => {
+                this.setState({
+                  step: 1,
+                });
+              }}
+            />
+          );
         case 1: {
-          let delayPage = pageNumber === 1 ? 5500 : 1000;
           showPage = setTimeout(() => {
             this.setState({
               step: 2,
             });
             /////////////////////////////////////// speed of change page
-          }, delayPage);
+          }, 1000);
           return (
             <PageNumber
               key={pageNumber}
@@ -137,7 +148,6 @@ class DoingQuiz extends React.Component {
           );
         }
         case 2:
-          clearTimeout(showPage);
           return this.createQuestion();
         case 3:
           setTimeout(() => {
@@ -176,7 +186,6 @@ class DoingQuiz extends React.Component {
   createQuestion = () => {
     let { questions, count, isDone, changeQuestion, right_answer } = this.state;
     let state = this.state;
-    clearTimeout(showPage);
     //changeQuestion is not permitted(not click answer), show question
     if (changeQuestion === false) {
       showQuestion = setTimeout(() => {
@@ -197,10 +206,10 @@ class DoingQuiz extends React.Component {
     } else {
       //changeQuestion is permitted
       if (count < questions.length - 1 && isDone === false) {
+        state.count += 1;
         this.setState({
           changeQuestion: false,
         });
-        state.count += 1;
       } else {
         this.setState({
           isDone: true,
