@@ -121,7 +121,13 @@ class AssignQuiz extends React.Component {
   render() {
     let { data, isTop, interviews } = this.state;
     let interviewElm = interviews.map((interview) => {
-      return <InterviewControl key={interview.id} data={interview} />;
+      return (
+        <InterviewControl
+          key={interview.id}
+          data={interview}
+          isInterviewer={true}
+        />
+      );
     });
     let quizThumbnailELM = () => {
       return <QuizThumbnail data={data.question_table} />;

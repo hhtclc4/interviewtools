@@ -16,6 +16,7 @@ class HRNav extends React.Component {
             className="big-logo"
             src={require("../../../utils/images/logo.png")}
             style={{ height: "56px" }}
+            onClick={() => this.props.history.push("/")}
           />
         </div>
         <button

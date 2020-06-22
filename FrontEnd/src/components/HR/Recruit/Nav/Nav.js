@@ -15,11 +15,10 @@ class RecruitNav extends React.Component {
             className="big-logo"
             src={require("../../../../utils/images/logo.png")}
             alt="quiz-icon"
+            onClick={() => this.props.history.push("/")}
           />
         </div>
-        <button
-          className="recruit-exit-btn"
-        >Exit</button>
+        <button className="recruit-exit-btn">Exit</button>
       </div>
     );
   }

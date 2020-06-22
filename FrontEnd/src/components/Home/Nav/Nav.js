@@ -103,6 +103,7 @@ class HomeNav extends React.Component {
             className="big-logo"
             src={require("../../../utils/images/logo.png")}
             alt="quiz-icon"
+            onClick={() => this.props.history.push("/")}
           />
         </div>
         <div className="button-group">

@@ -511,6 +511,28 @@ export const getInterviews = (campaign_id) => {
       });
   };
 };
+export const updateInterviewFinish = (interview_id) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.UPDATE_INTERVIEW_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data: { id: interview_id, status: 1 },
+    })
+      .then((res) => {
+        console.log("get interviews", res.data);
+        dispatch({
+          type: types.UPDATE_INTERVIEW_FINISH,
+          interview_id,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const getCompletedInterviewsAPI = (campaign_id) => {
   return (dispatch) => {
     axios({
