@@ -35,7 +35,6 @@ class QuestionShow extends React.Component {
     };
   }
   componentDidMount() {
-    console.log("run");
     let { question } = this.props;
     this.setState({
       ...question,

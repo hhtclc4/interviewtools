@@ -3,12 +3,16 @@ import React from "react";
 import "./Control.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faClock } from "@fortawesome/free-regular-svg-icons";
-import { faUserEdit, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserEdit,
+  faUserPlus,
+  faCheckSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import CanOverview from "./CandidateOverview/CanOverview";
 import CandidatePopup from "./CandidatePopup";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-// import * as actions from "../../../../../redux/actions/index";
+import * as actions from "../../../../../redux/actions/index";
 class InterviewControl extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +28,7 @@ class InterviewControl extends React.Component {
         date: "2020-01-01",
         time_from: "12:00:00",
         time_to: "12:00:00",
-
+        status: 0,
         campaign_id: "",
         group_candidates: [
           {
@@ -99,7 +103,6 @@ class InterviewControl extends React.Component {
       >
         <div className="interview-control-header d-flex flex-row justify-content-between p-2">
           <div className="in-control-name  py-2">{data.name}</div>
-
           <div className="in-control-options-group d-flex flex-row">
             <div className="in-control-time p-2 mr-2">
               <span style={{ marginRight: "5px" }}>
@@ -123,16 +126,24 @@ class InterviewControl extends React.Component {
             </div>
             <button
               className="in-control-add"
-              onClick={() => {
-                this.setState({
-                  isShowCandidatePopup: !this.state.isShowCandidatePopup,
-                });
-                this.toggleCandidatePopup();
-              }}
+              onClick={
+                this.props.isInterviewer !== undefined
+                  ? () => this.props.updateInterviewFinish(data.id)
+                  : () => {
+                      this.setState({
+                        isShowCandidatePopup: !this.state.isShowCandidatePopup,
+                      });
+                      this.toggleCandidatePopup();
+                    }
+              }
             >
               <span>
                 <FontAwesomeIcon
-                  icon={faUserPlus}
+                  icon={
+                    this.props.isInterviewer !== undefined
+                      ? faCheckSquare
+                      : faUserPlus
+                  }
                   style={{ marginRight: "5px" }}
                   size="lg"
                   color="#393A68"
@@ -143,11 +154,7 @@ class InterviewControl extends React.Component {
         </div>
         <div className="interview-control-body p-2">
           <div className="interview-candidate-list">
-            <CanOverview
-              from="control"
-              type="partion"
-              display={true}
-            />
+            <CanOverview from="control" type="partion" display={true} />
             {candidateEml}
           </div>
         </div>
@@ -175,7 +182,11 @@ class InterviewControl extends React.Component {
 
 //send action to redux
 const mapDispatchToProps = (dispatch, props) => {
-  return {};
+  return {
+    updateInterviewFinish: (id) => {
+      dispatch(actions.updateInterviewFinish(id));
+    },
+  };
 };
 //get data from redux
 const mapStateToProps = (state) => {

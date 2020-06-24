@@ -12,7 +12,7 @@ class PageNumberStart extends React.Component {
 
   countDown = () => {
     let { step } = this.state;
-    while (step >= -1) {
+    while (step >= 0) {
       let minus = step;
       minus -= 1;
       count = setTimeout(() => {
@@ -22,6 +22,7 @@ class PageNumberStart extends React.Component {
       }, 1100);
       return <StartCountDown step={step} />;
     }
+    this.props.close();
     clearTimeout(count);
   };
 

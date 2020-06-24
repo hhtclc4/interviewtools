@@ -233,6 +233,15 @@ router.post("/api/create_interview", (req, res) => {
     .then((data) => res.send(data))
     .catch((err) => console.log(err));
 });
+router.post("/api/update_interview", (req, res) => {
+  Interview.update(req.body, {
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+});
 // get uncompleted interview
 router.post("/api/get_interview", (req, res) => {
   Interview.findAll({

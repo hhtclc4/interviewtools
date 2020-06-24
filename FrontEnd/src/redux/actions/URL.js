@@ -48,6 +48,7 @@ export const UPDATE_CANDIDATES_API_URL = `${domain}/api/update_group_candidates`
 export const CANDIDATE_API_URL = `${domain}/api/candidate`;
 export const CREATE_CANDIDATE_API_URL = `${domain}/api/create_candidate`;
 // interview
+export const UPDATE_INTERVIEW_API_URL = `${domain}/api/update_interview`;
 export const GET_INTERVIEW_API_URL = `${domain}/api/get_interview`;
 export const CREATE_INTERVIEW_API_URL = `${domain}/api/create_interview`;
 export const GET_COMPLETED_INTERVIEW_API_URL = `${domain}/api/completed_interview`;

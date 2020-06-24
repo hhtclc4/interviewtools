@@ -45,7 +45,8 @@ class PageScore extends React.Component {
     console.log("prev", prevResult);
     console.log("new", right_answer);
     let { accuracy } = this.state;
-    accuracy = (right_answer / questionsLength);
+    let preAccuracy = Math.ceil((prevResult / questionsLength) * 100);
+    accuracy = Math.ceil((right_answer / questionsLength) * 100);
 
     let styleSheet = document.styleSheets[0];
 
@@ -53,10 +54,8 @@ class PageScore extends React.Component {
 
     let progressAnimation = `@-webkit-keyframes ${animationName} {
       0% {
-          width: ${(prevResult / questionsLength) * 100}%;
-          background-color: ${this.accuracyColor(
-      (prevResult / questionsLength) * 100
-    )};
+          width: ${preAccuracy}%;
+          background-color: ${this.accuracyColor(preAccuracy)};
           border-right: 5px solid red;
       }
       20% {
@@ -72,8 +71,8 @@ class PageScore extends React.Component {
       }
 
       100%{
-        width: ${accuracy * 100}%;
-        background-color: ${this.accuracyColor(accuracy * 100)}
+        width: ${accuracy}%;
+        background-color: ${this.accuracyColor(accuracy)}
       }
     }
     `;
@@ -81,7 +80,7 @@ class PageScore extends React.Component {
     styleSheet.insertRule(progressAnimation, styleSheet.cssRules.length);
 
     let animationStyle = {
-      width: `${(prevResult / questionsLength) * 100}%`,
+      width: `${preAccuracy}%`,
       animationName: animationName,
       animationTimingFunction: "ease",
       animationDuration: "2s",
@@ -95,13 +94,7 @@ class PageScore extends React.Component {
         <div className="progress-score-container">
           <div className="progress-score-outline">
             <div className="progress-animate" style={animationStyle}>
-              <GrowAccuracyTick
-                prevResult={(prevResult / questionsLength) * 100}
-                accuracy={accuracy * 100}
-              />
-
-              {console.log((prevResult / questionsLength) * 100)}
-              {console.log(accuracy * 100)}
+              <GrowAccuracyTick prevResult={preAccuracy} accuracy={accuracy} />
             </div>
           </div>
         </div>

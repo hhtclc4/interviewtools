@@ -70,7 +70,6 @@ let calculateDateInterviewLeft = (interviews) => {
 
     // Calculate the difference in milliseconds
     let difference_ms = interviewDate_ms - currentDate_ms;
-    console.log(interviews[i].id, Math.round(difference_ms / one_day));
     if (difference_ms >= 0) dayArray.push(Math.round(difference_ms / one_day));
   }
   // Convert back to days and return
@@ -109,8 +108,6 @@ let myReducer = (state = initialState, action) => {
           }
         }
       }
-      for (let i = 0; i < state.length; i++)
-        console.log(state[i].id, state[i].interviewDateLeft);
       return [...state];
     case types.CREATE_CAMPAIGN:
       state.push({ ...action.data });

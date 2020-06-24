@@ -32,6 +32,15 @@ let myReducer = (state = initialState, action) => {
     case types.GET_INTERVIEWS:
       state = [...action.data];
       return [...state];
+
+    case types.UPDATE_INTERVIEW_FINISH:
+      for (let i = 0; i < state.length; i++)
+        if (state[i].id === action.interview_id) {
+          state.splice(i, 1);
+          break;
+        }
+      return [...state];
+
     case types.SHOW_INTERVIEWS:
       return [...state];
     case types.CREATE_INTERVIEW:
