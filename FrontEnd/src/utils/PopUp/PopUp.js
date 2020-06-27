@@ -6,13 +6,14 @@ const PopUp = ({ children, openPop }) => {
     const node = useRef();
     const [open, setOpen] = useState(true);
     let popUpClickHandler = (e) => {
-        // console.log("click inside");
+
         if (node.current.contains(e.target)) {
+            console.log("click inside");
             return;
         }
 
         //outside click
-        // console.log("click outside")
+        console.log("click outside")
         setOpen(false);
         openPop(open);
     }
@@ -37,8 +38,6 @@ const PopUp = ({ children, openPop }) => {
             </div>
         </div >
     );
-
-
 }
 
 

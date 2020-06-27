@@ -1,11 +1,21 @@
 .ad-find-container {
     min-height: 100%;
     width: 100%;
-    
+
     padding-top: 30px;
 
     h1 {
         text-align: center;
         font-family: "PT Sans Caption";
+    }
+
+    .find-all-quiz-list {
+        width: 80vw;
+        .find-quiz-list-review {
+            .find-list-show-topic {
+                display: flex;
+                flex-direction: row;
+            }
+        }
     }
 }

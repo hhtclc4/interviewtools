@@ -47,10 +47,11 @@ class ReportDetail extends React.Component {
   };
   render() {
     let { tableReport, players, totalAccuracy } = this.state;
-    let playerElm = players.map((player) => {
+    let playerElm = players.map((player, index) => {
       return (
         <ReportPlayers
-          key={player.id}
+          //key={player.id} //id bi trung
+          key={index}
           data={player}
           accuracyForPlayers={this.accuracyForPlayers}
         />

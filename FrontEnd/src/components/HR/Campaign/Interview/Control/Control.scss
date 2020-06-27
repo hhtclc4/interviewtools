@@ -109,6 +109,7 @@ $icon-color: #393a68;
                             height: 80%;
                             font-family: sans-serif;
                             color: #444;
+                            overflow: scroll;
                             .order-tab-display {
                                 height: 100%;
                             }
@@ -162,6 +163,7 @@ $icon-color: #393a68;
 
                 .can-chosen {
                     height: 40%;
+                    overflow: scroll;
                 }
             }
             .can-popup-footer {

@@ -19,7 +19,7 @@
     transition: all 0.4s ease;
     padding: 5% 0;
     .util-popup-inner {
-        max-width: 50%;
+        max-width: auto;
         background-color: #fff;
         border-radius: 10px;
         animation: animatebottomSetPopUp 0.4s ease forwards;

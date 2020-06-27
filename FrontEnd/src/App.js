@@ -14,8 +14,8 @@ import AdminLayout from "./layouts/Admin/Admin";
 import QuizStart from "./components/Join/QuizStart/QuizStart";
 import UserSettings from "./components/Join/UserSettings/Settings";
 import Recruit from "./layouts/Recruit/Recruit";
-import ReportDetail from "./components/Admin/Page/Reports/ReportDetail/ReportDetail";
-
+//import ReportDetail from "./components/Admin/Page/Reports/ReportDetail/ReportDetail";
+//import ReportCamp from './components/Admin/Page/Reports/ReportCamp/ReportCamp'
 import HRCampaign from "./components/HR/Campaign/Campaign";
 import DetailRecruitLayout from "./layouts/DetailRecruit/DetailRecruit";
 
@@ -34,8 +34,8 @@ class App extends React.Component {
               path="/detail_recruit/:campaign_id"
               component={DetailRecruitLayout}
             />
-            <Route path="/quiz/:question_table_id" component={QuizCreator} />}
-            />
+            <Route path="/quiz/:question_table_id" component={QuizCreator} />
+
             <Route path="/join">
               <Join />
             </Route>
@@ -56,10 +56,14 @@ class App extends React.Component {
             />
             <Route path="/settings" component={UserSettings} />
             <Route path="/recruit_create" component={Recruit} />
-            <Route
-              path="/admin/reports/report_detail"
+            {/* <Route
+              path="/admin/reports/camp/report_detail"
               component={ReportDetail}
             />
+            <Route
+              path="/admin/reports/camp"
+              component={ReportCamp}
+            /> */}
             <Route path="/HR" component={HRlayout} />
             <Route path="/campaign/:campaign_id" component={HRCampaign} />
             {/* <Route path="/detail_recruit" component={DetailRecruit} /> */}

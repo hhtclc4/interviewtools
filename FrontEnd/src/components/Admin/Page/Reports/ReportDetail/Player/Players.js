@@ -1,7 +1,8 @@
 import React from "react";
 import "./Players.scss";
 import { withRouter } from "react-router-dom";
-
+import PopUp from '../../../../../../utils/PopUp/PopUp'
+import QuizPop from '../Quiz/Quiz'
 class ReportPlayers extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,7 @@ class ReportPlayers extends React.Component {
       inCorrectAnswer: 0,
       unAttempt: 0,
       totalQuestion: 0,
+      isShowQuiz: false,
     };
   }
   componentDidMount() {
@@ -18,6 +20,18 @@ class ReportPlayers extends React.Component {
     let accuracy = this.calculate(data.answer_records);
     accuracyForPlayers(accuracy);
   }
+
+  togglePopUp = () => {
+    // if (this.state.isShowQuiz === true) {
+    //   this.setState({
+    //     isShowQuiz: false,
+    //   })
+    // }
+    this.setState({
+      isShowQuiz: true,
+    })
+  }
+
   calculate = (attemptList) => {
     let accuracyArr = [];
     attemptList.forEach((answerRecord) => {
@@ -69,10 +83,33 @@ class ReportPlayers extends React.Component {
   };
   render() {
     let { data } = this.props;
-    let { accuracy, correctAnswer, inCorrectAnswer, unAttempt } = this.state;
+    let { accuracy, correctAnswer, inCorrectAnswer, unAttempt, isShowQuiz } = this.state;
     console.log(accuracy, correctAnswer, inCorrectAnswer, unAttempt);
     return (
-      <div className="report-detail-player-container container-fluid ">
+      <div className="report-detail-player-container container-fluid "
+        onClick={this.togglePopUp}
+      >
+        {
+          isShowQuiz ? (
+            <PopUp
+              openPop={
+                (open) => {
+                  setTimeout(() => {
+                    this.setState({
+                      isShowQuiz: !open,
+                    });
+                  }, 150);
+                }}
+            >
+              <QuizPop
+                closePopup={() => {
+                  this.setState({
+                    isShowQuiz: false
+                  })
+                }}
+              />
+            </PopUp>) : null
+        }
         <div className="rd-player-row row shadow-sm d-flex flex-row ">
           <div className="rdp-ava align-self-center col-1">
             <img

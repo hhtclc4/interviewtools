@@ -195,11 +195,11 @@ class CanOverview extends React.Component {
         }
       >
         <div
-          className="candidate-partions-container d-flex flex-row p-2 justify-content-start"
+          className="candidate-partions-container row p-2 py-0 "
           style={{ backgroundColor: color }}
         >
           <div
-            className="time-partion flex-fill"
+            className="time-partion col-sm"
             style={
               from === "canPop" || from === "hr" ? { display: "none" } : null
             }
@@ -210,78 +210,82 @@ class CanOverview extends React.Component {
                 <b>TIME</b>
               </span>
             ) : (
-              // <> {data.interview_time} </>
-              <>
-                <div className="cni-time-hour">
-                  <Dropdown overlay={hour} trigger={["click"]}>
-                    <Button style={{ top: "0" }}>
-                      {data.interview_time} <Icon type="down" />
-                    </Button>
-                  </Dropdown>
-                </div>
-              </>
-            )}
+                // <> {data.interview_time} </>
+                <>
+                  <div className="cni-time-hour">
+                    <Dropdown overlay={hour} trigger={["click"]}>
+                      <Button style={{ top: "0" }}>
+                        {data.interview_time} <Icon type="down" />
+                      </Button>
+                    </Dropdown>
+                  </div>
+                </>
+              )}
           </div>
-          <div className="name-partion text-truncate  flex-fill">
+          <div className="name-partion text-truncate  col-sm">
             {type === "partion" ? <b>{data.user.name}</b> : data.user.name}
           </div>
-          <div className="email-partion text-truncate  flex-fill">
+          <div className="email-partion text-truncate  col-sm">
             {type === "partion" ? <b>{data.user.email}</b> : data.user.email}
           </div>
-          <div className="phone-partion text-truncate  flex-fill">
+          <div className="phone-partion text-truncate  col-sm">
             {type === "partion" ? <b>{data.user.phone}</b> : data.user.phone}
           </div>
-          <div className="cv-partion text-truncate  flex-fill">
+          <div className="cv-partion text-truncate  col-sm">
             <button
               onClick={() => {
-                this.setState({
-                  isOpenNoteandCV: !this.state.isOpenNoteandCV,
-                  active: 0,
-                });
-                this.toggleNoteandCV();
+                if (type !== "partion") {
+                  this.setState({
+                    isOpenNoteandCV: !this.state.isOpenNoteandCV,
+                    active: 0,
+                  });
+                  this.toggleNoteandCV();
+                }
               }}
               className="cv-btn"
             >
               {type === "partion" ? (
                 <b>CV</b>
               ) : (
-                <FontAwesomeIcon icon={faClipboard} />
-              )}
+                  <FontAwesomeIcon icon={faClipboard} />
+                )}
             </button>
           </div>
-          <div className="note-partion text-truncate  flex-fill">
+          <div className="note-partion text-truncate  col-sm">
             <button
               onClick={() => {
-                this.setState({
-                  isOpenNoteandCV: !this.state.isOpenNoteandCV,
-                  active: 1,
-                });
-                this.toggleNoteandCV();
+                if (type !== "partion") {
+                  this.setState({
+                    isOpenNoteandCV: !this.state.isOpenNoteandCV,
+                    active: 1,
+                  });
+                  this.toggleNoteandCV();
+                }
               }}
               className="note-btn"
             >
               {type === "partion" ? (
                 <b>NOTE</b>
               ) : (
-                <FontAwesomeIcon icon={faStickyNote} />
-              )}
+                  <FontAwesomeIcon icon={faStickyNote} />
+                )}
             </button>
           </div>
           <div
-            className="subject-partion text-truncate  flex-fill"
+            className="subject-partion text-truncate  col-sm"
             style={majorStyle}
           >
             {type === "partion" ? <b>MAJOR</b> : <>Java</>}
           </div>
           <div
-            className="level-partion text-truncate  flex-fill"
+            className="level-partion text-truncate  col-sm"
             style={majorStyle}
           >
             {type === "partion" ? <b>LEVEL</b> : <>Senior</>}
           </div>
 
           <div
-            className="action-btn-partion  flex-fill"
+            className="action-btn-partion  col-sm flex-fill"
             style={from === "control" ? { display: "none" } : {}}
           >
             {actionBtnElm}

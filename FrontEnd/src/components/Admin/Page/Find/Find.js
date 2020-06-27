@@ -65,9 +65,9 @@ class AdminFind extends React.Component {
       if (typeof subjects[i] !== "undefined") {
         let listTable = this.showLimitTableBySubject(subjects[i].campaigns);
         arr.push(
-          <div className="join-quiz-list-review" key={i}>
+          <div className="find-quiz-list-review" key={i}>
             <h3>{subjects[i].title}</h3>
-            <div className="quiz-list-show-topic">{listTable}</div>
+            <div className="find-list-show-topic">{listTable}</div>
           </div>
         );
       }
@@ -81,8 +81,8 @@ class AdminFind extends React.Component {
       <div className="ad-find-container">
         <h1>What will we teach today?</h1>
 
-        <div className="join-quiz-list-review">
-          <div className="quiz-list-show-topic"> {quizthumbSubjectElm}</div>
+        <div className="find-all-quiz-list">
+          {quizthumbSubjectElm}
         </div>
       </div>
     );

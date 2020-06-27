@@ -18,6 +18,7 @@ import QuizControlHostGame from "./MyQuizzes/MyQuizDetail/MyQuizControl/Question
 import AdminFind from "../Page/Find/Find";
 import Reports from "./Reports/Reports";
 import ReportDetail from "./Reports/ReportDetail/ReportDetail";
+import ReportCamp from './Reports/ReportCamp/ReportCamp';
 
 //import history from "../../../history";
 class AdminPage extends React.Component {
@@ -148,8 +149,13 @@ class AdminPage extends React.Component {
             <Route exact path={path} component={AdminFind} />
             <Route exact path={`${path}/reports`} component={Reports} />
             <Route
-              path={`${path}/reports/report_detail`}
+              path={`${path}/reports/camp/report_detail`}
               component={ReportDetail}
+            />
+
+            <Route
+              path={`${path}/reports/camp`}
+              component={ReportCamp}
             />
           </Switch>
         </div>

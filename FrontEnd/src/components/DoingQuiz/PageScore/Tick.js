@@ -17,24 +17,24 @@ class GrowAccuracyTick extends React.Component {
         })
 
         if (accuracy !== prevResult) {
-            let minus = accuracy - prevResult;
-            if (minus % 2 === 1) {
-                let add = prevResult + 1;
-                console.log("prevResult", this.state.prevResult)
-                this.setState({
-                    prevResult: add,
-                })
-            }
+            // let minus = accuracy - prevResult;
+            // if (minus % 2 === 1) {
+            //     let add = prevResult + 1;
+            //     console.log("prevResult", this.state.prevResult)
+            //     this.setState({
+            //         prevResult: add,
+            //     })
+            // }
             this.increaseAccuracy = setInterval(
                 () => {
                     this.Tick()
-                }, 100
+                }, 50
             );
         }
     }
 
     Tick = () => {
-        let add2 = this.state.prevResult + 2;
+        let add2 = this.state.prevResult + 1;
         if (this.state.prevResult >= this.state.accuracy) {
             return
         }

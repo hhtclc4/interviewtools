@@ -18,9 +18,11 @@ class NoteandCV extends React.Component {
     let { data } = this.props;
     console.log(data);
     this.setState({
-      candidate_id: data.candidate_id,
-      cv: data.cv,
-      description: data.description,
+      data: {
+        candidate_id: data.candidate_id,
+        cv: data.cv,
+        description: data.description,
+      }
     });
   }
   onChangeEditorTextHandler = (description) => {
@@ -34,9 +36,17 @@ class NoteandCV extends React.Component {
   onClickSaveNote = () => {
     let { data } = this.state;
     this.props.onClickSaveNote(data.description);
+    this.props.closePopup();
   };
   render() {
     let { data } = this.state;
+    console.log(data.description)
+    // const sampleMarkup = data.description;
+    // const blocksFromHTML = convertFromHTML(sampleMarkup);
+    // const textState = ContentState.createFromBlockArray(
+    //   blocksFromHTML.contentBlocks,
+    //   blocksFromHTML.entityMap
+    // );
     return (
       <div
         className="row m-0 note-and-cv-popup-container"
@@ -54,18 +64,24 @@ class NoteandCV extends React.Component {
                 <Panel title="Note">
                   <EditorConvertToHTML
                     onChangeEditorTextHandler={this.onChangeEditorTextHandler}
-                    text={data.description}
                     placeholder="Note something about this candidate"
+                    text={this.props.data.description}
                   />
-                  <button onClick={this.onClickSaveNote}>Save</button>
+                  <button
+                    className="close-btn float-right"
+                    onClick={this.props.closePopup}
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="save-btn float-right mr-2"
+                    onClick={this.onClickSaveNote}
+                  >
+                    Save
+                  </button>
                 </Panel>
               </Tabs>
-              <button
-                className="close-btn float-right"
-                onClick={this.props.closePopup}
-              >
-                Close
-              </button>
+
             </div>
           </div>
         </div>

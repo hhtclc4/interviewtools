@@ -119,7 +119,7 @@ class ReportQuiz extends React.Component {
             JSON.stringify({ ...data, accuracy })
           );
 
-          history.push(`/admin/reports/report_detail`);
+          history.push(`/admin/reports/camp`);
         }}
       >
         <div className="rq-row row">

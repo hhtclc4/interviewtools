@@ -1,0 +1,219 @@
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+$concept-color: #fd7e14;
+$shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 0, 0.45);
+
+.report-camp-container {
+    width: 100%;
+    height: 100%;
+    max-width: 1200px;
+    .report-camp-overview {
+        .campaign-overview-container {
+            height: 300px;
+            width: 100%;
+            background-color: white;
+            border-bottom: 1px solid #bfbfbf;
+            .co-company-logo {
+                width: 20%;
+                min-width: 20%;
+                height: 100%;
+                .crop-comp-logo {
+                    width: 100%;
+                    overflow: hidden;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    .comp-logo {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+            .co-require-and-desc {
+                width: 55%;
+                .co-title {
+                    p {
+                        font-weight: bold;
+                        font-size: 24px;
+                    }
+                }
+                .co-salary {
+                    padding: 1px 0px;
+                    border-radius: 3px;
+                    height: 28px;
+                    .co-adjust-icon {
+                        padding: 3px;
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 50%;
+                        border: 1px solid $concept-color;
+                        margin-right: 5px;
+                    }
+                }
+                .co-job-benefit {
+                    pre {
+                        margin-left: 0;
+                        margin-bottom: 0;
+                        margin-right: 0;
+                        width: fit-content;
+                    }
+                }
+                .co-job-desc {
+                    width: 100%;
+                    font-size: 13px;
+                    line-height: 1.8em;
+                    word-wrap: break-word;
+                    text-overflow: ellipsis;
+                    display: block;
+                    overflow: hidden;
+                    margin-bottom: 1rem;
+                    flex-grow: 1;
+                    align-items: center;
+                    .work-desc-wrapper {
+                        height: 99%;
+                        width: 100%;
+                        border-top: 1px solid #ddd;
+                    }
+
+                    .work-desc-editor {
+                        overflow: hidden;
+                        font-size: 15px;
+                    }
+                }
+                .co-subjects {
+                    .co-subject {
+                        padding: 2px 6px;
+                        border: 1px solid #d2d3d3;
+                        height: fit-content;
+                        width: fit-content;
+                        margin-right: 1rem;
+                        &:hover {
+                            color: $concept-color;
+                            border: 1px solid $concept-color;
+                        }
+                    }
+                }
+            }
+            .co-tag {
+                padding: 0 10px;
+                width: 15%;
+                .co-feature {
+                    background-color: red;
+                    padding: 0rem 1rem;
+                    color: #fff;
+                    font-weight: 600;
+                    border-radius: 4px;
+                    width: fit-content;
+                }
+                .co-destination {
+                    display: flex;
+                    flex-direction: row;
+                }
+                .co-publish {
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+            }
+            .co-options {
+                .co-option-btn {
+                    padding: 1rem;
+                    border-radius: 50%;
+                    background-color: #f2f2f2;
+                    border: none;
+                    top: 0;
+                    opacity: 0.7;
+                    height: 56px;
+                    width: 56px;
+                    &:hover {
+                        background-color: #bfbfbf;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &:hover {
+                .co-option-btn {
+                    background-color: #bfbfbf;
+                    opacity: 1;
+                    transition: 0.5s;
+                }
+            }
+        }
+    }
+
+    .report-camp-list {
+        .rc-list-title {
+            font-family: QuickSand;
+            border-bottom: 1px solid #d5d5d5;
+            padding: 1rem 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .rc-interview-container {
+            .rc-list-partion {
+                margin-bottom: 10px;
+                width: 100%;
+                margin: 0 !important;
+                margin-bottom: 10px !important;
+                .rc-partion-time {
+                    //min-width: 25%;
+                    font-family: "Open Sans", sans-serif, Helvetica, Arial;
+                    font-weight: bold;
+                    color: #6b7c93;
+                    font-size: 15px;
+                }
+
+                .rc-partion-name {
+                    //min-width: 20%;
+                    @extend .rc-partion-time;
+                }
+                .rc-partion-total-can {
+                    //min-width: 15%;
+                    @extend .rc-partion-time;
+                }
+                .rc-partion-acc {
+                    //min-width: 35%;
+                    @extend .rc-partion-time;
+                }
+            }
+            .completed-list-container {
+                box-shadow: $shadow;
+                $text-font: "Open Sans";
+                .interview-report-container {
+                    border-bottom: 1px solid #dedede;
+                    background-color: white;
+                    .interview-report-header {
+                        background-color: white;
+                        .rc-partion-time {
+                            //min-width: 23%;
+                            font-family: $text-font;
+                        }
+
+                        .rc-partion-name {
+                            //min-width: 19%;
+                            font-family: $text-font;
+                        }
+                        .rc-partion-total-can {
+                            //min-width: 13%;
+                            font-family: $text-font;
+                        }
+                        .rc-partion-acc {
+                            //min-width: 30%;
+                            font-family: $text-font;
+                            .max-acc-progress {
+                                .acc-progress {
+                                    padding: 2px;
+                                    background-color: greenyellow;
+                                    border-radius: 4px;
+                                    color: white;
+                                    font-weight: bold;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
