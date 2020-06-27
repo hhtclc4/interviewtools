@@ -135,6 +135,7 @@ class ReportDetail extends React.Component {
           //key={player.id} //id bi trung
           key={index}
           data={player}
+          questions={campaign.question_table.questions}
         />
       );
     });
