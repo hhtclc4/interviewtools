@@ -34,8 +34,14 @@ let calculate = (attemptList) => {
   attemptList.forEach((answerRecord) => {
     accuracyArr.push(calculateAccuracy(answerRecord));
   });
-  let accuracy = Math.max(...accuracyArr);
-  return accuracy;
+  let max = accuracyArr[0].accuracy;
+  let result = { ...accuracyArr[0] };
+  for (let i = 0; i < accuracyArr.length; i++)
+    if (accuracyArr[i].accuracy <= max) {
+      max = accuracyArr[i].accuracy;
+      result = accuracyArr[i];
+    }
+  return result;
 };
 
 let calculateAccuracy = (data) => {
@@ -51,7 +57,6 @@ let calculateAccuracy = (data) => {
       if (attempt.question_choice.is_right === 2) {
         unAttempt = unAttempt + 1;
       }
-
     } else if (attempt.question.type === 2) {
       let questionRightTotal = 0;
       let multiRightTotal = 0;
@@ -62,7 +67,8 @@ let calculateAccuracy = (data) => {
         let { question_choices } = attempt.multi_choice;
         for (let i = 0; i < question_choices.length; i++)
           if (question_choices[i].is_right === 1) multiRightTotal++;
-      }
+      } else unAttempt = unAttempt + 1;
+
       if (multiRightTotal === questionRightTotal) correctAnswer++;
     }
   });
@@ -70,16 +76,16 @@ let calculateAccuracy = (data) => {
   data.forEach((sub) => {
     if (sub.question.type === 3) textQuestion++;
   });
-  // if (correctAnswer > this.state.correctAnswer)
-  // this.setState({
-  //   correctAnswer: correctAnswer,
-  //   totalQuestion: data.length - textQuestion,
-  //   unAttempt: unAttempt,
-  //   inCorrectAnswer: data.length - textQuestion - correctAnswer - unAttempt,
-  // });
+
   let accuracy =
     (correctAnswer / (data.length - textQuestion)).toFixed(2) * 100;
-  return accuracy;
+  let result = {
+    accuracy,
+    correctAnswer,
+    inCorrectAnswer: data.length - textQuestion - unAttempt - correctAnswer,
+    unAttemptAnswer: unAttempt,
+  };
+  return result;
 };
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -114,11 +120,14 @@ let myReducer = (state = initialState, action) => {
           let accuracyArr = [];
 
           for (let i = 0; i < state[k].group_candidates.length; i++) {
-            let accuracy = calculate(
-              state[k].group_candidates[i].answer_records
-            );
-            accuracyArr.push(accuracy);
-            state[k].group_candidates[i].accuracy = accuracy;
+            let result = calculate(state[k].group_candidates[i].answer_records);
+            accuracyArr.push(result.accuracy);
+            state[k].group_candidates[i].accuracy = result.accuracy;
+            state[k].group_candidates[i].correctAnswer = result.correctAnswer;
+            state[k].group_candidates[i].inCorrectAnswer =
+              result.inCorrectAnswer;
+              state[k].group_candidates[i].unAttemptAnswer = result.unAttemptAnswer;
+
           }
 
           let accuracy = 0;

@@ -22,7 +22,7 @@ class ReportPlayers extends React.Component {
     });
   };
   render() {
-    let { data } = this.props;
+    let { data, questions } = this.props;
     let { isShowQuiz, isOpenPopup } = this.state;
     return (
       <div
@@ -40,7 +40,11 @@ class ReportPlayers extends React.Component {
               }, 150);
             }}
           >
-            <QuizPop togglePopUp={this.togglePopUp} />
+            <QuizPop
+              data={data}
+              questions={questions}
+              togglePopUp={this.togglePopUp}
+            />
           </PopUp>
         ) : null}
         <div className="rd-player-row row shadow-sm d-flex flex-row ">

@@ -1,69 +1,117 @@
-import React from 'react';
-import './Quiz.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import React from "react";
+import "./Quiz.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class QuizPop extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
+  render() {
+    let { data, questions } = this.props;
+    let { correctAnswer, inCorrectAnswer, unAttemptAnswer } = data;
+    let index = data.answer_records.length - 1;
+    let questionLength = questions.length;
+    let correctAccuracy = (data.correctAnswer / questionLength) * 100;
+    let inCorrectAccuracy = (data.inCorrectAnswer / questionLength) * 100;
+    let unAttemptAccuracy = (data.unAttemptAnswer / questionLength) * 100;
+    let questionElm = data.answer_records[index].map((data, index) => {
+      let questionText = `${index + 1} ${data.question.question}`;
+      let answerElm = data.question.question_choices.map((answer) => {
+        let choiceColor = "";
+        //question unattempt
+        if (answer.is_right === 1) choiceColor = "#00c985";
+        if (data.question.type === 1) {
+          if (data.question_choice.id === answer.id)
+            if (data.question_choice.is_right === 1 && answer.is_right === 1)
+              //question right
+              choiceColor = "#00c985";
+            else if (data.question_choice.is_right !== 1)
+              //question wrong
+              choiceColor = "#F14D76";
+        } else if (data.question.type === 2) {
+          if (data.multi_choice_id !== null)
+            for (
+              let i = 0;
+              i < data.multi_choice.question_choices.length;
+              i++
+            ) {
+              if (data.multi_choice.question_choices[i].id === answer.id)
+                if (data.multi_choice.question_choices[i].is_right !== 1)
+                  choiceColor = "#F14D76";
+            }
+        }
 
-    render() {
         return (
-            <div className="quiz-pop-container">
-                <div className="qp-player-overview">
-                    <div className="qp-player-ava">
-                        <img alt="ava" src={require("../../../../../../utils/images/icon.png")} />
-                    </div>
-                    <div className="qp-player-info">
-                        <div className="qp-player-name">
-                            tri ha
-                        </div>
-                        <div className="qp-date">
-                            Date: 12-12-2012, 12:12am
-                        </div>
-                    </div>
-                    <div className="qp-actions flex-fill">
-                        <button>Delete</button>
-                    </div>
-                </div>
-                <div className="qp-player-result">
-                    <div className="result-bar">
-                        <div className="right-result"></div>
-                        <div className="wrong-result"></div>
-                    </div>
-                    <div className="result-amount">
-                        <div className="right-amount">20</div>
-                        <div className="wrong-amount">20</div>
-                    </div>
-                    <div className="result-accuracy">
-                        <div className="right-acc">50% correct</div>
-                        <div className="wrong-acc">50% incorrect</div>
-                        <div className="unattempt-acc">0% unattempt</div>
-                    </div>
-                </div>
-                <div className="qp-result-list">
-                    <div className="qp-question-result">
-                        <div className="question-text">1. Kate knows that the most effective way to communicate important information
-             about the project to her team is with a face-to-face conversation. Is this Agile Principle or Practice?</div>
-                        <div className="choose-result" style={{ color: 'green' }}><span className="mr-2"><FontAwesomeIcon icon={faCheck} /></span>Principle</div>
-                        <div className="choose-result" style={{ color: 'red' }}><span className="mr-2"><FontAwesomeIcon icon={faTimes} size="lg" /></span>Principle</div>
-                    </div>
-                    <div className="qp-question-result">
-                        <div className="question-text">1. Kate knows that the most effective way to communicate important information
-             about the project to her team is with a face-to-face conversation. Is this Agile Principle or Practice?</div>
-                        <div className="choose-result" style={{ color: 'green' }}><span className="mr-2"><FontAwesomeIcon icon={faCheck} /></span>Principle</div>
-                        <div className="choose-result" style={{ color: 'red' }}><span className="mr-2"><FontAwesomeIcon icon={faTimes} size="lg" /></span>Principle</div>
-                    </div>
-                </div>
-                <button
-                    onClick={this.props.togglePopUp}
-                >Close</button>
-            </div>
+          <div
+            className="choose-result"
+            style={{ color: choiceColor }}
+            key={answer.id}
+          >
+            <span className="mr-2">
+              <FontAwesomeIcon
+                icon={choiceColor === "#F14D76" ? faTimes : faCheck}
+              />
+            </span>
+            {answer.answer}
+          </div>
         );
-    }
+      });
+      return (
+        <div className="qp-question-result" key={data.question.id}>
+          <div className="question-text">{questionText}</div>
+          {data.question.type === 3 ? (
+            <div>
+              <label>{data.answer_records[index].answer_text}</label>
+              <p>{data.answer_records[index].hint}</p>{" "}
+            </div>
+          ) : (
+            answerElm
+          )}
+        </div>
+      );
+    });
+    return (
+      <div className="quiz-pop-container">
+        <div className="qp-player-overview">
+          <div className="qp-player-ava">
+            <img
+              alt="ava"
+              src={require("../../../../../../utils/images/icon.png")}
+            />
+          </div>
+          <div className="qp-player-info">
+            <div className="qp-player-name">tri ha</div>
+          </div>
+        </div>
+        <div className="qp-player-result">
+          <div className="result-bar">
+            <div
+              className="right-result"
+              style={{ width: `${correctAccuracy}%` }}
+            ></div>
+            <div
+              className="wrong-result"
+              style={{ width: `${inCorrectAccuracy}%` }}
+            ></div>
+          </div>
+          <div className="result-amount">
+            <div className="right-amount">{correctAnswer}</div>
+            <div className="wrong-amount">{inCorrectAnswer}</div>
+          </div>
+          <div className="result-accuracy">
+            <div className="right-acc">{correctAccuracy}% correct</div>
+            <div className="wrong-acc">{inCorrectAccuracy}% incorrect</div>
+            <div className="unattempt-acc">{unAttemptAccuracy}% unattempt</div>
+          </div>
+        </div>
+        <div className="qp-result-list">{questionElm}</div>
+        <button onClick={this.props.togglePopUp}>Close</button>
+      </div>
+    );
+  }
 }
 
 export default QuizPop;
