@@ -61,6 +61,22 @@ $text-font: "Open Sans";
     }
   }
   .report-detail-tabs {
+    .report-detail-tabs-header {
+      margin-right: 0;
+      margin-left: 0;
+      * {
+        font-family: Open Sans;
+        color: #808080;
+      }
+      .player-img {
+      }
+      .player-name {
+      }
+      .player-accuracy-bar {
+      }
+      .player-accuracy-rate {
+      }
+    }
     .order-display {
       .tab {
         width: 100%;

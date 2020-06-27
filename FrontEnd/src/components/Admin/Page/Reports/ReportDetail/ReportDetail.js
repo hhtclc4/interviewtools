@@ -6,7 +6,7 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import ProgressCircle from "./ProgressCircle/ProgressCircle";
 import ReportPlayers from "./Player/Players";
 import { withRouter } from "react-router-dom";
-import { Panel } from "../../../../../utils/Tab/Tabs";
+
 
 class ReportDetail extends React.Component {
   constructor(props) {
@@ -188,7 +188,13 @@ class ReportDetail extends React.Component {
           </div>
         </div>
         <div className="report-detail-tabs ">
-          <Panel title="Players">{playerElm}</Panel>
+          <div className="report-detail-tabs-header row mt-3 mb-1">
+            <div className="player-img col-1"></div>
+            <div className="player-name col-2">Player name</div>
+            <div className="player-accuracy-bar col-5">Accuracy Bar</div>
+            <div className="player-accuracy-rate col-3">Accuracy Rate</div>
+          </div>
+          {playerElm}
         </div>
       </div>
     );

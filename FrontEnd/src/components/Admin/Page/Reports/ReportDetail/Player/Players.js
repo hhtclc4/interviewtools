@@ -29,6 +29,30 @@ class ReportPlayers extends React.Component {
         className="report-detail-player-container container-fluid "
         onClick={!isOpenPopup ? this.togglePopUp : null}
       >
+        <div className="rd-player-row row shadow-sm d-flex flex-row ">
+          <div className="rdp-ava align-self-center col-1">
+            <img
+              alt="rdp-ava"
+              src={require("../../../../../../utils/images/defaultava.png")}
+            />
+          </div>
+          <div className="rdp-name col-2 align-self-center">Player name{data.name}</div>
+          {/*De so zo*/}
+          <div className="rdp-accuracy-bar col-5 align-self-center">
+            <div className="bar-display">
+              <div className="right-display"><span>5</span></div>
+              <div className="wrong-display"><span>4</span></div>
+              <div className="unattempt-display"><span>1</span></div>
+            </div>
+          </div>
+          {/*De so zo*/}
+          <div className="rdp-accuracy-rate col-3 align-self-center">
+            100%
+          </div>
+          {/*De so zo*/}
+
+
+        </div>
         {isShowQuiz ? (
           <PopUp
             openPop={(open) => {
@@ -43,26 +67,6 @@ class ReportPlayers extends React.Component {
             <QuizPop togglePopUp={this.togglePopUp} />
           </PopUp>
         ) : null}
-        <div className="rd-player-row row shadow-sm d-flex flex-row ">
-          <div className="rdp-ava align-self-center col-1">
-            <img
-              alt="rdp-ava"
-              src={require("../../../../../../utils/images/defaultava.png")}
-            />
-          </div>
-          <div className="rdp-name col-1 align-self-center">{data.name}</div>
-          {/*De so zo*/}
-          <div className="rdp-accuracy-bar col-4 align-self-center">
-            50
-          </div>{" "}
-          {/*De so zo*/}
-          <div className="rdp-accuracy-rate col-3 align-self-center">
-            100
-          </div>{" "}
-          {/*De so zo*/}
-          <div className="rdp-score col-3 align-self-center">9000</div>{" "}
-          {/*De so zo*/}
-        </div>
       </div>
     );
   }
