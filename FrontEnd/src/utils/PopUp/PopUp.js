@@ -1,44 +1,47 @@
 import React, { useEffect, useState, useRef } from "react";
-import './PopUp.scss'
+import "./PopUp.scss";
 
 const PopUp = ({ children, openPop }) => {
-
-    const node = useRef();
-    const [open, setOpen] = useState(true);
-    let popUpClickHandler = (e) => {
-
-        if (node.current.contains(e.target)) {
-            console.log("click inside");
-            return;
-        }
-
-        //outside click
-        console.log("click outside")
-        setOpen(false);
-        openPop(open);
+  const node = useRef();
+  const [open, setOpen] = useState(true);
+  let popUpClickHandler = (e) => {
+    if (node.current.contains(e.target)) {
+      console.log("click inside");
+      return;
     }
-    useEffect(() => {
-        if (open) {
-            document.addEventListener("mousedown", popUpClickHandler);
-        } else {
-            document.removeEventListener("mousedown", popUpClickHandler);
+
+    //outside click
+    console.log("click outside");
+    setOpen(false);
+    openPop(open);
+  };
+  useEffect(() => {
+    if (open) {
+      document.addEventListener("mousedown", popUpClickHandler);
+    } else {
+      document.removeEventListener("mousedown", popUpClickHandler);
+    }
+    return () => {
+      document.removeEventListener("mousedown", popUpClickHandler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
+  return (
+    <div className="util-popup-container">
+      <div
+        className={open ? "util-popup-inner" : "util-popup-inner popup-exit"}
+        ref={node}
+        style={
+          open
+            ? { animation: "animatebottomSetPopUp 0.4s ease" }
+            : { animation: "animatebottomDisappearPopUp both 0.4s ease" }
         }
-        return () => {
-            document.removeEventListener("mousedown", popUpClickHandler);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [open]);
-
-    return (
-        < div className="util-popup-container" >
-            <div className={open ? "util-popup-inner" : "util-popup-inner popup-exit"} ref={node}
-                style={open ? { animation: 'animatebottomSetPopUp 0.4s ease' } : { animation: 'animatebottomDisappearPopUp both 0.4s ease' }}
-            >
-                {children}
-            </div>
-        </div >
-    );
-}
-
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
 
 export default PopUp;

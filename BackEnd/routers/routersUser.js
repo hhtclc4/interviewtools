@@ -291,57 +291,34 @@ router.post("/api/is_user_did_table", verifyToken, (req, res) =>
     }
   })
 );
+
 router.post("/api/report", verifyToken, async (req, res) =>
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      QuestionTable.findAll({
-        where: {
-          admin: authData.user_id,
-          is_finish: true,
-        },
+      Campaign.findAll({
         include: [
           {
-            model: AnswerRecord,
-            include: [
-              {
-                model: QuestionChoices,
-                attributes: ["is_right", "id"],
-              },
-              {
-                model: Question,
-                include: [QuestionChoices],
-              },
-              {
-                model: MultiChoices,
-                include: QuestionChoices,
-              },
-              {
-                model: User,
-                attributes: ["id", "name"],
-              },
-            ],
+            model: User,
+            attributes: ["name", "email", "phone", "role_id"],
           },
           {
-            model: Question,
-            include: QuestionChoices,
+            model: Interview,
+            where: {
+              user_id: authData.user_id,
+              status: 1,
+            },
+          },
+          {
+            model: QuestionTable,
           },
         ],
-        attributes: ["id", "title", "played"],
       })
-        .then((data) => {
-          for (let i = 0; i < data.length; i++)
-            if (data[i].answer_records.length === 0) {
-              data.splice(i, 1);
-              i--;
-            }
-          res.send(data);
-        })
+        .then((data) => res.send(data))
         .catch((err) => console.log(err));
     }
   })
 );
-
 //get quizz that user do before
 router.post("/api/get_completed_table", verifyToken, async (req, res) =>
   jwt.verify(req.token, "hoangtri", (err, authData) => {

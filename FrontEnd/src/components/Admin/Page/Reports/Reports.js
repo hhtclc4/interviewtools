@@ -9,23 +9,27 @@ class Reports extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reportArr: [
+      data: [
         {
           id: 0,
-          title: 0,
-          played: 0,
-          answer_records: [],
-          questions: [
+          title: "",
+          subject_id: 0,
+          level_id: 0,
+          work_type_id: 0,
+          salary: 0,
+          user_id: 0,
+          work_description: "",
+          subjects: [
             {
-              question: "",
-              question_choices: [
-                {
-                  answer: "",
-                  is_right: 0,
-                },
-              ],
+              id: 0,
+              title: "",
             },
           ],
+          question_table: {
+            id: 0,
+            title: "",
+            played: 0,
+          },
         },
       ],
     };
@@ -36,12 +40,12 @@ class Reports extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("get from redux", nextProps.report);
     this.setState({
-      reportArr: nextProps.report,
+      data: nextProps.report,
     });
   }
   render() {
-    let { reportArr } = this.state;
-    let reportElm = reportArr.map((report) => {
+    let { data } = this.state;
+    let reportElm = data.map((report) => {
       return <ReportQuiz key={report.id} data={report} />;
     });
     return (
@@ -49,8 +53,8 @@ class Reports extends React.Component {
         <div className="report-table-header row p-2">
           <div className="col-sm">Quiz name</div>
           <div className="col-sm">Total players</div>
-          <div className="col-sm">Accuracy</div>
-          <div className="col-sm">Options</div>
+          <div className="col-sm">Campaign</div>
+          <div className="col-sm">Status</div>
         </div>
         <div className="report-table-body rounded overflow-hidden">
           {reportElm}

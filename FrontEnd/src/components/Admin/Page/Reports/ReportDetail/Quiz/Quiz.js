@@ -59,7 +59,7 @@ class QuizPop extends React.Component {
                     </div>
                 </div>
                 <button
-                    onClick={this.props.closePopup}
+                    onClick={this.props.togglePopUp}
                 >Close</button>
             </div>
         );
