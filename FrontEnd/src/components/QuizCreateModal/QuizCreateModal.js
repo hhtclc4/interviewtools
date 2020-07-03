@@ -88,7 +88,8 @@ class QuizCreate extends React.Component {
                     boxShadow: "none",
                     top: 0,
                   }}
-                  onClick={() => this.props.history.push("/")}
+                  type="button"
+                  onClick={this.props.history.goBack}
                 >
                   Cancel
                 </button>

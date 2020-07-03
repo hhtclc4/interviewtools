@@ -24,19 +24,19 @@ class PauseQuiz extends React.Component {
               <div className="progress-display">
                 <div
                   className="questions-done-right"
-                  style={{ width: rightAccuracy }}
+                  style={{ width: `${rightAccuracy}%` }}
                 ></div>
                 <div
                   className="questions-done-wrong"
-                  style={{ width: wrongAccuracy }}
+                  style={{ width: `${wrongAccuracy}%` }}
                 ></div>
                 <div
                   className="question-present"
-                  style={{ width: presentAccuracy }}
+                  style={{ width: `${presentAccuracy}%` }}
                 ></div>
                 <div
                   className="questions-left"
-                  style={{ width: remainAccuracy }}
+                  style={{ width: `${remainAccuracy}%` }}
                 ></div>
               </div>
               <span className="run">

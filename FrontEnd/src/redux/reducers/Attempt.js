@@ -65,7 +65,7 @@ let myReducer = (state = initialState, action) => {
       state.access = true;
       state.right_answer = 0;
       state.count = 0;
-      console.log("CHANGEGGG ", state);
+      state.data = [];
       return { ...state };
     default:
       return state;

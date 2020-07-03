@@ -254,7 +254,6 @@ class DoingQuiz extends React.Component {
       this.props.history.push(`/pre-game/${question_table_id}/review`);
     else {
       if (attempt_length && access && questions.length !== 1) {
-        console.log("hello");
         this.props.getCurrentRecord(
           question_table_id,
           attempt_length,

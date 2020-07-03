@@ -75,7 +75,7 @@ class QuizThumbnail extends React.Component {
     });
     let accuracy = Math.max(...accuracyArr);
     this.setState({
-      accuracy: accuracy,
+      accuracy: Math.ceil(accuracy),
     });
   };
 

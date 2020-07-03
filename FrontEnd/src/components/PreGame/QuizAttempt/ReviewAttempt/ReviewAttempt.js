@@ -30,7 +30,9 @@ class ReviewAttempt extends React.Component {
       ],
     };
   }
-
+  componentWillUnmount() {
+    this.props.resetAttemptRedux();
+  }
   componentDidMount() {
     let attempt_id = parseInt(localStorage.getItem("attempt_id"));
     let question_table_id = parseInt(this.props.match.params.question_table_id);
@@ -165,7 +167,7 @@ class ReviewAttempt extends React.Component {
     let { history } = this.props;
     let question_table_id = parseInt(this.props.match.params.question_table_id);
     let accuracy = 0;
-    accuracy = this.calculateAccuracy();
+    accuracy = Math.ceil(this.calculateAccuracy());
     let progressBar = `${accuracy}%`;
     let userName = localStorage.getItem("username");
     let correctAnswer = this.correctAnswer();
@@ -308,6 +310,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     getAttempt: (question_table_id, attempt_id) => {
       dispatch(actions.getAttempt(question_table_id, attempt_id));
+    },
+    resetAttemptRedux: () => {
+      dispatch(actions.resetAttemptRedux());
     },
   };
 };

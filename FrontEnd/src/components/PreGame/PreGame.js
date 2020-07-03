@@ -11,22 +11,54 @@ class PreGame extends React.Component {
     super(props);
     this.state = {
       data: [],
+      access: true,
+      attempt_length: 0,
+      isNotDoneYet: false,
+
+      question_table: {
+        title: "",
+        image: "",
+        questions: [],
+      },
     };
   }
   componentDidMount() {
     let question_table_id = this.props.match.params.question_table_id;
     this.props.getListUserAttempt(question_table_id);
+    this.props.showListQuestionAnswer(question_table_id);
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     //console.log(nextProps);
     this.setState({
       data: nextProps.attempt.data,
+      question_table: nextProps.questionTable,
+      attempt_length: nextProps.attempt.data.length,
+      access: nextProps.attempt.access,
     });
+    if (nextProps.attempt.count !== 0) {
+      this.setState({
+        isNotDoneYet: true,
+        access: false,
+      });
+    }
   }
   render() {
-    let { data } = this.state;
+    let {
+      data,
+      question_table,
+      attempt_length,
+      access,
+      isNotDoneYet,
+    } = this.state;
     let question_table_id = this.props.match.params.question_table_id;
     let { history } = this.props;
+    if (attempt_length && access && question_table.questions.length !== 0) {
+      this.props.getCurrentRecord(
+        question_table_id,
+        attempt_length,
+        question_table.questions.length
+      );
+    }
     let quizAttemptElm = data.map((attempt, index) => {
       return <QuizAttempt key={index} data={attempt} index={index} />;
     });
@@ -46,11 +78,17 @@ class PreGame extends React.Component {
                 <img
                   className="quiz-image-sm"
                   alt="QuizImageSmall"
-                  src={require("./images/thumbnail.jpg")}
+                  src={
+                    question_table.image !== ""
+                      ? question_table.image
+                      : require("./images/thumbnail.jpg")
+                  }
                 />
                 <div className="quiz-title-and-number">
-                  <div className="quiz-title">basic english</div>
-                  <div className="quiz-number-ques">5 questions</div>
+                  <div className="quiz-title">{question_table.title}</div>
+                  <div className="quiz-number-ques">
+                    {question_table.questions.length} questions
+                  </div>
                 </div>
               </div>
             </div>
@@ -62,7 +100,7 @@ class PreGame extends React.Component {
               <button
                 onClick={() => history.push(`/game/${question_table_id}`)}
               >
-                Play
+                {isNotDoneYet ? "Resume Quiz" : "Play"}
               </button>
             </div>
             <img
@@ -84,11 +122,23 @@ const mapDispatchToProps = (dispatch, props) => {
     getListUserAttempt: (question_table_id) => {
       dispatch(actions.getListUserAttempt(question_table_id));
     },
+    showListQuestionAnswer: (question_table_id) => {
+      dispatch(actions.showListQuestionAnswer(question_table_id));
+    },
+    getAttemptLength: (question_table_id) => {
+      dispatch(actions.getAttemptLength(question_table_id));
+    },
+    getCurrentRecord: (question_table_id, attempt_id, questionLength) => {
+      dispatch(
+        actions.getCurrentRecord(question_table_id, attempt_id, questionLength)
+      );
+    },
   };
 };
 const mapStateToProps = (state) => {
   return {
     attempt: state.attempt,
+    questionTable: state.questionTable,
   };
 };
 export default connect(
