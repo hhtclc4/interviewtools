@@ -11,6 +11,7 @@ class QuizStart extends React.Component {
     super(props);
     this.state = {
       title: "",
+      image: "",
       questions: [],
     };
   }
@@ -25,7 +26,7 @@ class QuizStart extends React.Component {
   }
   render() {
     let question_table_id = this.props.match.params.question_table_id;
-    let { title, questions } = this.state;
+    let { title, questions, image } = this.state;
     let { history } = this.props;
     return (
       <div className="quiz-start-container">
@@ -43,7 +44,7 @@ class QuizStart extends React.Component {
                 <img
                   className="quiz-image-md"
                   alt="QuizImageSmall"
-                  src={require("./images/thumbnail.jpg")}
+                  src={image !== "" ? image : require("./images/thumbnail.jpg")}
                 />
                 <div className="quiz-title-and-number">
                   <div className="quiz-title">{title}</div>
