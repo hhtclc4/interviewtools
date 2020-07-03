@@ -19,15 +19,32 @@ import AdminFind from "../Page/Find/Find";
 import Reports from "./Reports/Reports";
 import ReportDetail from "./Reports/ReportDetail/ReportDetail";
 import ReportCamp from "./Reports/ReportCamp/ReportCamp";
-
+import { connect } from "react-redux";
+import * as actions from "../../../redux/actions/index";
 //import history from "../../../history";
 class AdminPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      user: {
+        name: "",
+        avatar: "",
+      },
+    };
+  }
+  componentDidMount() {
+    this.props.getUser();
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log(nextProps.user.user);
+    this.setState({
+      user: nextProps.user.user,
+    });
   }
   render() {
     let { url, path } = this.props.match;
+    let { name, avatar } = this.state.user;
+
     return (
       <div className="admin-page-container">
         <div className="admin-control-container">
@@ -35,11 +52,15 @@ class AdminPage extends React.Component {
             <div className="admin-ava">
               <img
                 alt="adminava"
-                src={require("../../../utils/QuizThumbnail/images/ava.png")}
+                src={
+                  avatar !== ""
+                    ? avatar
+                    : require("../../../utils/QuizThumbnail/images/ava.png")
+                }
               />
             </div>
             <div className="admin-name">
-              Minh Tri
+              {name}
               <button className="admin-profile">View Profile</button>
             </div>
           </div>
@@ -164,5 +185,19 @@ class AdminPage extends React.Component {
     );
   }
 }
-
-export default withRouter(AdminPage);
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    getUser: () => {
+      dispatch(actions.getUser());
+    },
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(AdminPage));

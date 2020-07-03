@@ -197,7 +197,7 @@ router.post("/api/get_question_table_by_subject", (req, res) => {
             include: [
               {
                 model: Question,
-                attributes: ["id"],
+                attributes: ["id", "question"],
               },
               {
                 model: User,

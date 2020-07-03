@@ -21,7 +21,7 @@ class JoinNav extends React.Component {
       isOpenUserActions: false,
       myWidth: 0,
       user: {
-        username: "",
+        name: "",
         role_id: 0,
       },
     };
@@ -71,14 +71,14 @@ class JoinNav extends React.Component {
   };
   render() {
     let token = localStorage.getItem("token");
-    let { username, role_id } = this.state.user;
+    let { name, role_id } = this.state.user;
     let { history } = this.props;
     let { myWidth } = this.state;
     const userActions = (
       <Menu style={{ padding: "5px 0px", width: "fit-content" }}>
         <Menu.Item style={{ borderBottom: "1px solid #e6e6e6" }}>
           <div target="_blank" rel="noopener noreferrer">
-            {username}
+            {name}
           </div>
         </Menu.Item>
         <Menu.Item disabled={role_id === 3 || !token ? true : false}>

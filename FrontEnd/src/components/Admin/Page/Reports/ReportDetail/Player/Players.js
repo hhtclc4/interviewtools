@@ -3,6 +3,13 @@ import "./Players.scss";
 import { withRouter } from "react-router-dom";
 import PopUp from "../../../../../../utils/PopUp/PopUp";
 import QuizPop from "../Quiz/Quiz";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faTimes,
+  faStickyNote,
+} from "@fortawesome/free-solid-svg-icons";
 class ReportPlayers extends React.Component {
   constructor(props) {
     super(props);
@@ -15,17 +22,16 @@ class ReportPlayers extends React.Component {
     //     isShowQuiz: false,
     //   })
     // }
-    console.log(this.state.isShowQuiz);
     this.setState({
       isShowQuiz: !this.state.isShowQuiz,
       isOpenPopup: !this.state.isOpenPopup,
     });
   };
   render() {
-    let { data, questions } = this.props;
+    let { data, question_table } = this.props;
     let { isShowQuiz, isOpenPopup } = this.state;
     let { correctAnswer, inCorrectAnswer, unAttemptAnswer } = data;
-    let questionLength = questions.length;
+    let questionLength = question_table.questions.length;
     let correctAccuracy = (data.correctAnswer / questionLength) * 100;
     let inCorrectAccuracy = (data.inCorrectAnswer / questionLength) * 100;
     let unAttemptAccuracy = (data.unAttemptAnswer / questionLength) * 100;
@@ -67,8 +73,18 @@ class ReportPlayers extends React.Component {
               </div>
             </div>
           </div>
-          <div className="rdp-accuracy-rate col-3 align-self-center">
+          <div className="rdp-accuracy-rate col-2 align-self-center">
             {data.accuracy}%
+          </div>
+          <div className="rdp-accuracy-rate col-1 align-self-center">
+            {data.accuracy >= question_table.bench_mark ? (
+              <FontAwesomeIcon icon={faCheck} size="lg" color="#4caf50" />
+            ) : (
+              <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
+            )}
+          </div>
+          <div className="rdp-accuracy-rate col-1 align-self-center ">
+            <FontAwesomeIcon icon={faStickyNote} />
           </div>
         </div>
         {isShowQuiz ? (
@@ -84,7 +100,7 @@ class ReportPlayers extends React.Component {
           >
             <QuizPop
               data={data}
-              questions={questions}
+              questions={question_table.questions}
               togglePopUp={this.togglePopUp}
             />
           </PopUp>

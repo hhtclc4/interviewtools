@@ -7,7 +7,6 @@ import ProgressCircle from "./ProgressCircle/ProgressCircle";
 import ReportPlayers from "./Player/Players";
 import { withRouter } from "react-router-dom";
 
-
 class ReportDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -135,7 +134,7 @@ class ReportDetail extends React.Component {
           //key={player.id} //id bi trung
           key={index}
           data={player}
-          questions={campaign.question_table.questions}
+          question_table={campaign.question_table}
         />
       );
     });
@@ -193,7 +192,9 @@ class ReportDetail extends React.Component {
             <div className="player-img col-1"></div>
             <div className="player-name col-2">Player name</div>
             <div className="player-accuracy-bar col-5">Accuracy Bar</div>
-            <div className="player-accuracy-rate col-3">Accuracy Rate</div>
+            <div className="player-accuracy-rate col-2">Accuracy Rate</div>
+            <div className="player-result col-1">Result</div>
+            <div className="player-result col-1">Note</div>
           </div>
           {playerElm}
         </div>

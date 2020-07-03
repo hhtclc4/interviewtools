@@ -81,9 +81,7 @@ class AdminFind extends React.Component {
       <div className="ad-find-container">
         <h1>What will we teach today?</h1>
 
-        <div className="find-all-quiz-list">
-          {quizthumbSubjectElm}
-        </div>
+        <div className="find-all-quiz-list">{quizthumbSubjectElm}</div>
       </div>
     );
   }

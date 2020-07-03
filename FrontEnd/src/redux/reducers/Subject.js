@@ -7,6 +7,13 @@ const initialState = {
       campaigns: [
         {
           question_table: {
+            id: 0,
+            code: 0,
+            title: "",
+            image: null,
+            played: 0,
+
+            questions: [],
             user: { name: "" },
           },
         },
