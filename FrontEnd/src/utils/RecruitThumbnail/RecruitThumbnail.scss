@@ -77,12 +77,20 @@ $concept-color: #fd7e14;
       padding: 0px 10px;
     }
 
-    .re-diff {
-      color: #cccccc;
-      font-weight: bold;
-      font-size: 18px;
-      font-family: "Open Sans";
-      transition: color 0s ease;
+    .re-footer {
+      .re-diff {
+        color: #cccccc;
+        font-weight: bold;
+        font-size: 18px;
+        font-family: "Open Sans";
+        transition: color 0s ease;
+      }
+
+      .re-day-left {
+        padding-right: 8px;
+        color: red;
+        font-weight: bold;
+      }
     }
   }
 }

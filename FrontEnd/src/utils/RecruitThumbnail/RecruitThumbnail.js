@@ -113,11 +113,16 @@ class RecruitThumbnail extends React.Component {
           {postFeature === "new" ? (
             <div className="re-new-recruit"></div>
           ) : (
-            <div className="re-hot-recruit"></div>
-          )}
-          <div className="re-diff p-2">
-            {role === "interviewer" ? "See Detail" : "See Job"}
-            {role === "interviewer" ? data.interviewDateLeft : null}
+              <div className="re-hot-recruit"></div>
+            )}
+
+          <div className="re-footer d-flex flex-row justify-content-between align-items-center">
+            <div className="re-diff p-2">
+              {role === "interviewer" ? "See Detail" : "See Job"}
+            </div>
+            <div className="re-day-left">
+              {role === "interviewer" ? data.interviewDateLeft : null}
+            </div>
           </div>
         </div>
       </div>
