@@ -3,6 +3,7 @@
   * {
     font-family: Open Sans;
   }
+
   .rd-player-row {
     width: 100%;
     height: 70px;
@@ -12,58 +13,148 @@
       background-color: hsl(0, 0%, 98%);
     }
 
-    .rdp-ava {
-      img {
-        width: 48px;
-        height: 48px;
+    .rd-quiz-click {
+      margin: 0;
+      .rdp-ava {
+        img {
+          width: 48px;
+          height: 48px;
+        }
       }
-    }
 
-    .rdp-name {
-    }
+      .rdp-name {
+      }
 
-    .rdp-accuracy-bar {
-      height: 28px;
-      width: 100%;
-
-      .bar-display {
-        height: 100%;
+      .rdp-accuracy-bar {
+        height: 28px;
         width: 100%;
-        display: flex;
-        flex-direction: row;
-        border-radius: 4px;
-        overflow: hidden;
-        .right-display {
-          background-color: #5de2a5;
-          width: 50%;
+
+        .bar-display {
           height: 100%;
-          padding-top: 2px;
-          span {
-            margin-left: 3px;
-            background-color: #595959;
-            color: white;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-size: 13px;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          border-radius: 4px;
+          overflow: hidden;
+          .right-display {
+            background-color: #5de2a5;
+            width: 50%;
+            height: 100%;
+            padding-top: 2px;
+            span {
+              margin-left: 3px;
+              background-color: #595959;
+              color: white;
+              padding: 2px 4px;
+              border-radius: 3px;
+              font-size: 13px;
+            }
+          }
+          .wrong-display {
+            @extend .right-display;
+            background-color: #f14d76;
+            width: 40%;
+          }
+          .unattempt-display {
+            @extend .right-display;
+            background-color: #b3b3b3;
+            width: 10%;
           }
         }
-        .wrong-display {
-          @extend .right-display;
-          background-color: #f14d76;
-          width: 40%;
-        }
-        .unattempt-display {
-          @extend .right-display;
-          background-color: #b3b3b3;
-          width: 10%;
-        }
+      }
+
+      .rdp-score {
       }
     }
 
-    .rdp-accuracy-rate {
+    .rd-note-click {
+      height: 100%;
+      .rdp-accuracy-rate {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
+  }
+}
+.note-and-cv-popup-container {
+  .note-and-cv-popup-inner {
+    height: fit-content;
+    width: 100%;
+    background-color: white;
+    .note-and-cv-tabs {
+      height: fit-content;
+      .CV-img-container {
+        img {
+          width: 100%;
+        }
+      }
+      .order-display {
+        height: fit-content;
+        .tab {
+          width: 100%;
+          font-family: sans-serif;
+          color: #444;
+          height: 100%;
 
-    .rdp-score {
+          .order-tab-display {
+            height: fit-content;
+            width: 100%;
+            overflow-x: hidden;
+          }
+          .close-btn {
+            top: 0;
+          }
+          .save-btn {
+            top: 0;
+          }
+        }
+
+        ul.inline {
+          background-color: #f5f5f5;
+          list-style: none;
+          padding: 0;
+          margin-bottom: 0;
+          -webkit-margin-before: 0;
+          -webkit-margin-after: 0;
+          -webkit-margin-start: 0px;
+          -webkit-margin-end: 0px;
+          -webkit-padding-start: 0px;
+          box-shadow: none;
+          li {
+            display: inline-block;
+            margin-left: 0;
+            width: 50%;
+            padding: 10px;
+            border-bottom: 2px solid #eee;
+            transition: all 0.5s;
+            font-family: sans-serif;
+            font-weight: 300;
+            text-align: center;
+            cursor: pointer;
+            color: #aaa;
+            &.selected {
+              border-bottom: 2px solid #337ab7;
+              color: #337ab7;
+              font-weight: bold;
+            }
+          }
+        }
+        @media screen and (max-width: 590px) {
+          ul.inline {
+            li {
+              padding: 10px 0;
+            }
+          }
+        }
+
+        .point-btn {
+          display: none;
+          height: 0;
+          width: 0;
+        }
+      }
     }
   }
 }

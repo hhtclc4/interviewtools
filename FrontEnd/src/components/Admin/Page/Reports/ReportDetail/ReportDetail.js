@@ -193,8 +193,8 @@ class ReportDetail extends React.Component {
             <div className="player-name col-2">Player name</div>
             <div className="player-accuracy-bar col-5">Accuracy Bar</div>
             <div className="player-accuracy-rate col-2">Accuracy Rate</div>
-            <div className="player-result col-1">Result</div>
-            <div className="player-result col-1">Note</div>
+            <div className="player-result col-1 pl-0">Result</div>
+            <div className="player-result col-1">Note&CV</div>
           </div>
           {playerElm}
         </div>

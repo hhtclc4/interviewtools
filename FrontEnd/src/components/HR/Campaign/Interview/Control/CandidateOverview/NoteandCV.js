@@ -18,11 +18,7 @@ class NoteandCV extends React.Component {
     let { data } = this.props;
     console.log(data);
     this.setState({
-      data: {
-        candidate_id: data.candidate_id,
-        cv: data.cv,
-        description: data.description,
-      }
+      data: data
     });
   }
   onChangeEditorTextHandler = (description) => {
@@ -58,14 +54,14 @@ class NoteandCV extends React.Component {
               <Tabs selected={this.props.openTab}>
                 <Panel title="CV">
                   <div className="CV-img-container">
-                    <img alt="cover" src={data.cv} />
+                    <img alt="cover" src={data.cv !== null ? data.cv : require("./CV.png")} />
                   </div>
                 </Panel>
                 <Panel title="Note">
                   <EditorConvertToHTML
                     onChangeEditorTextHandler={this.onChangeEditorTextHandler}
                     placeholder="Note something about this candidate"
-                    text={this.props.data.description}
+                    text={this.props.data.description === null ? "" : this.props.data.description}
                   />
                   <button
                     className="close-btn float-right"
