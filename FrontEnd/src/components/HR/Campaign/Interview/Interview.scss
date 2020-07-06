@@ -246,8 +246,47 @@ $shadow-btn: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 4px rgba(0, 0, 
         border-radius: 5px;
         @extend .create-new-interview-period;
 
-        .in-pop-action-btn {
+        .interview-popup-header {
+          * {
+            font-family: Quicksand;
+            font-weight: bold;
+          }
+        }
+
+        .create-new-interview-period {
+          .cni-title {
+            font-weight: bold;
+            font-size: 20px;
+          }
+          .cni-name {
+            input {
+              width: 100%;
+            }
+          }
+
+          .cni-time {
+          }
+        }
+        .in-pop-create-btn {
+          background-color: #fd7e14;
+          box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 #fd7e14, 0 4px 6px rgba(0, 0, 0, 0.45);
+          color: white;
+          border: none;
+          border-radius: 5px;
+          padding: 5px 10px;
+          font-weight: bold;
+        }
+        .in-pop-close-btn {
           top: 0;
+          background-color: #bfbfbf;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          padding: 5px 10px;
+          font-weight: bold;
+          &:hover {
+            background-color: #8c8c8c;
+          }
         }
       }
     }

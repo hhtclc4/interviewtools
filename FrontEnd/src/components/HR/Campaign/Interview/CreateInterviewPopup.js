@@ -250,7 +250,7 @@ class InterviewPopup extends React.Component {
                 </div>
                 <div className="create-new-interview-period d-flex flex-column justify-content-between p-3 flex-wrap">
                   <div className="cni-name mb-2 mr-2">
-                    <p>Set interview name</p>
+                    <p className="cni-title">Set interview name</p>
                     <input
                       onChange={this.onChangeInputHandler}
                       name="name"
@@ -259,9 +259,9 @@ class InterviewPopup extends React.Component {
                       placeholder="Enter interview name..."
                     />
                   </div>
-                  <div className="cni-time mb-2 mr-2">
-                    <p>Pick interview time</p>
-                    <div className="cin-time-attribute d-flex flex-row">
+                  <div className="cni-time mb-2 mr-2 ">
+                    <p className="cni-title">Pick interview time</p>
+                    <div className="cin-time-attribute d-flex flex-row  justify-content-between">
                       <div className="cni-time-day">
                         <Dropdown
                           overlay={day}
@@ -275,52 +275,56 @@ class InterviewPopup extends React.Component {
                         </Dropdown>
                       </div>
 
-                      <p>Time from </p>
+                      <div className="cni-from d-flex flex-row">
+                        <p className="mt-1 mr-1">Time from </p>
 
-                      <div className="cni-time-hour">
-                        <Dropdown overlay={hourFrom} trigger={["click"]}>
-                          <Button style={{ top: "0" }}>
-                            {time_from.selectHour} <Icon type="down" />
-                          </Button>
-                        </Dropdown>
-                      </div>
-                      <p>:</p>
-                      <div className="minute">
-                        <Dropdown overlay={minuteFrom} trigger={["click"]}>
-                          <Button style={{ top: "0" }}>
-                            {time_from.selectMinute} <Icon type="down" />
-                          </Button>
-                        </Dropdown>
+                        <div className="cni-time-hour">
+                          <Dropdown overlay={hourFrom} trigger={["click"]}>
+                            <Button style={{ top: "0" }}>
+                              {time_from.selectHour} <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </div>
+                        <p>:</p>
+                        <div className="minute">
+                          <Dropdown overlay={minuteFrom} trigger={["click"]}>
+                            <Button style={{ top: "0" }}>
+                              {time_from.selectMinute} <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </div>
                       </div>
 
-                      <p>Time to </p>
+                      <div className="cni-to d-flex flex-row">
+                        <p className="mt-1 mr-1">Time to </p>
 
-                      <div className="cni-time-hour">
-                        <Dropdown overlay={hourTo} trigger={["click"]}>
-                          <Button style={{ top: "0" }}>
-                            {time_to.selectHour} <Icon type="down" />
-                          </Button>
-                        </Dropdown>
-                      </div>
-                      <p>:</p>
-                      <div className="minute">
-                        <Dropdown overlay={minuteTo} trigger={["click"]}>
-                          <Button style={{ top: "0" }}>
-                            {time_to.selectMinute} <Icon type="down" />
-                          </Button>
-                        </Dropdown>
+                        <div className="cni-time-hour">
+                          <Dropdown overlay={hourTo} trigger={["click"]}>
+                            <Button style={{ top: "0" }}>
+                              {time_to.selectHour} <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </div>
+                        <p>:</p>
+                        <div className="minute">
+                          <Dropdown overlay={minuteTo} trigger={["click"]}>
+                            <Button style={{ top: "0" }}>
+                              {time_to.selectMinute} <Icon type="down" />
+                            </Button>
+                          </Dropdown>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <button
-                  className="in-pop-action-btn float-right"
+                  className="in-pop-close-btn float-right"
                   onClick={this.props.closePopup}
                 >
                   Close
                 </button>
                 <button
-                  className="in-pop-action-btn float-right "
+                  className="in-pop-create-btn float-right "
                   style={{ marginRight: "5px" }}
                   onClick={this.onSaveHandler}
                 >

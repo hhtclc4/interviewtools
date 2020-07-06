@@ -49,7 +49,9 @@ class UpgradeAcc extends React.Component {
   render() {
     let { isOpenPricing, isOpenHR, isOpenSenior } = this.state;
     return (
-      <div className="upgrade-acc-container">
+      <div className="upgrade-acc-container"
+        style={isOpenPricing ? { animation: "expandContainer 0.3s ease" } : {}}
+      >
         <div className="upgrade-acc-title">Upgrade your new role</div>
         <div className="ua-role-img-container">
           <div
@@ -86,7 +88,7 @@ class UpgradeAcc extends React.Component {
             }
           >
             <img
-              style={{ width: "80%" }}
+              style={{ width: "73%" }}
               alt="HR"
               src={require("./images/Senior.png")}
             />
@@ -101,7 +103,7 @@ class UpgradeAcc extends React.Component {
           style={isOpenPricing ? { display: "block" } : { display: "none" }}
         >
           <div className="ua-choose-company mb-4">
-            <p className="ua-section-title">Choose your company</p>
+            {/* <p className="ua-section-title">Choose your company</p> */}
             {/* <div class="dropdown">
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Dropdown link
