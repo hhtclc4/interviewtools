@@ -150,8 +150,7 @@ class InterviewReport extends React.Component {
         className="interview-report-container py-3 pr-2 pl-0"
       // onClick={this.toggleReportBody}
       >
-        <div
-          className="interview-report-header d-flex flex-row justify-content-between ml-2 px-1 py-2"
+        <div className="interview-report-header d-flex flex-row justify-content-between ml-2 px-1 py-2"
           style={reportBody ? { backgroundColor: "#e6e6e6" } : {}}
         >
           <div className="in-partion-time">
@@ -182,8 +181,7 @@ class InterviewReport extends React.Component {
           </button>
         </div>
 
-        <div
-          className="interview-report-body d-flex flex-row"
+        <div className="interview-report-body d-flex flex-row"
           style={reportBody ? { display: "none" } : { height: "0" }}
         >
           <div className="in-report-can-result d-flex flex-row">

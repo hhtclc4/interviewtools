@@ -1,0 +1,70 @@
+.cv-creator-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    .select-cv-content {
+        height: 100%;
+        width: 50%;
+        background-color: white;
+        overflow: auto;
+        padding: 10px 3%;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        .cv-section-title {
+            font-weight: bold;
+            font-family: Open Sans;
+            font-size: 20px;
+        }
+        .cv-section-input {
+            display: flex;
+            flex-direction: row;
+
+            .half {
+                width: 50%;
+                .cv-input {
+                    margin-bottom: 20px;
+                    .cv-input-title {
+                        color: gray;
+                    }
+                    .cv-input-ipt {
+                        width: 80%;
+                        input {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+        .cv-title {
+        }
+        .cv-completeness {
+            padding: 10px;
+            .cv-completeness-bar {
+                height: 5px;
+                width: 100%;
+                background-color: red;
+            }
+        }
+        .cv-personal-detail {
+        }
+        .cv-professional-sumary {
+        }
+        .cv-employment-history {
+            .cv-emp-list {
+            }
+        }
+        .cv-education {
+            .cv-education-list {
+            }
+        }
+        .skill {
+        }
+    }
+    .cv-preview {
+        background-color: #666666;
+        width: 50%;
+        height: 100%;
+    }
+}

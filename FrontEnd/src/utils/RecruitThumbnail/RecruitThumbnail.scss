@@ -22,8 +22,10 @@ $concept-color: #fd7e14;
     position: relative;
     border: 1px solid #f1f1f1;
     &:hover {
-      .re-diff {
-        color: $concept-color;
+      .re-footer {
+        .re-diff {
+          color: $concept-color;
+        }
       }
     }
     .re-crop-img {
