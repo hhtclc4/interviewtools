@@ -17,12 +17,18 @@ const Group_Candidates = require("../models/Group_Candidates");
 const Level = require("../models/Level");
 const Interview = require("../models/Interview");
 const Campaign_Subject = require("../models/Campaign_Subject");
+const Education = require("../models/Education");
+const Skills = require("../models/Skills");
+const Employment = require("../models/Employment");
 
 ////////////// Work_Type Level
 Work_Type.hasMany(Campaign, { foreignKey: "work_type_id" });
 Level.hasMany(Campaign, { foreignKey: "level_id" });
 /////////////// Company
 Company.hasMany(User, { foreignKey: "company_id" });
+///////////////education
+Education.hasMany(User, { foreignKey: "education_id" });
+
 ////////////// Campaign
 Campaign.belongsTo(Work_Type, {
   foreignKey: "work_type_id",
@@ -53,7 +59,10 @@ Interview.belongsTo(Campaign, {
 Interview.belongsTo(User, {
   foreignKey: "user_id",
 });
-
+//////////////Employment
+Employment.belongsTo(User, {
+  foreignKey: "user_id",
+});
 ///////////// Group_Candidates
 
 Group_Candidates.belongsTo(User, {
@@ -66,7 +75,14 @@ Campaign_Subject.belongsTo(Campaign, { foreignKey: "campaign_id" });
 Campaign_Subject.belongsTo(Subject, { foreignKey: "subject_id" });
 //////////////UserRole
 UserRole.hasMany(User, { foreignKey: "role_id" });
+///////////////Skills
+Skills.belongsTo(User, { foreignKey: "user_id" });
+Skills.belongsTo(Subject, { foreignKey: "subject_id" });
 ////////////// Subject
+Subject.belongsToMany(User, {
+  through: Skills,
+  foreignKey: "subject_id",
+});
 Subject.belongsToMany(Campaign, {
   through: Campaign_Subject,
   foreignKey: "subject_id",
@@ -76,7 +92,14 @@ User.belongsToMany(Campaign, {
   through: Group_Candidates,
   foreignKey: "candidate_id",
 });
+User.belongsToMany(Subject, {
+  through: Skills,
+  foreignKey: "subject_id",
+});
 User.hasMany(Interview, {
+  foreignKey: "user_id",
+});
+User.hasMany(Employment, {
   foreignKey: "user_id",
 });
 User.hasMany(QuestionTable, { foreignKey: "admin" });
@@ -86,6 +109,9 @@ User.belongsTo(UserRole, {
 });
 User.belongsTo(Company, {
   foreignKey: "company_id",
+});
+User.belongsTo(Education, {
+  foreignKey: "education_id",
 });
 User.hasMany(AnswerRecord, { foreignKey: "user_id" });
 User.hasMany(Campaign, { foreignKey: "user_id" });

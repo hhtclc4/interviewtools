@@ -100,7 +100,7 @@ class PreGame extends React.Component {
               <button
                 onClick={() => history.push(`/game/${question_table_id}`)}
               >
-                {isNotDoneYet ? "Resume Quiz" : "Play"}
+                {isNotDoneYet ? "Resume Quiz" : "Do Quiz"}
               </button>
             </div>
             <img

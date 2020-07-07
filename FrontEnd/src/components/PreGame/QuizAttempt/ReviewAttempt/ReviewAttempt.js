@@ -211,11 +211,11 @@ class ReviewAttempt extends React.Component {
               <button
                 onClick={() => history.push(`/game/${question_table_id}`)}
               >
-                Play again
+                Test Again
               </button>
             </div>
 
-            <h4 className="review-section-title">Game Sumary</h4>
+            <h4 className="review-section-title">Quiz Sumary</h4>
 
             <div className="attempt-result-container">
               <div className="attempt-result">

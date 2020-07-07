@@ -197,7 +197,7 @@ class QuizControlHostGame extends React.Component {
         </div>
 
         <div className="quiz-hosting-btn">
-          <button onClick={this.onClickGenerateCodeHandler}>Host Game</button>
+          <button onClick={this.onClickGenerateCodeHandler}>Host Quiz</button>
         </div>
 
         <div className="generated-code-container">

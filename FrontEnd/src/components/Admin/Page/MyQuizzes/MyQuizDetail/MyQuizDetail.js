@@ -17,7 +17,7 @@ class MyQuizDetail extends React.Component {
       is_public: 1,
       level: 0,
       played: 0,
-      title: "DOTA",
+      title: "",
       questions: [],
     };
   }
@@ -80,9 +80,6 @@ class MyQuizDetail extends React.Component {
             onClick={() => {
               localStorage.setItem("gradeTitle", gradeTitle);
               history.push(`/admin/myquizzes/${id}`);
-              if (match) {
-                console.log(match);
-              }
             }}
           >
             <div className="my-quiz-image">
@@ -109,7 +106,7 @@ class MyQuizDetail extends React.Component {
                   <span>
                     <FontAwesomeIcon icon={faPlay} color="#6B7C93" />
                   </span>
-                  Played {played} times
+                  Test {played} times
                 </div>
                 <div className="grade">
                   <span>

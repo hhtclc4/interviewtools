@@ -13,6 +13,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login";
+
 import Swal from "sweetalert2";
 
 class SignupPopup extends React.Component {
@@ -61,7 +63,7 @@ class SignupPopup extends React.Component {
         position: "top",
         type: "error",
         title: "Oops...",
-        text: "Your code is not right!",
+        text: "Your password is not right!",
         showConfirmButton: false,
         timer: 1500,
         heightAuto: false,
@@ -94,6 +96,21 @@ class SignupPopup extends React.Component {
       isShowSignup: true,
     });
   };
+  responseFacebook = (res) => {
+    console.log("facebook console");
+    console.log(res);
+    let { data } = this.state;
+    this.setState({
+      data: {
+        ...data,
+        name: res.name,
+        email: res.email,
+        avatar: res.picture.data.url,
+      },
+      isResponseGG: true,
+      isShowSignup: true,
+    });
+  };
   render() {
     let {
       isShowSignup,
@@ -102,7 +119,7 @@ class SignupPopup extends React.Component {
       isWrongConfirmPass,
       isDoneSignUp,
     } = this.state;
-    console.log(data)
+    console.log(data);
     if (isDoneSignUp) {
       this.props.togglePopup();
       return <div></div>;
@@ -154,6 +171,13 @@ class SignupPopup extends React.Component {
                       onFailure={this.responseGoogle}
                       className="custom-signup-btn"
                     ></GoogleLogin>
+                    <FacebookLogin
+                      appId="900530673791194"
+                      autoLoad={false}
+                      buttonText="Sign up with Facebook"
+                      fields="name,email,picture"
+                      callback={this.responseFacebook}
+                    />
 
                     <div className="divide-or">
                       <p>-or-</p>

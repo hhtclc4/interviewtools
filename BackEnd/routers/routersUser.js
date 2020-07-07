@@ -19,7 +19,9 @@ const Interview = require("../models/Interview");
 const Company = require("../models/Company");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
-
+const Education = require("../models/Education");
+const Skills = require("../models/Skills");
+const Employment = require("../models/Employment");
 const jwt = require("jsonwebtoken");
 
 const cloudinary = require("./cloudinary");
@@ -48,6 +50,28 @@ router.put("/api/upload_avatar_image", verifyToken, (req, res) =>
     }
   })
 );
+//user send Form CV to Web
+router.post("/api/create_collected_candidate", verifyToken, (req, res) => {
+  jwt.verify(req.token, "hoangtri", async (err, authData) => {
+    for (let i = 0; i < req.body.skills.length; i++)
+      req.body.skills[i].user_id = authData.user_id;
+    for (let i = 0; i < req.body.employments.length; i++)
+      req.body.employments[i].user_id = authData.user_id;
+    await Skills.bulkCreate(req.body.skills);
+    await Employment.bulkCreate(req.body.employments);
+    let education = await Education.create(req.body.education).then(
+      (education) => {
+        return education;
+      }
+    );
+    req.body.user.education_id = education.id;
+    User.update(req.body.user, {
+      where: {
+        id: authData.user_id,
+      },
+    }).then(res.sendStatus(200));
+  });
+});
 // find all the number of attempt that user do quiz in page PreGame
 router.post("/api/quiz_attempt", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", (err, authData) => {

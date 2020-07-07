@@ -46,5 +46,16 @@ const User = db.define("user", {
   company_id: {
     type: "int(11)",
   },
+  education_id: {
+    type: "int(11)",
+    allowNull: true,
+    primaryKey: false,
+  },
+  type: {
+    type: "int(11)",
+    allowNull: true,
+    defaultValue: 0, //0 is apply to Campain, 1 is apply to web
+    primaryKey: false,
+  },
 });
 module.exports = User;

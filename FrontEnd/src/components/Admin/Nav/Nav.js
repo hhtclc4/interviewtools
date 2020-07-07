@@ -25,7 +25,7 @@ class AdminNav extends React.Component {
             }}
           >
             <FontAwesomeIcon icon={faPlusCircle} />
-            Join a game
+            Join a Quiz
           </button>
         </div>
       </div>

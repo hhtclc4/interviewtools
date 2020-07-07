@@ -127,7 +127,7 @@ class QuizDetailTable extends React.Component {
                 {data.questions.length} Qs
               </div>
               <div className="play-number-quiz-detail-table">
-                {data.played !== 0 ? data.played : "0"} plays
+                {data.played !== 0 ? data.played : "0"} times
               </div>
             </div>
             <div className="quiz-name">
@@ -156,7 +156,7 @@ class QuizDetailTable extends React.Component {
               disabled={disabled}
               onClick={this.playQuizOnClickHandler}
             >
-              Play
+              Start
             </button>
           </div>
         </div>

@@ -56,7 +56,7 @@ class MyQuizControl extends React.Component {
   }
   render() {
     let question_table_id = parseInt(this.props.match.params.question_table_id);
-    console.log("match", this.props.match);
+    let { history } = this.props;
     let gradeTitle = localStorage.getItem("gradeTitle");
     let { title, image, played, questions, subject } = this.state;
     let element = questions.map((data, index) => {
@@ -105,7 +105,7 @@ class MyQuizControl extends React.Component {
                 <span>
                   <FontAwesomeIcon icon={faPlay} color="#6B7C93" />
                 </span>
-                Played {played} times
+                Test {played} times
               </div>
             </div>
             <div className="subject">
@@ -123,7 +123,7 @@ class MyQuizControl extends React.Component {
                 <span>
                   <FontAwesomeIcon icon={faUsers} color="#868790" />
                 </span>
-                Host a game
+                Host a Quiz
               </div>
               <div className="explain-action">
                 <span>
@@ -132,13 +132,12 @@ class MyQuizControl extends React.Component {
               </div>
             </div>
             <div className="action-btn-group">
-              <button className="action-btn b-host">Live game</button>
               <NavLink
                 className="action-btn b-host"
                 exact
                 to={`/admin/quiz/homework/${question_table_id}`}
               >
-                Homework
+                Host a Quiz
               </NavLink>
             </div>
           </div>
@@ -149,7 +148,7 @@ class MyQuizControl extends React.Component {
                 <span>
                   <FontAwesomeIcon icon={faUser} color="#868790" />
                 </span>
-                Solo Practice
+                Self Practice
               </div>
               <div className="explain-action">
                 <span>
@@ -158,7 +157,14 @@ class MyQuizControl extends React.Component {
               </div>
             </div>
             <div className="action-btn-group">
-              <button className="action-btn b-pratice">Practice</button>
+              <button
+                className="action-btn b-pratice"
+                onClick={() => {
+                  history.push(`/pre-game/${question_table_id}`);
+                }}
+              >
+                Practice
+              </button>
             </div>
           </div>
         </div>

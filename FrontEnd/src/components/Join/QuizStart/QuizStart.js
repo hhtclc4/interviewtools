@@ -56,7 +56,7 @@ class QuizStart extends React.Component {
               <button
                 onClick={() => history.push(`/game/${question_table_id}`)}
               >
-                Start Game
+                Start Quiz
               </button>
             </div>
             <img

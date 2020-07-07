@@ -7,7 +7,6 @@ import {
   faSearch,
   faFileAlt,
   faChartBar,
-  faFolder,
   faUserAlt,
   faCogs,
   faSignOutAlt,
@@ -121,14 +120,7 @@ class AdminPage extends React.Component {
               Reports
             </NavLink>
           </div>
-          <div className="admin-collections">
-            <NavLink className="btn-admin-find-quiz" to="_blank">
-              <span>
-                <FontAwesomeIcon icon={faFolder} size="lg" />
-              </span>
-              Collections
-            </NavLink>
-          </div>
+
           <hr />
           <div className="admin-profile">
             <NavLink className="btn-admin-find-quiz" to="_blank">
