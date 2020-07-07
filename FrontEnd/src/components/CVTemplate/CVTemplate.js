@@ -3,10 +3,23 @@ import './CVTemplate.scss'
 import { withRouter } from "react-router-dom";
 //import EditorConvertToHTML from '../../utils/EditorConvertToHTML/EditorConvertToHTML'
 import { Editor } from "react-draft-wysiwyg";
+import EmploymentOverview from './EmploymentOverview/Employment'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import EducationOverview from './EducationOverview/Education'
+import SkillOverview from "./SkillOverview/Skill";
+
 class CVTemplateCreator extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            isOpemEmp: false
+        }
+    }
+    toggleEmpDetail = () => {
+        this.setState({
+            isOpenEmp: !this.state.isOpenEmp
+        })
     }
     render() {
         return (
@@ -68,12 +81,28 @@ class CVTemplateCreator extends React.Component {
                     </div>
                     <div className="cv-employment-history">
                         <div className="cv-section-title">Employment History</div>
+                        <p>Include your last 10 years of relevant experience and dates in this section. List your most recent position first</p>
+                        <div className="cv-emp-list">
+                            {/**section item control */}
+                            <EmploymentOverview />
+                            {/**End of section item control */}
+                            <button><span><FontAwesomeIcon icon={faPlus} /><span>Add Employment</span></span></button>
+                        </div>
                     </div>
-                    <div className="education">
+                    <div className="cv-education">
                         <div className="cv-section-title">Education</div>
+                        <p>If relevant, include your most recent educational achievements and the dates here</p>
+                        <div className="cv-education-list">
+                            <EducationOverview />
+                            <button><span><FontAwesomeIcon icon={faPlus} /><span>Add Education</span></span></button>
+                        </div>
                     </div>
                     <div className="skill">
                         <div className="cv-section-title">Skills</div>
+                        <div className="cv-skill-list">
+                            <SkillOverview />
+                            <button><span><FontAwesomeIcon icon={faPlus} /><span>Add Skill</span></span></button>
+                        </div>
                     </div>
                 </div>
                 <div className="cv-preview"></div>

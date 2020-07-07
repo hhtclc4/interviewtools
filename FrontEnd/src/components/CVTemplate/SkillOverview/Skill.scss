@@ -1,0 +1,27 @@
+.employment-container {
+    border: 1px solid #dddddd;
+    transition: all 0.3s ease;
+    .employment-control {
+        .employment-overview-info {
+            padding: 10px;
+        }
+        .employment-detail-info {
+            transition: height 0.3s ease;
+            .cv-level-bar {
+                width: 100%;
+                border: none;
+                height: 32px;
+                border-radius: 4px;
+                display: flex;
+                flex-direction: row;
+                .select-level {
+                    height: 100%;
+                    width: 20%;
+                    //background-color: #ffe6e6;
+                    border-radius: 4px;
+                    transition: all 0.4s ease;
+                }
+            }
+        }
+    }
+}

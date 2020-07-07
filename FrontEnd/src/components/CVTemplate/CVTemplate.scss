@@ -7,6 +7,11 @@
         height: 100%;
         width: 50%;
         background-color: white;
+        overflow: auto;
+        padding: 10px 3%;
+        &::-webkit-scrollbar {
+            display: none;
+        }
         .cv-section-title {
             font-weight: bold;
             font-family: Open Sans;
@@ -47,8 +52,12 @@
         .cv-professional-sumary {
         }
         .cv-employment-history {
+            .cv-emp-list {
+            }
         }
-        .education {
+        .cv-education {
+            .cv-education-list {
+            }
         }
         .skill {
         }
