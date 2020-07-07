@@ -37,6 +37,7 @@ $icon-color: #393a68;
 
     .interview-control-body {
         flex-grow: 1;
+        overflow: auto;
         // .in-control-partions {
         //     .time-partion {
         //         max-width: 20%;
