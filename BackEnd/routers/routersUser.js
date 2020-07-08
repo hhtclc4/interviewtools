@@ -51,7 +51,7 @@ router.put("/api/upload_avatar_image", verifyToken, (req, res) =>
   })
 );
 //user send Form CV to Web
-router.post("/api/create_collected_candidate", verifyToken, (req, res) => {
+router.post("/api/create_collection_candidate", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", async (err, authData) => {
     for (let i = 0; i < req.body.skills.length; i++)
       req.body.skills[i].user_id = authData.user_id;

@@ -63,5 +63,8 @@ const User = db.define("user", {
     defaultValue: null,
     primaryKey: false,
   },
+  description: {
+    type: "VARCHAR(200)",
+  },
 });
 module.exports = User;

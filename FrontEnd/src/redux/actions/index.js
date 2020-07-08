@@ -284,6 +284,35 @@ export const createQuestionAndAnswersAPI = (
   };
 };
 //////////group candidates
+export const createCollectionCandidate = (
+  user,
+  education,
+  employments,
+  skills
+) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.CREATE_COLLECTION_CANDIDATE_API_URL,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+      data: {
+        user,
+        education,
+        employments,
+        skills,
+      },
+    })
+      .then((res) => {
+        console.log("create COLLECTION candidate ", res.data);
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const createCandidate = (data) => {
   return (dispatch) => {
     axios({

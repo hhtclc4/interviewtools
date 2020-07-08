@@ -18,10 +18,20 @@ const Education = db.define("education", {
     allowNull: false,
     primaryKey: false,
   },
-  completion_time: {
-    type: "int",
+  date_begin: {
+    type: "date",
     allowNull: false,
+    defaultValue: "2016-06-14",
     primaryKey: false,
+  },
+  date_end: {
+    type: "date",
+    allowNull: false,
+    defaultValue: "2020-06-14",
+    primaryKey: false,
+  },
+  description: {
+    type: "VARCHAR(200)",
   },
 });
 module.exports = Education;
