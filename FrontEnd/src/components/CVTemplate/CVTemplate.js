@@ -249,9 +249,6 @@ class CVTemplateCreator extends React.Component {
                                         <input />
                                     </div>
                                 </div>
-                                <div className="cv-preview">
-                                    <CVPreview />
-                                </div>
                                 <div className="cv-input">
                                     <div className="cv-input-title">Phone</div>
                                     <div className="cv-input-ipt">
@@ -271,7 +268,7 @@ class CVTemplateCreator extends React.Component {
                         <p>
                             Include your last 10 years of relevant experience and dates in
                             this section. List your most recent position first
-            </p>
+                        </p>
                         <div className="cv-emp-list">
                             {/**section item control */}
                             {employmentElm}
@@ -289,7 +286,7 @@ class CVTemplateCreator extends React.Component {
                         <p>
                             If relevant, include your most recent educational achievements and
                             the dates here
-            </p>
+                        </p>
                         <div className="cv-education-list">
                             {educationElm}
                             <button onClick={this.onClickAddEducation}>
@@ -313,7 +310,9 @@ class CVTemplateCreator extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="cv-preview"></div>
+                <div className="cv-preview">
+                    <CVPreview />
+                </div>
             </div>
         );
     }
