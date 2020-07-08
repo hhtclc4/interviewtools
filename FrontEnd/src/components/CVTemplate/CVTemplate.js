@@ -204,114 +204,203 @@ class CVTemplateCreator extends React.Component {
             );
         });
         return (
-            <div className="cv-creator-container">
-                <div className="select-cv-content">
-                    <div className="cv-completeness">
-                        <div className="cv-completeness-bar"></div>
-                    </div>
-                    <div className="cv-personal-detail mb-5">
-                        <div className="cv-section-title">Personal Details</div>
-                        <div className="cv-section-input">
-                            <div className="half">
-                                <div className="cv-input">
-                                    {/**component of an input  */}
-                                    <div className="cv-input-title">Job title</div>
-                                    <div className="cv-input-ipt">
-                                        <input
-                                            value={user.job_title}
-                                            name="job_title"
-                                            onChange={this.onChangeUserHandler}
-                                        />
+            <div >
+                <div className="cv-creator-container">
+                    <div className="select-cv-content">
+                        <div className="cv-completeness">
+                            <div className="cv-completeness-bar"></div>
+                        </div>
+                        <div className="cv-personal-detail mb-5">
+                            <div className="cv-section-title">Personal Details</div>
+                            <div className="cv-section-input">
+                                <div className="half">
+                                    <div className="cv-input">
+                                        {/**component of an input  */}
+                                        <div className="cv-input-title">Job title</div>
+                                        <div className="cv-input-ipt">
+                                            <input
+                                                value={user.job_title}
+                                                name="job_title"
+                                                onChange={this.onChangeUserHandler}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="cv-input">
+                                        <div className="cv-input-title">Name</div>
+                                        <div className="cv-input-ipt">
+                                            <input value={user.name} name="name" />
+                                        </div>
+                                    </div>
+                                    <div className="cv-input">
+                                        <div className="cv-input-title">Email</div>
+                                        <div className="cv-input-ipt">
+                                            <input value={user.email} name="email" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="cv-input">
-                                    <div className="cv-input-title">Name</div>
-                                    <div className="cv-input-ipt">
-                                        <input value={user.name} name="name" />
+                                <div className="half">
+                                    <div className="cv-input">
+                                        <div className="cv-input-title" style={{ color: 'white' }}>None</div>
+                                        <div className="cv-input-ipt d-flex flex-row mb-5 mt-3">
+                                            <img alt="ava" src={require("../../utils/images/defaultava.png")} />
+                                            <span className="mx-1 align-self-center"><FontAwesomeIcon icon={faPencilAlt} /></span>
+                                            <button className="cv-input-img-edit">Edit</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="cv-input">
-                                    <div className="cv-input-title">Email</div>
-                                    <div className="cv-input-ipt">
-                                        <input value={user.email} name="email" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="half">
-                                <div className="cv-input">
-                                    <div className="cv-input-title" style={{ color: 'white' }}>None</div>
-                                    <div className="cv-input-ipt d-flex flex-row mb-5 mt-3">
-                                        <img alt="ava" src={require("../../utils/images/defaultava.png")} />
-                                        <span className="mx-1 align-self-center"><FontAwesomeIcon icon={faPencilAlt} /></span>
-                                        <button className="cv-input-img-edit">Edit</button>
-                                    </div>
-                                </div>
 
-                                <div className="cv-input">
-                                    <div className="cv-input-title">Phone</div>
-                                    <div className="cv-input-ipt">
-                                        <input value={user.phone} name="phone" />
+                                    <div className="cv-input">
+                                        <div className="cv-input-title">Phone</div>
+                                        <div className="cv-input-ipt">
+                                            <input value={user.phone} name="phone" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="cv-professional-sumary mb-5">
-                        <div className="cv-section-title">Professional Summary</div>
-                        <p className="cv-section-desc">Include 2-3 clear sentences about your overall experience</p>
-                        <Editor />
-                    </div>
-                    <div className="cv-employment-history mb-5">
-                        <div className="cv-section-title">Employment History</div>
-                        <p className="cv-section-desc">
-                            Include your last 10 years of relevant experience and dates in
-                            this section. List your most recent position first
+                        <div className="cv-professional-sumary mb-5">
+                            <div className="cv-section-title">Professional Summary</div>
+                            <p className="cv-section-desc">Include 2-3 clear sentences about your overall experience</p>
+                            <Editor />
+                        </div>
+                        <div className="cv-employment-history mb-5">
+                            <div className="cv-section-title">Employment History</div>
+                            <p className="cv-section-desc">
+                                Include your last 10 years of relevant experience and dates in
+                                this section. List your most recent position first
                         </p>
-                        <div className="cv-emp-list">
-                            {/**section item control */}
-                            {employmentElm}
-                            {/**End of section item control */}
-                            <button className="cv-section-add-btn" onClick={this.onClickAddEmployment}>
-                                <span>
-                                    <FontAwesomeIcon icon={faPlus} />
-                                    <span className="ml-2">Add Employment</span>
-                                </span>
-                            </button>
+                            <div className="cv-emp-list">
+                                {/**section item control */}
+                                {employmentElm}
+                                {/**End of section item control */}
+                                <button className="cv-section-add-btn" onClick={this.onClickAddEmployment}>
+                                    <span>
+                                        <FontAwesomeIcon icon={faPlus} />
+                                        <span className="ml-2">Add Employment</span>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div className="cv-education mb-5">
-                        <div className="cv-section-title">Education</div>
-                        <p className="cv-section-desc">
-                            If relevant, include your most recent educational achievements and
-                            the dates here
+                        <div className="cv-education mb-5">
+                            <div className="cv-section-title">Education</div>
+                            <p className="cv-section-desc">
+                                If relevant, include your most recent educational achievements and
+                                the dates here
                         </p>
-                        <div className="cv-education-list">
-                            {educationElm}
-                            <button className="cv-section-add-btn" onClick={this.onClickAddEducation}>
-                                <span>
-                                    <FontAwesomeIcon icon={faPlus} />
-                                    <span className="ml-2">Add Education</span>
-                                </span>
-                            </button>
+                            <div className="cv-education-list">
+                                {educationElm}
+                                <button className="cv-section-add-btn" onClick={this.onClickAddEducation}>
+                                    <span>
+                                        <FontAwesomeIcon icon={faPlus} />
+                                        <span className="ml-2">Add Education</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div className="skill mb-5">
+                            <div className="cv-section-title">Skills</div>
+                            <div className="cv-skill-list">
+                                {skillsElm}
+                                <button className="cv-section-add-btn" onClick={this.onClickAddSkill}>
+                                    <span>
+                                        <FontAwesomeIcon icon={faPlus} />
+                                        <span className="ml-2">Add Skill</span>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div className="skill mb-5">
-                        <div className="cv-section-title">Skills</div>
-                        <div className="cv-skill-list">
-                            {skillsElm}
-                            <button className="cv-section-add-btn" onClick={this.onClickAddSkill}>
-                                <span>
-                                    <FontAwesomeIcon icon={faPlus} />
-                                    <span className="ml-2">Add Skill</span>
-                                </span>
-                            </button>
+                    <div className="cv-input">
+                        <div className="cv-input-title">email</div>
+                        <div className="cv-input-ipt">
+                            <input
+                                value={user.email}
+                                name="email"
+                                onChange={this.onChangeUserHandler}
+                            />
                         </div>
+                    </div>
+                </div>
+                <div className="half">
+                    <div className="cv-input">
+                        <div className="cv-input-title">Job title</div>
+                        <div className="cv-input-ipt">
+                            <input />
+                        </div>
+                    </div>
+                    <div className="cv-input">
+                        <div className="cv-input-title">Job title</div>
+                        <div className="cv-input-ipt">
+                            <input />
+                        </div>
+                    </div>
+                    <div className="cv-input">
+                        <div className="cv-input-title">Phone</div>
+                        <div className="cv-input-ipt">
+                            <input value={user.phone} name="phone" />
+                        </div>
+                    </div>
+                </div>
+                <div className="cv-professional-sumary">
+                    <div className="cv-section-title">Professional Summary</div>
+                    <p>Include 2-3 clear sentences about your overall experience</p>
+                    <Editor />
+                </div>
+                <div className="cv-employment-history">
+                    <div className="cv-section-title">Employment History</div>
+                    <p>
+                        Include your last 10 years of relevant experience and dates in
+                        this section. List your most recent position first
+            </p>
+                    <div className="cv-emp-list">
+                        {/**section item control */}
+                        {employmentElm}
+                        {/**End of section item control */}
+                        <button onClick={this.onClickAddEmployment}>
+                            <span>
+                                <FontAwesomeIcon icon={faPlus} />
+                                <span>Add Employment</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div className="cv-education">
+                    <div className="cv-section-title">Education</div>
+                    <p>
+                        If relevant, include your most recent educational achievements and
+                        the dates here
+            </p>
+                    <div className="cv-education-list">
+                        {educationElm}
+                        <button onClick={this.onClickAddEducation}>
+                            <span>
+                                <FontAwesomeIcon icon={faPlus} />
+                                <span>Add Education</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div className="skill">
+                    <div className="cv-section-title">Skills</div>
+                    <div className="cv-skill-list">
+                        {skillsElm}
+                        <button onClick={this.onClickAddSkill}>
+                            <span>
+                                <FontAwesomeIcon icon={faPlus} />
+                                <span>Add Skill</span>
+                            </span>
+                        </button>
                     </div>
                 </div>
                 <div className="cv-preview">
-                    <CVPreview />
+                    <CVPreview
+                        user={user}
+                        education={education}
+                        skills={skills}
+                        employments={employments}
+                        listSubjects={listSubjects}
+                    />
                 </div>
-            </div>
+            </div >
         );
     }
 }
