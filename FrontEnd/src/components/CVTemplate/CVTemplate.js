@@ -1,8 +1,6 @@
 import React from "react";
 import "./CVTemplate.scss";
 import { withRouter } from "react-router-dom";
-//import EditorConvertToHTML from '../../utils/EditorConvertToHTML/EditorConvertToHTML'
-import { Editor } from "react-draft-wysiwyg";
 import EmploymentOverview from "./EmploymentOverview/Employment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -12,7 +10,7 @@ import CVPreview from "./CVPreview/CVPreview";
 
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
-
+import EditorConvertToHTML from "../../utils/EditorConvertToHTML/EditorConvertToHTML";
 class CVTemplateCreator extends React.Component {
   constructor(props) {
     super(props);
@@ -47,7 +45,6 @@ class CVTemplateCreator extends React.Component {
         {
           position: 0,
           company: "",
-          exp: 0,
           city: "",
           date_begin: "2016-06-14",
           date_end: "2020-06-14",
@@ -174,6 +171,14 @@ class CVTemplateCreator extends React.Component {
     });
     console.log(temp);
   };
+  onChangeEditorUserHandler = (description) => {
+    this.setState({
+      user: {
+        ...this.state.user,
+        description,
+      },
+    });
+  };
   render() {
     let { user, employments, listSubjects, skills, education } = this.state;
     let employmentElm = employments.map((employment, index) => {
@@ -276,7 +281,11 @@ class CVTemplateCreator extends React.Component {
             <p className="cv-section-desc">
               Include 2-3 clear sentences about your overall experience
             </p>
-            <Editor />
+            <EditorConvertToHTML
+              onChangeEditorTextHandler={this.onChangeEditorUserHandler}
+              text=""
+              placeholder="Describe works "
+            />
           </div>
           <div className="cv-employment-history mb-5">
             <div className="cv-section-title">Employment History</div>

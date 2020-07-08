@@ -30,7 +30,7 @@
             text-align: left;
             background-color: transparent;
             &:hover {
-                background-color: #f2f2f2;
+                background-color: hsl(180, 100%, 99%);
             }
             * {
                 color: #fd7e14;
@@ -42,7 +42,6 @@
         .cv-section-input {
             display: flex;
             flex-direction: row;
-
             .half {
                 width: 50%;
                 .cv-input {
@@ -51,7 +50,7 @@
                         color: gray;
                     }
                     .cv-input-ipt {
-                        width: 80%;
+                        width: 90%;
                         input {
                             width: 100%;
                         }
@@ -67,6 +66,14 @@
                             &:hover {
                                 text-decoration: underline;
                             }
+                        }
+
+                        .cv-start-date {
+                            width: 62%;
+                        }
+
+                        .cv-end-date {
+                            width: 50%;
                         }
                     }
                 }

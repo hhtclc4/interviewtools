@@ -3,6 +3,8 @@ import "./CVPreview.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
+
+import { EditorState, convertFromHTML, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 class CVPreview extends React.Component {
   constructor(props) {
@@ -21,25 +23,64 @@ class CVPreview extends React.Component {
   render() {
     let { user, education, skills, employments, listSubjects } = this.props;
     let { degrees, positions } = this.state;
+    //
+    let sampleMarkupUser = user.description;
+    let blocksFromHTMLUser = convertFromHTML(sampleMarkupUser);
+    let textStateUser = ContentState.createFromBlockArray(
+      blocksFromHTMLUser.contentBlocks,
+      blocksFromHTMLUser.entityMap
+    );
+    //
+
+    //
+
     let employmentsELM = employments.map((employment, index) => {
+      let sampleMarkupEmployment = employment.description;
+      let blocksFromHTMLEmployment = convertFromHTML(sampleMarkupEmployment);
+      let textStateEmployment = ContentState.createFromBlockArray(
+        blocksFromHTMLEmployment.contentBlocks,
+        blocksFromHTMLEmployment.entityMap
+      );
       return (
         <div className="cv-pre-section-item" key={index}>
           <div className="section-overview">{`${
             positions[employment.position].title
           }, ${employment.company}, ${employment.city}`}</div>
           <div className="section-year">July 2018 - July 2020</div>
-          <div className="section-description">draft</div>
+          <div className="section-description">
+            {" "}
+            <Editor
+              wrapperClassName="work-desc-wrapper"
+              editorClassName="work-desc-editor"
+              toolbarClassName="d-none"
+              editorState={EditorState.createWithContent(textStateEmployment)}
+            />
+          </div>
         </div>
       );
     });
     let educationElm = education.map((edu, index) => {
+      let sampleMarkupEducation = edu.description;
+      let blocksFromHTMLEducation = convertFromHTML(sampleMarkupEducation);
+      let textStateEducation = ContentState.createFromBlockArray(
+        blocksFromHTMLEducation.contentBlocks,
+        blocksFromHTMLEducation.entityMap
+      );
       return (
         <div className="cv-pre-section-item" key={index}>
           <div className="section-overview">{`${degrees[edu.degree]}, ${
             edu.university
           }, Ho Chi Minh City`}</div>
           <div className="section-year">July 2016 - July 2020</div>
-          <div className="section-description">draft</div>
+          <div className="section-description">
+            {" "}
+            <Editor
+              wrapperClassName="work-desc-wrapper"
+              editorClassName="work-desc-editor"
+              toolbarClassName="d-none"
+              editorState={EditorState.createWithContent(textStateEducation)}
+            />
+          </div>
         </div>
       );
     });
@@ -89,6 +130,12 @@ class CVPreview extends React.Component {
         <div className="cv-preview-body">
           <div className="cv-pre-profile">
             <div className="cv-pre-title">Profile</div>
+            <Editor
+              wrapperClassName="work-desc-wrapper"
+              editorClassName="work-desc-editor"
+              toolbarClassName="d-none"
+              editorState={EditorState.createWithContent(textStateUser)}
+            />
           </div>
           <div className="cv-pre-employment-history">
             <div className="cv-pre-title">Employment History</div>

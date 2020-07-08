@@ -1,10 +1,12 @@
 import React from "react";
 import "./Education.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Editor } from "react-draft-wysiwyg";
-import { Select } from "antd";
+import { Select, DatePicker } from "antd";
+import EditorConvertToHTML from "../../../utils/EditorConvertToHTML/EditorConvertToHTML";
 const { Option } = Select;
+
 class EducationOverview extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +33,17 @@ class EducationOverview extends React.Component {
       education: this.props.education,
     });
   }
+  onChangeEditorEducationHandler = (description) => {
+    let { onChangeEducationHandler, index } = this.props;
+    let { education } = this.state;
+    this.setState({
+      education: {
+        ...this.state.education,
+        description,
+      },
+    });
+    onChangeEducationHandler({ ...education, description }, index);
+  };
   onChangeEducationHandler = (event) => {
     let { onChangeEducationHandler, index } = this.props;
     let { education } = this.state;
@@ -86,7 +99,7 @@ class EducationOverview extends React.Component {
               <span className="emp-position-employer">
                 {isFill
                   ? `${titles[education.degree]} at ${education.university}`
-                  : "Insert your education"}
+                  : "(Not specified)"}
               </span>
               <div className="emp-experience-year">
                 {isFill ? (
@@ -97,8 +110,15 @@ class EducationOverview extends React.Component {
               </div>
             </div>
             <div className="btn-right align-self-center">
-              <button className="float-right" onClick={this.toggleEmpDetail}>
-                <FontAwesomeIcon icon={faChevronDown} />
+              <button
+                className="float-right expand-btn"
+                onClick={this.toggleEmpDetail}
+              >
+                {isExpand ? (
+                  <FontAwesomeIcon icon={faChevronUp} />
+                ) : (
+                  <FontAwesomeIcon icon={faChevronDown} />
+                )}
               </button>
             </div>
           </div>
@@ -121,17 +141,23 @@ class EducationOverview extends React.Component {
                 </div>
                 <div className="cv-input">
                   <div className="cv-input-title">Completion Time</div>
-                  <div className="cv-input-ipt">
-                    <Select
+                  <div className="cv-input-ipt d-flex flex-row justify-content-between">
+                    {/* <Select
                       style={{ width: "100%" }}
-                      placeholder="Please select your completion time"
+                      placeholder="Please select your year experience"
                       onChange={(value) =>
-                        this.onChangeSelectSingle("completion_time", value)
+                        this.onChangeSelectSingle("exp", value)
                       }
-                      value={education.completion_time}
+                      value={employment.exp}
                     >
                       {menuYears}
-                    </Select>
+                    </Select> */}
+                    <div className="cv-start-date">
+                      <DatePicker picker="month" />
+                    </div>
+                    <div className="cv-end-date">
+                      <DatePicker picker="month" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -166,7 +192,13 @@ class EducationOverview extends React.Component {
             <div className="cv-input">
               <div className="cv-input-title">Description</div>
               <div className="cv-input-ipt">
-                <Editor />
+                <EditorConvertToHTML
+                  onChangeEditorTextHandler={
+                    this.onChangeEditorEducationHandler
+                  }
+                  text=""
+                  placeholder="Describe works "
+                />
               </div>
             </div>
           </div>
