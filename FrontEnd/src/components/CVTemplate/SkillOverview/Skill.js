@@ -171,6 +171,7 @@ class SkillOverview extends React.Component {
                       return (
                         <div
                           className="select-level"
+                          key={index}
                           onClick={() => this.levelClick(index)}
                           style={
                             skill.level === index

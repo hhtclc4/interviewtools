@@ -245,7 +245,11 @@ class CVTemplateCreator extends React.Component {
                   <div className="cv-input-ipt d-flex flex-row mb-5 mt-3">
                     <img
                       alt="ava"
-                      src={require("../../utils/images/defaultava.png")}
+                      src={
+                        user.avatar !== null
+                          ? user.avatar
+                          : require("../../utils/images/defaultava.png")
+                      }
                     />
                     <span className="mx-1 align-self-center">
                       <FontAwesomeIcon icon={faPencilAlt} />
