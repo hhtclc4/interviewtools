@@ -1,0 +1,99 @@
+.cv-preview-container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    .cv-preview-header {
+        height: 15%;
+        background-color: #303030;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .cv-preview-name {
+            font-size: 16px;
+            font-weight: bold;
+            font-family: Open Sans;
+            color: white;
+        }
+        .cv-preview-job {
+            font-size: 11px;
+            font-family: Open Sans;
+            color: white;
+        }
+    }
+
+    .cv-preview-contact {
+        border-top: 1px solid gray;
+        height: 30px;
+        background-color: #303030;
+        color: white;
+        .contact-email {
+            * {
+                font-size: 11px;
+            }
+        }
+        .contact-phone {
+            * {
+                font-size: 10px;
+            }
+        }
+    }
+    .cv-preview-body {
+        padding: 5% 15%;
+        .cv-pre-title {
+            font-weight: bold;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .cv-pre-section-item {
+            margin-bottom: 15px;
+            .section-overview {
+                font-weight: bold;
+                font-family: QuickSand;
+                font-size: 13px;
+            }
+            .section-year {
+                color: #b3b3b3;
+                font-size: 12px;
+            }
+            .section-description {
+            }
+        }
+        // .cv-pre-profile {
+        // }
+        // .cv-pre-employment-history {
+        // }
+        // .cv-pre-education {
+        // }
+        .cv-pre-skill {
+            .cv-pre-skill-section {
+                .cv-skill-name {
+                    font-family: QuickSand;
+                    font-size: 13px;
+                    font-weight: bold;
+                }
+                .cv-skill-lvl-bar {
+                    background-color: #d9d9d9;
+                    height: 6px;
+                    width: 42%;
+                    border-radius: 10px;
+                    .progress {
+                        width: 80%;
+                        background-color: #1a1a1a;
+                        height: 94%;
+                        border-radius: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

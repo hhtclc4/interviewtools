@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import EducationOverview from './EducationOverview/Education'
 import SkillOverview from "./SkillOverview/Skill";
+import CVPreview from "./CVPreview/CVPreview";
 
 class CVTemplateCreator extends React.Component {
     constructor(props) {
@@ -105,7 +106,9 @@ class CVTemplateCreator extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="cv-preview"></div>
+                <div className="cv-preview">
+                    <CVPreview />
+                </div>
             </div>
         );
     }
