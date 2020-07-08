@@ -166,7 +166,7 @@ router.post("/api/get_user", verifyToken, (req, res) =>
         where: {
           id: authData.user_id,
         },
-        include: Company,
+        include: [Company, Subject, Employment, Education],
       })
         .then((data) => {
           if (data === null) res.sendStatus(403);

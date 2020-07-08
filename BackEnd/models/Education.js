@@ -18,5 +18,10 @@ const Education = db.define("education", {
     allowNull: false,
     primaryKey: false,
   },
+  completion_time: {
+    type: "int",
+    allowNull: false,
+    primaryKey: false,
+  },
 });
 module.exports = Education;

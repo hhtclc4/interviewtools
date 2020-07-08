@@ -57,5 +57,11 @@ const User = db.define("user", {
     defaultValue: 0, //0 is apply to Campain, 1 is apply to web
     primaryKey: false,
   },
+  job_title: {
+    type: "VARCHAR(45)",
+    allowNull: true,
+    defaultValue: null,
+    primaryKey: false,
+  },
 });
 module.exports = User;

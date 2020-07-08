@@ -1,6 +1,11 @@
 import * as types from "../actions/actionTypes";
 const initialState = {
-  subjects: [],
+  subjects: [
+    {
+      id: 0,
+      title: "",
+    },
+  ],
   tablesBySubject: [
     {
       title: "",
