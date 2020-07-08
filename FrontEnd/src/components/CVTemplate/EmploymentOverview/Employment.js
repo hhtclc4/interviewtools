@@ -1,9 +1,10 @@
 import React from "react";
 import "./Employment.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Editor } from "react-draft-wysiwyg";
-import { Select } from "antd";
+import { Select, DatePicker } from "antd";
+
 const { Option } = Select;
 
 class EmploymentOverview extends React.Component {
@@ -83,9 +84,9 @@ class EmploymentOverview extends React.Component {
               <span className="emp-position-employer">
                 {isFill
                   ? `${positions[employment.position].title} at ${
-                      employment.company
-                    }`
-                  : "Insert some employment"}
+                  employment.company
+                  }`
+                  : "(Not specified)"}
               </span>
               {isFill ? (
                 <div className="emp-experience-year">
@@ -94,8 +95,8 @@ class EmploymentOverview extends React.Component {
               ) : null}
             </div>
             <div className="btn-right align-self-center">
-              <button className="float-right" onClick={this.toggleEmpDetail}>
-                <FontAwesomeIcon icon={faChevronDown} />
+              <button className="float-right expand-btn" onClick={this.toggleEmpDetail}>
+                {isExpand ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />}
               </button>
             </div>
           </div>
@@ -123,8 +124,8 @@ class EmploymentOverview extends React.Component {
                 </div>
                 <div className="cv-input">
                   <div className="cv-input-title">Year Experience</div>
-                  <div className="cv-input-ipt">
-                    <Select
+                  <div className="cv-input-ipt d-flex flex-row justify-content-between">
+                    {/* <Select
                       style={{ width: "100%" }}
                       placeholder="Please select your year experience"
                       onChange={(value) =>
@@ -133,7 +134,13 @@ class EmploymentOverview extends React.Component {
                       value={employment.exp}
                     >
                       {menuYears}
-                    </Select>
+                    </Select> */}
+                    <div className="cv-start-date">
+                      <DatePicker picker="month" />
+                    </div>
+                    <div className="cv-end-date">
+                      <DatePicker picker="month" />
+                    </div>
                   </div>
                 </div>
               </div>

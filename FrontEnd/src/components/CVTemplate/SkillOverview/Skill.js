@@ -1,7 +1,7 @@
 import React from "react";
 import "./Skill.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Select } from "antd";
 const { Option } = Select;
 class SkillOverview extends React.Component {
@@ -124,15 +124,15 @@ class SkillOverview extends React.Component {
               <span className="emp-position-employer">
                 {isFill
                   ? listSubjects[skill.subject_id - 1].title
-                  : "Insert your skill"}
+                  : "(Not specified)"}
               </span>
               <div className="emp-experience-year">
                 {isFill ? skillLevels[skill.level].title : null}
               </div>
             </div>
             <div className="btn-right align-self-center">
-              <button className="float-right" onClick={this.toggleEmpDetail}>
-                <FontAwesomeIcon icon={faChevronDown} />
+              <button className="float-right expand-btn" onClick={this.toggleEmpDetail}>
+                {isExpand ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />}
               </button>
             </div>
           </div>

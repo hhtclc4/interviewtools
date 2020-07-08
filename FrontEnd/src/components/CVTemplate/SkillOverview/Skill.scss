@@ -4,6 +4,13 @@
     .employment-control {
         .employment-overview-info {
             padding: 10px;
+            .btn-right {
+                .expand-btn {
+                    top: 0;
+                    border: none;
+                    background-color: transparent;
+                }
+            }
         }
         .employment-detail-info {
             transition: height 0.3s ease;

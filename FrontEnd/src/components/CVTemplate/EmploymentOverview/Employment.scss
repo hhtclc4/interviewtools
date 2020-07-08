@@ -4,9 +4,24 @@
     .employment-control {
         .employment-overview-info {
             padding: 10px;
+            .btn-right {
+                .expand-btn {
+                    top: 0;
+                    border: none;
+                    background-color: transparent;
+                }
+            }
+            .info-left {
+                span {
+                    font-weight: bold;
+                    font-size: 14px;
+                    font-family: QuickSand;
+                }
+            }
         }
         .employment-detail-info {
             transition: height 0.3s ease;
+            padding: 10px;
         }
     }
 }

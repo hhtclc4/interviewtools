@@ -52,6 +52,13 @@ class EditorConvertToHTML extends Component {
           editorClassName="demo-editor"
           onEditorStateChange={this.onEditorStateChange}
           placeholder={this.props.placeholder}
+          toolbar={{
+            inline: { inDropdown: true },
+            list: { inDropdown: true },
+            textAlign: { inDropdown: true },
+            link: { inDropdown: true },
+            history: { inDropdown: true },
+          }}
         />
         {/* <textarea
                     className="contain-text-editor"
