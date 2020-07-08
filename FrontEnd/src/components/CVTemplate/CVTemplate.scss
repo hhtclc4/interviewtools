@@ -17,6 +17,28 @@
             font-family: Open Sans;
             font-size: 20px;
         }
+
+        .cv-section-desc {
+            font-size: 13.5px;
+            color: #a6a6a6;
+        }
+        .cv-section-add-btn {
+            border: none;
+            top: 0;
+            margin-top: 1rem;
+            width: 100%;
+            text-align: left;
+            background-color: transparent;
+            &:hover {
+                background-color: #f2f2f2;
+            }
+            * {
+                color: #fd7e14;
+                font-family: Open Sans;
+                font-weight: bold;
+                font-size: 15px;
+            }
+        }
         .cv-section-input {
             display: flex;
             flex-direction: row;
@@ -32,6 +54,19 @@
                         width: 80%;
                         input {
                             width: 100%;
+                        }
+                        img {
+                            width: 60px;
+                            height: 60px;
+                        }
+                        .cv-input-img-edit {
+                            top: 0;
+                            border: none;
+                            background-color: transparent;
+                            font-size: 14px;
+                            &:hover {
+                                text-decoration: underline;
+                            }
                         }
                     }
                 }

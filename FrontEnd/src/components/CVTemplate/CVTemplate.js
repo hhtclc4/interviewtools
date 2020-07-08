@@ -5,13 +5,14 @@ import { withRouter } from "react-router-dom";
 import { Editor } from "react-draft-wysiwyg";
 import EmploymentOverview from "./EmploymentOverview/Employment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import EducationOverview from "./EducationOverview/Education";
 import SkillOverview from "./SkillOverview/Skill";
 import CVPreview from "./CVPreview/CVPreview";
 
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
+
 class CVTemplateCreator extends React.Component {
     constructor(props) {
         super(props);
@@ -208,7 +209,7 @@ class CVTemplateCreator extends React.Component {
                     <div className="cv-completeness">
                         <div className="cv-completeness-bar"></div>
                     </div>
-                    <div className="cv-personal-detail">
+                    <div className="cv-personal-detail mb-5">
                         <div className="cv-section-title">Personal Details</div>
                         <div className="cv-section-input">
                             <div className="half">
@@ -224,13 +225,13 @@ class CVTemplateCreator extends React.Component {
                                     </div>
                                 </div>
                                 <div className="cv-input">
-                                    <div className="cv-input-title">name</div>
+                                    <div className="cv-input-title">Name</div>
                                     <div className="cv-input-ipt">
                                         <input value={user.name} name="name" />
                                     </div>
                                 </div>
                                 <div className="cv-input">
-                                    <div className="cv-input-title">email</div>
+                                    <div className="cv-input-title">Email</div>
                                     <div className="cv-input-ipt">
                                         <input value={user.email} name="email" />
                                     </div>
@@ -238,17 +239,14 @@ class CVTemplateCreator extends React.Component {
                             </div>
                             <div className="half">
                                 <div className="cv-input">
-                                    <div className="cv-input-title">Job title</div>
-                                    <div className="cv-input-ipt">
-                                        <input />
+                                    <div className="cv-input-title" style={{ color: 'white' }}>None</div>
+                                    <div className="cv-input-ipt d-flex flex-row mb-5 mt-3">
+                                        <img alt="ava" src={require("../../utils/images/defaultava.png")} />
+                                        <span className="mx-1 align-self-center"><FontAwesomeIcon icon={faPencilAlt} /></span>
+                                        <button className="cv-input-img-edit">Edit</button>
                                     </div>
                                 </div>
-                                <div className="cv-input">
-                                    <div className="cv-input-title">Job title</div>
-                                    <div className="cv-input-ipt">
-                                        <input />
-                                    </div>
-                                </div>
+
                                 <div className="cv-input">
                                     <div className="cv-input-title">Phone</div>
                                     <div className="cv-input-ipt">
@@ -258,14 +256,14 @@ class CVTemplateCreator extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="cv-professional-sumary">
+                    <div className="cv-professional-sumary mb-5">
                         <div className="cv-section-title">Professional Summary</div>
-                        <p>Include 2-3 clear sentences about your overall experience</p>
+                        <p className="cv-section-desc">Include 2-3 clear sentences about your overall experience</p>
                         <Editor />
                     </div>
-                    <div className="cv-employment-history">
+                    <div className="cv-employment-history mb-5">
                         <div className="cv-section-title">Employment History</div>
-                        <p>
+                        <p className="cv-section-desc">
                             Include your last 10 years of relevant experience and dates in
                             this section. List your most recent position first
                         </p>
@@ -273,38 +271,38 @@ class CVTemplateCreator extends React.Component {
                             {/**section item control */}
                             {employmentElm}
                             {/**End of section item control */}
-                            <button onClick={this.onClickAddEmployment}>
+                            <button className="cv-section-add-btn" onClick={this.onClickAddEmployment}>
                                 <span>
                                     <FontAwesomeIcon icon={faPlus} />
-                                    <span>Add Employment</span>
+                                    <span className="ml-2">Add Employment</span>
                                 </span>
                             </button>
                         </div>
                     </div>
-                    <div className="cv-education">
+                    <div className="cv-education mb-5">
                         <div className="cv-section-title">Education</div>
-                        <p>
+                        <p className="cv-section-desc">
                             If relevant, include your most recent educational achievements and
                             the dates here
                         </p>
                         <div className="cv-education-list">
                             {educationElm}
-                            <button onClick={this.onClickAddEducation}>
+                            <button className="cv-section-add-btn" onClick={this.onClickAddEducation}>
                                 <span>
                                     <FontAwesomeIcon icon={faPlus} />
-                                    <span>Add Education</span>
+                                    <span className="ml-2">Add Education</span>
                                 </span>
                             </button>
                         </div>
                     </div>
-                    <div className="skill">
+                    <div className="skill mb-5">
                         <div className="cv-section-title">Skills</div>
                         <div className="cv-skill-list">
                             {skillsElm}
-                            <button onClick={this.onClickAddSkill}>
+                            <button className="cv-section-add-btn" onClick={this.onClickAddSkill}>
                                 <span>
                                     <FontAwesomeIcon icon={faPlus} />
-                                    <span>Add Skill</span>
+                                    <span className="ml-2">Add Skill</span>
                                 </span>
                             </button>
                         </div>
