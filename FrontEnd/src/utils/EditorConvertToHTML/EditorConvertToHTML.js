@@ -32,7 +32,7 @@ class EditorConvertToHTML extends Component {
 
   componentDidMount() {
     let { text } = this.props;
-    const sampleMarkup = text;
+    const sampleMarkup = text === null ? "" : text;
     const blocksFromHTML = convertFromHTML(sampleMarkup);
     const textState = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
