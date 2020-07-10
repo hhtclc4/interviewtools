@@ -65,11 +65,14 @@ router.post("/api/create_collection_candidate", verifyToken, (req, res) => {
       }
     );
     req.body.user.education_id = education.id;
-    User.update(req.body.user, {
-      where: {
-        id: authData.user_id,
-      },
-    }).then(res.sendStatus(200));
+    User.update(
+      { ...req.body.user, type: 1 },
+      {
+        where: {
+          id: authData.user_id,
+        },
+      }
+    ).then(res.sendStatus(200));
   });
 });
 // find all the number of attempt that user do quiz in page PreGame

@@ -306,6 +306,14 @@ export const createCollectionCandidate = (
       },
     })
       .then((res) => {
+        Swal.fire({
+          position: "center",
+          type: "success",
+          title: "Create Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false,
+        });
         console.log("create COLLECTION candidate ", res.data);
       })
       .catch((er) => {

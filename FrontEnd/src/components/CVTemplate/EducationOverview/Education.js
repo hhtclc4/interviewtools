@@ -2,8 +2,8 @@ import React from "react";
 import "./Education.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { Editor } from "react-draft-wysiwyg";
 import { Select, DatePicker } from "antd";
+import moment from "moment";
 import EditorConvertToHTML from "../../../utils/EditorConvertToHTML/EditorConvertToHTML";
 const { Option } = Select;
 
@@ -21,11 +21,11 @@ class EducationOverview extends React.Component {
       education: {
         university: "",
         degree: 0,
-        completion_time: 0,
+        date_begin: "2016-06-01",
+        date_end: "2020-06-01",
         description: "",
       },
       isFill: false,
-      completion_times: [1, 2, 3, 4, 5, 6, 7],
     };
   }
   componentDidMount() {
@@ -75,18 +75,23 @@ class EducationOverview extends React.Component {
       isExpand: !this.state.isExpand,
     });
   };
-  render() {
-    let {
-      isExpand,
-      isFill,
-      education,
-      degrees,
-      completion_times,
-      titles,
-    } = this.state;
-    let menuYears = completion_times.map((experience) => {
-      return <Option key={experience}>{experience}</Option>;
+  onChangeDatePick = (e, name) => {
+    let { education } = this.state;
+    let { onChangeEducationHandler, index } = this.props;
+    let date = moment(e._d).format("YYYY-MM-DD");
+    this.setState({
+      education: {
+        ...education,
+        [name]: date,
+      },
     });
+    onChangeEducationHandler({ ...education, [name]: date }, index);
+  };
+  render() {
+    let { isExpand, isFill, education, degrees, titles } = this.state;
+    let yearexp =
+      parseInt(moment(education.date_end).format("YYYY")) -
+      parseInt(moment(education.date_begin).format("YYYY"));
     let menuDegrees = degrees.map((degree) => {
       return <Option key={degree.index}>{degree.title}</Option>;
     });
@@ -104,7 +109,7 @@ class EducationOverview extends React.Component {
               <div className="emp-experience-year">
                 {isFill ? (
                   <div className="emp-experience-year">
-                    {education.completion_time} years training
+                    Under {yearexp} years training
                   </div>
                 ) : null}
               </div>
@@ -153,10 +158,16 @@ class EducationOverview extends React.Component {
                       {menuYears}
                     </Select> */}
                     <div className="cv-start-date">
-                      <DatePicker picker="month" />
+                      <DatePicker
+                        picker="month"
+                        onChange={(e) => this.onChangeDatePick(e, "date_begin")}
+                      />
                     </div>
                     <div className="cv-end-date">
-                      <DatePicker picker="month" />
+                      <DatePicker
+                        picker="month"
+                        onChange={(e) => this.onChangeDatePick(e, "date_end")}
+                      />
                     </div>
                   </div>
                 </div>
