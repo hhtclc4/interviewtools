@@ -30,7 +30,7 @@
             text-align: left;
             background-color: transparent;
             &:hover {
-                background-color: hsl(180, 100%, 99%);
+                background-color: #f2f5fa;
             }
             * {
                 color: #fd7e14;
@@ -48,15 +48,40 @@
                     margin-bottom: 20px;
                     .cv-input-title {
                         color: gray;
+                        font-family: Open Sans;
+                        font-size: 14px;
                     }
                     .cv-input-ipt {
                         width: 90%;
                         input {
                             width: 100%;
+                            border: 2px solid white;
+                            background-color: #f2f5fa;
+                            font-family: QuickSand;
+                            padding: 2px;
+                            &:focus {
+                                border: 2px solid white;
+                                border-bottom: 2px solid #3399ff;
+                                transition: all 0.1s ease;
+                                .ipt-bottom-bar {
+                                    width: 100%;
+                                    background-color: black;
+                                }
+                            }
                         }
                         img {
                             width: 60px;
                             height: 60px;
+                        }
+                        .ant-picker {
+                            .ant-picker-input {
+                                input {
+                                    background-color: transparent;
+                                    &:focus {
+                                        border: 2px solid white;
+                                    }
+                                }
+                            }
                         }
                         .cv-input-img-edit {
                             top: 0;

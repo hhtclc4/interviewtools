@@ -161,8 +161,10 @@ class SignupPopup extends React.Component {
                     </button>
                     <div className="some-dash"></div>
                   </div>
-                  <div className="signup-body text-center">
-                    <p>Sign up with Google:</p>
+                  <div className="signup-body text-center"
+
+                  >
+                    <p>Sign up with Google or Facebook</p>
                     <GoogleLogin
                       clientId="72432990177-9d1ivvugg4v5hgk03m18g8fableckntd.apps.googleusercontent.com"
                       disabled={false}

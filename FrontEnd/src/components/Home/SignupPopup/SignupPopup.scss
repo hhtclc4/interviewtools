@@ -31,7 +31,6 @@ $concept-color: #f17e14;
         .signup-pop-inner {
             background-color: #fff;
             border-radius: 10px;
-            height: fit-content;
 
             transition: height 0.3 ease;
             .signup-header {
@@ -67,6 +66,14 @@ $concept-color: #f17e14;
                 }
             }
             .signup-body {
+                @keyframes scaleHeight {
+                    0% {
+                        transform: scale(1);
+                    }
+                    100% {
+                        transform: scaleY(1.4);
+                    }
+                }
                 p {
                     font-family: QuickSand;
                 }
@@ -75,7 +82,20 @@ $concept-color: #f17e14;
                     color: white !important;
                     top: 0;
                 }
-
+                .kep-login-facebook {
+                    padding: 0.5rem 0.4rem !important;
+                    top: 0;
+                    margin-left: 10px;
+                    margin-top: 6px;
+                    height: 45px;
+                    font-size: 14px;
+                    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+                    border: none;
+                    &:hover {
+                        box-shadow: none;
+                        background-color: #5b84d7;
+                    }
+                }
                 .divide-or {
                     font-size: 14px;
                     font-weight: 400;

@@ -1,13 +1,16 @@
 .wysiwyg-com {
     .demo-wrapper {
         width: 100%;
-        border: 1px solid #a9a9a9;
+        border: 1px solid #dddddd;
     }
 
     .demo-editor {
         width: 100%;
         padding-left: 10px;
         min-height: 100px;
+        background-color: #f2f5fa;
+        font-family: QuickSand;
+        font-size: 14px;
     }
 
     .contain-text-editor {

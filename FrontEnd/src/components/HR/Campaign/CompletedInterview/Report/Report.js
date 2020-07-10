@@ -182,7 +182,7 @@ class InterviewReport extends React.Component {
         </div>
 
         <div className="interview-report-body d-flex flex-row"
-          style={reportBody ? { display: "none" } : { height: "0" }}
+          style={reportBody ? { display: "block" } : { height: "0" }}
         >
           <div className="in-report-can-result d-flex flex-row">
             <div className="can-overview-list ">
