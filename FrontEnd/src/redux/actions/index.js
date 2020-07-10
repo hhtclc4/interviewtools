@@ -679,6 +679,7 @@ export const updateQuestionAndAnswersAPI = (question, answers, index) => {
       });
   };
 };
+
 export const updateQuestion = (data, index) => {
   return (dispatch) => {
     axios({
@@ -1176,7 +1177,7 @@ export const getQuestionTableByCode = (code) => {
 export const closeQuestionTableByCode = () => {
   return { type: types.CLOSE_CODE_QUESTION_TABLE };
 };
-export const generateCode = (id) => {
+export const generateCode = (data) => {
   return (dispatch) => {
     axios({
       method: "post",
@@ -1184,7 +1185,7 @@ export const generateCode = (id) => {
       headers: {
         "content-type": "application/json",
       },
-      data: { id },
+      data,
     })
       .then((res) => {
         console.log("API sho CODE", res.data);

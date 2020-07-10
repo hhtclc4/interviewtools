@@ -138,7 +138,10 @@ router.post("/api/genarate_code", async (req, res) => {
     let check = 0;
     await count().then((a) => (check = a));
     if (check) {
-      QuestionTable.update({ code: code }, { where: { id: req.body.id } })
+      QuestionTable.update(
+        { code: code, ...req.body },
+        { where: { id: req.body.id } }
+      )
         .then(() => {
           res.redirect(`/api/questiontable/${req.body.id}`);
         })

@@ -85,6 +85,11 @@ const QuestionTable = db.define("question_table", {
     primaryKey: false,
     foreignKey: [Object],
   },
+  max_time: {
+    type: "time",
+    allowNull: true,
+    primaryKey: false,
+  },
 });
 
 module.exports = QuestionTable;

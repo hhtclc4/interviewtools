@@ -12,7 +12,11 @@ class QuizControlHostGame extends React.Component {
     this.state = {
       code: null,
       title: "",
-      questions: [],
+      questions: [
+        {
+          time: 0,
+        },
+      ],
       listDay: [
         {
           key: "",
@@ -23,22 +27,19 @@ class QuizControlHostGame extends React.Component {
         key: "",
         name: "",
       },
-      selectHour: "12",
-      selectMinute: "00",
+      selectHour: "0",
+      selectMinute: "0",
     };
   }
   componentDidMount() {
     let question_table_id = parseInt(this.props.match.params.question_table_id);
     this.props.showListQuestionAnswer(question_table_id);
-    let listDay = this.getDay();
-    this.setState({
-      listDay: listDay,
-      selectDay: listDay[1],
-    });
   }
   onClickGenerateCodeHandler = () => {
     let question_table_id = parseInt(this.props.match.params.question_table_id);
-    this.props.generateCode(question_table_id);
+    let { selectHour, selectMinute } = this.state;
+    let max_time = `${selectHour}:${selectMinute}`;
+    this.props.generateCode({ id: question_table_id, max_time });
   };
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
@@ -59,60 +60,13 @@ class QuizControlHostGame extends React.Component {
   };
   getHour = () => {
     let listHour = [];
-    for (let i = 1; i <= 24; i++) listHour.push(`${i}`);
+    for (let i = 0; i <= 5; i++) listHour.push(`${i}`);
     return listHour;
   };
-  getDay = () => {
-    const monthNames = [
-      0,
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    let select = [];
-    let d = new Date();
-    let begin = d.getDate();
-    for (let i = begin; i < begin + 10; i++) {
-      let year = d.getFullYear();
-      let month = d.getMonth() + 1;
-      let daysInMonth = new Date(year, month, 0).getDate();
-      if (i <= daysInMonth)
-        select.push({
-          key: `${monthNames[month]}-${this.orderNumber(i)}`,
-          name: `${monthNames[month]} ${this.orderNumber(i)}`,
-        });
-      else {
-        let j = i - daysInMonth;
-        if (month === 12) {
-          year++;
-          month = 1;
-        } else month++;
-        select.push({
-          key: `${monthNames[month]}-${this.orderNumber(j)}`,
-          name: `${monthNames[month]} ${this.orderNumber(j)}`,
-        });
-      }
-    }
-    return select;
-  };
-  handleMenuDayClick = (event) => {
-    let { listDay, selectDay } = this.state;
-    let selectName = listDay.find((item) => item.key === event.key).name;
-    this.setState({
-      selectDay: {
-        ...selectDay,
-        name: selectName,
-      },
-    });
+  getMinute = () => {
+    let list = [];
+    for (let i = 0; i <= 60; i += 5) list.push(`${i}`);
+    return list;
   };
   handleMenuHourClick = (event, listHour) => {
     let selectName = listHour.find((item) => item === event.key);
@@ -127,24 +81,22 @@ class QuizControlHostGame extends React.Component {
     });
   };
   render() {
-    let {
-      code,
-      selectDay,
-      listDay,
-      selectHour,
-      selectMinute,
-      title,
-      questions,
-    } = this.state;
+    let { code, selectHour, selectMinute, title, questions } = this.state;
     let listHour = this.getHour();
-    let listMinute = ["00", "15", "30", "45"];
-    let day = (
-      <Menu onClick={this.handleMenuDayClick}>
-        {listDay.map((item) => {
-          return <Menu.Item key={item.key}>{item.name}</Menu.Item>;
-        })}
-      </Menu>
-    );
+    let listMinute = this.getMinute();
+    console.log(this.state);
+    let totalHour = 0;
+    let totalMinute = 0;
+    let totalSecond = 0;
+
+    questions.forEach((question) => {
+      totalSecond += question.time;
+      if (totalSecond >= 60) {
+        totalMinute += 1;
+        let temp = totalSecond % 60;
+        totalSecond = temp;
+      }
+    });
     const hour = (
       <Menu onClick={(event) => this.handleMenuHourClick(event, listHour)}>
         {listHour.map((hour) => {
@@ -163,24 +115,23 @@ class QuizControlHostGame extends React.Component {
       <div className="quiz-control-host-game-container">
         <div className="quiz-name">{title}</div>
         <div className="quiz-num">{questions.length} questions</div>
-        <div className="quiz-step-text">
-          Students should complete the quiz by:
+        <div className="quiz-time-left">
+          Total Question Time is ~ {totalHour}h:{totalMinute}m:{totalSecond}s
         </div>
-        <div className="quiz-end-day">
-          <Dropdown overlay={day} trigger={["click"]}>
-            <Button>
-              <Icon type="calendar" /> {selectDay.name} <Icon type="down" />
-            </Button>
-          </Dropdown>
+
+        <div className="quiz-step-text">
+          Time that should complete the quiz is:
         </div>
 
         <div className="quiz-end-hour-minute">
           <div className="hour">
             <Dropdown overlay={hour} trigger={["click"]}>
               <Button style={{ width: "100px" }}>
+                <Icon type="clock" />
                 {selectHour} <Icon type="down" />
               </Button>
             </Dropdown>
+            Hour:
           </div>
           <div className="minute">
             <Dropdown overlay={minute} trigger={["click"]}>
@@ -188,12 +139,8 @@ class QuizControlHostGame extends React.Component {
                 {selectMinute} <Icon type="down" />
               </Button>
             </Dropdown>
+            Minute
           </div>
-        </div>
-
-        <div className="quiz-time-left">
-          <span>1</span> day, <span>1</span> hour, <span>1</span> minute from
-          now
         </div>
 
         <div className="quiz-hosting-btn">
@@ -209,8 +156,8 @@ class QuizControlHostGame extends React.Component {
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    generateCode: (question_table_id) => {
-      dispatch(actions.generateCode(question_table_id));
+    generateCode: (data) => {
+      dispatch(actions.generateCode(data));
     },
     showListQuestionAnswer: (question_table_id) => {
       dispatch(actions.showListQuestionAnswer(question_table_id));

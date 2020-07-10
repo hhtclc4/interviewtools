@@ -6,6 +6,9 @@ import * as actions from "../../redux/actions/index";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { withRouter } from "react-router-dom";
 import QuizAttempt from "./QuizAttempt/QuizAttempt";
+import Countdown from "../DoingQuiz/CountDown/CountDown";
+import moment from "moment";
+
 class PreGame extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,7 @@ class PreGame extends React.Component {
         title: "",
         image: "",
         questions: [],
+        max_time: null,
       },
     };
   }
@@ -42,6 +46,10 @@ class PreGame extends React.Component {
       });
     }
   }
+  updateTime = (max_time) => {
+    let id = this.props.match.params.question_table_id;
+    this.props.updateTable({ id, max_time });
+  };
   render() {
     let {
       data,
@@ -52,6 +60,20 @@ class PreGame extends React.Component {
     } = this.state;
     let question_table_id = this.props.match.params.question_table_id;
     let { history } = this.props;
+    let then = "";
+    if (question_table.max_time !== null) {
+      if (question_table.max_time !== "00:00:00") {
+        let nowArr = moment().format("HH:mm:ss").split(":");
+        let addArr = question_table.max_time.split(":");
+        let second = (parseInt(nowArr[2]) + parseInt(addArr[2])) % 60;
+        let add = parseInt(nowArr[2]) + parseInt(addArr[2]) >= 60 ? 1 : 0;
+        then = `${parseInt(nowArr[0]) + parseInt(addArr[0]) - 7}:${
+          parseInt(nowArr[1]) + parseInt(addArr[1]) + add
+        }:${second}`;
+      }
+    }
+    console.log(then);
+
     if (attempt_length && access && question_table.questions.length !== 0) {
       this.props.getCurrentRecord(
         question_table_id,
@@ -99,17 +121,29 @@ class PreGame extends React.Component {
             <div className="practice-btn-group">
               <button
                 onClick={() => history.push(`/game/${question_table_id}`)}
+                disabled={question_table.max_time === "00:00:00" ? true : false}
+                style={
+                  question_table.max_time === "00:00:00"
+                    ? { opacity: "60%" }
+                    : null
+                }
               >
                 {isNotDoneYet ? "Resume Quiz" : "Do Quiz"}
               </button>
             </div>
-            <img
+            {/* <img
               style={{ width: "100%", margin: "30px auto" }}
               src={require("./images/no-settings.png")}
               alt="no-settings"
-            />
+            /> */}
             <h3 style={{ textAlign: "center", color: "white" }}>
-              Setting comming soon
+              {question_table.max_time !== null ? (
+                <Countdown
+                  timeTillDate={then}
+                  timeFormat="HH:mm:ss "
+                  updateTime={this.updateTime}
+                />
+              ) : null}
             </h3>
           </div>
         </div>
@@ -132,6 +166,9 @@ const mapDispatchToProps = (dispatch, props) => {
       dispatch(
         actions.getCurrentRecord(question_table_id, attempt_id, questionLength)
       );
+    },
+    updateTable: (data) => {
+      dispatch(actions.updateTable(data));
     },
   };
 };

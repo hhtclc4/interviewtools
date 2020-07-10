@@ -3,6 +3,8 @@ const initialState = {
   campaign: {
     subjects: [{ id: 0, title: "" }],
   },
+  max_time: null,
+
   questions: [
     {
       id: 0,

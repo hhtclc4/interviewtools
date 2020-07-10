@@ -7,6 +7,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "./../../redux/actions/index";
 import PageNumberStart from "./PageNumber/Start/Start";
+import moment from "moment";
+import Countdown from "./CountDown/CountDown";
 
 let showQuestion;
 let showPage;
@@ -34,6 +36,7 @@ class DoingQuiz extends React.Component {
       isDone: false,
       accessToPush: false,
       right_answer: 0,
+      max_time: null,
 
       attempt_length: 0,
       access: true,
@@ -53,6 +56,7 @@ class DoingQuiz extends React.Component {
       questions: nextProps.questionTable.questions,
       attempt_length: nextProps.questionTable.attempt_length,
       access: nextProps.attempt.access,
+      max_time: nextProps.questionTable,
     });
     if (nextProps.attempt.count !== 0 && this.state.access) {
       pageNumber = nextProps.attempt.count + 1;
@@ -248,6 +252,7 @@ class DoingQuiz extends React.Component {
       questions,
       access,
       accessToPush,
+      max_time,
     } = this.state;
     let element = "";
     if (accessToPush)
@@ -260,6 +265,12 @@ class DoingQuiz extends React.Component {
           questions.length
         );
       }
+      let nowArr = moment().format("LTS").split(":");
+      let addArr = max_time.split(":");
+
+      let then = `${parseInt(nowArr[0]) + parseInt(addArr[0]) - 7}:${
+        parseInt(nowArr[1]) + parseInt(addArr[1])
+      }:${nowArr[2]}`;
       if (questions[0].id !== 0) element = this.showPageNumber();
       else element = "";
     }
