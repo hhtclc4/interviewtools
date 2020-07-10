@@ -47,6 +47,13 @@
     }
     .cv-preview-body {
         padding: 5% 15%;
+
+        .cv-desc-editor {
+            * {
+                font-size: 12px;
+                font-family: QuickSand;
+            }
+        }
         .cv-pre-title {
             font-weight: bold;
             font-family: "Times New Roman", Times, serif;

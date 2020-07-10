@@ -45,13 +45,13 @@ class CVPreview extends React.Component {
         <div className="cv-pre-section-item" key={index}>
           <div className="section-overview">{`${
             positions[employment.position].title
-          }, ${employment.company}, ${employment.city}`}</div>
+            }, ${employment.company}, ${employment.city}`}</div>
           <div className="section-year">July 2018 - July 2020</div>
           <div className="section-description">
             {" "}
             <Editor
-              wrapperClassName="work-desc-wrapper"
-              editorClassName="work-desc-editor"
+              wrapperClassName="cv-desc-wrapper"
+              editorClassName="cv-desc-editor"
               toolbarClassName="d-none"
               editorState={EditorState.createWithContent(textStateEmployment)}
             />
@@ -70,13 +70,13 @@ class CVPreview extends React.Component {
         <div className="cv-pre-section-item" key={index}>
           <div className="section-overview">{`${degrees[edu.degree]}, ${
             edu.university
-          }, Ho Chi Minh City`}</div>
+            }, Ho Chi Minh City`}</div>
           <div className="section-year">July 2016 - July 2020</div>
           <div className="section-description">
             {" "}
             <Editor
-              wrapperClassName="work-desc-wrapper"
-              editorClassName="work-desc-editor"
+              wrapperClassName="cv-desc-wrapper"
+              editorClassName="cv-desc-editor"
               toolbarClassName="d-none"
               editorState={EditorState.createWithContent(textStateEducation)}
             />
@@ -93,7 +93,7 @@ class CVPreview extends React.Component {
           <div className="cv-skill-lvl-bar">
             <div
               className="progress"
-              style={{ width: `${skill.level * 20}%` }}
+              style={{ width: `${skill.level * 20 + 20}%` }}
             ></div>
           </div>
         </div>
@@ -131,8 +131,8 @@ class CVPreview extends React.Component {
           <div className="cv-pre-profile">
             <div className="cv-pre-title">Profile</div>
             <Editor
-              wrapperClassName="work-desc-wrapper"
-              editorClassName="work-desc-editor"
+              wrapperClassName="cv-desc-wrapper"
+              editorClassName="cv-desc-editor"
               toolbarClassName="d-none"
               editorState={EditorState.createWithContent(textStateUser)}
             />

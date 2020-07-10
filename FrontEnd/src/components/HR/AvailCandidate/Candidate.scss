@@ -1,0 +1,31 @@
+.avail-candidate-container {
+    margin-top: 25px;
+    width: 100%;
+    height: fit-content;
+
+    .a-can-search {
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        height: 130px;
+    }
+    .a-can-header {
+        padding-top: 2rem;
+        .a-can-header-title {
+            font-family: Open Sans;
+            font-weight: bold;
+            font-size: 24px;
+        }
+    }
+    .a-can-body {
+        display: flex;
+        flex-direction: row;
+
+        .a-can-list {
+            width: 80%;
+        }
+        .a-can-filter {
+            width: 20%;
+        }
+    }
+}

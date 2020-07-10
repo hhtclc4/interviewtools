@@ -37,9 +37,19 @@ class EmploymentOverview extends React.Component {
     });
   }
   toggleEmpDetail = () => {
-    this.setState({
-      isExpand: !this.state.isExpand,
-    });
+    let { isExpand } = this.state;
+    if (isExpand === false) {
+      this.setState({
+        isExpand: !isExpand,
+      });
+    } else {
+      setTimeout(() => {
+        this.setState({
+          isExpand: false,
+        });
+      }, 150);
+    }
+
   };
 
   onChangeEditorEmploymentHandler = (description) => {
@@ -96,8 +106,8 @@ class EmploymentOverview extends React.Component {
               <span className="emp-position-employer">
                 {isFill
                   ? `${positions[employment.position].title} at ${
-                      employment.company
-                    }`
+                  employment.company
+                  }`
                   : "(Not specified)"}
               </span>
               {isFill ? (
@@ -114,14 +124,14 @@ class EmploymentOverview extends React.Component {
                 {isExpand ? (
                   <FontAwesomeIcon icon={faChevronUp} />
                 ) : (
-                  <FontAwesomeIcon icon={faChevronDown} />
-                )}
+                    <FontAwesomeIcon icon={faChevronDown} />
+                  )}
               </button>
             </div>
           </div>
           <div
-            className="employment-detail-info"
-            style={isExpand ? { display: "block" } : { display: "none" }}
+            className={isExpand ? "employment-detail-info emp-open" : "employment-detail-info emp-exit"}
+            style={isExpand ? { display: "block" } : { animation: "closeEmp 0.3s ease" }}
           >
             <div className="cv-section-input">
               <div className="half">
@@ -200,7 +210,7 @@ class EmploymentOverview extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }

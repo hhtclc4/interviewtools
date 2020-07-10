@@ -5,6 +5,8 @@ import CampaignOverview from "./CampaignOverview/CampaignOverview";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 import { withRouter } from "react-router-dom";
+import { Tabs, Panel } from '../../utils/Tab/Tabs'
+import AvailCandidate from './AvailCandidate/Candidate'
 
 class HRstaff extends React.Component {
   constructor(props) {
@@ -62,19 +64,40 @@ class HRstaff extends React.Component {
             <div className="col-sm-1"></div>
             <div className="col-sm-10 hr-manage-container">
               <div className="hr-manage-header d-flex flex-row justify-content-between">
-                <p className="hr-campaign-count align-self-center">
+                <Tabs selected={1}>
+
+
+                  {/* <p className="hr-campaign-count align-self-center">
                   All campaigns ({data.length})
-                </p>
+                  </p> */}
+                  <Panel
+                    title={`All campaigns (${data.length})`}
+                  >
+                    <div className="hr-manage-body d-flex flex-row">
+                      <div className="hr-created-list  d-flex flex-column mt-4">
+                        {tabElm}
+                      </div>
+                      <div className="hr-manage-stat-container mt-4">
+                        <div className="hr-manage-stat"></div>
+                      </div>
+                    </div>
+                  </Panel>
+                  <Panel
+                    title="All available candidates"
+                  >
+                    <AvailCandidate />
+                  </Panel>
+                </Tabs>
               </div>
 
-              <div className="hr-manage-body d-flex flex-row">
+              {/* <div className="hr-manage-body d-flex flex-row">
                 <div className="hr-created-list  d-flex flex-column mt-4">
                   {tabElm}
                 </div>
                 <div className="hr-manage-stat-container mt-4">
                   <div className="hr-manage-stat"></div>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="col-sm-1"></div>
           </div>
