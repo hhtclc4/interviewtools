@@ -1,0 +1,61 @@
+.collected-candidate-container {
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 115px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    .util-popup-inner {
+        width: 40%;
+    }
+    .c-can-ava {
+        img {
+            height: 84px;
+            width: 84px;
+        }
+    }
+    .c-can-info {
+        width: 30%;
+        .c-can-name {
+        }
+
+        .c-can-postion {
+        }
+
+        .c-can-contact {
+            display: flex;
+            flex-direction: row;
+            .contact-email {
+                margin-right: 10px;
+            }
+            .contact-phone {
+            }
+        }
+    }
+    .c-can-skills {
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // display: -webkit-box;
+        // -webkit-line-clamp: 3;
+        // -webkit-box-orient: vertical;
+        .can-skill {
+            display: flex;
+            flex-direction: row;
+            max-width: 200px;
+            height: 34px;
+            padding: 5px 10px;
+            &:hover {
+                background-color: #f2f2f2;
+                border-radius: 25px;
+            }
+        }
+    }
+    .c-can-actions {
+        width: 20%;
+    }
+}

@@ -1,3 +1,5 @@
+$concept-color: #fd7e14;
+
 .avail-candidate-container {
     margin-top: 25px;
     width: 100%;
@@ -24,8 +26,27 @@
         .a-can-list {
             width: 80%;
         }
-        .a-can-filter {
+        .a-can-filters {
             width: 20%;
+            margin-left: 40px;
+            .a-can-feature-filter {
+                .a-can-filter-header {
+                    background-color: #fff;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                }
+                .a-can-filter-body {
+                    margin-top: 0.5em;
+                    height: fit-content;
+                    border-left: 1px solid $concept-color;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 5px 5px;
+                    .ant-checkbox-wrapper {
+                        margin: 0;
+                    }
+                }
+            }
         }
     }
 }
