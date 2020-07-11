@@ -9,7 +9,6 @@ import * as actions from "./../../redux/actions/index";
 import PageNumberStart from "./PageNumber/Start/Start";
 import moment from "moment";
 import Countdown from "./CountDown/CountDown";
-
 let showQuestion;
 let showPage;
 let pageNumber;
@@ -56,7 +55,7 @@ class DoingQuiz extends React.Component {
       questions: nextProps.questionTable.questions,
       attempt_length: nextProps.questionTable.attempt_length,
       access: nextProps.attempt.access,
-      max_time: nextProps.questionTable,
+      max_time: nextProps.questionTable.max_time,
     });
     if (nextProps.attempt.count !== 0 && this.state.access) {
       pageNumber = nextProps.attempt.count + 1;
@@ -97,7 +96,7 @@ class DoingQuiz extends React.Component {
     };
     if (question_id) {
       pageNumber += 1;
-      this.props.addAnswerRecord(data);
+      // this.props.addAnswerRecord(data);
       console.log(data);
     }
   };
@@ -245,6 +244,10 @@ class DoingQuiz extends React.Component {
       step: 3,
     });
   };
+  updateTime = (max_time) => {
+    let id = this.state.question_table_id;
+    this.props.updateTable({ id, max_time });
+  };
   render() {
     let {
       attempt_length,
@@ -255,6 +258,8 @@ class DoingQuiz extends React.Component {
       max_time,
     } = this.state;
     let element = "";
+    let then = "";
+
     if (accessToPush)
       this.props.history.push(`/pre-game/${question_table_id}/review`);
     else {
@@ -265,16 +270,42 @@ class DoingQuiz extends React.Component {
           questions.length
         );
       }
-      let nowArr = moment().format("LTS").split(":");
-      let addArr = max_time.split(":");
-
-      let then = `${parseInt(nowArr[0]) + parseInt(addArr[0]) - 7}:${
-        parseInt(nowArr[1]) + parseInt(addArr[1])
-      }:${nowArr[2]}`;
-      if (questions[0].id !== 0) element = this.showPageNumber();
-      else element = "";
+      if (questions[0].id !== 0) {
+        element = this.showPageNumber();
+        if (max_time !== null) {
+          if (max_time !== "00:00:00") {
+            let nowArr = moment().format("HH:mm:ss").split(":");
+            let addArr = max_time.split(":");
+            let second = (parseInt(nowArr[2]) + parseInt(addArr[2])) % 60;
+            let addSecond =
+              parseInt(nowArr[2]) + parseInt(addArr[2]) >= 60 ? 1 : 0;
+            let addMinute =
+              parseInt(nowArr[1]) + parseInt(addArr[1]) + addSecond >= 60
+                ? 1
+                : 0;
+            let minute =
+              (parseInt(nowArr[1]) + parseInt(addArr[1]) + addSecond) % 60;
+            then = `${
+              parseInt(nowArr[0]) + parseInt(addArr[0]) - 7 + addMinute
+            }:${minute}:${second}`;
+          }
+        }
+      } else element = "";
     }
-    return <div className="doing-quiz-container">{element}</div>;
+    return (
+      <div className="doing-quiz-container">
+        {element}
+        <div>
+          {max_time !== null ? (
+            <Countdown
+              timeTillDate={then}
+              timeFormat="HH:mm:ss"
+              updateTime={this.updateTime}
+            />
+          ) : null}
+        </div>
+      </div>
+    );
   }
 }
 const mapDispatchToProps = (dispatch, props) => {
@@ -301,6 +332,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     resetAttemptRedux: () => {
       dispatch(actions.resetAttemptRedux());
+    },
+    updateTable: (data) => {
+      dispatch(actions.updateTable(data));
     },
   };
 };

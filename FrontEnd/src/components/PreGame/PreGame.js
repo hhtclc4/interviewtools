@@ -17,7 +17,6 @@ class PreGame extends React.Component {
       access: true,
       attempt_length: 0,
       isNotDoneYet: false,
-
       question_table: {
         title: "",
         image: "",
@@ -66,12 +65,19 @@ class PreGame extends React.Component {
         let nowArr = moment().format("HH:mm:ss").split(":");
         let addArr = question_table.max_time.split(":");
         let second = (parseInt(nowArr[2]) + parseInt(addArr[2])) % 60;
-        let add = parseInt(nowArr[2]) + parseInt(addArr[2]) >= 60 ? 1 : 0;
-        then = `${parseInt(nowArr[0]) + parseInt(addArr[0]) - 7}:${
-          parseInt(nowArr[1]) + parseInt(addArr[1]) + add
-        }:${second}`;
+        let addSecond = parseInt(nowArr[2]) + parseInt(addArr[2]) >= 60 ? 1 : 0;
+        let addMinute =
+          parseInt(nowArr[1]) + parseInt(addArr[1]) + addSecond >= 60 ? 1 : 0;
+        let minute =
+          (parseInt(nowArr[1]) + parseInt(addArr[1]) + addSecond) % 60;
+        then = `${
+          parseInt(nowArr[0]) + parseInt(addArr[0]) - 7 + addMinute
+        }:${minute}:${second}`;
       }
     }
+    console.log(question_table);
+
+    console.log("max", question_table.max_time);
     console.log(then);
 
     if (attempt_length && access && question_table.questions.length !== 0) {
