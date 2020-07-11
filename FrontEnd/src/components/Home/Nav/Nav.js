@@ -20,6 +20,7 @@ class HomeNav extends React.Component {
         email: "",
         role_id: 0,
         avatar: "",
+        type: 0,
       },
     };
   }
@@ -55,13 +56,14 @@ class HomeNav extends React.Component {
 
     const userActions = (
       <Menu>
-        {/* <Menu.Item
+        <Menu.Item
+          disabled={data.type ? false : true}
           onClick={() => {
-            history.push("/upgrade");
+            history.push("/cvcreator");
           }}
         >
-          Upgrade
-        </Menu.Item> */}
+          Publish your CV
+        </Menu.Item>
         <Menu.Item
           onClick={() => {
             history.push("/join");

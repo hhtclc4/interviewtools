@@ -10,6 +10,8 @@ let initialState = {
   role_id: 0,
   isDoneSignUp: false,
   isDoneLogin: false,
+  type: 0,
+  description: "",
 };
 let myReducer = (state = initialState, action) => {
   switch (action.type) {

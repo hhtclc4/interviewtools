@@ -14,6 +14,8 @@ let initialState = {
       image: "",
       address: "",
     },
+    type: 0,
+    description: "",
   },
 };
 let myReducer = (state = initialState, action) => {
@@ -45,7 +47,7 @@ let myReducer = (state = initialState, action) => {
     case types.UPDATE_USER:
       return {
         ...state,
-        user: action.data,
+        user: { ...state.user, ...action.data },
       };
     case types.CLOSE_CODE_QUESTION_TABLE:
       return {

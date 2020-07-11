@@ -7,7 +7,6 @@ import { faPlus, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import EducationOverview from "./EducationOverview/Education";
 import SkillOverview from "./SkillOverview/Skill";
 import CVPreview from "./CVPreview/CVPreview";
-
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 import EditorConvertToHTML from "../../utils/EditorConvertToHTML/EditorConvertToHTML";
@@ -23,13 +22,14 @@ class CVTemplateCreator extends React.Component {
         avatar: "",
         job_title: "",
         description: "",
+        type: 1,
       },
       education: [
         {
           university: "",
           degree: 0,
-          date_begin: "2016-06-14",
-          date_end: "2020-06-14",
+          date_begin: "2016-06",
+          date_end: "2020-06",
           description: "",
         },
       ],
@@ -46,8 +46,8 @@ class CVTemplateCreator extends React.Component {
           position: 0,
           company: "",
           city: "",
-          date_begin: "2016-06-14",
-          date_end: "2020-06-14",
+          date_begin: "2016-06-01",
+          date_end: "2020-06-01",
           description: "",
         },
       ],
@@ -179,6 +179,26 @@ class CVTemplateCreator extends React.Component {
       },
     });
   };
+  onClickSaveHandler = () => {
+    let { user, education, employments, skills } = this.state;
+    this.props.createCollectionCandidate(
+      user,
+      education[0],
+      employments,
+      skills
+    );
+    this.props.history.goBack();
+  };
+  fileChangedHandler = (event) => {
+    let fileReader = new FileReader();
+    if (event.target.files[0]) {
+      fileReader.readAsDataURL(event.target.files[0]); // fileReader.result -> URL.
+      fileReader.onload = (progressEvent) => {
+        let url = fileReader.result;
+        this.props.uploadAvatarImage(url);
+      };
+    }
+  };
   render() {
     let { user, employments, listSubjects, skills, education } = this.state;
     let employmentElm = employments.map((employment, index) => {
@@ -236,13 +256,23 @@ class CVTemplateCreator extends React.Component {
                 <div className="cv-input">
                   <div className="cv-input-title">Name</div>
                   <div className="cv-input-ipt">
-                    <input value={user.name} name="name" />
+                    <input
+                      value={user.name}
+                      name="name"
+                      disabled={true}
+                      onChange={this.onChangeUserHandler}
+                    />
                   </div>
                 </div>
                 <div className="cv-input">
                   <div className="cv-input-title">Email</div>
                   <div className="cv-input-ipt">
-                    <input value={user.email} name="email" />
+                    <input
+                      value={user.email}
+                      name="email"
+                      disabled={true}
+                      onChange={this.onChangeUserHandler}
+                    />
                   </div>
                 </div>
               </div>
@@ -252,6 +282,12 @@ class CVTemplateCreator extends React.Component {
                     None
                   </div>
                   <div className="cv-input-ipt d-flex flex-row mb-5 mt-3">
+                    <input
+                      style={{ display: "none" }}
+                      type="file"
+                      onChange={this.fileChangedHandler}
+                      ref={(fileInput) => (this.fileInput = fileInput)}
+                    />
                     <img
                       alt="ava"
                       src={
@@ -263,14 +299,23 @@ class CVTemplateCreator extends React.Component {
                     <span className="mx-1 align-self-center">
                       <FontAwesomeIcon icon={faPencilAlt} />
                     </span>
-                    <button className="cv-input-img-edit">Edit</button>
+                    <button
+                      className="cv-input-img-edit"
+                      onClick={() => this.fileInput.click()}
+                    >
+                      Edit
+                    </button>
                   </div>
                 </div>
 
                 <div className="cv-input">
                   <div className="cv-input-title">Phone</div>
                   <div className="cv-input-ipt">
-                    <input value={user.phone} name="phone" />
+                    <input
+                      value={user.phone}
+                      name="phone"
+                      onChange={this.onChangeUserHandler}
+                    />
                   </div>
                 </div>
               </div>
@@ -342,6 +387,10 @@ class CVTemplateCreator extends React.Component {
               </button>
             </div>
           </div>
+          <div className="skill mb-5">
+            <div className="cv-section-title">Save and Publish</div>
+            <button onClick={this.onClickSaveHandler}>Save</button>
+          </div>
         </div>
         <div className="cv-preview">
           <CVPreview
@@ -363,6 +412,14 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     showListSubject: () => {
       dispatch(actions.showListSubject());
+    },
+    createCollectionCandidate: (user, education, employments, skills) => {
+      dispatch(
+        actions.createCollectionCandidate(user, education, employments, skills)
+      );
+    },
+    uploadAvatarImage: (file) => {
+      dispatch(actions.uploadAvatarImage(file));
     },
   };
 };

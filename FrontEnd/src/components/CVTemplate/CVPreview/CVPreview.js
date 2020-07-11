@@ -3,7 +3,7 @@ import "./CVPreview.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons";
-
+import moment from "moment";
 import { EditorState, convertFromHTML, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 class CVPreview extends React.Component {
@@ -24,15 +24,12 @@ class CVPreview extends React.Component {
     let { user, education, skills, employments, listSubjects } = this.props;
     let { degrees, positions } = this.state;
     //
-    let sampleMarkupUser = user.description;
+    let sampleMarkupUser = user.description !== null ? user.description : "";
     let blocksFromHTMLUser = convertFromHTML(sampleMarkupUser);
     let textStateUser = ContentState.createFromBlockArray(
       blocksFromHTMLUser.contentBlocks,
       blocksFromHTMLUser.entityMap
     );
-    //
-
-    //
 
     let employmentsELM = employments.map((employment, index) => {
       let sampleMarkupEmployment = employment.description;
@@ -41,12 +38,17 @@ class CVPreview extends React.Component {
         blocksFromHTMLEmployment.contentBlocks,
         blocksFromHTMLEmployment.entityMap
       );
+      let date_begin = moment(employment.date_begin).format("LL");
+      let date_end = moment(employment.date_end).format("LL");
+
       return (
         <div className="cv-pre-section-item" key={index}>
           <div className="section-overview">{`${
             positions[employment.position].title
-            }, ${employment.company}, ${employment.city}`}</div>
-          <div className="section-year">July 2018 - July 2020</div>
+          }, ${employment.company}, ${employment.city}`}</div>
+          <div className="section-year">
+            {date_begin} - {date_end}
+          </div>
           <div className="section-description">
             {" "}
             <Editor
@@ -66,12 +68,16 @@ class CVPreview extends React.Component {
         blocksFromHTMLEducation.contentBlocks,
         blocksFromHTMLEducation.entityMap
       );
+      let date_begin = moment(edu.date_begin).format("LL");
+      let date_end = moment(edu.date_end).format("LL");
       return (
         <div className="cv-pre-section-item" key={index}>
           <div className="section-overview">{`${degrees[edu.degree]}, ${
             edu.university
-            }, Ho Chi Minh City`}</div>
-          <div className="section-year">July 2016 - July 2020</div>
+          }, Ho Chi Minh City`}</div>
+          <div className="section-year">
+            {date_begin} - {date_end}
+          </div>
           <div className="section-description">
             {" "}
             <Editor

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { Select, DatePicker } from "antd";
 import EditorConvertToHTML from "../../../utils/EditorConvertToHTML/EditorConvertToHTML";
+import moment from "moment";
 
 const { Option } = Select;
 
@@ -20,14 +21,14 @@ class EmploymentOverview extends React.Component {
         { index: 3, title: "Business Analyst" },
         { index: 4, title: "PM" },
       ],
-      experiences: [1, 2, 3, 4, 5, 6, 7],
 
       employment: {
         position: 0,
         company: "",
-        exp: 0,
         city: "",
         description: "",
+        date_begin: "2016-06-01",
+        date_end: "2020-06-01",
       },
     };
   }
@@ -49,7 +50,6 @@ class EmploymentOverview extends React.Component {
         });
       }, 150);
     }
-
   };
 
   onChangeEditorEmploymentHandler = (description) => {
@@ -89,14 +89,27 @@ class EmploymentOverview extends React.Component {
     });
     onChangeEmploymentHandler({ ...employment, [key]: value }, index);
   };
+  onChangeDatePick = (e, name) => {
+    let { employment } = this.state;
+    let { onChangeEmploymentHandler, index } = this.props;
+    let date = moment(e._d).format("YYYY-MM-DD");
+    this.setState({
+      employment: {
+        ...employment,
+        [name]: date,
+      },
+    });
+    onChangeEmploymentHandler({ ...employment, [name]: date }, index);
+  };
   render() {
-    let { isExpand, employment, positions, experiences, isFill } = this.state;
+    let { isExpand, employment, positions, isFill } = this.state;
+    let yearexp =
+      parseInt(moment(employment.date_end).format("YYYY")) -
+      parseInt(moment(employment.date_begin).format("YYYY"));
     let menuPositions = positions.map((position) => {
       return <Option key={position.index}>{position.title}</Option>;
     });
-    let menuYears = experiences.map((experience) => {
-      return <Option key={experience}>{experience}</Option>;
-    });
+
     return (
       <div className="employment-container">
         <div className="emp-container-actions"></div>
@@ -106,14 +119,12 @@ class EmploymentOverview extends React.Component {
               <span className="emp-position-employer">
                 {isFill
                   ? `${positions[employment.position].title} at ${
-                  employment.company
-                  }`
+                      employment.company
+                    }`
                   : "(Not specified)"}
               </span>
               {isFill ? (
-                <div className="emp-experience-year">
-                  {employment.exp} years
-                </div>
+                <div className="emp-experience-year">Under {yearexp} years</div>
               ) : null}
             </div>
             <div className="btn-right align-self-center">
@@ -124,14 +135,22 @@ class EmploymentOverview extends React.Component {
                 {isExpand ? (
                   <FontAwesomeIcon icon={faChevronUp} />
                 ) : (
-                    <FontAwesomeIcon icon={faChevronDown} />
-                  )}
+                  <FontAwesomeIcon icon={faChevronDown} />
+                )}
               </button>
             </div>
           </div>
           <div
-            className={isExpand ? "employment-detail-info emp-open" : "employment-detail-info emp-exit"}
-            style={isExpand ? { display: "block" } : { animation: "closeEmp 0.3s ease" }}
+            className={
+              isExpand
+                ? "employment-detail-info emp-open"
+                : "employment-detail-info emp-exit"
+            }
+            style={
+              isExpand
+                ? { display: "block" }
+                : { animation: "closeEmp 0.3s ease" }
+            }
           >
             <div className="cv-section-input">
               <div className="half">
@@ -165,10 +184,16 @@ class EmploymentOverview extends React.Component {
                       {menuYears}
                     </Select> */}
                     <div className="cv-start-date">
-                      <DatePicker picker="month" />
+                      <DatePicker
+                        picker="month"
+                        onChange={(e) => this.onChangeDatePick(e, "date_begin")}
+                      />
                     </div>
                     <div className="cv-end-date">
-                      <DatePicker picker="month" />
+                      <DatePicker
+                        picker="month"
+                        onChange={(e) => this.onChangeDatePick(e, "date_end")}
+                      />
                     </div>
                   </div>
                 </div>
@@ -210,7 +235,7 @@ class EmploymentOverview extends React.Component {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }
