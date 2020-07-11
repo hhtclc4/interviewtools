@@ -822,14 +822,6 @@ export const updateTable = (data) => {
           type: types.UPDATE_QUESTION_TABLE,
           data: data,
         });
-        Swal.fire({
-          position: "center",
-          type: "success",
-          title: "Update Successfully",
-          showConfirmButton: false,
-          timer: 1500,
-          heightAuto: false,
-        });
       })
       .catch((er) => {
         console.log("er", er);
