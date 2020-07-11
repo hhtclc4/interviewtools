@@ -90,6 +90,14 @@ class HomeNav extends React.Component {
         </Menu.Item>
         <Menu.Item
           onClick={() => {
+            history.push("/invitation");
+          }}
+        >
+          Invitation
+          <span className="number-invitation float-right">1</span>
+        </Menu.Item>
+        <Menu.Item
+          onClick={() => {
             history.push("/");
             localStorage.clear();
           }}
@@ -133,15 +141,15 @@ class HomeNav extends React.Component {
               </Button>
             </Dropdown>
           ) : (
-            <div>
-              <button className="b-log-in" onClick={this.togglePopup}>
-                Login
+              <div>
+                <button className="b-log-in" onClick={this.togglePopup}>
+                  Login
               </button>
-              <button className="b-sign-up" onClick={this.toggleSignupPopup}>
-                Sign up
+                <button className="b-sign-up" onClick={this.toggleSignupPopup}>
+                  Sign up
               </button>
-            </div>
-          )}
+              </div>
+            )}
         </div>
 
         {this.state.loginPopup ? (
