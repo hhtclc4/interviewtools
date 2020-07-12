@@ -1,15 +1,22 @@
+$concept-color: #fd7e14;
+
 .collected-candidate-container {
     background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(250, 250, 250, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
     width: 100%;
     height: 115px;
     padding: 8px;
     display: flex;
     flex-direction: row;
+    margin-bottom: 1px;
+    &:hover {
+        background-color: #f1f1f1;
+    }
     .util-popup-inner {
         width: 40%;
     }
     .c-can-ava {
+        margin-right: 8px;
         img {
             height: 84px;
             width: 84px;
@@ -17,10 +24,18 @@
     }
     .c-can-info {
         width: 30%;
+        margin-right: 10px;
+        * {
+            font-family: QuickSand;
+        }
         .c-can-name {
+            font-size: 20px;
+            font-weight: bold;
         }
 
-        .c-can-postion {
+        .c-can-position {
+            font-size: 15px;
+            color: #737373;
         }
 
         .c-can-contact {
@@ -28,8 +43,11 @@
             flex-direction: row;
             .contact-email {
                 margin-right: 10px;
+                font-size: 15px;
+                flex-basis: 60%;
             }
             .contact-phone {
+                font-size: 15px;
             }
         }
     }
@@ -49,13 +67,45 @@
             max-width: 200px;
             height: 34px;
             padding: 5px 10px;
+            font-family: QuickSand;
             &:hover {
                 background-color: #f2f2f2;
                 border-radius: 25px;
+                cursor: pointer;
             }
+        }
+    }
+    button {
+        top: 0;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: 600;
+        font-family: Open Sans;
+        &:hover {
+            background-color: #bfbfbf;
         }
     }
     .c-can-actions {
         width: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .c-can-invite {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        button {
+            background-color: $concept-color;
+            color: white;
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15), 0 3px 0 #fd7e14, 0 3px 6px rgba(0, 0, 0, 0.45);
+            transition: all 0.1s ease;
+            &:hover {
+                background-color: #fc7303;
+                top: 3px;
+            }
+        }
     }
 }

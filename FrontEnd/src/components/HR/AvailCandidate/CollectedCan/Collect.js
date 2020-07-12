@@ -5,15 +5,18 @@ import {
   faEnvelope,
   faClipboard,
   faStickyNote,
+  faPlusSquare,
 } from "@fortawesome/free-regular-svg-icons";
 import { faPhone, faCheck } from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../../../utils/PopUp/PopUp";
 import AutoNoteAndCV from "./NoteAndCV/NoteAndCV";
+import CollectedInvtite from './Invite/Invite'
 class CollectedCan extends React.Component {
   state = {
     isShowNoteAndCv: false,
     isOpenPopup: false,
     active: 0,
+    isShowInvite: false,
     data: {
       name: "",
       email: "",
@@ -45,12 +48,19 @@ class CollectedCan extends React.Component {
       isOpenPopup: !this.state.isOpenPopup,
     });
   };
+
+  togglePopUpInvite = () => {
+    this.setState({
+      isShowInvite: !this.state.isShowInvite,
+      isOpenPopup: !this.state.isOpenPopup,
+    });
+  }
   render() {
-    let { isShowNoteAndCv, active, data } = this.state;
+    let { isShowNoteAndCv, isShowInvite, active, data } = this.state;
     let subjectsELM = data.subjects.map((subject) => {
       return (
         <div key={subject.id} className="can-skill mr-3 text-truncate">
-          <FontAwesomeIcon icon={faCheck} color="#33cc33" className="mr-1" />
+          <FontAwesomeIcon icon={faCheck} color="#33cc33" className="mr-1 mt-1" />
           {subject.title}
         </div>
       );
@@ -70,16 +80,16 @@ class CollectedCan extends React.Component {
         <div className="c-can-info">
           <div className="c-can-name">{data.name}</div>
           <div className="c-can-position">{data.job_title}</div>
-          <div className="c-can-contact">
-            <div className="contact-email">
+          <div className="c-can-contact ">
+            <div className="contact-email ">
               <span>
-                <FontAwesomeIcon icon={faEnvelope} />
+                <FontAwesomeIcon icon={faEnvelope} className="mr-1" />
                 {data.email}
               </span>
             </div>
-            <div className="contact-phone">
+            <div className="contact-phone ">
               <span>
-                <FontAwesomeIcon icon={faPhone} />
+                <FontAwesomeIcon icon={faPhone} className="mr-1" />
                 {data.phone}
               </span>
             </div>
@@ -96,7 +106,7 @@ class CollectedCan extends React.Component {
                 this.togglePopUp();
               }}
             >
-              <FontAwesomeIcon icon={faClipboard} />
+              <FontAwesomeIcon icon={faClipboard} className="mr-1" />
               CV
             </button>
           </div>
@@ -109,14 +119,19 @@ class CollectedCan extends React.Component {
                 this.togglePopUp();
               }}
             >
-              <FontAwesomeIcon icon={faStickyNote} />
+              <FontAwesomeIcon icon={faStickyNote} className="mr-1" />
               Note
             </button>
-            <button>
-              <FontAwesomeIcon icon={faStickyNote} />
-              Invite to campaign
-            </button>
           </div>
+
+        </div>
+        <div className="c-can-invite">
+          <button
+            onClick={this.togglePopUpInvite}
+          >
+            <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
+              Invite
+            </button>
         </div>
         {isShowNoteAndCv ? (
           <PopUp
@@ -134,6 +149,20 @@ class CollectedCan extends React.Component {
               data={data}
               listSubjects={this.props.listSubjects}
             />
+          </PopUp>
+        ) : null}
+        {isShowInvite ? (
+          <PopUp
+            openPop={(open) => {
+              setTimeout(() => {
+                this.setState({
+                  isShowInvite: !open,
+                  isOpenPopup: false,
+                });
+              }, 150);
+            }}
+          >
+            <CollectedInvtite />
           </PopUp>
         ) : null}
       </div>

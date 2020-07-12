@@ -153,7 +153,18 @@ class AvailCandidate extends React.Component {
     });
     return (
       <div className="avail-candidate-container">
-        <div className="a-can-search"></div>
+        <div className="a-can-search">
+          <input
+            name="search"
+            className="search-ipt"
+            placeholder="Search jobs ..."
+          />
+          <button
+            className="search-btn"
+          >
+            Search
+          </button>
+        </div>
         <div className="a-can-header">
           <div className="a-can-header-title">Collected Candidates</div>
         </div>
@@ -164,7 +175,7 @@ class AvailCandidate extends React.Component {
               <div className="a-can-filter-header">
                 Position
                 <span className="float-right">
-                  <FontAwesomeIcon icon={faPlus} size="lg" />
+                  <FontAwesomeIcon icon={faPlus} size="lg" color="#999" />
                 </span>
               </div>
               <div className="a-can-filter-body">{positionFilter}</div>
@@ -173,7 +184,7 @@ class AvailCandidate extends React.Component {
               <div className="a-can-filter-header">
                 Years Experience
                 <span className="float-right">
-                  <FontAwesomeIcon icon={faPlus} size="lg" />
+                  <FontAwesomeIcon icon={faPlus} size="lg" color="#999" />
                 </span>
               </div>
               <div className="a-can-filter-body">{expFilter}</div>
@@ -182,7 +193,7 @@ class AvailCandidate extends React.Component {
               <div className="a-can-filter-header">
                 Degree Type
                 <span className="float-right">
-                  <FontAwesomeIcon icon={faPlus} size="lg" />
+                  <FontAwesomeIcon icon={faPlus} size="lg" color="#999" />
                 </span>
               </div>
               <div className="a-can-filter-body">{degreesFilter}</div>
@@ -191,7 +202,7 @@ class AvailCandidate extends React.Component {
               <div className="a-can-filter-header">
                 Skills
                 <span className="float-right">
-                  <FontAwesomeIcon icon={faPlus} size="lg" />
+                  <FontAwesomeIcon icon={faPlus} size="lg" color="#999" />
                 </span>
               </div>
               <div className="a-can-filter-body">{skillsFilter}</div>
@@ -200,7 +211,7 @@ class AvailCandidate extends React.Component {
               <div className="a-can-filter-header">
                 Levels
                 <span className="float-right">
-                  <FontAwesomeIcon icon={faPlus} size="lg" />
+                  <FontAwesomeIcon icon={faPlus} size="lg" color="#999" />
                 </span>
               </div>
               <div className="a-can-filter-body">
