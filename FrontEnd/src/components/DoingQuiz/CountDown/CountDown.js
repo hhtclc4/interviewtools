@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import './CountDown.scss'
 class Countdown extends React.Component {
   state = {
     hours: "00",
@@ -49,28 +50,33 @@ class Countdown extends React.Component {
     }
 
     return (
-      <div>
-        <h1>{this.props.timeTillDate === "" ? `Time Out` : `Countdown`}</h1>
+      <div className="count-down-container"
+        style={{ backgroundColor: this.props.backgroundColor }}
+      >
+        <h1 className={this.props.from === "DoingQuiz" ? "d-none" : ""}>{this.props.timeTillDate === "" ? `Time Out` : `Countdown`}</h1>
         <div className="countdown-wrapper">
           {hours && (
             <div className="countdown-item">
               <SVGCircle radius={hoursRadius} />
-              {hours}
-              <span>hours</span>
+              <div style={{ fontFamily: 'QuickSand' }}> {hours}</div>
+
+              {this.props.from === "DoingQuiz" ? <span>h</span> : <span>h</span>}
             </div>
           )}
           {minutes && (
             <div className="countdown-item">
               <SVGCircle radius={minutesRadius} />
-              {minutes}
-              <span>minutes</span>
+
+              <div style={{ fontFamily: 'QuickSans' }}> {minutes}</div>
+              {this.props.from === "DoingQuiz" ? <span>m</span> : <span>m</span>}
             </div>
           )}
           {seconds && (
             <div className="countdown-item">
               <SVGCircle radius={secondsRadius} />
-              {seconds}
-              <span>seconds</span>
+
+              <div style={{ fontFamily: 'QuickSans' }}>{seconds}</div>
+              {this.props.from === "DoingQuiz" ? <span>s</span> : <span>s</span>}
             </div>
           )}
         </div>
@@ -83,9 +89,8 @@ let SVGCircle = ({ radius }) => (
   <svg className="countdown-svg">
     <path
       fill="none"
-      stroke="#333"
-      strokeWidth="4"
-      d={describeArc(50, 50, 48, 0, radius)}
+      strokeWidth="3"
+      d={describeArc(40, 40, 28, 0, radius)}
     />
   </svg>
 );

@@ -32,7 +32,6 @@
         overflow: auto;
 
         .quiz-info-done {
-
             min-width: 200px;
             height: 100%;
             padding: 10px 20px;
@@ -90,12 +89,13 @@
                 background: #662900;
                 border-radius: 10px;
                 padding-bottom: 10px;
+                margin-bottom: 25px;
 
                 button {
                     border: none;
                     border-radius: 10px;
                     padding: 10px 60px;
-                    background: #00C985;
+                    background: #00c985;
                     box-shadow: 0 4px 0 0 #00a06a;
                     color: white;
                     font-family: Quicksand, Helvetica, Arial;
@@ -103,8 +103,6 @@
                     font-size: 24px;
                 }
             }
-
-
         }
     }
 }

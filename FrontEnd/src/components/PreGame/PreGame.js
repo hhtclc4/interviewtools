@@ -72,7 +72,7 @@ class PreGame extends React.Component {
           (parseInt(nowArr[1]) + parseInt(addArr[1]) + addSecond) % 60;
         then = `${
           parseInt(nowArr[0]) + parseInt(addArr[0]) - 7 + addMinute
-        }:${minute}:${second}`;
+          }:${minute}:${second}`;
       }
     }
     console.log(question_table);
@@ -148,6 +148,7 @@ class PreGame extends React.Component {
                   timeTillDate={then}
                   timeFormat="HH:mm:ss "
                   updateTime={this.updateTime}
+                  backgroundColor="#662900"
                 />
               ) : null}
             </h3>

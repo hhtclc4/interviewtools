@@ -1,0 +1,203 @@
+$background-page: #f9f9f9;
+$concept-color: #fd7e14;
+.invitation-container {
+    height: 100%;
+    width: 100%;
+    .invitation-body-container {
+        padding-top: 56px;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+        .all-invitation-list {
+            height: 100%;
+            width: 35%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 5px rgba(0, 0, 0, 0.1);
+            padding: 1rem 10px;
+            .i-title {
+                font-weight: bold;
+                font-family: Open Sans;
+                font-size: 22px;
+            }
+
+            .i-count {
+                padding-top: 10px;
+                font-weight: bold;
+                font-family: Open Sans;
+            }
+            .invite-camp-overview-container {
+                width: 100%;
+                height: 180px;
+                padding: 10px;
+                border-bottom: 1px solid #d9d9d9;
+                &:hover {
+                    background-color: #f2f2f2;
+                    border-radius: 10px;
+                }
+                .i-c-o-wrapper {
+                    display: flex;
+                    flex-direction: row;
+                    height: 80%;
+
+                    .i-c-o-img {
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        padding-right: 15px;
+                        img {
+                            width: 160px;
+                        }
+                    }
+                    .i-c-o-info {
+                        width: 100%;
+                        .i-c-o-title {
+                            font-family: Open Sans;
+                            font-weight: bold;
+                            font-size: 18px;
+                        }
+                        .i-c-o-company {
+                            color: #808080;
+                            font-family: Open Sans;
+                            font-size: 15px;
+                        }
+                        .i-c-o-salary-and-location {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            padding-top: 5%;
+                            span {
+                                font-size: 15px;
+                                font-family: Open Sans;
+                            }
+                        }
+                        .i-c-o-suject-list {
+                            .i-c-o-subject {
+                            }
+                        }
+                    }
+                }
+                .i-c-o-buttons {
+                    margin-top: -10px;
+                    .i-c-o-accept {
+                        border: none;
+                        background-color: $concept-color;
+                        color: white;
+                        padding: 5px 20px;
+                        border-radius: 5px;
+                        margin: 0 5px;
+                        font-weight: bold;
+                        top: 0;
+                    }
+
+                    .i-c-o-decline {
+                        @extend .i-c-o-accept;
+                        background-color: #d9d9d9;
+                        color: #262626;
+                    }
+                }
+            }
+        }
+        .campaign-show-container {
+            height: 100%;
+            width: 65%;
+            padding: 20px 1rem;
+            .job-content {
+                height: fit-content;
+                background-color: white;
+                display: block;
+                padding-top: 20px;
+
+                .comp-img-list {
+                    .comp-img-crop {
+                        height: 200px;
+                        overflow: hidden;
+                        margin-right: 5px;
+                        .comp-img {
+                            height: 100%;
+                            width: initial;
+                        }
+                    }
+                }
+
+                .comp-and-job-desc {
+                    padding-top: 30px;
+                    height: 100%;
+                    .comp-about {
+                        height: 100%;
+                        flex-basis: 25%;
+                        .comp-header {
+                            border-top: 4px solid $concept-color !important;
+                            border: 1px solid #f3f3f3;
+                            border-top-left-radius: 5px;
+                            border-top-right-radius: 5px;
+                        }
+
+                        .comp-body {
+                            background-color: #f3f3f3;
+                            height: 100%;
+                        }
+                    }
+
+                    .job-desc-about {
+                        padding: 10px 30px;
+                        flex-grow: 1;
+                        .job-title {
+                            font-size: 32px;
+                            font-weight: bold;
+                        }
+
+                        .job-subject-list {
+                            padding: 10px 0px;
+
+                            .job-subject {
+                                padding: 5px 10px;
+                                margin-right: 5px;
+                                border: 1px solid #d2d3d3;
+                                &:hover {
+                                    color: $concept-color;
+                                    border: 1px solid $concept-color;
+                                }
+                            }
+                        }
+
+                        .job-salary {
+                            border-radius: 3px;
+                            height: 28px;
+                            .job-adjust-icon {
+                                padding: 3px;
+                                height: 20px;
+                                width: 20px;
+                                border-radius: 50%;
+                                border: 1px solid $concept-color;
+                                margin-right: 5px;
+                            }
+                            p {
+                                color: gray;
+                            }
+                        }
+
+                        .job-destination {
+                            p {
+                                color: gray;
+                            }
+                        }
+
+                        .apply-btn {
+                            margin-top: 15px;
+                            width: 100%;
+                            border: none;
+                            border-radius: 3px;
+                            background-color: $concept-color;
+                            color: white;
+                            height: 40px;
+                            font-weight: bold;
+                            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15), 0 4px 0 $concept-color,
+                                0 4px 6px rgba(0, 0, 0, 0.45);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

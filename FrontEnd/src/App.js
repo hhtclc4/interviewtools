@@ -23,6 +23,7 @@ import DetailRecruitLayout from "./layouts/DetailRecruit/DetailRecruit";
 import HomeDiscover from "./components/Home/Discover/Discover";
 
 import CVTemplateCreator from './components/CVTemplate/CVTemplate'
+import Invitation from './components/Home/Invitation/Invitation'
 import HRlayout from "./layouts/HR/HR";
 class App extends React.Component {
   render() {
@@ -71,6 +72,7 @@ class App extends React.Component {
             {/* <Route path="/detail_recruit" component={DetailRecruit} /> */}
             <Route path="/home/discover" component={HomeDiscover} />
             <Route path="/CVCreator" component={CVTemplateCreator} />
+            <Route path="/invitation" component={Invitation} />
           </Switch>
         </Router>
       </div>

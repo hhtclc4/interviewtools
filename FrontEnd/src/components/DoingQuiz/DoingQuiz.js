@@ -287,7 +287,7 @@ class DoingQuiz extends React.Component {
               (parseInt(nowArr[1]) + parseInt(addArr[1]) + addSecond) % 60;
             then = `${
               parseInt(nowArr[0]) + parseInt(addArr[0]) - 7 + addMinute
-            }:${minute}:${second}`;
+              }:${minute}:${second}`;
           }
         }
       } else element = "";
@@ -295,12 +295,14 @@ class DoingQuiz extends React.Component {
     return (
       <div className="doing-quiz-container">
         {element}
-        <div>
+        <div className="count-down-section">
           {max_time !== null ? (
             <Countdown
               timeTillDate={then}
               timeFormat="HH:mm:ss"
               updateTime={this.updateTime}
+              backgroundColor="transparent"
+              from="DoingQuiz"
             />
           ) : null}
         </div>

@@ -9,7 +9,12 @@ import SendCV from "./SendCVPopup";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import { withRouter } from "react-router-dom";
-
+import {
+  EditorState,
+  convertFromHTML,
+  ContentState,
+} from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
 class DetailRecruit extends React.Component {
   constructor(props) {
     super(props);
@@ -80,7 +85,13 @@ class DetailRecruit extends React.Component {
   render() {
     let { data, isSendCvBefore } = this.state;
     console.log("isSendCvBefore   ", isSendCvBefore);
-
+    console.log("work", data.work_description)
+    const sampleMarkup = data.work_description;
+    const blocksFromHTML = convertFromHTML(sampleMarkup);
+    const textState = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
     return (
       <div className="detail-recruit-container">
         {/* <div className="dr-nav-container">
@@ -199,8 +210,30 @@ class DetailRecruit extends React.Component {
                     )}
 
                   <hr />
-                  <div className="job-info-and-require"></div>
-                  {/* <div className="apply-btn"></div> */}
+                  <div className="job-info-and-require">
+                    <Editor
+                      wrapperClassName="work-desc-wrapper"
+                      editorClassName="work-desc-editor"
+                      toolbarClassName="d-none"
+                      editorState={EditorState.createWithContent(textState)}
+                    />
+                  </div>
+                  {isSendCvBefore ? (
+                    <button
+                      disabled={true}
+                      style={{ opacity: "0.6" }}
+                      className="apply-btn"
+                    >
+                      You sent CV for this job before!
+                    </button>
+                  ) : (
+                      <button
+                        className="apply-btn"
+                        onClick={this.toggleSendCVPopUp}
+                      >
+                        Apply Now
+                      </button>
+                    )}
                 </div>
               </div>
             </div>
