@@ -19,6 +19,7 @@ import accessToPush from "./Access_To_Push";
 import interview from "./Interview";
 import completedInterview from "./CompletedInterview";
 import collectedCandidates from "./Collected_Candidates";
+import invitation from "./Invitation";
 
 import { combineReducers } from "redux";
 const myReducer = combineReducers({
@@ -41,5 +42,6 @@ const myReducer = combineReducers({
   work_type,
   level,
   collectedCandidates,
+  invitation,
 });
 export default myReducer;

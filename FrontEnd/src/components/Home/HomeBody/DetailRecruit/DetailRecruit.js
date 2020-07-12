@@ -178,7 +178,7 @@ class DetailRecruit extends React.Component {
                     </span>
                     <p>
                       {data.salary === 0
-                        ? "Lương thỏa thuận"
+                        ? "Agreement"
                         : data.salary + " $"}
                     </p>
                   </div>

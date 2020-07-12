@@ -284,11 +284,11 @@ export const createQuestionAndAnswersAPI = (
   };
 };
 ///////////invite
-export const createInvite = (data) => {
+export const createInvitation = (data) => {
   return (dispatch) => {
     axios({
       method: "post",
-      url: URLs.INVITE_API,
+      url: URLs.INVITATION_API,
       headers: {
         "content-type": "application/json",
         "user-token": localStorage.getItem("token"),
@@ -296,7 +296,52 @@ export const createInvite = (data) => {
       data,
     })
       .then((res) => {
-        console.log("create invite", res.data);
+        console.log("create invitation", res.data);
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const getInvitationAPI = () => {
+  return (dispatch) => {
+    axios({
+      method: "get",
+      url: URLs.INVITATION_API,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        console.log("create invitation", res.data);
+        dispatch({
+          type: types.GET_INVITATION,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const acceptOrDeclineInvitation = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "delete",
+      url: URLs.INVITATION_API,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+      data,
+    })
+      .then((res) => {
+        console.log(res.data);
+        dispatch({
+          type: types.UPDATE_INVITATION,
+          campaign_id: data.campaign_id,
+        });
       })
       .catch((er) => {
         console.log("er", er);

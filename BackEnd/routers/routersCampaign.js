@@ -20,32 +20,44 @@ const Company = require("../models/Company");
 const Sequelize = require("sequelize");
 const db = require("../database");
 const cloudinary = require("./cloudinary");
-const Invite = require("../models/Invite");
+const Invitation = require("../models/Invitation");
 
 const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 
 ///////////////////////////////////////////
-//////////Get invite
+//////////Get Invitation
 
-router.get("/api/invite", verifyToken, (req, res) =>
+router.get("/api/invitation", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      Invite.findAll({
+      Invitation.findAll({
         where: {
           user_id: authData.user_id,
         },
-        include: [Campaign],
+        include: [
+          {
+            model: Campaign,
+            include: [
+              {
+                model: User,
+                attributes: ["name", "email", "phone"],
+                include: Company,
+              },
+              Subject,
+            ],
+          },
+        ],
       })
         .then((data) => res.send(data))
         .catch((err) => console.log(err));
     }
   })
 );
-///////// control invite: accept or decline
-router.delete("/api/invite", verifyToken, (req, res) =>
+///////// control Invitation: accept or decline
+router.delete("/api/invitation", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", async (err, authData) => {
     if (err) res.sendStatus(403);
     else {
@@ -53,24 +65,24 @@ router.delete("/api/invite", verifyToken, (req, res) =>
         req.body.candidate_id = authData.user_id;
         await Group_Candidates.create(req.body);
       }
-      Invite.destroy({
+      Invitation.destroy({
         where: {
           user_id: authData.user_id,
           campaign_id: req.body.campaign_id,
         },
       })
-        .then((data) => res.send(data))
+        .then((data) => res.sendStatus(200))
         .catch((err) => console.log(err));
     }
   })
 );
-// create invite
-router.post("/api/invite", verifyToken, (req, res) =>
+// create Invitation
+router.post("/api/invitation", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", async (err, authData) => {
     if (err) res.sendStatus(403);
     else {
       req.body.user_id = authData.user_id;
-      Invite.create(req.body)
+      Invitation.create(req.body)
         .then((data) => res.sendStatus(200))
         .catch((err) => console.log(err));
     }
