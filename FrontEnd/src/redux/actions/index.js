@@ -283,7 +283,75 @@ export const createQuestionAndAnswersAPI = (
       });
   };
 };
+///////////invite
+export const createInvite = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.INVITE_API,
+      headers: {
+        "content-type": "application/json",
+        "user-token": localStorage.getItem("token"),
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("create invite", res.data);
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 //////////group candidates
+export const getCollectedCandidatesAPI = () => {
+  return (dispatch) => {
+    axios({
+      method: "get",
+      url: URLs.COLLECTED_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        console.log("get collected candidate ", res.data);
+        dispatch({
+          type: types.GET_COLLECTED_CANDIDATES,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
+export const showCollectedCandidates = () => {
+  return {
+    type: types.SHOW_COLLECTED_CANDIDATES,
+  };
+};
+export const filterCollectedCandidatesAPI = (skills, degree, positions) => {
+  return (dispatch) => {
+    axios({
+      method: "post",
+      url: URLs.FILTER_COLLECTED_CANDIDATES_API_URL,
+      headers: {
+        "content-type": "application/json",
+      },
+      data: { skills, degree, positions },
+    })
+      .then((res) => {
+        console.log("filter collected candidate ", res.data);
+        dispatch({
+          type: types.FILTED_COLLECTED_CANDIDATES,
+          data: res.data,
+        });
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
+  };
+};
 export const createCollectionCandidate = (
   user,
   education,

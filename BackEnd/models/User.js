@@ -66,5 +66,6 @@ const User = db.define("user", {
   description: {
     type: "VARCHAR(200)",
   },
+  skills: Sequelize.VIRTUAL,
 });
 module.exports = User;

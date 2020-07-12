@@ -23,6 +23,7 @@ const Education = require("../models/Education");
 const Skills = require("../models/Skills");
 const Employment = require("../models/Employment");
 const jwt = require("jsonwebtoken");
+const db = require("../database");
 
 const cloudinary = require("./cloudinary");
 router.put("/api/upload_avatar_image", verifyToken, (req, res) =>
@@ -50,6 +51,60 @@ router.put("/api/upload_avatar_image", verifyToken, (req, res) =>
     }
   })
 );
+//get collected candidate
+router.get("/api/get_collected_candidate", async (req, res) => {
+  User.findAll({
+    where: {
+      type: 1,
+    },
+    include: [Education, Subject, Employment],
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+});
+//filter_candidate
+router.post("/api/filter_candidate", async (req, res) => {
+  let { skills, degree, positions } = req.body;
+  let skillsQuery = "";
+  let positionsQuery = "";
+  let degreesQuery = "";
+  if (skills.length) {
+    skillsQuery = `and skills.subject_id=${skills[0]} `;
+    for (let i = 1; i < skills.length; i++)
+      skillsQuery = `and skills.subject_id=${skills[i]} `;
+  }
+  //
+  if (positions.length) {
+    positionsQuery = `and employment.position=${positions[0]} `;
+    for (let i = 1; i < positions.length; i++)
+      positionsQuery = `and employment.position=${positions[i]} `;
+  }
+  //
+  if (degree !== null) degreesQuery = `and education.degree=${degree} `;
+
+  let listUserID = await db
+    .query(
+      `Select user.id from user join education on user.education_id=education.id join employment  on user.id=employment.user_id join skills  on user.id=skills.user_id join subject  on skills.subject_id=subject.id 
+      where user.type=1 ${skillsQuery} ${positionsQuery} ${degreesQuery}`,
+      {
+        type: Sequelize.QueryTypes.SELECT,
+      }
+    )
+    .then((user) => {
+      let listID = [];
+      //get list id: [1,2,3]
+      for (let i = 0; i < user.length; i++) listID.push(user[i].id);
+      return listID;
+    });
+  User.findAll({
+    where: {
+      id: { [Op.in]: listUserID },
+    },
+    include: [Education, Subject, Employment],
+  })
+    .then((data) => res.send(data))
+    .catch((err) => console.log(err));
+});
 //user send Form CV to Web
 router.post("/api/create_collection_candidate", verifyToken, (req, res) => {
   jwt.verify(req.token, "hoangtri", async (err, authData) => {

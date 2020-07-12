@@ -5,8 +5,8 @@ import CampaignOverview from "./CampaignOverview/CampaignOverview";
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 import { withRouter } from "react-router-dom";
-import { Tabs, Panel } from '../../utils/Tab/Tabs'
-import AvailCandidate from './AvailCandidate/Candidate'
+import { Tabs, Panel } from "../../utils/Tab/Tabs";
+import AvailCandidate from "./AvailCandidate/Candidate";
 
 class HRstaff extends React.Component {
   constructor(props) {
@@ -34,6 +34,7 @@ class HRstaff extends React.Component {
   }
   componentDidMount() {
     this.props.showListCampaign();
+    this.props.getCollectedCandidatesAPI();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -65,14 +66,10 @@ class HRstaff extends React.Component {
             <div className="col-sm-10 hr-manage-container">
               <div className="hr-manage-header d-flex flex-row justify-content-between">
                 <Tabs selected={1}>
-
-
                   {/* <p className="hr-campaign-count align-self-center">
                   All campaigns ({data.length})
                   </p> */}
-                  <Panel
-                    title={`All campaigns (${data.length})`}
-                  >
+                  <Panel title={`All campaigns (${data.length})`}>
                     <div className="hr-manage-body d-flex flex-row">
                       <div className="hr-created-list  d-flex flex-column mt-4">
                         {tabElm}
@@ -82,9 +79,7 @@ class HRstaff extends React.Component {
                       </div>
                     </div>
                   </Panel>
-                  <Panel
-                    title="All available candidates"
-                  >
+                  <Panel title="All available candidates">
                     <AvailCandidate />
                   </Panel>
                 </Tabs>
@@ -110,6 +105,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     showListCampaign: () => {
       dispatch(actions.showListCampaign());
+    },
+    getCollectedCandidatesAPI: () => {
+      dispatch(actions.getCollectedCandidatesAPI());
     },
   };
 };

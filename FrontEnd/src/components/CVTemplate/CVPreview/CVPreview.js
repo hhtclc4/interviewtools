@@ -12,16 +12,21 @@ class CVPreview extends React.Component {
     this.state = {
       positions: [
         { index: 0, title: "Tester" },
-        { index: 1, title: "Dev" },
+        { index: 1, title: "System Analyst" },
         { index: 2, title: "Dev OP" },
         { index: 3, title: "Business Analyst" },
         { index: 4, title: "PM" },
+        { index: 5, title: "FrontEnd Developer" },
+        { index: 6, title: "BackEnd Developer" },
+        { index: 7, title: "Cloud Computing Engineer" },
+        { index: 8, title: "Database Administrator" },
+        { index: 9, title: "Other..." },
       ],
       degrees: ["Associate", "Bachelor", "Master", "Doctoral"],
     };
   }
   render() {
-    let { user, education, skills, employments, listSubjects } = this.props;
+    let { user, education, subjects, employments } = this.props;
     let { degrees, positions } = this.state;
     //
     let sampleMarkupUser = user.description !== null ? user.description : "";
@@ -30,7 +35,16 @@ class CVPreview extends React.Component {
       blocksFromHTMLUser.contentBlocks,
       blocksFromHTMLUser.entityMap
     );
-
+    //
+    let sampleMarkupEducation = education.description;
+    let blocksFromHTMLEducation = convertFromHTML(sampleMarkupEducation);
+    let textStateEducation = ContentState.createFromBlockArray(
+      blocksFromHTMLEducation.contentBlocks,
+      blocksFromHTMLEducation.entityMap
+    );
+    let date_begin = moment(education.date_begin).format("LL");
+    let date_end = moment(education.date_end).format("LL");
+    //
     let employmentsELM = employments.map((employment, index) => {
       let sampleMarkupEmployment = employment.description;
       let blocksFromHTMLEmployment = convertFromHTML(sampleMarkupEmployment);
@@ -61,45 +75,14 @@ class CVPreview extends React.Component {
         </div>
       );
     });
-    let educationElm = education.map((edu, index) => {
-      let sampleMarkupEducation = edu.description;
-      let blocksFromHTMLEducation = convertFromHTML(sampleMarkupEducation);
-      let textStateEducation = ContentState.createFromBlockArray(
-        blocksFromHTMLEducation.contentBlocks,
-        blocksFromHTMLEducation.entityMap
-      );
-      let date_begin = moment(edu.date_begin).format("LL");
-      let date_end = moment(edu.date_end).format("LL");
-      return (
-        <div className="cv-pre-section-item" key={index}>
-          <div className="section-overview">{`${degrees[edu.degree]}, ${
-            edu.university
-          }, Ho Chi Minh City`}</div>
-          <div className="section-year">
-            {date_begin} - {date_end}
-          </div>
-          <div className="section-description">
-            {" "}
-            <Editor
-              wrapperClassName="cv-desc-wrapper"
-              editorClassName="cv-desc-editor"
-              toolbarClassName="d-none"
-              editorState={EditorState.createWithContent(textStateEducation)}
-            />
-          </div>
-        </div>
-      );
-    });
-    let skillsElm = skills.map((skill, index) => {
+    let skillsElm = subjects.map((subject, index) => {
       return (
         <div className="cv-pre-skill-section" key={index}>
-          <div className="cv-skill-name">
-            {listSubjects[skill.subject_id - 1].title}
-          </div>
+          <div className="cv-skill-name">{subject.title}</div>
           <div className="cv-skill-lvl-bar">
             <div
               className="progress"
-              style={{ width: `${skill.level * 20 + 20}%` }}
+              style={{ width: `${subject.skills.level * 20 + 20}%` }}
             ></div>
           </div>
         </div>
@@ -149,7 +132,24 @@ class CVPreview extends React.Component {
           </div>
           <div className="cv-pre-education">
             <div className="cv-pre-title">Education</div>
-            {educationElm}
+            <div className="cv-pre-section-item">
+              <div className="section-overview">{`${
+                degrees[education.degree]
+              }, ${education.university}, Ho Chi Minh City`}</div>
+              <div className="section-year">
+                {date_begin} - {date_end}
+              </div>
+              <div className="section-description">
+                <Editor
+                  wrapperClassName="cv-desc-wrapper"
+                  editorClassName="cv-desc-editor"
+                  toolbarClassName="d-none"
+                  editorState={EditorState.createWithContent(
+                    textStateEducation
+                  )}
+                />
+              </div>
+            </div>{" "}
           </div>
           <div className="cv-pre-skill">
             <div className="cv-pre-title">Skills</div>

@@ -20,12 +20,62 @@ const Company = require("../models/Company");
 const Sequelize = require("sequelize");
 const db = require("../database");
 const cloudinary = require("./cloudinary");
+const Invite = require("../models/Invite");
 
 const { Op } = require("sequelize");
 
 const jwt = require("jsonwebtoken");
 
 ///////////////////////////////////////////
+//////////Get invite
+
+router.get("/api/invite", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      Invite.findAll({
+        where: {
+          user_id: authData.user_id,
+        },
+        include: [Campaign],
+      })
+        .then((data) => res.send(data))
+        .catch((err) => console.log(err));
+    }
+  })
+);
+///////// control invite: accept or decline
+router.delete("/api/invite", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", async (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      if (req.body.isAccept) {
+        req.body.candidate_id = authData.user_id;
+        await Group_Candidates.create(req.body);
+      }
+      Invite.destroy({
+        where: {
+          user_id: authData.user_id,
+          campaign_id: req.body.campaign_id,
+        },
+      })
+        .then((data) => res.send(data))
+        .catch((err) => console.log(err));
+    }
+  })
+);
+// create invite
+router.post("/api/invite", verifyToken, (req, res) =>
+  jwt.verify(req.token, "hoangtri", async (err, authData) => {
+    if (err) res.sendStatus(403);
+    else {
+      req.body.user_id = authData.user_id;
+      Invite.create(req.body)
+        .then((data) => res.sendStatus(200))
+        .catch((err) => console.log(err));
+    }
+  })
+);
 
 router.get("/api/campaign", (req, res) =>
   Campaign.findAll({

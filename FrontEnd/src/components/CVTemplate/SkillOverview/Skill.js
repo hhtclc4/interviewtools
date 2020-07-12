@@ -10,10 +10,10 @@ class SkillOverview extends React.Component {
     this.state = {
       isExpand: false,
       isFill: false,
-      skill: {
-        subject_id: 1,
-        level: 0,
-        description: "",
+      subject: {
+        id: 0,
+        title: "C++",
+        skills: { subject_id: 1, level: 0, description: "" },
       },
       skillLevels: [
         { index: 0, title: "Novice" },
@@ -26,7 +26,7 @@ class SkillOverview extends React.Component {
   }
   componentDidMount() {
     this.setState({
-      skill: this.props.skill,
+      subject: this.props.skill,
     });
   }
   toggleEmpDetail = () => {
@@ -36,28 +36,46 @@ class SkillOverview extends React.Component {
   };
 
   levelClick = (level) => {
-    let { skill } = this.state;
+    let { subject } = this.state;
+    let { skills } = subject;
     let { onChangeSkillHandler, index } = this.props;
     this.setState({
-      skill: {
-        ...skill,
-        level,
+      subject: {
+        ...subject,
+        skills: {
+          ...skills,
+          level,
+        },
       },
     });
-    onChangeSkillHandler({ ...skill, level }, index);
+    onChangeSkillHandler({ ...subject, skills: { ...skills, level } }, index);
   };
 
   onChangeSelectSingle = (key, value) => {
-    let { skill } = this.state;
-    let { onChangeSkillHandler, index } = this.props;
+    let { subject } = this.state;
+    let { skills } = subject;
+    let { onChangeSkillHandler, index, listSubjects } = this.props;
+    console.log(key, value);
     this.setState({
       isFill: true,
-      skill: {
-        ...skill,
-        [key]: parseInt(value),
+      subject: {
+        title: listSubjects[parseInt(value) - 1].title,
+        id: parseInt(value),
+        skills: {
+          ...skills,
+          [key]: parseInt(value),
+        },
       },
     });
-    onChangeSkillHandler({ ...skill, [key]: value }, index);
+    onChangeSkillHandler(
+      {
+        ...subject,
+        title: listSubjects[parseInt(value) - 1].title,
+        id: parseInt(value),
+        skills: { ...skills, [key]: value },
+      },
+      index
+    );
   };
   levelColor = (index) => {
     switch (index) {
@@ -109,12 +127,13 @@ class SkillOverview extends React.Component {
     }
   };
   render() {
-    let { isExpand, skill, isFill, skillLevels } = this.state;
+    let { isExpand, subject, isFill, skillLevels } = this.state;
+    let { skills } = subject;
     let { listSubjects } = this.props;
     let menuSubjects = listSubjects.map((subject) => {
       return <Option key={subject.id}>{subject.title}</Option>;
     });
-    let textLevel = this.textLevel(skill.level);
+    let textLevel = this.textLevel(skills.level);
     return (
       <div className="employment-container">
         <div className="emp-container-actions"></div>
@@ -123,16 +142,23 @@ class SkillOverview extends React.Component {
             <div className="info-left">
               <span className="emp-position-employer">
                 {isFill
-                  ? listSubjects[skill.subject_id - 1].title
+                  ? listSubjects[skills.subject_id - 1].title
                   : "(Not specified)"}
               </span>
               <div className="emp-experience-year">
-                {isFill ? skillLevels[skill.level].title : null}
+                {isFill ? skillLevels[skills.level].title : null}
               </div>
             </div>
             <div className="btn-right align-self-center">
-              <button className="float-right expand-btn" onClick={this.toggleEmpDetail}>
-                {isExpand ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown} />}
+              <button
+                className="float-right expand-btn"
+                onClick={this.toggleEmpDetail}
+              >
+                {isExpand ? (
+                  <FontAwesomeIcon icon={faChevronUp} />
+                ) : (
+                  <FontAwesomeIcon icon={faChevronDown} />
+                )}
               </button>
             </div>
           </div>
@@ -152,7 +178,7 @@ class SkillOverview extends React.Component {
                       onChange={(value) =>
                         this.onChangeSelectSingle("subject_id", value)
                       }
-                      value={listSubjects[skill.subject_id - 1].title}
+                      value={listSubjects[skills.subject_id - 1].title}
                     >
                       {menuSubjects}
                     </Select>
@@ -164,7 +190,9 @@ class SkillOverview extends React.Component {
                   <div className="cv-input-title">Level-{textLevel}</div>
                   <div
                     className="cv-level-bar"
-                    style={{ backgroundColor: this.backwardColor(skill.level) }}
+                    style={{
+                      backgroundColor: this.backwardColor(skills.level),
+                    }}
                   >
                     {this.state.skillLevels.map((value, index) => {
                       let color = this.levelColor(index);
@@ -174,7 +202,7 @@ class SkillOverview extends React.Component {
                           key={index}
                           onClick={() => this.levelClick(index)}
                           style={
-                            skill.level === index
+                            skills.level === index
                               ? { backgroundColor: color }
                               : null
                           }
