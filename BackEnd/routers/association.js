@@ -20,7 +20,7 @@ const Campaign_Subject = require("../models/Campaign_Subject");
 const Education = require("../models/Education");
 const Skills = require("../models/Skills");
 const Employment = require("../models/Employment");
-const Invite = require("../models/Invite");
+const Invitation = require("../models/Invitation");
 
 ////////////// Work_Type Level
 Work_Type.hasMany(Campaign, { foreignKey: "work_type_id" });
@@ -49,17 +49,17 @@ Campaign.belongsToMany(User, {
   foreignKey: "campaign_id",
 });
 Campaign.belongsToMany(User, {
-  through: Invite,
+  through: Invitation,
   foreignKey: "campaign_id",
 });
 Campaign.hasMany(Interview, { foreignKey: "campaign_id" });
 
 Campaign.hasOne(QuestionTable, { foreignKey: "campaign_id" });
-//////////////Invite
-Invite.belongsTo(User, {
+//////////////Invitation
+Invitation.belongsTo(User, {
   foreignKey: "user_id",
 });
-Invite.belongsTo(Campaign, { foreignKey: "campaign_id" });
+Invitation.belongsTo(Campaign, { foreignKey: "campaign_id" });
 /////////////// Interview
 Interview.hasMany(Group_Candidates, { foreignKey: "interview_id" });
 Interview.belongsTo(Campaign, {
@@ -102,7 +102,7 @@ User.belongsToMany(Campaign, {
   foreignKey: "candidate_id",
 });
 User.belongsToMany(Campaign, {
-  through: Invite,
+  through: Invitation,
   foreignKey: "user_id",
 });
 User.belongsToMany(Subject, {
