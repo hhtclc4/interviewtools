@@ -22,11 +22,15 @@ class HomeNav extends React.Component {
         avatar: "",
         type: 0,
       },
+      invitation: [],
     };
   }
   componentDidMount() {
     let token = localStorage.getItem("token");
-    if (token) this.props.getUser();
+    if (token) {
+      this.props.getUser();
+      this.props.getInvitationAPI();
+    }
   }
   togglePopup = () => {
     this.setState({
@@ -43,6 +47,7 @@ class HomeNav extends React.Component {
     this.setState({
       token: nextProps.login.token,
       data: nextProps.login,
+      invitation: nextProps.invitation,
     });
   }
 
@@ -51,9 +56,9 @@ class HomeNav extends React.Component {
   };
   render() {
     let token = localStorage.getItem("token");
-    let { data } = this.state;
+    let { data, invitation } = this.state;
     let { history } = this.props;
-
+    let invitationLength = invitation.length;
     const userActions = (
       <Menu>
         <Menu.Item
@@ -89,12 +94,15 @@ class HomeNav extends React.Component {
           Setting
         </Menu.Item>
         <Menu.Item
+          disabled={invitationLength ? false : true}
           onClick={() => {
             history.push("/invitation");
           }}
         >
           Invitation
-          <span className="number-invitation float-right">1</span>
+          <span className="number-invitation float-right">
+            {invitationLength}
+          </span>
         </Menu.Item>
         <Menu.Item
           onClick={() => {
@@ -168,11 +176,15 @@ const mapDispatchToProps = (dispatch, props) => {
     getUser: () => {
       dispatch(actions.getUser());
     },
+    getInvitationAPI: () => {
+      dispatch(actions.getInvitationAPI());
+    },
   };
 };
 const mapStateToProps = (state) => {
   return {
     login: state.login,
+    invitation: state.invitation,
   };
 };
 export default connect(

@@ -96,6 +96,24 @@ class Invitation extends React.Component {
                         : "0"
                     }.1.jpg`)}
                   />
+                  <img
+                    className="comp-img"
+                    alt="company-1"
+                    src={require(`../HomeBody/DetailRecruit/images/${
+                      campaign.user.company.id !== undefined
+                        ? campaign.user.company.id
+                        : "0"
+                    }.2.jpg`)}
+                  />
+                  <img
+                    className="comp-img"
+                    alt="company-1"
+                    src={require(`../HomeBody/DetailRecruit/images/${
+                      campaign.user.company.id !== undefined
+                        ? campaign.user.company.id
+                        : "0"
+                    }.3.jpg`)}
+                  />
                 </div>
               </div>
               <div className="comp-and-job-desc d-flex flex-row">

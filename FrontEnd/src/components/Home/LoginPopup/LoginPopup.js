@@ -39,6 +39,7 @@ class LoginPopup extends React.Component {
   render() {
     let { email, password, isLoading, isDoneLogin } = this.state;
     if (isDoneLogin) {
+      this.props.getInvitationAPI();
       this.props.togglePopup();
     }
     return (
@@ -114,6 +115,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     loginAPI: (state) => {
       dispatch(actions.loginAPI(state));
+    },
+    getInvitationAPI: () => {
+      dispatch(actions.getInvitationAPI());
     },
   };
 };
