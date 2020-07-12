@@ -16,10 +16,15 @@ class EmploymentOverview extends React.Component {
       isFill: false,
       positions: [
         { index: 0, title: "Tester" },
-        { index: 1, title: "Dev" },
+        { index: 1, title: "System Analyst" },
         { index: 2, title: "Dev OP" },
         { index: 3, title: "Business Analyst" },
         { index: 4, title: "PM" },
+        { index: 5, title: "FrontEnd Developer" },
+        { index: 6, title: "BackEnd Developer" },
+        { index: 7, title: "Cloud Computing Engineer" },
+        { index: 8, title: "Database Administrator" },
+        { index: 9, title: "Other..." },
       ],
 
       employment: {

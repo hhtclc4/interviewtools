@@ -57,7 +57,7 @@ class HomeNav extends React.Component {
     const userActions = (
       <Menu>
         <Menu.Item
-          disabled={data.type ? false : true}
+          disabled={data.type ? true : false}
           onClick={() => {
             history.push("/cvcreator");
           }}
@@ -141,15 +141,15 @@ class HomeNav extends React.Component {
               </Button>
             </Dropdown>
           ) : (
-              <div>
-                <button className="b-log-in" onClick={this.togglePopup}>
-                  Login
+            <div>
+              <button className="b-log-in" onClick={this.togglePopup}>
+                Login
               </button>
-                <button className="b-sign-up" onClick={this.toggleSignupPopup}>
-                  Sign up
+              <button className="b-sign-up" onClick={this.toggleSignupPopup}>
+                Sign up
               </button>
-              </div>
-            )}
+            </div>
+          )}
         </div>
 
         {this.state.loginPopup ? (

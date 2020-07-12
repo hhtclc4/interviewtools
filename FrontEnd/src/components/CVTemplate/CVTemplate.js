@@ -33,14 +33,14 @@ class CVTemplateCreator extends React.Component {
           description: "",
         },
       ],
-
-      skills: [
+      subjects: [
         {
-          subject_id: 1,
-          level: 0,
-          description: "",
+          id: 0,
+          title: "C++",
+          skills: { subject_id: 1, level: 0, description: "" },
         },
       ],
+
       employments: [
         {
           position: 0,
@@ -95,16 +95,6 @@ class CVTemplateCreator extends React.Component {
       },
     });
   };
-  onChangeSkillsHandler = (event) => {
-    let value = event.target.value;
-    let name = event.target.name;
-    this.setState({
-      skills: {
-        ...this.state.skills,
-        [name]: value,
-      },
-    });
-  };
   onChangeEmploymentHandler = (employment, index) => {
     let temp = [...this.state.employments];
     temp[index] = { ...employment };
@@ -150,26 +140,25 @@ class CVTemplateCreator extends React.Component {
     });
     console.log(temp);
   };
-  onChangeSkillHandler = (skill, index) => {
-    let temp = [...this.state.skills];
-    temp[index] = { ...skill };
+  onChangeSkillHandler = (subject, index) => {
+    let temp = [...this.state.subjects];
+    temp[index] = { ...subject };
     this.setState({
-      skills: [...temp],
+      subjects: [...temp],
     });
-    console.log("skills", temp);
+    console.log("subject", temp);
   };
   onClickAddSkill = () => {
-    let skill = {
-      subject_id: 1,
-      level: 0,
-      description: "",
+    let subject = {
+      id: 0,
+      title: "C++",
+      skills: { subject_id: 1, level: 0, description: "" },
     };
-    let temp = [...this.state.skills];
-    temp.push(skill);
+    let temp = [...this.state.subjects];
+    temp.push(subject);
     this.setState({
-      skills: [...temp],
+      subjects: [...temp],
     });
-    console.log(temp);
   };
   onChangeEditorUserHandler = (description) => {
     this.setState({
@@ -180,14 +169,16 @@ class CVTemplateCreator extends React.Component {
     });
   };
   onClickSaveHandler = () => {
-    let { user, education, employments, skills } = this.state;
+    let { user, education, employments, subjects } = this.state;
+    let skills = [];
+    for (let i = 0; i < subjects.length; i++) skills.push(subjects[i].skills);
     this.props.createCollectionCandidate(
       user,
       education[0],
       employments,
       skills
     );
-    this.props.history.goBack();
+    this.props.history.push("./");
   };
   fileChangedHandler = (event) => {
     let fileReader = new FileReader();
@@ -200,7 +191,7 @@ class CVTemplateCreator extends React.Component {
     }
   };
   render() {
-    let { user, employments, listSubjects, skills, education } = this.state;
+    let { user, employments, listSubjects, subjects, education } = this.state;
     let employmentElm = employments.map((employment, index) => {
       return (
         <EmploymentOverview
@@ -221,7 +212,7 @@ class CVTemplateCreator extends React.Component {
         />
       );
     });
-    let skillsElm = skills.map((skill, index) => {
+    let skillsElm = subjects.map((skill, index) => {
       return (
         <SkillOverview
           key={index}
@@ -395,8 +386,8 @@ class CVTemplateCreator extends React.Component {
         <div className="cv-preview">
           <CVPreview
             user={user}
-            education={education}
-            skills={skills}
+            education={education[0]}
+            subjects={subjects}
             employments={employments}
             listSubjects={listSubjects}
           />

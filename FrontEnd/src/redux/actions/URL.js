@@ -43,8 +43,13 @@ export const INTERVIEWER_CAMPAIGN_API_URL = `${domain}/api/campaign_of_interview
 export const AVAILABLE_CANDIDATES_API_URL = `${domain}/api/get_available_candidates`;
 export const INTERVIEW_CANDIDATES_API_URL = `${domain}/api/get_interview_candidates`;
 export const UPDATE_CANDIDATES_API_URL = `${domain}/api/update_group_candidates`;
+//invite
+
+export const INVITE_API = `${domain}/api/invite`;
 
 // candidate
+export const COLLECTED_CANDIDATES_API_URL = `${domain}/api/get_collected_candidate`;
+export const FILTER_COLLECTED_CANDIDATES_API_URL = `${domain}/api/filter_candidate`;
 export const CANDIDATE_API_URL = `${domain}/api/candidate`;
 export const CREATE_CANDIDATE_API_URL = `${domain}/api/create_candidate`;
 export const CREATE_COLLECTION_CANDIDATE_API_URL = `${domain}/api/create_collection_candidate`;
