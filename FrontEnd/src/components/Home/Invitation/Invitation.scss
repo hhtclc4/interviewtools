@@ -44,9 +44,12 @@ $concept-color: #fd7e14;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
-                        padding-right: 15px;
+                        margin-right: 10px;
+                        overflow: hidden;
+                        width: 35%;
                         img {
                             width: 160px;
+                            max-height: 160px;
                         }
                     }
                     .i-c-o-info {

@@ -6,6 +6,7 @@ import * as actions from "../../../../redux/actions/index";
 import CanOverview from "../Interview/Control/CandidateOverview/CanOverview";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCubes, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import AvailCandidate from '../../AvailCandidate/Candidate'
 class HRCandidate extends React.Component {
   constructor(props) {
     super(props);
@@ -95,22 +96,22 @@ class HRCandidate extends React.Component {
         />
       );
     });
-    let availableCollectedEml = fetchDataFromThirdApp.map(
-      (candidate, index) => {
-        return (
-          <CanOverview
-            key={candidate.candidate_id}
-            data={candidate}
-            from="hr"
-            source="collect"
-            type="canRow"
-            // color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
-            color="#fff"
-            display={true}
-          />
-        );
-      }
-    );
+    // let availableCollectedEml = fetchDataFromThirdApp.map(
+    //   (candidate, index) => {
+    //     return (
+    //       <CanOverview
+    //         key={candidate.candidate_id}
+    //         data={candidate}
+    //         from="hr"
+    //         source="collect"
+    //         type="canRow"
+    //         // color={index % 2 === 0 ? "#f1f1f1" : "#fff"}
+    //         color="#fff"
+    //         display={true}
+    //       />
+    //     );
+    //   }
+    // );
     return (
       <div className="hr-candidate-container">
         <div className="hr-can-body mt-4">
@@ -133,14 +134,17 @@ class HRCandidate extends React.Component {
               <Panel title="Collected"
                 iconAwe={<FontAwesomeIcon icon={faCubes} color="#337ab7" />}
               >
-                <CanOverview
+                {/* <CanOverview
                   from="hr"
                   source="collect"
                   type="partion"
                   display={true}
                   color="#fff"
+                /> */}
+                {/* {availableCollectedEml} */}
+                <AvailCandidate
+                  from="Campaign"
                 />
-                {availableCollectedEml}
               </Panel>
             </Tabs>
           </div>

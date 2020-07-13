@@ -142,17 +142,17 @@ class CandidatePopup extends React.Component {
               <div className="can-popup-body p-2 ">
                 <h4>Available candidates</h4>
                 <div className="can-popup-tabs">
-                  <Tabs selected={0}>
-                    <Panel title="Applied">
-                      <CanOverview
-                        from="canPop"
-                        source="apply"
-                        type="partion"
-                        display={true}
-                      />
-                      {availableApplyEml}
-                    </Panel>
-                    <Panel title="Collected">
+                  {/* <Tabs selected={0}>
+                    <Panel title="Applied"> */}
+                  <CanOverview
+                    from="canPop"
+                    source="apply"
+                    type="partion"
+                    display={true}
+                  />
+                  {availableApplyEml}
+                  {/* </Panel> */}
+                  {/* <Panel title="Collected">
                       <CanOverview
                         from="canPop"
                         source="collect"
@@ -160,8 +160,8 @@ class CandidatePopup extends React.Component {
                         display={true}
                       />
                       {availableCollectedEml}
-                    </Panel>
-                  </Tabs>
+                    </Panel> */}
+                  {/* </Tabs> */}
                 </div>
                 <h4>Chosen candidates</h4>
                 <div className="can-chosen">

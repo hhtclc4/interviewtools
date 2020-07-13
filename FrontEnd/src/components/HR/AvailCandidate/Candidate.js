@@ -152,8 +152,12 @@ class AvailCandidate extends React.Component {
       );
     });
     return (
-      <div className="avail-candidate-container">
-        <div className="a-can-search">
+      <div className="avail-candidate-container"
+        style={this.props.from === "Campaign" ? { padding: '0 10px', paddingBottom: '25px', marginTop: '0' } : {}}
+      >
+        <div className="a-can-search"
+          style={this.props.from === "Campaign" ? { display: 'none' } : {}}
+        >
           <input
             name="search"
             className="search-ipt"
