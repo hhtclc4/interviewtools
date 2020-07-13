@@ -22,7 +22,7 @@ class CandidatePopup extends React.Component {
       ],
       fetchDataFromThirdApp: [
         {
-          candidate_id: 10000,
+          user_id: 10000,
           cv: "",
           description: "good Java",
           user: {
@@ -44,7 +44,7 @@ class CandidatePopup extends React.Component {
         },
 
         {
-          candidate_id: 10001,
+          user_id: 10001,
           cv: "",
           description: "good Python",
           user: {
@@ -83,7 +83,7 @@ class CandidatePopup extends React.Component {
     let chosenCandidates = data.group_candidates.map((candidate, index) => {
       return (
         <CanOverview
-          key={candidate.candidate_id}
+          key={candidate.user_id}
           interview_id={data.id}
           data={candidate}
           from="canPop"
@@ -97,7 +97,7 @@ class CandidatePopup extends React.Component {
     let availableApplyEml = availableCandidates.map((candidate, index) => {
       return (
         <CanOverview
-          key={candidate.campaign_id + candidate.candidate_id}
+          key={candidate.campaign_id + candidate.user_id}
           data={candidate}
           interview_id={data.id}
           from="canPop"
@@ -112,7 +112,7 @@ class CandidatePopup extends React.Component {
       (candidate, index) => {
         return (
           <CanOverview
-            key={candidate.candidate_id}
+            key={candidate.user_id}
             interview_id={data.id}
             data={candidate}
             from="canPop"

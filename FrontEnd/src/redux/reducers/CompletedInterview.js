@@ -13,7 +13,7 @@ let initialState = [
     },
     group_candidates: [
       {
-        candidate_id: 0,
+        user_id: 0,
         cv: "",
         description: "",
         interview_time: "12:00:00",
@@ -126,8 +126,8 @@ let myReducer = (state = initialState, action) => {
             state[k].group_candidates[i].correctAnswer = result.correctAnswer;
             state[k].group_candidates[i].inCorrectAnswer =
               result.inCorrectAnswer;
-              state[k].group_candidates[i].unAttemptAnswer = result.unAttemptAnswer;
-
+            state[k].group_candidates[i].unAttemptAnswer =
+              result.unAttemptAnswer;
           }
 
           let accuracy = 0;

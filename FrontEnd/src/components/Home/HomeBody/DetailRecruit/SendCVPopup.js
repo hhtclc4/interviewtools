@@ -103,26 +103,58 @@ class SendCV extends React.Component {
       return (
         <div>
           <div className="send-cv-name d-flex flex-row justify-content-between  mb-2">
-            <p>Your Name: <b>{user.name}</b></p>
+            <p>
+              Your Name: <b>{user.name}</b>
+            </p>
           </div>
           <div className="send-cv-email d-flex flex-row justify-content-between  mb-2">
-            <p>Your Email: <b>{user.email}</b></p>
+            <p>
+              Your Email: <b>{user.email}</b>
+            </p>
           </div>
           <div className="send-cv-imp-cv d-flex flex-row justify-content  mb-4">
             <p>Your CV:</p>
-            <button className="import-cv-btn" onClick={() => this.fileInput.click()}>
-              <span className="mr-1"><FontAwesomeIcon icon={faFile} /></span>
+            <button
+              className="import-cv-btn"
+              onClick={() => this.fileInput.click()}
+            >
+              <span className="mr-1">
+                <FontAwesomeIcon icon={faFile} />
+              </span>
               <input
                 style={{ display: "none" }}
                 type="file"
                 onChange={this.fileChangedHandler}
                 ref={(fileInput) => (this.fileInput = fileInput)}
-              />{candidate.cv !== "" ? <b>Done</b> : <b>Import your CV here</b>}
+              />
+              {candidate.cv !== "" ? <b>Done</b> : <b>Import your CV here</b>}
             </button>
-            <div className="check-cv"
-              style={candidate.cv !== "" ? { display: 'block' } : { display: 'none' }}
-            ><FontAwesomeIcon icon={faCheckCircle} color="#0BA25E" /></div>
+            <div
+              className="check-cv"
+              style={
+                candidate.cv !== "" ? { display: "block" } : { display: "none" }
+              }
+            >
+              <FontAwesomeIcon icon={faCheckCircle} color="#0BA25E" />
+            </div>
           </div>
+          {candidate.cv === "" ? (
+            <div className="send-cv-imp-cv d-flex flex-row justify-content  mb-4">
+              <button
+                className="import-cv-btn"
+                onClick={() =>{
+                  localStorage.setItem("create_campaign_id",this.props.data.id)
+                   this.props.history.push("/cvcreator")}}
+              >
+                <span className="mr-1">
+                  <FontAwesomeIcon icon={faFile} />
+                </span>
+                <b>If you don't have CV, click here to create</b>
+              </button>
+              <div className="check-cv"></div>
+            </div>
+          ) : null}
+
           <div className="send-cv-special  pt-2 mb-2">
             <p className="mb-2">
               What skills, work projects or achievements make you a strong
@@ -181,21 +213,21 @@ class SendCV extends React.Component {
                 {localStorage.getItem("token") ? (
                   formCV()
                 ) : (
-                    <div className="send-cv-btn-group float-right">
-                      <button
-                        className="login-button"
-                        onClick={this.toggleLoginPopup}
-                      >
-                        Login
+                  <div className="send-cv-btn-group float-right">
+                    <button
+                      className="login-button"
+                      onClick={this.toggleLoginPopup}
+                    >
+                      Login
                     </button>
-                      <button
-                        onClick={this.props.toggleSendCVPopUp}
-                        className="close-popup-btn"
-                      >
-                        Close
+                    <button
+                      onClick={this.props.toggleSendCVPopUp}
+                      className="close-popup-btn"
+                    >
+                      Close
                     </button>
-                    </div>
-                  )}
+                  </div>
+                )}
                 {this.state.loginPopup ? (
                   <LoginPopup
                     togglePopup={this.toggleLoginPopup}

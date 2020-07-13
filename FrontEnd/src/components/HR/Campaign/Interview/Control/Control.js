@@ -32,7 +32,7 @@ class InterviewControl extends React.Component {
         campaign_id: "",
         group_candidates: [
           {
-            candidate_id: 0,
+            user_id: 0,
             cv: "",
             description: "",
             interview_time: "12:00:00",
@@ -86,7 +86,7 @@ class InterviewControl extends React.Component {
     let candidateEml = data.group_candidates.map((candidate, index) => {
       return (
         <CanOverview
-          key={candidate.candidate_id}
+          key={candidate.user_id}
           data={candidate}
           time_from={data.time_from}
           time_to={data.time_to}

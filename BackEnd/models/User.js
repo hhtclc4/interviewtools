@@ -64,7 +64,7 @@ const User = db.define("user", {
     primaryKey: false,
   },
   description: {
-    type: "VARCHAR(200)",
+    type: "Longtext",
   },
   skills: Sequelize.VIRTUAL,
 });

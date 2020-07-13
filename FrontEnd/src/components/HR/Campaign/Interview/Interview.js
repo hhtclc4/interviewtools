@@ -40,7 +40,7 @@ class HRInterview extends React.Component {
           campaign_id: "",
           group_candidates: [
             {
-              candidate_id: 0,
+              user_id: 0,
               cv: "",
               description: "",
               interview_time: "12:00:00",
@@ -69,7 +69,7 @@ class HRInterview extends React.Component {
     this.props.getAvailableCandidates();
   }
 
-  UNSAFE_componentWillMount() { }
+  UNSAFE_componentWillMount() {}
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -103,12 +103,7 @@ class HRInterview extends React.Component {
   };
 
   render() {
-    let {
-      isFocusCreater,
-      isFocusEmails,
-      interviews,
-      campaign_id,
-    } = this.state;
+    let { isFocusCreater, isFocusEmails, interviews, campaign_id } = this.state;
     console.log("data", interviews);
 
     let interviewElm = interviews.map((interview, index) => {

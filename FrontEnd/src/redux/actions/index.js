@@ -201,9 +201,9 @@ export const showListCampaign = () => {
 };
 
 export const showCampaigns = () => {
-  return  {
+  return {
     type: types.SHOW_CAMPAIGNS_2,
-  }
+  };
 };
 export const showCampaign = (campaign_id) => {
   return (dispatch) => {
@@ -309,7 +309,8 @@ export const createInvitation = (data) => {
           showConfirmButton: false,
           timer: 1500,
           heightAuto: false,
-        });      })
+        });
+      })
       .catch((er) => {
         console.log("er", er);
       });
@@ -326,7 +327,7 @@ export const getInvitationAPI = () => {
       },
     })
       .then((res) => {
-        console.log("create invitation", res.data);
+        console.log("get invitation", res.data);
         dispatch({
           type: types.GET_INVITATION,
           data: res.data,
@@ -438,6 +439,9 @@ export const createCollectionCandidate = (
           showConfirmButton: false,
           timer: 1500,
           heightAuto: false,
+        });
+        dispatch({
+          type: types.CREATE_INVITATION,
         });
         console.log("create COLLECTION candidate ", res.data);
       })

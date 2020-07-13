@@ -7,32 +7,26 @@ const Group_Candidates = db.define(
     campaign_id: {
       type: "INT",
       allowNull: false,
-      defaultValue: null,
       primaryKey: true,
-      foreignKey: [Object],
     },
-    candidate_id: {
+    user_id: {
       type: "INT",
       allowNull: false,
-      defaultValue: null,
       primaryKey: true,
-      foreignKey: [Object],
     },
     interview_id: {
       type: "INT",
       allowNull: true,
-      defaultValue: null,
       primaryKey: false,
-      foreignKey: [Object],
     },
     cv: {
-      type: "VARCHAR(300)",
+      type: "Longtext",
       allowNull: true,
       defaultValue: null,
       primaryKey: false,
     },
     description: {
-      type: "VARCHAR(200)",
+      type: "Longtext",
       allowNull: true,
       defaultValue: null,
       primaryKey: false,
