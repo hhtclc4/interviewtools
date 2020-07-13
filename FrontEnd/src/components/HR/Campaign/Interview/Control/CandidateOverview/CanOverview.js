@@ -23,7 +23,7 @@ class CanOverview extends React.Component {
       isOpenInterviews: false,
       active: 0,
       data: {
-        candidate_id: 0,
+        user_id: 0,
         cv: "CV",
         description: "NOTE",
         interview_time: "TIME",
@@ -210,17 +210,17 @@ class CanOverview extends React.Component {
                 <b>TIME</b>
               </span>
             ) : (
-                // <> {data.interview_time} </>
-                <>
-                  <div className="cni-time-hour">
-                    <Dropdown overlay={hour} trigger={["click"]}>
-                      <Button style={{ top: "0" }}>
-                        {data.interview_time} <Icon type="down" />
-                      </Button>
-                    </Dropdown>
-                  </div>
-                </>
-              )}
+              // <> {data.interview_time} </>
+              <>
+                <div className="cni-time-hour">
+                  <Dropdown overlay={hour} trigger={["click"]}>
+                    <Button style={{ top: "0" }}>
+                      {data.interview_time} <Icon type="down" />
+                    </Button>
+                  </Dropdown>
+                </div>
+              </>
+            )}
           </div>
           <div className="name-partion text-truncate  col-sm">
             {type === "partion" ? <b>{data.user.name}</b> : data.user.name}
@@ -247,8 +247,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>CV</b>
               ) : (
-                  <FontAwesomeIcon icon={faClipboard} />
-                )}
+                <FontAwesomeIcon icon={faClipboard} />
+              )}
             </button>
           </div>
           <div className="note-partion text-truncate  col-sm">
@@ -267,8 +267,8 @@ class CanOverview extends React.Component {
               {type === "partion" ? (
                 <b>NOTE</b>
               ) : (
-                  <FontAwesomeIcon icon={faStickyNote} />
-                )}
+                <FontAwesomeIcon icon={faStickyNote} />
+              )}
             </button>
           </div>
           <div

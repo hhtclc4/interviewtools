@@ -6,11 +6,7 @@ import QuizPop from "../Quiz/Quiz";
 import NoteandCV from "../../../../../HR/Campaign/Interview/Control/CandidateOverview/NoteandCV";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faTimes,
-
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faStickyNote } from "@fortawesome/free-regular-svg-icons";
 import { connect } from "react-redux";
 import * as actions from "../../../../../../redux/actions/index";
@@ -23,7 +19,7 @@ class ReportPlayers extends React.Component {
       isShowCV: false,
       active: 0,
       data: {
-        candidate_id: 0,
+        user_id: 0,
         cv: "CV",
         description: "NOTE",
         interview_time: "TIME",
@@ -33,7 +29,7 @@ class ReportPlayers extends React.Component {
           email: "EMAIL",
           phone: "PHONE",
         },
-      }
+      },
     };
   }
 
@@ -51,9 +47,9 @@ class ReportPlayers extends React.Component {
 
   toggleCVPopUp = () => {
     this.setState({
-      isShowCV: !this.state.isShowCV
+      isShowCV: !this.state.isShowCV,
     });
-  }
+  };
   onClickSaveNote = (description) => {
     let { data } = this.state;
 
@@ -62,12 +58,12 @@ class ReportPlayers extends React.Component {
 
   componentDidMount() {
     this.setState({
-      data: this.props.data
-    })
+      data: this.props.data,
+    });
   }
   render() {
     let { data, question_table } = this.props;
-    console.log(data)
+    console.log(data);
     let { isShowQuiz, isOpenPopup, isShowCV } = this.state;
     let { correctAnswer, inCorrectAnswer, unAttemptAnswer } = data;
     let questionLength = question_table.questions.length;
@@ -75,12 +71,10 @@ class ReportPlayers extends React.Component {
     let inCorrectAccuracy = (data.inCorrectAnswer / questionLength) * 100;
     let unAttemptAccuracy = (data.unAttemptAnswer / questionLength) * 100;
     return (
-      <div
-        className="report-detail-player-container container-fluid "
-
-      >
+      <div className="report-detail-player-container container-fluid ">
         <div className="rd-player-row shadow-sm  d-flex flex-row row">
-          <div className="rd-quiz-click row col-11 d-flex flex-row"
+          <div
+            className="rd-quiz-click row col-11 d-flex flex-row"
             onClick={!isOpenPopup ? this.togglePopUp : null}
           >
             <div className="rdp-ava align-self-center col-1">
@@ -117,19 +111,16 @@ class ReportPlayers extends React.Component {
             </div>
             <div className="rdp-accuracy-rate col-2 align-self-center pl-0">
               {data.accuracy}%
-          </div>
+            </div>
             <div className="rdp-accuracy-rate col-1 align-self-center">
               {data.accuracy >= question_table.bench_mark ? (
                 <FontAwesomeIcon icon={faCheck} size="lg" color="#4caf50" />
               ) : (
-                  <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
-                )}
+                <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
+              )}
             </div>
-
           </div>
-          <div className="rd-note-click col-1"
-            onClick={this.toggleCVPopUp}
-          >
+          <div className="rd-note-click col-1" onClick={this.toggleCVPopUp}>
             <div className="rdp-accuracy-rate col-1 align-self-center ">
               <FontAwesomeIcon icon={faStickyNote} />
             </div>
@@ -187,4 +178,7 @@ const mapStateToProps = (state) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ReportPlayers));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ReportPlayers));

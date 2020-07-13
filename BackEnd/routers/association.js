@@ -75,7 +75,7 @@ Employment.belongsTo(User, {
 ///////////// Group_Candidates
 
 Group_Candidates.belongsTo(User, {
-  foreignKey: "candidate_id",
+  foreignKey: "user_id",
 });
 Group_Candidates.belongsTo(Campaign, { foreignKey: "campaign_id" });
 Group_Candidates.belongsTo(Interview, { foreignKey: "interview_id" });
@@ -99,7 +99,7 @@ Subject.belongsToMany(Campaign, {
 ///////////////////// User
 User.belongsToMany(Campaign, {
   through: Group_Candidates,
-  foreignKey: "candidate_id",
+  foreignKey: "user_id",
 });
 User.belongsToMany(Campaign, {
   through: Invitation,

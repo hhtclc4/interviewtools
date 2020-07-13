@@ -13,7 +13,7 @@ let initialState = [
     },
     group_candidates: [
       {
-        candidate_id: 0,
+        user_id: 0,
         cv: "",
         description: "",
         interview_time: "12:00:00",
@@ -52,10 +52,7 @@ let myReducer = (state = initialState, action) => {
       for (let i = 0; i < state.length; i++)
         if (state[i].id === action.data.interview_id)
           for (let j = 0; j < state[i].group_candidates.length; j++)
-            if (
-              state[i].group_candidates[j].candidate_id ===
-              action.data.candidate_id
-            ) {
+            if (state[i].group_candidates[j].user_id === action.data.user_id) {
               state[i].group_candidates[j] = { ...action.data };
               break;
             }
@@ -73,10 +70,7 @@ let myReducer = (state = initialState, action) => {
       for (let i = 0; i < state.length; i++)
         if (state[i].id === action.interview_id)
           for (let j = 0; j < state[i].group_candidates.length; j++)
-            if (
-              state[i].group_candidates[j].candidate_id ===
-              action.data.candidate_id
-            ) {
+            if (state[i].group_candidates[j].user_id === action.data.user_id) {
               state[i].group_candidates.splice(j, 1);
               break;
             }

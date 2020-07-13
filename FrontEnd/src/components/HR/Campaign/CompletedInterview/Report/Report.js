@@ -32,7 +32,7 @@ class InterviewReport extends React.Component {
         totalAccuracy: 0,
         group_candidates: [
           {
-            candidate_id: 0,
+            user_id: 0,
             cv: "",
             description: "",
             interview_time: "12:00:00",
@@ -105,7 +105,7 @@ class InterviewReport extends React.Component {
     let candidates = data.group_candidates.map((candidate, index) => {
       return (
         <CanOverview
-          key={candidate.campaign_id + candidate.candidate_id}
+          key={candidate.campaign_id + candidate.user_id}
           data={candidate}
           from="control"
           type="canRow"
@@ -119,7 +119,7 @@ class InterviewReport extends React.Component {
     let scoreElm = data.group_candidates.map((score) => {
       let accuracyColor = this.accuracyColor(score.accuracy);
       return (
-        <div className="can-score-content" key={score.candidate_id}>
+        <div className="can-score-content" key={score.user_id}>
           <div
             className="score-inner"
             style={{ backgroundColor: accuracyColor }}
@@ -132,13 +132,13 @@ class InterviewReport extends React.Component {
 
     let statusElm = data.group_candidates.map((status) => {
       return (
-        <div className="can-status-content" key={status.candidate_id}>
+        <div className="can-status-content" key={status.user_id}>
           <div className="status-inner">
             {status.accuracy >= data.campaign.question_table.bench_mark ? (
               <FontAwesomeIcon icon={faCheck} size="lg" color="#4caf50" />
             ) : (
-                <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
-              )}
+              <FontAwesomeIcon icon={faTimes} size="lg" color="red" />
+            )}
           </div>
         </div>
       );
@@ -148,9 +148,10 @@ class InterviewReport extends React.Component {
     return (
       <div
         className="interview-report-container py-3 pr-2 pl-0"
-      // onClick={this.toggleReportBody}
+        // onClick={this.toggleReportBody}
       >
-        <div className="interview-report-header d-flex flex-row justify-content-between ml-2 px-1 py-2"
+        <div
+          className="interview-report-header d-flex flex-row justify-content-between ml-2 px-1 py-2"
           style={reportBody ? { backgroundColor: "#e6e6e6" } : {}}
         >
           <div className="in-partion-time">
@@ -181,7 +182,8 @@ class InterviewReport extends React.Component {
           </button>
         </div>
 
-        <div className="interview-report-body d-flex flex-row"
+        <div
+          className="interview-report-body d-flex flex-row"
           style={reportBody ? { display: "block" } : { height: "0" }}
         >
           <div className="in-report-can-result d-flex flex-row">

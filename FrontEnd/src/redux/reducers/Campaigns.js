@@ -94,7 +94,7 @@ let myReducer = (state = initialState, action) => {
     case types.GET_CAMPAIGNS:
       state = [...action.data];
 
-      return [...state];
+      return [...state].slice(0, 10);
     case types.SHOW_CAMPAIGNS:
       for (let i = 0; i < state.length - 1; i++) {
         for (let j = i + 1; j < state.length; j++) {
@@ -109,6 +109,9 @@ let myReducer = (state = initialState, action) => {
         }
       }
       return [...state];
+    case types.SHOW_CAMPAIGNS_2:
+      return [...state].slice(0, 10);
+
     case types.CREATE_CAMPAIGN:
       state.push({ ...action.data });
 

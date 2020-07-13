@@ -9,11 +9,7 @@ import SendCV from "./SendCVPopup";
 import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import { withRouter } from "react-router-dom";
-import {
-  EditorState,
-  convertFromHTML,
-  ContentState,
-} from "draft-js";
+import { EditorState, convertFromHTML, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 class DetailRecruit extends React.Component {
   constructor(props) {
@@ -63,7 +59,6 @@ class DetailRecruit extends React.Component {
     let { campaign_id, forceStop } = this.state;
     let token = localStorage.getItem("token");
 
-    console.log("nextProps", nextProps.candidate.isSendCvBefore);
     this.setState({
       data: nextProps.campaign,
       isSendCvBefore: nextProps.candidate.isSendCvBefore,
@@ -84,8 +79,6 @@ class DetailRecruit extends React.Component {
 
   render() {
     let { data, isSendCvBefore } = this.state;
-    console.log("isSendCvBefore   ", isSendCvBefore);
-    console.log("work", data.work_description)
     const sampleMarkup = data.work_description;
     const blocksFromHTML = convertFromHTML(sampleMarkup);
     const textState = ContentState.createFromBlockArray(
@@ -116,7 +109,7 @@ class DetailRecruit extends React.Component {
                       data.user.company.id !== undefined
                         ? data.user.company.id
                         : "0"
-                      }.2.jpg`)}
+                    }.2.jpg`)}
                   />
                 </div>
                 <div className="comp-img-crop">
@@ -127,7 +120,7 @@ class DetailRecruit extends React.Component {
                       data.user.company.id !== undefined
                         ? data.user.company.id
                         : "0"
-                      }.3.jpg`)}
+                    }.3.jpg`)}
                   />
                 </div>
                 <div className="comp-img-crop mr-0">
@@ -138,7 +131,7 @@ class DetailRecruit extends React.Component {
                       data.user.company.id !== undefined
                         ? data.user.company.id
                         : "0"
-                      }.4.jpg`)}
+                    }.4.jpg`)}
                   />
                 </div>
               </div>
@@ -152,7 +145,7 @@ class DetailRecruit extends React.Component {
                         data.user.company.id !== undefined
                           ? data.user.company.id
                           : "0"
-                        }.1.jpg`)}
+                      }.1.jpg`)}
                     />
                   </div>
                   <div className="comp-body"></div>
@@ -177,9 +170,7 @@ class DetailRecruit extends React.Component {
                       />
                     </span>
                     <p>
-                      {data.salary === 0
-                        ? "Agreement"
-                        : data.salary + " $"}
+                      {data.salary === 0 ? "Agreement" : data.salary + " $"}
                     </p>
                   </div>
                   <div className="job-destination d-flex flex-row">
@@ -201,13 +192,13 @@ class DetailRecruit extends React.Component {
                       You sent CV for this job before!
                     </button>
                   ) : (
-                      <button
-                        className="apply-btn"
-                        onClick={this.toggleSendCVPopUp}
-                      >
-                        Apply Now
-                      </button>
-                    )}
+                    <button
+                      className="apply-btn"
+                      onClick={this.toggleSendCVPopUp}
+                    >
+                      Apply Now
+                    </button>
+                  )}
 
                   <hr />
                   <div className="job-info-and-require">
@@ -227,13 +218,13 @@ class DetailRecruit extends React.Component {
                       You sent CV for this job before!
                     </button>
                   ) : (
-                      <button
-                        className="apply-btn"
-                        onClick={this.toggleSendCVPopUp}
-                      >
-                        Apply Now
-                      </button>
-                    )}
+                    <button
+                      className="apply-btn"
+                      onClick={this.toggleSendCVPopUp}
+                    >
+                      Apply Now
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

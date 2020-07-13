@@ -25,7 +25,7 @@ class HRCandidate extends React.Component {
       ],
       fetchDataFromThirdApp: [
         {
-          candidate_id: 10000,
+          user_id: 10000,
           cv: "",
           description: "good Java",
           user: {
@@ -47,7 +47,7 @@ class HRCandidate extends React.Component {
         },
 
         {
-          candidate_id: 10001,
+          user_id: 10001,
           cv: "",
           description: "good Python",
           user: {
@@ -85,7 +85,7 @@ class HRCandidate extends React.Component {
     let availableApplyEml = availableCandidates.map((candidate, index) => {
       return (
         <CanOverview
-          key={candidate.campaign_id + candidate.candidate_id}
+          key={candidate.campaign_id + candidate.user_id}
           data={candidate}
           from="hr"
           source="apply"
@@ -119,8 +119,11 @@ class HRCandidate extends React.Component {
           <hr />
           <div className="hr-can-body-tabs">
             <Tabs selected={0}>
-              <Panel title="Applied"
-                iconAwe={<FontAwesomeIcon icon={faEnvelopeOpen} color="#337ab7" />}
+              <Panel
+                title="Applied"
+                iconAwe={
+                  <FontAwesomeIcon icon={faEnvelopeOpen} color="#337ab7" />
+                }
               >
                 <CanOverview
                   from="hr"
@@ -131,7 +134,8 @@ class HRCandidate extends React.Component {
                 />
                 {availableApplyEml}
               </Panel>
-              <Panel title="Collected"
+              <Panel
+                title="Collected"
                 iconAwe={<FontAwesomeIcon icon={faCubes} color="#337ab7" />}
               >
                 {/* <CanOverview

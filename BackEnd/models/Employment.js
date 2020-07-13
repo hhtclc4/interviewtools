@@ -37,7 +37,7 @@ const Employment = db.define("employment", {
     primaryKey: false,
   },
   description: {
-    type: "VARCHAR(200)",
+    type: "Longtext",
   },
 });
 module.exports = Employment;

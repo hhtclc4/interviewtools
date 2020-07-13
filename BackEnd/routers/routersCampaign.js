@@ -28,7 +28,9 @@ const jwt = require("jsonwebtoken");
 
 ///////////////////////////////////////////
 //////////Get Invitation
-
+router.get("/api/a", verifyToken, (req, res) => {
+  Group_Candidates.findAll().then((data) => res.send(data));
+});
 router.get("/api/invitation", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", (err, authData) => {
     if (err) res.sendStatus(403);
@@ -62,7 +64,7 @@ router.delete("/api/invitation", verifyToken, (req, res) =>
     if (err) res.sendStatus(403);
     else {
       if (req.body.isAccept) {
-        req.body.candidate_id = authData.user_id;
+        req.body.user_id = authData.user_id;
         await Group_Candidates.create(req.body);
       }
       Invitation.destroy({
@@ -81,7 +83,8 @@ router.post("/api/invitation", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", async (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      req.body.user_id = authData.user_id;
+      console.log(req.body);
+      // req.body.user_id = authData.user_id;
       Invitation.create(req.body)
         .then((data) => res.sendStatus(200))
         .catch((err) => console.log(err));
@@ -259,7 +262,7 @@ router.post("/api/candidate", verifyToken, (req, res) => {
       Group_Candidates.findOne({
         where: {
           campaign_id: req.body.campaign_id,
-          candidate_id: authData.user_id,
+          user_id: authData.user_id,
         },
       })
         .then((data) => {
@@ -282,7 +285,7 @@ router.post("/api/create_candidate", verifyToken, (req, res) => {
             req.body.cv = result.url;
           }
         );
-      req.body.candidate_id = authData.user_id;
+      req.body.user_id = authData.user_id;
       Group_Candidates.create(req.body)
         .then((data) => res.send(data))
         .catch((err) => console.log(err));
@@ -357,11 +360,11 @@ router.post("/api/completed_interview", async (req, res) => {
       order: [["id"], [Group_Candidates, "interview_time"]],
     })
       .then(async (interviews) => {
-        let getRecord = async (candidate_id) =>
+        let getRecord = async (user_id) =>
           AnswerRecord.findAll({
             where: {
               id: 1,
-              user_id: candidate_id,
+              user_id: user_id,
               question_table_id: table_id,
             },
             include: [
@@ -392,7 +395,7 @@ router.post("/api/completed_interview", async (req, res) => {
               interviews[i].group_candidates[
                 j
               ].answer_records = await getRecord(
-                interviews[i].group_candidates[j].candidate_id
+                interviews[i].group_candidates[j].user_id
               );
             }
           }
@@ -444,7 +447,7 @@ router.post("/api/get_available_candidates", (req, res) => {
 router.post("/api/update_group_candidates", (req, res) => {
   Group_Candidates.update(req.body, {
     where: {
-      candidate_id: req.body.candidate_id,
+      user_id: req.body.user_id,
       campaign_id: req.body.campaign_id,
     },
   })

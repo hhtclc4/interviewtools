@@ -10,7 +10,7 @@ import {
 import { faPhone, faCheck } from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../../../utils/PopUp/PopUp";
 import AutoNoteAndCV from "./NoteAndCV/NoteAndCV";
-import CollectedInvtite from './Invite/Invite'
+import CollectedInvtite from "./Invite/Invite";
 class CollectedCan extends React.Component {
   state = {
     isShowNoteAndCv: false,
@@ -18,6 +18,7 @@ class CollectedCan extends React.Component {
     active: 0,
     isShowInvite: false,
     data: {
+      id: 0,
       name: "",
       email: "",
       phone: "",
@@ -54,13 +55,17 @@ class CollectedCan extends React.Component {
       isShowInvite: !this.state.isShowInvite,
       isOpenPopup: !this.state.isOpenPopup,
     });
-  }
+  };
   render() {
     let { isShowNoteAndCv, isShowInvite, active, data } = this.state;
     let subjectsELM = data.subjects.map((subject) => {
       return (
         <div key={subject.id} className="can-skill mr-3 text-truncate">
-          <FontAwesomeIcon icon={faCheck} color="#33cc33" className="mr-1 mt-1" />
+          <FontAwesomeIcon
+            icon={faCheck}
+            color="#33cc33"
+            className="mr-1 mt-1"
+          />
           {subject.title}
         </div>
       );
@@ -123,15 +128,12 @@ class CollectedCan extends React.Component {
               Note
             </button>
           </div>
-
         </div>
         <div className="c-can-invite">
-          <button
-            onClick={this.togglePopUpInvite}
-          >
+          <button onClick={this.togglePopUpInvite}>
             <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
-              Invite
-            </button>
+            Invite
+          </button>
         </div>
         {isShowNoteAndCv ? (
           <PopUp
@@ -162,7 +164,15 @@ class CollectedCan extends React.Component {
               }, 150);
             }}
           >
-            <CollectedInvtite />
+            <CollectedInvtite
+              togglePopUp={() => {
+                this.setState({
+                  isShowInvite: !this.state.isShowInvite,
+                  isOpenPopup: !this.state.isOpenPopup,
+                });
+              }}
+              user_id={data.id}
+            />
           </PopUp>
         ) : null}
       </div>

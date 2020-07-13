@@ -71,13 +71,13 @@ router.post("/api/filter_candidate", async (req, res) => {
   if (skills.length) {
     skillsQuery = `and skills.subject_id=${skills[0]} `;
     for (let i = 1; i < skills.length; i++)
-      skillsQuery = `and skills.subject_id=${skills[i]} `;
+      skillsQuery += `or skills.subject_id=${skills[i]} `;
   }
   //
   if (positions.length) {
     positionsQuery = `and employment.position=${positions[0]} `;
     for (let i = 1; i < positions.length; i++)
-      positionsQuery = `and employment.position=${positions[i]} `;
+      positionsQuery += `or employment.position=${positions[i]} `;
   }
   //
   if (degree !== null) degreesQuery = `and education.degree=${degree} `;

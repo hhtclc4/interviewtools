@@ -64,7 +64,7 @@ class AssignQuiz extends React.Component {
           campaign_id: "",
           group_candidates: [
             {
-              candidate_id: 0,
+              user_id: 0,
               cv: "",
               description: "",
               interview_time: "12:00:00",

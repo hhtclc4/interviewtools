@@ -41,7 +41,6 @@ class HRstaff extends React.Component {
     this.setState({
       data: nextProps.campaigns,
     });
-    console.log(nextProps);
   }
   render() {
     let { data } = this.state;
@@ -65,7 +64,7 @@ class HRstaff extends React.Component {
             <div className="col-sm-1"></div>
             <div className="col-sm-10 hr-manage-container">
               <div className="hr-manage-header d-flex flex-row justify-content-between">
-                <Tabs selected={1}>
+                <Tabs selected={0}>
                   {/* <p className="hr-campaign-count align-self-center">
                   All campaigns ({data.length})
                   </p> */}

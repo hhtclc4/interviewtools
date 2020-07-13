@@ -22,13 +22,14 @@ let initialState = [
           title: "",
         },
       ],
+      isCreated: false,
     },
   },
 ];
 let myReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.CREATE_INVITATION:
-      return [...state];
+      return { isCreated: true };
 
     case types.GET_INVITATION:
       state = [...action.data];

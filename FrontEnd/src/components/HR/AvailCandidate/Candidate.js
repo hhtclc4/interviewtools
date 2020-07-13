@@ -163,11 +163,7 @@ class AvailCandidate extends React.Component {
             className="search-ipt"
             placeholder="Search jobs ..."
           />
-          <button
-            className="search-btn"
-          >
-            Search
-          </button>
+          <button className="search-btn">Search</button>
         </div>
         <div className="a-can-header">
           <div className="a-can-header-title">Collected Candidates</div>

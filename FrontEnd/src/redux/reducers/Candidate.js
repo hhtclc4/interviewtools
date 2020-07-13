@@ -2,7 +2,7 @@ import * as types from "../actions/actionTypes";
 
 let initialState = {
   campaign_id: 0,
-  candidate_id: 0,
+  user_id: 0,
   cv: "",
   description: "",
   isSendCvBefore: false,

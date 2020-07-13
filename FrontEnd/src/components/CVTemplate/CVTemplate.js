@@ -14,6 +14,7 @@ class CVTemplateCreator extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      access: false,
       isOpemEmp: false,
       user: {
         name: "",
@@ -28,8 +29,8 @@ class CVTemplateCreator extends React.Component {
         {
           university: "",
           degree: 0,
-          date_begin: "2016-06",
-          date_end: "2020-06",
+          date_begin: "2016-06-01",
+          date_end: "2020-06-01",
           description: "",
         },
       ],
@@ -69,6 +70,18 @@ class CVTemplateCreator extends React.Component {
       user: nextProps.user.user,
       listSubjects: nextProps.subject.subjects,
     });
+    if (nextProps.invitation.isCreated !== undefined && this.state.access) {
+      if (localStorage.getItem("create_campaign_id") !== null) {
+        this.props.acceptOrDeclineInvitation({
+          isAccept: true,
+          campaign_id: parseInt(localStorage.getItem("create_campaign_id")),
+        });
+        localStorage.removeItem("create_campaign_id");
+      }
+      setTimeout(() => {
+        this.props.history.goBack();
+      }, 1000);
+    }
   }
   toggleEmpDetail = () => {
     this.setState({
@@ -178,7 +191,9 @@ class CVTemplateCreator extends React.Component {
       employments,
       skills
     );
-    this.props.history.push("./");
+    this.setState({
+      access: true,
+    });
   };
   fileChangedHandler = (event) => {
     let fileReader = new FileReader();
@@ -412,12 +427,16 @@ const mapDispatchToProps = (dispatch, props) => {
     uploadAvatarImage: (file) => {
       dispatch(actions.uploadAvatarImage(file));
     },
+    acceptOrDeclineInvitation: (data) => {
+      dispatch(actions.acceptOrDeclineInvitation(data));
+    },
   };
 };
 const mapStateToProps = (state) => {
   return {
     user: state.user,
     subject: state.subject,
+    invitation: state.invitation,
   };
 };
 export default connect(

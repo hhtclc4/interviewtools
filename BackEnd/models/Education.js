@@ -31,7 +31,7 @@ const Education = db.define("education", {
     primaryKey: false,
   },
   description: {
-    type: "VARCHAR(200)",
+    type: "Longtext",
   },
 });
 module.exports = Education;
