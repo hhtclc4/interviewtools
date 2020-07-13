@@ -199,6 +199,12 @@ export const showListCampaign = () => {
       });
   };
 };
+
+export const showCampaigns = () => {
+  return  {
+    type: types.SHOW_CAMPAIGNS_2,
+  }
+};
 export const showCampaign = (campaign_id) => {
   return (dispatch) => {
     axios({
@@ -296,8 +302,14 @@ export const createInvitation = (data) => {
       data,
     })
       .then((res) => {
-        console.log("create invitation", res.data);
-      })
+        Swal.fire({
+          position: "center",
+          type: "success",
+          title: "Send Invitation Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+          heightAuto: false,
+        });      })
       .catch((er) => {
         console.log("er", er);
       });

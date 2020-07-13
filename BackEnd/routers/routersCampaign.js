@@ -81,7 +81,8 @@ router.post("/api/invitation", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", async (err, authData) => {
     if (err) res.sendStatus(403);
     else {
-      req.body.user_id = authData.user_id;
+      console.log(req.body);
+      // req.body.user_id = authData.user_id;
       Invitation.create(req.body)
         .then((data) => res.sendStatus(200))
         .catch((err) => console.log(err));
