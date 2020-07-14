@@ -39,6 +39,31 @@ class Invitation extends React.Component {
           },
         },
       ],
+      dataDefalt: [
+        {
+          campaign_id: 0,
+          user_id: 0,
+          campaign: {
+            title: "",
+            salary: 0,
+            work_description: "",
+            location: "",
+            user: {
+              company: {
+                id: 0,
+                name: "",
+                address: "",
+              },
+            },
+            subjects: [
+              {
+                id: 0,
+                title: "",
+              },
+            ],
+          },
+        },
+      ],
       indexClick: 0,
     };
   }
@@ -59,8 +84,9 @@ class Invitation extends React.Component {
     this.props.acceptOrDeclineInvitation({ isAccept, campaign_id });
   };
   render() {
-    let { data, indexClick } = this.state;
-    let { campaign } = data[indexClick];
+    let { data, indexClick, dataDefalt } = this.state;
+    let { campaign } =
+      data[indexClick] === undefined ? dataDefalt[0] : data[indexClick];
     let campInvitationElm = data.map((invitation, index) => {
       return (
         <InviteCampOverview
