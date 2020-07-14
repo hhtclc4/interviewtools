@@ -16,10 +16,16 @@ class LoadingPage extends React.Component {
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     console.log("nextProps", nextProps);
-    let { completed, user, subject } = nextProps;
+    let { completed, user, subject, campaigns } = nextProps;
     if (user.isDoneLoading) localStorage.setItem("username", user.user.name);
-    if (completed.isDoneLoading && user.isDoneLoading && subject.isDoneLoading)
+    if (
+      completed.isDoneLoading &&
+      user.isDoneLoading &&
+      subject.isDoneLoading &&
+      (!campaigns.length || campaigns[0].isDoneLoading)
+    ) {
       this.props.doneLoading();
+    }
   }
   render() {
     return (
@@ -55,6 +61,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     completed: state.completed,
     subject: state.subject,
+    campaigns: state.campaigns,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LoadingPage);

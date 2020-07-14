@@ -112,9 +112,16 @@ class AvailCandidate extends React.Component {
 
   render() {
     let { positions, degrees, listSubjects, collectedCandidates } = this.state;
+    let { from, campaign_id } = this.props;
     let collectCanElm = collectedCandidates.map((can) => {
       return (
-        <CollectedCan key={can.id} data={can} listSubjects={listSubjects} />
+        <CollectedCan
+          key={can.id}
+          data={can}
+          listSubjects={listSubjects}
+          from={from}
+          campaign_id={campaign_id}
+        />
       );
     });
     let positionFilter = positions.map((position) => {
@@ -152,11 +159,17 @@ class AvailCandidate extends React.Component {
       );
     });
     return (
-      <div className="avail-candidate-container"
-        style={this.props.from === "Campaign" ? { padding: '0 10px', paddingBottom: '25px', marginTop: '0' } : {}}
+      <div
+        className="avail-candidate-container"
+        style={
+          this.props.from === "Campaign"
+            ? { padding: "0 10px", paddingBottom: "25px", marginTop: "0" }
+            : {}
+        }
       >
-        <div className="a-can-search"
-          style={this.props.from === "Campaign" ? { display: 'none' } : {}}
+        <div
+          className="a-can-search"
+          style={this.props.from === "Campaign" ? { display: "none" } : {}}
         >
           <input
             name="search"

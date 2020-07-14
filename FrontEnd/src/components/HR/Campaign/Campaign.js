@@ -8,7 +8,10 @@ import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import HRNav from "../Nav/Nav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
+import {
+  faTrashAlt,
+  faCalendarCheck,
+} from "@fortawesome/free-regular-svg-icons";
 import { faInfo, faTasks, faUsers } from "@fortawesome/free-solid-svg-icons";
 import CompletedInterview from "./CompletedInterview/CompletedInterview";
 import HRCandidate from "./Candidate/Candidate";
@@ -26,6 +29,7 @@ class HRCampaign extends React.Component {
     this.props.getInterviews(campaign_id);
     this.props.getAvailableCandidatesAPI(campaign_id);
     this.props.getCompletedInterviewsAPI(campaign_id);
+    this.props.getCollectedCandidatesAPI();
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
@@ -61,23 +65,45 @@ class HRCampaign extends React.Component {
               </div>
               <div className="hr-campaign-tabs">
                 <Tabs selected={0}>
-                  <Panel title="Infomation"
+                  <Panel
+                    title="Infomation"
                     iconAwe={<FontAwesomeIcon icon={faInfo} color="#337ab7" />}
                   >
                     <HRInfo />
                   </Panel>
-                  <Panel title="Interview"
-                    iconAwe={<FontAwesomeIcon icon={faTasks} color="#337ab7" size="lg" />}
+                  <Panel
+                    title="Interview"
+                    iconAwe={
+                      <FontAwesomeIcon
+                        icon={faTasks}
+                        color="#337ab7"
+                        size="lg"
+                      />
+                    }
                   >
                     <HRInterview />
                   </Panel>
-                  <Panel title="Completed Interview"
-                    iconAwe={<FontAwesomeIcon icon={faCalendarCheck} color="#4caf50" size="lg" />}
+                  <Panel
+                    title="Completed Interview"
+                    iconAwe={
+                      <FontAwesomeIcon
+                        icon={faCalendarCheck}
+                        color="#4caf50"
+                        size="lg"
+                      />
+                    }
                   >
                     <CompletedInterview />
                   </Panel>
-                  <Panel title="Candidate"
-                    iconAwe={<FontAwesomeIcon icon={faUsers} color="#337ab7" size="lg" />}
+                  <Panel
+                    title="Candidate"
+                    iconAwe={
+                      <FontAwesomeIcon
+                        icon={faUsers}
+                        color="#337ab7"
+                        size="lg"
+                      />
+                    }
                   >
                     <HRCandidate />
                   </Panel>
@@ -102,6 +128,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     getCompletedInterviewsAPI: (campaign_id) => {
       dispatch(actions.getCompletedInterviewsAPI(campaign_id));
+    },
+    getCollectedCandidatesAPI: () => {
+      dispatch(actions.getCollectedCandidatesAPI());
     },
   };
 };

@@ -142,7 +142,7 @@ export const getListCampaignOfInterviewerAPI = () => {
       .then((res) => {
         console.log("res list campaign", res.data);
         dispatch({
-          type: types.GET_CAMPAIGNS,
+          type: types.GET_CAMPAIGNS_INTERVIEWER,
           data: res.data,
         });
       })
@@ -386,6 +386,24 @@ export const getCollectedCandidatesAPI = () => {
 export const showCollectedCandidates = () => {
   return {
     type: types.SHOW_COLLECTED_CANDIDATES,
+  };
+};
+export const deleteInviteCandidate = (data) => {
+  return (dispatch) => {
+    axios({
+      method: "delete",
+      url: URLs.DELETE_INVITATION,
+      headers: {
+        "content-type": "application/json",
+      },
+      data,
+    })
+      .then((res) => {
+        console.log("delete collected candidate ", res.data);
+      })
+      .catch((er) => {
+        console.log("er", er);
+      });
   };
 };
 export const filterCollectedCandidatesAPI = (skills, degree, positions) => {

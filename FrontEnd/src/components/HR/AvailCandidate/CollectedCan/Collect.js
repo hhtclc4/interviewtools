@@ -11,12 +11,17 @@ import { faPhone, faCheck } from "@fortawesome/free-solid-svg-icons";
 import PopUp from "../../../../utils/PopUp/PopUp";
 import AutoNoteAndCV from "./NoteAndCV/NoteAndCV";
 import CollectedInvtite from "./Invite/Invite";
+
+import { connect } from "react-redux";
+import * as actions from "../../../../redux/actions/index";
+import { EllipsisOutlined } from "@ant-design/icons";
 class CollectedCan extends React.Component {
   state = {
     isShowNoteAndCv: false,
     isOpenPopup: false,
     active: 0,
     isShowInvite: false,
+    isInvite: false,
     data: {
       id: 0,
       name: "",
@@ -49,7 +54,15 @@ class CollectedCan extends React.Component {
       isOpenPopup: !this.state.isOpenPopup,
     });
   };
-
+  onClickInviteCandidate = () => {
+    let { campaign_id } = this.props;
+    let { data, isInvite } = this.state;
+    if (isInvite)
+      this.props.deleteInviteCandidate({ campaign_id, user_id: data.id });
+    else this.props.createInvitation({ campaign_id, user_id: data.id });
+    // console.log({ campaign_id, user_id: id });
+    this.setState({ isInvite: !isInvite });
+  };
   togglePopUpInvite = () => {
     this.setState({
       isShowInvite: !this.state.isShowInvite,
@@ -57,7 +70,8 @@ class CollectedCan extends React.Component {
     });
   };
   render() {
-    let { isShowNoteAndCv, isShowInvite, active, data } = this.state;
+    let { isShowNoteAndCv, isShowInvite, active, data, isInvite } = this.state;
+    let { from } = this.props;
     let subjectsELM = data.subjects.map((subject) => {
       return (
         <div key={subject.id} className="can-skill mr-3 text-truncate">
@@ -130,9 +144,16 @@ class CollectedCan extends React.Component {
           </div>
         </div>
         <div className="c-can-invite">
-          <button onClick={this.togglePopUpInvite}>
+          <button
+            style={isInvite ? { opacity: "0.7" } : null}
+            onClick={
+              from !== undefined
+                ? this.onClickInviteCandidate
+                : this.togglePopUpInvite
+            }
+          >
             <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
-            Invite
+            {isInvite ? "Cancel Invitation" : `Invite`}
           </button>
         </div>
         {isShowNoteAndCv ? (
@@ -179,5 +200,18 @@ class CollectedCan extends React.Component {
     );
   }
 }
-
-export default CollectedCan;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    createInvitation: (data) => {
+      dispatch(actions.createInvitation(data));
+    },
+    deleteInviteCandidate: (data) => {
+      dispatch(actions.deleteInviteCandidate(data));
+    },
+  };
+};
+//get data from redux
+const mapStateToProps = (state) => {
+  return {};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CollectedCan);

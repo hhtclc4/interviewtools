@@ -5,12 +5,16 @@ import { connect } from "react-redux";
 import * as actions from "../../../../redux/actions/index";
 import CanOverview from "../Interview/Control/CandidateOverview/CanOverview";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCubes, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
-import AvailCandidate from '../../AvailCandidate/Candidate'
+import { faCubes, faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
+import AvailCandidate from "../../AvailCandidate/Candidate";
+import { withRouter } from "react-router-dom";
+
 class HRCandidate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      campaign_id: this.props.match.params.campaign_id,
+
       availableCandidates: [
         {
           cv: "",
@@ -80,7 +84,11 @@ class HRCandidate extends React.Component {
     });
   }
   render() {
-    let { availableCandidates, fetchDataFromThirdApp } = this.state;
+    let {
+      availableCandidates,
+      fetchDataFromThirdApp,
+      campaign_id,
+    } = this.state;
     // let { data } = this.props;
     let availableApplyEml = availableCandidates.map((candidate, index) => {
       return (
@@ -146,9 +154,7 @@ class HRCandidate extends React.Component {
                   color="#fff"
                 /> */}
                 {/* {availableCollectedEml} */}
-                <AvailCandidate
-                  from="Campaign"
-                />
+                <AvailCandidate from="Campaign" campaign_id={campaign_id} />
               </Panel>
             </Tabs>
           </div>
@@ -170,4 +176,7 @@ const mapStateToProps = (state) => {
     availableCandidates: state.availableCandidates,
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(HRCandidate);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(HRCandidate));

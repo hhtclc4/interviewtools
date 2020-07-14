@@ -58,6 +58,16 @@ router.get("/api/invitation", verifyToken, (req, res) =>
     }
   })
 );
+router.delete("/api/delete_invitation", (req, res) => {
+  Invitation.destroy({
+    where: {
+      user_id: req.body.user_id,
+      campaign_id: req.body.campaign_id,
+    },
+  })
+    .then((data) => res.sendStatus(200))
+    .catch((err) => console.log(err));
+});
 ///////// control Invitation: accept or decline
 router.delete("/api/invitation", verifyToken, (req, res) =>
   jwt.verify(req.token, "hoangtri", async (err, authData) => {

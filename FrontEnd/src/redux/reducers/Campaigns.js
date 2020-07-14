@@ -95,6 +95,11 @@ let myReducer = (state = initialState, action) => {
       state = [...action.data];
 
       return [...state].slice(0, 10);
+    case types.GET_CAMPAIGNS_INTERVIEWER:
+      state = [...action.data];
+      if (state.length) state[0].isDoneLoading = true;
+      return [...state];
+
     case types.SHOW_CAMPAIGNS:
       for (let i = 0; i < state.length - 1; i++) {
         for (let j = i + 1; j < state.length; j++) {

@@ -45,6 +45,8 @@ export const INTERVIEW_CANDIDATES_API_URL = `${domain}/api/get_interview_candida
 export const UPDATE_CANDIDATES_API_URL = `${domain}/api/update_group_candidates`;
 //invite
 
+export const DELETE_INVITATION = `${domain}/api/delete_invitation`;
+
 export const INVITATION_API = `${domain}/api/invitation`;
 
 // candidate
