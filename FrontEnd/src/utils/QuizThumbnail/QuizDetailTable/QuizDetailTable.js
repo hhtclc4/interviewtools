@@ -78,9 +78,7 @@ class QuizDetailTable extends React.Component {
   };
   playQuizOnClickHandler = () => {
     let { data } = this.props;
-    if (this.state.isPlayedBefore)
-      this.props.history.push(`/pre-game/${data.id}`);
-    else this.props.history.push(`/start/${data.id}`);
+    this.props.history.push(`/pre-game/${data.id}`);
   };
   render() {
     let { data } = this.props;

@@ -76,6 +76,11 @@ router.delete("/api/invitation", verifyToken, (req, res) =>
       if (req.body.isAccept) {
         req.body.user_id = authData.user_id;
         await Group_Candidates.create(req.body);
+        await User.update({ type: 0 }, {
+          where: {
+            id: authData.user_id
+          }
+        })
       }
       Invitation.destroy({
         where: {

@@ -96,7 +96,7 @@ class DoingQuiz extends React.Component {
     };
     if (question_id) {
       pageNumber += 1;
-      // this.props.addAnswerRecord(data);
+      this.props.addAnswerRecord(data);
       console.log(data);
     }
   };
@@ -287,7 +287,7 @@ class DoingQuiz extends React.Component {
               (parseInt(nowArr[1]) + parseInt(addArr[1]) + addSecond) % 60;
             then = `${
               parseInt(nowArr[0]) + parseInt(addArr[0]) - 7 + addMinute
-            }:${minute}:${second}`;
+              }:${minute}:${second}`;
           }
         }
       } else element = "";
